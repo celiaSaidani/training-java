@@ -19,6 +19,7 @@ public class Main {
 			System.out.println(company.get(i).getName());
 			
 		}
+		System.out.println(cp.getCompanyID(3).getName());
 		
 		
 
