@@ -1,21 +1,22 @@
 package fr.ebiz.computerDatabase.model;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class Computer {
 	private int id;
 	private String name;
-	private LocalDate dateIN;
-	private LocalDate dateOut;
-	private Company compagny;
+	private LocalDateTime dateIN;
+	private LocalDateTime dateOut;
+	private int idCompany;
 	
-	public Computer(int id,String name,LocalDate in,LocalDate out,Company cp) {
+	public Computer(int id,String name,LocalDateTime in,LocalDateTime out,int idCompany) {
 		// TODO Auto-generated constructor stub
 		this.id=id;
 		this.name=name;
 		this.dateIN=in;
 		this.dateOut=out;
-		this.compagny=cp;
+		this.idCompany=idCompany;
 	}
 
 	public int getId() {
@@ -34,24 +35,24 @@ public class Computer {
 		this.name = name;
 	}
 
-	public LocalDate getDateIN() {
+	public LocalDateTime getDateIN() {
 		return dateIN;
 	}
 
-	public void setDateIN(LocalDate dateIN) {
+	public void setDateIN(LocalDateTime dateIN) {
 		this.dateIN = dateIN;
 	}
 
-	public LocalDate getDateOut() {
+	public LocalDateTime getDateOut() {
 		return dateOut;
 	}
 
-	public void setDateOut(LocalDate dateOut) {
+	public void setDateOut(LocalDateTime dateOut) {
 		this.dateOut = dateOut;
 	}
 
-	public Company getCompagny() {
-		return compagny;
+	public	int getCompagnyId() {
+		return idCompany;
 	}
 	
 }

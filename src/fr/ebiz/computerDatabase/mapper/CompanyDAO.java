@@ -9,69 +9,89 @@ import fr.ebiz.computerDatabase.persistance.*;
 import fr.ebiz.computerDatabase.model.Company;
 
 public class CompanyDAO {
-	
-	
-	private final String SelectQuery="select * from company";
-	private final String SelectCompanyByID="select * from company where id=";
-	
-	//get compagny by id
-	public Company getCompanyID(int id){
+
+	private final String companyName = "name";
+	private final String companyId = "id";
+	private Statement statement = null;
+	private JDBCMySQLConnection c = JDBCMySQLConnection.getInstance();
+
+	/**
+	 * 
+	 * @param id
+	 * @return company
+	 */
+	public Company getCompanyID(int id) {
+		String selectCompanyByID = "select * from company where id=" + Integer.toString(id);
 		String name = null;
 		try {
-			JDBCMySQLConnection c= JDBCMySQLConnection.getInstance();
-			java.sql.Connection dbConnection = c.getConnection();
-			java.sql.Statement statement = null;
-			statement=dbConnection.createStatement();
-			ResultSet rs = statement.executeQuery(SelectCompanyByID+Integer.toString(id));
-			while (rs.next()) {
+
+			statement = c.getConnection();
+			ResultSet rs = statement.executeQuery(selectCompanyByID);
+			if (rs.next()) {
 				name = rs.getString("name");
-				
 			}
+			rs.close();
+			c.closeConnection();
+
 			return new Company(id, name);
-			
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		
 		return null;
 	}
-	
-	//get compagny by name
-	public List<Company> getCompanyName(int id){
-		//to DO
-		return null;
-	}
-	
-	//get ALL company
-	
-	public List<Company> getAllCompany(){
-		
+
+	/**
+	 * 
+	 * @param name
+	 * @return list of company
+	 */
+	public List<Company> getCompanyName(String name) {
+		String selectCompanyByName = "select * from company where name= " + "'" + name + "'";
 		try {
-			JDBCMySQLConnection c= JDBCMySQLConnection.getInstance();
-			java.sql.Connection dbConnection = c.getConnection();
-			java.sql.Statement statement = null;
-			statement=dbConnection.createStatement();
-		
-			ResultSet rs = statement.executeQuery(SelectQuery);
-			List<Company> allCompany= new ArrayList<>();
+			statement = c.getConnection();
+			ResultSet rs = statement.executeQuery(selectCompanyByName);
+			List<Company> allCompany = new ArrayList<>();
+
 			while (rs.next()) {
-				int id = rs.getInt("id");
-				String name = rs.getString("name");
-				allCompany.add(new Company(id,name));
+				int idCompany = rs.getInt(companyId);
+				allCompany.add(new Company(idCompany, name));
 			}
 			rs.close();
-			dbConnection.close();
+			c.closeConnection();
 			return allCompany;
-			
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return null;
-		
-		
+	}
+
+	/**
+	 * 
+	 * @return all company of data base
+	 */
+
+	public List<Company> getAllCompany() {
+		String selectAllCompany = "select * from company ;";
+		try {
+			statement = c.getConnection();
+			ResultSet rs = statement.executeQuery(selectAllCompany);
+			List<Company> allCompany = new ArrayList<>();
+
+			while (rs.next()) {
+				int idCompany = rs.getInt(companyId);
+				String name = rs.getString(companyName);
+				allCompany.add(new Company(idCompany, name));
+			}
+			rs.close();
+			c.closeConnection();
+			return allCompany;
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 }

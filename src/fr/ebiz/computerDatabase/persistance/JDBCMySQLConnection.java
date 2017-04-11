@@ -5,14 +5,16 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+import java.sql.Statement;
+
 public class JDBCMySQLConnection {
 
   private static JDBCMySQLConnection instance = new JDBCMySQLConnection();
-  public static final String URL = "jdbc:mysql://localhost:3306/computer-database-db?useSSL=false";
+  public static final String URL = "jdbc:mysql://localhost:3306/computer-database-db?useSSL=false&zeroDateTimeBehavior=convertToNull";
   public static final String USER = "admincdb";
   public static final String PASSWORD = "qwerty1234";
   public static final String DRIVER_CLASS = "com.mysql.jdbc.Driver"; 
-   
+  public Connection dbConnection;
 
 private JDBCMySQLConnection() {
       try {
@@ -37,15 +39,32 @@ private Connection createConnection() {
       return connection;
   }   
    
-  public static Connection getConnection() {
-      return instance.createConnection();
-  }
   
 public static JDBCMySQLConnection getInstance() {
 	return instance;
 }
 
-public static void setInstance(JDBCMySQLConnection instance) {
-	JDBCMySQLConnection.instance = instance;
+public Statement getConnection(){
+	
+ dbConnection = createConnection();
+	try {
+		Statement statement = dbConnection.createStatement();
+		return statement;
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	return null;
+
+}
+public int closeConnection(){
+	try {
+		dbConnection.close();
+	} catch (SQLException e) {
+		
+		e.printStackTrace();
+	}
+	return 1;
+	
 }
 }
