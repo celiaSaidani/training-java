@@ -13,17 +13,17 @@ import fr.ebiz.computerDatabase.persistance.JDBCMySQLConnection;
 
 public class ComputerDAO {
 
-	private Statement statement = null;
-	private JDBCMySQLConnection c = JDBCMySQLConnection.getInstance();
-	private String[] computerColumns = { "id", "name", "introduced", "discontinued", "company_id" };
-	private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S");
+	private static Statement statement = null;
+	private static JDBCMySQLConnection c = JDBCMySQLConnection.getInstance();
+	private static String[] computerColumns = { "id", "name", "introduced", "discontinued", "company_id" };
+	private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S");
 
 	/**
 	 * 
 	 * @param computer
 	 * @return 1 if the insert successful 0 else
 	 */
-	public int insert(Computer computer) {
+	public static int insert(Computer computer) {
 		String insertComputer = "insert into computer values('" + computer.getId() + "','" + computer.getName() + "','"
 				+ computer.getDateIN() + "','" + computer.getDateOut() + "','" + computer.getCompagnyId() + "')";
 
@@ -45,7 +45,7 @@ public class ComputerDAO {
 	 *            of computer that we want delete
 	 * @return 1 if the delete successful 0 else
 	 */
-	public int delete(int id) {
+	public static int delete(int id) {
 		String deleteComputer = "delete from computer where id= " + id;
 
 		try {
@@ -65,7 +65,7 @@ public class ComputerDAO {
 	 * @param computer
 	 * @return 1 if the update successful 0 else
 	 */
-	public int Update(Computer computer) {
+	public static int Update(Computer computer) {
 		String updateComputer = "update computer set " + computerColumns[1] + "='" + computer.getName() + "',"
 				+ computerColumns[2] + "='" + computer.getDateIN() + "'," + computerColumns[3] + "='"
 				+ computer.getDateOut() + "'," + computerColumns[4] + "='" + computer.getCompagnyId() + "'" + "where "
@@ -86,7 +86,7 @@ public class ComputerDAO {
 	 * 
 	 * @return list off all computer
 	 */
-	public List<Computer> getAllComputer() {
+	public static List<Computer> getAllComputer() {
 
 		String selectAllComputer = "select * from computer";
 		statement = c.getConnection();
@@ -114,7 +114,7 @@ public class ComputerDAO {
 	 * @param id
 	 * @return computer that have thier id equal to id in paramater
 	 */
-	public Computer getComputerById(int id) {
+	public static Computer getComputerById(int id) {
 		String selectComputerByid = "select * from computer where id=" + Integer.toString(id);
 		try {
 
@@ -138,7 +138,7 @@ public class ComputerDAO {
 	 * @param name
 	 * @return list of computer that have same name
 	 */
-	public List<Computer> getComputerByName(String name) {
+	public static  List<Computer> getComputerByName(String name) {
 		String selectCompanyByName = "select * from computer where name= " + "'" + name + "'";
 
 		try {
@@ -163,7 +163,7 @@ public class ComputerDAO {
 	 * @param rs
 	 * @return a computer
 	 */
-	public Computer getComputer(ResultSet rs) {
+	private static Computer getComputer(ResultSet rs) {
 		LocalDateTime inDate = null;
 		LocalDateTime outDate = null;
 		int idComputer;

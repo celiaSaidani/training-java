@@ -12,15 +12,15 @@ public class CompanyDAO {
 
 	private final String companyName = "name";
 	private final String companyId = "id";
-	private Statement statement = null;
-	private JDBCMySQLConnection c = JDBCMySQLConnection.getInstance();
+	private static Statement statement = null;
+	private static JDBCMySQLConnection c = JDBCMySQLConnection.getInstance();
 
 	/**
 	 * 
 	 * @param id
 	 * @return company
 	 */
-	public Company getCompanyID(int id) {
+	public static Company getCompanyID(int id) {
 		String selectCompanyByID = "select * from company where id=" + Integer.toString(id);
 		String name = null;
 		try {

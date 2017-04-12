@@ -2,6 +2,11 @@ package fr.ebiz.computerDatabase.model;
 
 public class Company {
 
+	@Override
+	public String toString() {
+		return "Company [id=" + id + ", name=" + name + "]";
+	}
+
 	private int id;
 	private String name;
 

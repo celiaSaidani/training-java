@@ -3,6 +3,8 @@ package fr.ebiz.computerDatabase.model;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+import fr.ebiz.computerDatabase.mapper.CompanyDAO;
+
 public class Computer {
 	private int id;
 	private String name;
@@ -54,5 +56,11 @@ public class Computer {
 	public	int getCompagnyId() {
 		return idCompany;
 	}
-	
+
+
+	public String toString() {
+		return "Computer [id=" + id + ", name=" + name + ", dateIN=" + dateIN + ", dateOut=" + dateOut +" ,"
+				+ CompanyDAO.getCompanyID(idCompany).toString()+"]";
+	}
+
 }
