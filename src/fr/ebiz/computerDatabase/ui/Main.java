@@ -95,11 +95,23 @@ public class Main {
 	 * menu to show all computer in database
 	 */
 	private static void showListComputerMenu() {
-
-		List<Computer> computer = ComputerService.getAllComputer();
-		for (Computer cp : computer) {
-			System.out.println(cp.getId() + "\t" + cp.getName());
-		}
+		String resp = null;
+		int cpt=0;
+		do {
+			List<Computer> computer = ComputerService.getAllComputer(cpt);
+			resp=input.nextLine();
+			if(computer.isEmpty())
+				break;
+			else{
+			for (Computer cp : computer) {
+				System.out.println(cp.getId() + "\t" + cp.getName());
+			}
+				cpt=cpt+100;
+				System.out.println("NEXT>>");
+			
+			}
+		} while (!resp.equals("Q"));
+		
 	}
 
 	private static void addComputerMenu() {
