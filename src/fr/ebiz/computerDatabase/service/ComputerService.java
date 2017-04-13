@@ -105,6 +105,15 @@ public class ComputerService {
 	public static List<Computer> getAllComputer() {
 		return ComputerDAO.getAllComputer();
 	}
+	
+	/**
+	 * 
+	 * @return sublist  of computer
+	 */
+
+	public static List<Computer> getAllComputer(int limit) {
+		return ComputerDAO.getAllComputer(limit);
+	}
 
 	/**
 	 * 

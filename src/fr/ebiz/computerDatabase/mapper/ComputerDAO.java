@@ -145,11 +145,39 @@ public class ComputerDAO {
 		return allComputer;
 
 	}
+	 
+
+	/**
+	 * 
+	 * @return list off all computer
+	 */
+	public static List<Computer> getAllComputer(int start) {
+
+		String selectAllComputer = "select * from computer limit 100 offset "+start ;
+		statement = c.getConnection();
+		ResultSet rs;
+		List<Computer> allComputer = new ArrayList<>();
+		try {
+			rs = statement.executeQuery(selectAllComputer);
+
+			while (rs.next()) {
+				allComputer.add(getComputer(rs));
+			}
+			rs.close();
+			c.closeConnection();
+			return allComputer;
+		} catch (SQLException e) {
+			logger.error("Error in function getAllComputer");
+		}
+		return allComputer;
+
+	}
+
 
 	/**
 	 * 
 	 * @param id
-	 * @return computer that have thier id equal to id in paramater
+	 * @return computer that have their id equal to id in parameter
 	 */
 	public static Computer getComputerById(int id) {
 		String selectComputerByid = "select * from computer where id=" + Integer.toString(id);

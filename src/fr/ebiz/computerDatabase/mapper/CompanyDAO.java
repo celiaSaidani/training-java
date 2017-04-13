@@ -99,5 +99,33 @@ public class CompanyDAO {
 		}
 		return allCompany;
 	}
+	
+	/**
+	 * 
+	 * @return all company of data base
+	 */
+
+	public static List<Company> getAllCompany(int start) {
+		String selectAllCompany = "select * from company limit 10 offset "+start;
+		List<Company> allCompany = new ArrayList<>();
+		try {
+			statement = c.getConnection();
+			ResultSet rs = statement.executeQuery(selectAllCompany);
+
+			while (rs.next()) {
+				int idCompany = rs.getInt(companyId);
+				String name = rs.getString(companyName);
+				allCompany.add(new Company(idCompany, name));
+			}
+			rs.close();
+			c.closeConnection();
+			return allCompany;
+
+		} catch (SQLException e) {
+			logger.error("Error in function getAllCompany");
+		}
+		return allCompany;
+	}
+
 
 }

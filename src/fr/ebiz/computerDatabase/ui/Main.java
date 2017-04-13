@@ -69,13 +69,28 @@ public class Main {
 	 */
 
 	private static void showListCompanyMenu() {
-		List<Company> company = CompanyService.getAllCompany();
+		String resp;
+		int cpt=0;
+		do {
+			System.out.println("Entrez Q pour quitter,cliquez entrer pour continuer");
+			resp=input.nextLine();
 
-		for (Company cp : company) {
-			System.out.println(cp.getId() + "\t" + cp.getName());
-		}
+			List<Company> company = CompanyService.getAllCompany(cpt);
+			if(company.isEmpty())
+				break;
+			else{
+
+			for (Company cp : company) {
+				System.out.println(cp.getId() + "\t" + cp.getName());
+			}
+			cpt=cpt+10;
+			System.out.println("NEXT>>");
+			
+			}
+		
+		} while (!resp.equals("Q"));
+		
 	}
-
 	/**
 	 * menu to show all computer in database
 	 */

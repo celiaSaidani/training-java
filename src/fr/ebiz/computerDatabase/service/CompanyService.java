@@ -13,5 +13,12 @@ public class CompanyService {
 	public static List<Company> getAllCompany() {
 		return CompanyDAO.getAllCompany();
 	}
+	/**
+	 * 
+	 * @return list of all company of dataBase
+	 */
+		public static List<Company> getAllCompany(int start) {
+			return CompanyDAO.getAllCompany(start);
+		}
 
 }
