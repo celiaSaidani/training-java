@@ -2,10 +2,13 @@ package fr.ebiz.computerDatabase.persistance;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
-
 import java.sql.Statement;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import fr.ebiz.computerDatabase.mapper.ComputerDAO;
 
 public class JDBCMySQLConnection {
 
@@ -15,6 +18,7 @@ public class JDBCMySQLConnection {
 	public static final String PASSWORD = "qwerty1234";
 	public static final String DRIVER_CLASS = "com.mysql.jdbc.Driver";
 	public Connection dbConnection;
+	private static final Logger logger = LoggerFactory.getLogger(JDBCMySQLConnection.class);
 
 	/**
 	 * constructor
@@ -24,7 +28,7 @@ public class JDBCMySQLConnection {
 			// Load MySQL Java driver
 			Class.forName(DRIVER_CLASS);
 		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
+			logger.error("Error Driver MySQL");
 		}
 	}
 
@@ -40,7 +44,7 @@ public class JDBCMySQLConnection {
 			connection = DriverManager.getConnection(URL, USER, PASSWORD);
 		} catch (SQLException e) {
 			e.printStackTrace();
-			System.out.println("ERROR: Unable to Connect to Database.");
+			logger.error("Error Unable to Connect to Database");
 		}
 		return connection;
 	}
@@ -56,13 +60,12 @@ public class JDBCMySQLConnection {
 			Statement statement = dbConnection.createStatement();
 			return statement;
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error("Error in function getConnection");
 		}
 		return null;
 
 	}
-	
+
 	public Connection getConnectionP() {
 
 		dbConnection = createConnection();
@@ -70,14 +73,19 @@ public class JDBCMySQLConnection {
 
 	}
 
+	/**
+	 * close connexion
+	 * 
+	 * @return
+	 */
 	public int closeConnection() {
 		try {
 			dbConnection.close();
 		} catch (SQLException e) {
-
-			e.printStackTrace();
+			logger.error("Error Unable to close connection");
+			return 1;
 		}
-		return 1;
+		return 0;
 
 	}
 }

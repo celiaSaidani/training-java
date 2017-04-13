@@ -1,33 +1,43 @@
 package fr.ebiz.computerDatabase.service;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.List;
 
 import fr.ebiz.computerDatabase.mapper.CompanyDAO;
 import fr.ebiz.computerDatabase.mapper.ComputerDAO;
 import fr.ebiz.computerDatabase.model.Company;
 import fr.ebiz.computerDatabase.model.Computer;
+import fr.ebiz.computerDatabase.utils.DateTime;
 
 public class ComputerService {
 
-	static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-
-	public static String updateComputer(int id,String input[],boolean action) {
+	/**
+	 * updateComputer has 2 actions: insert if action equal false, update if
+	 * action equal false
+	 * 
+	 * @param id
+	 *            of computer 0 if action is an update
+	 * @param input
+	 *            is an array of attribute of a computer: name,date introduced,
+	 *            date disconnected,id company
+	 * @param action
+	 *            true or false
+	 * @return
+	 */
+	public static String updateComputer(int id, String input[], boolean action) {
 
 		Computer computer;
 		String name = input[0];
 		LocalDateTime dateIn;
 		LocalDateTime dateOut;
-		String invalide = "la date d'arret avant la date d'entrée";
+		String invalideDate = "la date d'arret avant la date d'entrée";
 		String yes = "yes";
-		String no = "l'identifiant de la companie n'existe pas"; // verify date
+		String no = "l'identifiant de la companie n'existe pas";
 
 		if (input[1] == null) {
 			dateIn = null;
 		} else {
-			dateIn = convertDate(input[1]);
+			dateIn = DateTime.convertDate(input[1]);
 			if (dateIn == null)
 				return input[1];
 		}
@@ -35,37 +45,48 @@ public class ComputerService {
 			dateOut = null;
 		} else {
 
-			dateOut = convertDate(input[2]);
+			dateOut = DateTime.convertDate(input[2]);
 			if (dateOut == null)
 				return input[2];
 		}
 		if ((input[1] != null) && (input[2] != null))
-			if (dateCompare(input[1], input[2]) == false)
-				return invalide;
+			if (DateTime.dateCompare(input[1], input[2]) == false)
+				return invalideDate;
 
-		Company cp = CompanyDAO.getCompanyID(Integer.parseInt(input[3]));
+		if (action == false) {
+			if (input[3] != null) {
+				Company cp = CompanyDAO.getCompanyID(Integer.parseInt(input[3]));
+				computer = new Computer(name, dateIn, dateOut, cp.getId());
+			} else
+				computer = new Computer(name, dateIn, dateOut, 0);
 
-		
-		
-		if(action==true){
-			computer = new Computer(name, dateIn, dateOut, cp.getId());
 			if (ComputerDAO.insert(computer) == 1)
 				return yes;
 
 			else
 				return no;
-		}
-		else{
-			computer = new Computer(id,name, dateIn, dateOut, cp.getId());
-			if (ComputerDAO.update(computer)==1);
-			
-			return yes;
+		} else {
+			if (input[3] != null) {
+				Company cp = CompanyDAO.getCompanyID(Integer.parseInt(input[3]));
+				computer = new Computer(id, name, dateIn, dateOut, cp.getId());
+			} else
+				computer = new Computer(id, name, dateIn, dateOut, 0);
+			if (ComputerDAO.update(computer) == 1)
 
-			
+				return yes;
+			else
+				return no;
+
 		}
 
 	}
 
+	/**
+	 * 
+	 * @param id
+	 *            of computer to delete
+	 * @return true if delete correct, false else
+	 */
 	public static boolean deleteCpmouter(int id) {
 
 		int deleletOK = ComputerDAO.delete(id);
@@ -76,50 +97,23 @@ public class ComputerService {
 			return false;
 	}
 
-	public static boolean updateComputer() {
-		return false;
-	}
+	/**
+	 * 
+	 * @return list of computer
+	 */
 
 	public static List<Computer> getAllComputer() {
 		return ComputerDAO.getAllComputer();
 	}
 
+	/**
+	 * 
+	 * @param id
+	 *            of computer
+	 * @return a computer
+	 */
 	public static Computer showDetailsComputer(int id) {
 		return ComputerDAO.getComputerById(id);
-	}
-
-	private static LocalDateTime convertDate(String date) {
-		try {
-
-			LocalDateTime formatDateTime = LocalDateTime.parse(date, formatter);
-			return formatDateTime;
-		} catch (DateTimeParseException e) {
-			return null;
-		}
-
-	}
-
-	public static String DateToString(LocalDateTime date) {
-			if(date==null)
-				return null;
-		
-	        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-
-	        String dateString = date.format(formatter);
-
-	       return dateString;
-
-	}
-	private static boolean dateCompare(String date1, String date2) {
-		try {
-
-			LocalDateTime formatDateTime = LocalDateTime.parse(date1, formatter);
-			LocalDateTime formatDateTime2 = LocalDateTime.parse(date2, formatter);
-			return formatDateTime.isBefore(formatDateTime2);
-		} catch (DateTimeParseException e) {
-			return false;
-		}
-
 	}
 
 }

@@ -1,12 +1,16 @@
 package fr.ebiz.computerDatabase.mapper;
 
-import java.sql.*;
-
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import fr.ebiz.computerDatabase.persistance.*;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import fr.ebiz.computerDatabase.model.Company;
+import fr.ebiz.computerDatabase.persistance.JDBCMySQLConnection;
 
 public class CompanyDAO {
 
@@ -14,6 +18,8 @@ public class CompanyDAO {
 	private final static String companyId = "id";
 	private static Statement statement = null;
 	private static JDBCMySQLConnection c = JDBCMySQLConnection.getInstance();
+
+	private static final Logger logger = LoggerFactory.getLogger(CompanyDAO.class);
 
 	/**
 	 * 
@@ -36,7 +42,7 @@ public class CompanyDAO {
 			return new Company(id, name);
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error("Error in function getCompanyID");
 		}
 		return new Company();
 	}
@@ -62,7 +68,7 @@ public class CompanyDAO {
 			return allCompany;
 
 		} catch (SQLException e) {
-			e.printStackTrace();
+			logger.error("Error in function getCompanyName");
 		}
 		return allCompany;
 	}
@@ -78,7 +84,6 @@ public class CompanyDAO {
 		try {
 			statement = c.getConnection();
 			ResultSet rs = statement.executeQuery(selectAllCompany);
-			
 
 			while (rs.next()) {
 				int idCompany = rs.getInt(companyId);
@@ -90,7 +95,7 @@ public class CompanyDAO {
 			return allCompany;
 
 		} catch (SQLException e) {
-			e.printStackTrace();
+			logger.error("Error in function getAllCompany");
 		}
 		return allCompany;
 	}

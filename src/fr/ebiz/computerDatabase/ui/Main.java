@@ -1,22 +1,17 @@
 package fr.ebiz.computerDatabase.ui;
 
 import java.sql.SQLException;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Scanner;
 
-import fr.ebiz.computerDatabase.mapper.CompanyDAO;
-import fr.ebiz.computerDatabase.mapper.ComputerDAO;
 import fr.ebiz.computerDatabase.model.Company;
 import fr.ebiz.computerDatabase.model.Computer;
 import fr.ebiz.computerDatabase.service.CompanyService;
 import fr.ebiz.computerDatabase.service.ComputerService;
+import fr.ebiz.computerDatabase.utils.DateTime;
 
 public class Main {
 
-	private static List<Company> company;
-	private static List<Computer> compter;
-	private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 	static Scanner input = new Scanner(System.in);
 
 	/**
@@ -122,61 +117,73 @@ public class Main {
 				inputText[i] = null;
 			}
 		}
-		if (ComputerService.updateComputer(0,inputText,true).equals(yes))
+		if (ComputerService.updateComputer(0, inputText, false).equals(yes))
 			System.out.println("insertion reussie");
 		else
-			System.err.println("insertion non effectué " + ComputerService.updateComputer(0,inputText,true));
+			System.err.println("insertion non effectué " + ComputerService.updateComputer(0, inputText, true));
 
 	}
 
+	/**
+	 * update a computer
+	 */
+
 	private static void updateComputerMenu() {
-		
-		int choice=0;
+
+		int choice = 0;
 		showListComputerMenu();
 		System.out.println("selectionner l'identifant d'un ordinateur à modifier");
 		detailsComputerMenu();
 		System.out.println("tapez l'identifiant de l'ordinateur");
 		choice = input.nextInt();
 		Computer computer = ComputerService.showDetailsComputer(choice);
-		String[] cp={computer.getName(),ComputerService.DateToString(computer.getDateIN()),ComputerService.DateToString(computer.getDateOut()),Integer.toString(computer.getCompagnyId())};
-		
-		String[] inputA={"nom","date d'entrée","date d'arrêt","identifiant de la compagnie"};
-		int nbrAtt=4;
-		String inputText[]=new String[nbrAtt];
+		String[] cp = { Integer.toString(computer.getId()), computer.getName(),
+				DateTime.DateToString(computer.getDateIN()), DateTime.DateToString(computer.getDateOut()),
+				Integer.toString(computer.getCompagnyId()) };
+
+		String[] inputA = { "nom", "date d'entrée", "date d'arrêt", "identifiant de la compagnie" };
+		int nbrAtt = 4;
+		String inputText[] = new String[nbrAtt];
 		String response;
-		String yes="yes";
-		
-		inputText[0]=input.nextLine();
-	
-			for (int i = 0; i < inputA.length; i++) {
-				
-				if(i==2||i==1)
-					System.out.println("entrez "+ inputA[i]+" de l'ordinateur format[YYYY-MM-DD HH:mm:ss]");
-				else
-					System.out.println("entrez "+ inputA[i]+" de l'ordinateur");
-				if(i==3){
-					System.out.println("voulez vous affichez toute les compagnies existantes? O/N");
-					response=input.nextLine();
-					if(response.equals("O")||response.equals("o")){
-						showListCompanyMenu();
-					}
-					else{
-						System.out.println("entrez l'identifiant de la compagnie");
-					}
-				}
-				
-				inputText[i]=input.nextLine();
-				if(inputText[i].equals("")){
-					inputText[i]=cp[i];
+		String yes = "yes";
+
+		inputText[0] = input.nextLine();
+
+		for (int i = 0; i < inputA.length; i++) {
+
+			if (i == 2 || i == 1)
+				System.out.println("entrez " + inputA[i] + " de l'ordinateur format[YYYY-MM-DD HH:mm:ss]");
+			else
+				System.out.println("entrez " + inputA[i] + " de l'ordinateur");
+			if (i == 3) {
+				System.out.println("voulez vous affichez toute les compagnies existantes? O/N");
+				response = input.nextLine();
+				if (response.equals("O") || response.equals("o")) {
+					showListCompanyMenu();
+				} else {
+					System.out.println("entrez l'identifiant de la compagnie");
 				}
 			}
-			if(ComputerService.updateComputer(Integer.getInteger(cp[0]),inputText,false).equals(yes))
-				System.out.println("modification reussie");
-			else
-				System.err.println("modification non effectué "+ComputerService.updateComputer(Integer.getInteger(cp[0]),inputText,false));
-			
+
+			inputText[i] = input.nextLine();
+			if (inputText[i].equals("")) {
+				inputText[i] = cp[i + 1];
+
+			}
+		}
+		int id = Integer.parseInt(cp[0]);
+		String modif = ComputerService.updateComputer(id, inputText, true);
+
+		if (modif.equals(yes))
+			System.out.println("modification reussie");
+		else
+			System.err.println("modification non effectué " + modif);
+
 	}
 
+	/**
+	 * delete a computer
+	 */
 	private static void deleteComputerMenu() {
 		int choice = 0;
 		showListComputerMenu();
@@ -225,32 +232,4 @@ public class Main {
 		} while (choice != 7);
 
 	}
-	// TODO Auto-generated method stub
-	/*
-	 * CompanyDAO cp= new CompanyDAO(); company= cp.getAllCompany(); for (int i
-	 * = 0; i <company.size(); i++) {
-	 * System.out.println(company.get(i).getName());
-	 * 
-	 * } System.out.println(cp.getCompanyID(3).getName());
-	 * System.out.println(cp.getCompanyName("Apple Inc.").get(0).getId());
-	 * 
-	 * 
-	 * ComputerDAO cp= new ComputerDAO();
-	 * System.out.println(cp.getComputerById(3).getCompagnyId());
-	 * compter=cp.getAllComputer(); for (int i = 0; i <compter.size(); i++) {
-	 * System.out.println(compter.get(i).getName());
-	 * 
-	 * } System.out.println(cp.getComputerByName("Apple IIe").size());
-	 * if(cp.insert(new Computer(2222,
-	 * "Macintosh II",LocalDateTime.parse("2017-05-05 01:00:00",
-	 * formatter),LocalDateTime.parse("2017-05-05 01:00:00", formatter),
-	 * 2))==1){ System.out.println("insertion sucss"); }
-	 * 
-	 * if(cp.delete(2222)==1){ System.out.println("delete ok"); }
-	 * 
-	 * cp.Update((new Computer(2222,
-	 * "Macintosh II",LocalDateTime.parse("2017-05-05 01:00:00",
-	 * formatter),LocalDateTime.parse("2017-05-05 01:00:00", formatter), 3)));
-	 */
-
 }

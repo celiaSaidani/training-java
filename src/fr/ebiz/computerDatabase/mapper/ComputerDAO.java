@@ -9,6 +9,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import fr.ebiz.computerDatabase.model.Computer;
 import fr.ebiz.computerDatabase.persistance.JDBCMySQLConnection;
 
@@ -19,6 +22,7 @@ public class ComputerDAO {
 	private static JDBCMySQLConnection c = JDBCMySQLConnection.getInstance();
 	private static String[] computerColumns = { "id", "name", "introduced", "discontinued", "company_id" };
 	private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S");
+	private static final Logger logger = LoggerFactory.getLogger(ComputerDAO.class);
 
 	/**
 	 * 
@@ -35,7 +39,10 @@ public class ComputerDAO {
 			ps.setString(1, computer.getName());
 			ps.setString(2, computer.getDateIN() == null ? null : computer.getDateIN().format(formatter));
 			ps.setString(3, computer.getDateOut() == null ? null : computer.getDateOut().format(formatter));
-			ps.setInt(4, computer.getCompagnyId());
+			if (computer.getCompagnyId() == 0)
+				ps.setNull(4, java.sql.Types.INTEGER);
+			else
+				ps.setInt(4, computer.getCompagnyId());
 			if (ps.executeUpdate() == 1) {
 				c.closeConnection();
 				return 1;
@@ -43,7 +50,7 @@ public class ComputerDAO {
 				return 0;
 
 		} catch (SQLException e) {
-
+				logger.error("Error in function insert");
 			return 0;
 		}
 
@@ -69,8 +76,7 @@ public class ComputerDAO {
 				return 0;
 
 		} catch (SQLException e) {
-
-			e.printStackTrace();
+			logger.error("Error in function delete in");
 		}
 		return 0;
 	}
@@ -81,36 +87,35 @@ public class ComputerDAO {
 	 * @return 1 if the update successful 0 else
 	 */
 	public static int update(Computer computer) {
-		
-			System.err.println(computer.getId());
-			System.err.println(computer.getName());
-			System.err.println(computer.getDateIN());
-			System.err.println(computer.getDateOut());
-			System.err.println(computer.getCompagnyId());
-		String updateComputer = "update computer set " + computerColumns[1] + "=? ,"
-				+ computerColumns[2] + "=? ," + computerColumns[3] + "=? ,"+ computerColumns[4] + "= ? where "
-				+ computerColumns[0] + "= ?";
+
+		System.err.println(computer.getId());
+		System.err.println(computer.getName());
+		System.err.println(computer.getDateIN());
+		System.err.println(computer.getDateOut());
+		System.err.println(computer.getCompagnyId());
+		String updateComputer = "update computer set " + computerColumns[1] + "=? ," + computerColumns[2] + "=? ,"
+				+ computerColumns[3] + "=? ," + computerColumns[4] + "= ? where " + computerColumns[0] + "= ?";
 		try {
 			ps = c.getConnectionP().prepareStatement(updateComputer);
 			ps.setString(1, computer.getName());
 			ps.setString(2, computer.getDateIN() == null ? null : computer.getDateIN().format(formatter));
 			ps.setString(3, computer.getDateOut() == null ? null : computer.getDateOut().format(formatter));
-			ps.setInt(4, computer.getCompagnyId());
+			if (computer.getCompagnyId() == 0)
+				ps.setNull(4, java.sql.Types.INTEGER);
+			else
+				ps.setInt(4, computer.getCompagnyId());
 			ps.setInt(5, computer.getId());
-			if (ps.executeUpdate()==1){
+			if (ps.executeUpdate() == 1) {
 				c.closeConnection();
 				return 1;
-				
-			}
-			else {
+
+			} else {
 				c.closeConnection();
 				return 0;
 			}
-			
-			
-		} catch (SQLException e) {
 
-			e.printStackTrace();
+		} catch (SQLException e) {
+			logger.error("Error in function update");
 		}
 		return 0;
 	}
@@ -135,8 +140,7 @@ public class ComputerDAO {
 			c.closeConnection();
 			return allComputer;
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.error("Error in function getAllComputer");
 		}
 		return allComputer;
 
@@ -161,7 +165,7 @@ public class ComputerDAO {
 			c.closeConnection();
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error("Error in function getCompanyById");
 		}
 		return new Computer();
 	}
@@ -186,7 +190,7 @@ public class ComputerDAO {
 			return listComputer;
 
 		} catch (SQLException e) {
-			e.printStackTrace();
+			logger.error("Error in function getComputerByName ");
 		}
 		return listComputer;
 	}
@@ -219,8 +223,8 @@ public class ComputerDAO {
 			return (new Computer(idComputer, nameComputer, inDate, outDate, companyId));
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			
+			logger.error("Error in function getComputer");
 		}
 		return new Computer();
 	}
