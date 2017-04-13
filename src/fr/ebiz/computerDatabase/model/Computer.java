@@ -1,6 +1,5 @@
 package fr.ebiz.computerDatabase.model;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import fr.ebiz.computerDatabase.mapper.CompanyDAO;
@@ -12,9 +11,21 @@ public class Computer {
 	private LocalDateTime dateOut;
 	private int idCompany;
 	
+	public Computer() {
+		// TODO Auto-generated constructor stub
+	}
+	
 	public Computer(int id,String name,LocalDateTime in,LocalDateTime out,int idCompany) {
 		// TODO Auto-generated constructor stub
 		this.id=id;
+		this.name=name;
+		this.dateIN=in;
+		this.dateOut=out;
+		this.idCompany=idCompany;
+	}
+	public Computer(String name,LocalDateTime in,LocalDateTime out,int idCompany) {
+		// TODO Auto-generated constructor stub
+		
 		this.name=name;
 		this.dateIN=in;
 		this.dateOut=out;

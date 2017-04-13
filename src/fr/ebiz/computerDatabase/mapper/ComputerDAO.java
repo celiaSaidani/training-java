@@ -1,5 +1,6 @@
 package fr.ebiz.computerDatabase.mapper;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -14,6 +15,7 @@ import fr.ebiz.computerDatabase.persistance.JDBCMySQLConnection;
 public class ComputerDAO {
 
 	private static Statement statement = null;
+	private static PreparedStatement ps;
 	private static JDBCMySQLConnection c = JDBCMySQLConnection.getInstance();
 	private static String[] computerColumns = { "id", "name", "introduced", "discontinued", "company_id" };
 	private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S");
@@ -24,19 +26,27 @@ public class ComputerDAO {
 	 * @return 1 if the insert successful 0 else
 	 */
 	public static int insert(Computer computer) {
-		String insertComputer = "insert into computer values('" + computer.getId() + "','" + computer.getName() + "','"
-				+ computer.getDateIN() + "','" + computer.getDateOut() + "','" + computer.getCompagnyId() + "')";
+
+		String insertComputer = "insert into computer(name,introduced,discontinued,company_id) values(?,?,?,?)";
 
 		try {
-			statement = c.getConnection();
-			statement.executeUpdate(insertComputer);
-			c.closeConnection();
-			return 1;
+
+			ps = c.getConnectionP().prepareStatement(insertComputer);
+			ps.setString(1, computer.getName());
+			ps.setString(2, computer.getDateIN() == null ? null : computer.getDateIN().format(formatter));
+			ps.setString(3, computer.getDateOut() == null ? null : computer.getDateOut().format(formatter));
+			ps.setInt(4, computer.getCompagnyId());
+			if (ps.executeUpdate() == 1) {
+				c.closeConnection();
+				return 1;
+			} else
+				return 0;
+
 		} catch (SQLException e) {
 
-			e.printStackTrace();
+			return 0;
 		}
-		return 0;
+
 	}
 
 	/**
@@ -47,12 +57,17 @@ public class ComputerDAO {
 	 */
 	public static int delete(int id) {
 		String deleteComputer = "delete from computer where id= " + id;
+		int delete = 0;
 
 		try {
 			statement = c.getConnection();
-			statement.executeUpdate(deleteComputer);
+			delete = statement.executeUpdate(deleteComputer);
 			c.closeConnection();
-			return 1;
+			if (delete == 1)
+				return 1;
+			else
+				return 0;
+
 		} catch (SQLException e) {
 
 			e.printStackTrace();
@@ -65,16 +80,34 @@ public class ComputerDAO {
 	 * @param computer
 	 * @return 1 if the update successful 0 else
 	 */
-	public static int Update(Computer computer) {
-		String updateComputer = "update computer set " + computerColumns[1] + "='" + computer.getName() + "',"
-				+ computerColumns[2] + "='" + computer.getDateIN() + "'," + computerColumns[3] + "='"
-				+ computer.getDateOut() + "'," + computerColumns[4] + "='" + computer.getCompagnyId() + "'" + "where "
-				+ computerColumns[0] + "='" + computer.getId() + "'";
+	public static int update(Computer computer) {
+		
+			System.err.println(computer.getId());
+			System.err.println(computer.getName());
+			System.err.println(computer.getDateIN());
+			System.err.println(computer.getDateOut());
+			System.err.println(computer.getCompagnyId());
+		String updateComputer = "update computer set " + computerColumns[1] + "=? ,"
+				+ computerColumns[2] + "=? ," + computerColumns[3] + "=? ,"+ computerColumns[4] + "= ? where "
+				+ computerColumns[0] + "= ?";
 		try {
-			statement = c.getConnection();
-			statement.executeUpdate(updateComputer);
-			c.closeConnection();
-			return 1;
+			ps = c.getConnectionP().prepareStatement(updateComputer);
+			ps.setString(1, computer.getName());
+			ps.setString(2, computer.getDateIN() == null ? null : computer.getDateIN().format(formatter));
+			ps.setString(3, computer.getDateOut() == null ? null : computer.getDateOut().format(formatter));
+			ps.setInt(4, computer.getCompagnyId());
+			ps.setInt(5, computer.getId());
+			if (ps.executeUpdate()==1){
+				c.closeConnection();
+				return 1;
+				
+			}
+			else {
+				c.closeConnection();
+				return 0;
+			}
+			
+			
 		} catch (SQLException e) {
 
 			e.printStackTrace();
@@ -105,7 +138,7 @@ public class ComputerDAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return null;
+		return allComputer;
 
 	}
 
@@ -130,7 +163,7 @@ public class ComputerDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return null;
+		return new Computer();
 	}
 
 	/**
@@ -138,13 +171,13 @@ public class ComputerDAO {
 	 * @param name
 	 * @return list of computer that have same name
 	 */
-	public static  List<Computer> getComputerByName(String name) {
-		String selectCompanyByName = "select * from computer where name= " + "'" + name + "'";
+	public static List<Computer> getComputerByName(String name) {
+		String selectComputeryByName = "select * from computer where name= " + "'" + name + "'";
+		List<Computer> listComputer = new ArrayList<>();
 
 		try {
 			statement = c.getConnection();
-			ResultSet rs = statement.executeQuery(selectCompanyByName);
-			List<Computer> listComputer = new ArrayList<>();
+			ResultSet rs = statement.executeQuery(selectComputeryByName);
 
 			while (rs.next()) {
 				listComputer.add(getComputer(rs));
@@ -155,7 +188,7 @@ public class ComputerDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return null;
+		return listComputer;
 	}
 
 	/**
@@ -189,7 +222,7 @@ public class ComputerDAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return null;
+		return new Computer();
 	}
 
 }

@@ -2,11 +2,14 @@ package fr.ebiz.computerDatabase.model;
 
 public class Company {
 
+	public Company() {
+		// TODO Auto-generated constructor stub
+	}
 	@Override
 	public String toString() {
 		return "Company [id=" + id + ", name=" + name + "]";
 	}
-
+	
 	private int id;
 	private String name;
 

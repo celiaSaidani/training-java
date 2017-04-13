@@ -10,8 +10,8 @@ import fr.ebiz.computerDatabase.model.Company;
 
 public class CompanyDAO {
 
-	private final String companyName = "name";
-	private final String companyId = "id";
+	private final static String companyName = "name";
+	private final static String companyId = "id";
 	private static Statement statement = null;
 	private static JDBCMySQLConnection c = JDBCMySQLConnection.getInstance();
 
@@ -38,7 +38,7 @@ public class CompanyDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return null;
+		return new Company();
 	}
 
 	/**
@@ -46,12 +46,12 @@ public class CompanyDAO {
 	 * @param name
 	 * @return list of company
 	 */
-	public List<Company> getCompanyName(String name) {
+	public static List<Company> getCompanyName(String name) {
 		String selectCompanyByName = "select * from company where name= " + "'" + name + "'";
+		List<Company> allCompany = new ArrayList<>();
 		try {
 			statement = c.getConnection();
 			ResultSet rs = statement.executeQuery(selectCompanyByName);
-			List<Company> allCompany = new ArrayList<>();
 
 			while (rs.next()) {
 				int idCompany = rs.getInt(companyId);
@@ -64,7 +64,7 @@ public class CompanyDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return null;
+		return allCompany;
 	}
 
 	/**
@@ -72,12 +72,13 @@ public class CompanyDAO {
 	 * @return all company of data base
 	 */
 
-	public List<Company> getAllCompany() {
+	public static List<Company> getAllCompany() {
 		String selectAllCompany = "select * from company ;";
+		List<Company> allCompany = new ArrayList<>();
 		try {
 			statement = c.getConnection();
 			ResultSet rs = statement.executeQuery(selectAllCompany);
-			List<Company> allCompany = new ArrayList<>();
+			
 
 			while (rs.next()) {
 				int idCompany = rs.getInt(companyId);
@@ -91,7 +92,7 @@ public class CompanyDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return null;
+		return allCompany;
 	}
 
 }

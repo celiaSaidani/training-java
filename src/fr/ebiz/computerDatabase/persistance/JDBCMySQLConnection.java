@@ -2,6 +2,7 @@ package fr.ebiz.computerDatabase.persistance;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import java.sql.Statement;
@@ -59,6 +60,13 @@ public class JDBCMySQLConnection {
 			e.printStackTrace();
 		}
 		return null;
+
+	}
+	
+	public Connection getConnectionP() {
+
+		dbConnection = createConnection();
+		return dbConnection;
 
 	}
 
