@@ -1,19 +1,15 @@
-package fr.ebiz.computerDatabase.mapper;
+package fr.ebiz.computerDatabase.persistance;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import fr.ebiz.computerDatabase.model.Computer;
-import fr.ebiz.computerDatabase.persistance.JDBCMySQLConnection;
 
 public class ComputerDAO {
 
@@ -25,11 +21,11 @@ public class ComputerDAO {
 	private static final Logger logger = LoggerFactory.getLogger(ComputerDAO.class);
 
 	/**
-	 * 
+	 *
 	 * @param computer
 	 * @return 1 if the insert successful 0 else
 	 */
-	public static int insert(Computer computer) {
+	public int insert(Computer computer) {
 
 		String insertComputer = "insert into computer(name,introduced,discontinued,company_id) values(?,?,?,?)";
 
@@ -50,19 +46,19 @@ public class ComputerDAO {
 				return 0;
 
 		} catch (SQLException e) {
-				logger.error("Error in function insert");
+			logger.error("Error in function insert");
 			return 0;
 		}
 
 	}
 
 	/**
-	 * 
+	 *
 	 * @param id
 	 *            of computer that we want delete
 	 * @return 1 if the delete successful 0 else
 	 */
-	public static int delete(int id) {
+	public int delete(int id) {
 		String deleteComputer = "delete from computer where id= " + id;
 		int delete = 0;
 
@@ -82,17 +78,11 @@ public class ComputerDAO {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param computer
 	 * @return 1 if the update successful 0 else
 	 */
-	public static int update(Computer computer) {
-
-		System.err.println(computer.getId());
-		System.err.println(computer.getName());
-		System.err.println(computer.getDateIN());
-		System.err.println(computer.getDateOut());
-		System.err.println(computer.getCompagnyId());
+	public  int update(Computer computer) {
 		String updateComputer = "update computer set " + computerColumns[1] + "=? ," + computerColumns[2] + "=? ,"
 				+ computerColumns[3] + "=? ," + computerColumns[4] + "= ? where " + computerColumns[0] + "= ?";
 		try {
@@ -121,10 +111,10 @@ public class ComputerDAO {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return list off all computer
 	 */
-	public static List<Computer> getAllComputer() {
+	/*public static List<Computer> getAllComputer() {
 
 		String selectAllComputer = "select * from computer";
 		statement = c.getConnection();
@@ -144,14 +134,26 @@ public class ComputerDAO {
 		}
 		return allComputer;
 
-	}
-	 
+	}*/
 
+	public  ResultSet getAllComputer() {
+
+		String selectAllComputer = "select * from computer";
+		statement = c.getConnection();
+		ResultSet rs=null;
+		try {
+			rs = statement.executeQuery(selectAllComputer);
+		} catch (SQLException e) {
+			logger.error("Error in function getAllComputer");
+		}
+		return rs;
+
+	}
 	/**
-	 * 
+	 *
 	 * @return list off all computer
 	 */
-	public static List<Computer> getAllComputer(int start) {
+	/*public static List<Computer> getAllComputer(int start) {
 
 		String selectAllComputer = "select * from computer limit 100 offset "+start ;
 		statement = c.getConnection();
@@ -171,15 +173,41 @@ public class ComputerDAO {
 		}
 		return allComputer;
 
+	}*/
+
+	public  ResultSet getAllComputer(int start) {
+		String selectAllComputer = "select * from computer limit 100 offset "+start ;
+
+		ResultSet rs=null;
+		try {
+			statement = c.getConnection();
+			rs = statement.executeQuery(selectAllComputer);
+
+		} catch (SQLException e) {
+			logger.error("Error in function getAllComputer");
+		}
+		return rs;
 	}
 
-
 	/**
-	 * 
+	 *
 	 * @param id
 	 * @return computer that have their id equal to id in parameter
 	 */
-	public static Computer getComputerById(int id) {
+	public ResultSet getComputerById(int id) {
+		String selectComputerByid = "select * from computer where id=" + Integer.toString(id);
+		ResultSet rs=null;
+		try {
+
+			statement = c.getConnection();
+			rs = statement.executeQuery(selectComputerByid);
+
+		} catch (Exception e) {
+			logger.error("Error in function getCompanyById");
+		}
+		return rs;
+	}
+	/*public static Computer getComputerById(int id) {
 		String selectComputerByid = "select * from computer where id=" + Integer.toString(id);
 		try {
 
@@ -197,13 +225,26 @@ public class ComputerDAO {
 		}
 		return new Computer();
 	}
-
+	 */
 	/**
-	 * 
+	 *
 	 * @param name
 	 * @return list of computer that have same name
 	 */
-	public static List<Computer> getComputerByName(String name) {
+	public ResultSet  getComputerByName(String name) {
+		ResultSet rs= null;
+		String selectComputeryByName = "select * from computer where name= " + "'" + name + "'";
+		try {
+			statement = c.getConnection();
+			rs = statement.executeQuery(selectComputeryByName);
+		} catch (SQLException e) {
+			logger.error("Error in function getComputerByName ");
+		}
+		return rs;
+
+	}
+
+	/*public static List<Computer> getComputerByName(String name) {
 		String selectComputeryByName = "select * from computer where name= " + "'" + name + "'";
 		List<Computer> listComputer = new ArrayList<>();
 
@@ -221,40 +262,7 @@ public class ComputerDAO {
 			logger.error("Error in function getComputerByName ");
 		}
 		return listComputer;
-	}
+	}*/
 
-	/**
-	 * 
-	 * @param rs
-	 * @return a computer
-	 */
-	private static Computer getComputer(ResultSet rs) {
-		LocalDateTime inDate = null;
-		LocalDateTime outDate = null;
-		int idComputer;
-		try {
-			idComputer = rs.getInt(computerColumns[0]);
-			String nameComputer = rs.getString(computerColumns[1]);
-			String introduced = rs.getString(computerColumns[2]);
-
-			if (introduced != null) {
-
-				inDate = LocalDateTime.parse(introduced, formatter);
-			}
-			String discontinued = rs.getString(computerColumns[3]);
-			if (discontinued != null) {
-
-				outDate = LocalDateTime.parse(discontinued, formatter);
-			}
-			int companyId = rs.getInt(computerColumns[4]);
-
-			return (new Computer(idComputer, nameComputer, inDate, outDate, companyId));
-
-		} catch (SQLException e) {
-			
-			logger.error("Error in function getComputer");
-		}
-		return new Computer();
-	}
 
 }

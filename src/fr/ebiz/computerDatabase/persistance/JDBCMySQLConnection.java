@@ -8,8 +8,6 @@ import java.sql.Statement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import fr.ebiz.computerDatabase.mapper.ComputerDAO;
-
 public class JDBCMySQLConnection {
 
 	private static JDBCMySQLConnection instance = new JDBCMySQLConnection();

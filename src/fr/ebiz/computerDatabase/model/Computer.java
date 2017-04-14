@@ -2,14 +2,13 @@ package fr.ebiz.computerDatabase.model;
 
 import java.time.LocalDateTime;
 
-import fr.ebiz.computerDatabase.mapper.CompanyDAO;
-
 public class Computer {
 	private int id;
 	private String name;
 	private LocalDateTime dateIN;
 	private LocalDateTime dateOut;
 	private int idCompany;
+
 
 	/**
 	 * default constructor
@@ -20,7 +19,7 @@ public class Computer {
 
 	/**
 	 * constructor 1 with id of computer
-	 * 
+	 *
 	 * @param id
 	 * @param name
 	 * @param in
@@ -38,7 +37,7 @@ public class Computer {
 
 	/**
 	 * constructor 2 without id of computer
-	 * 
+	 *
 	 * @param name
 	 * @param in
 	 * @param out
@@ -54,7 +53,7 @@ public class Computer {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return id of company
 	 */
 	public int getId() {
@@ -63,7 +62,7 @@ public class Computer {
 
 	/**
 	 * set id of computer
-	 * 
+	 *
 	 * @param id
 	 */
 	public void setId(int id) {
@@ -71,7 +70,7 @@ public class Computer {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return name of computer
 	 */
 	public String getName() {
@@ -80,7 +79,7 @@ public class Computer {
 
 	/**
 	 * set name of computer
-	 * 
+	 *
 	 * @param name
 	 */
 	public void setName(String name) {
@@ -88,7 +87,7 @@ public class Computer {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return introduced date of computer
 	 */
 	public LocalDateTime getDateIN() {
@@ -97,7 +96,7 @@ public class Computer {
 
 	/**
 	 * set date introduced of computer
-	 * 
+	 *
 	 * @param dateIN
 	 */
 	public void setDateIN(LocalDateTime dateIN) {
@@ -105,7 +104,7 @@ public class Computer {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return date discontinued of computer
 	 */
 	public LocalDateTime getDateOut() {
@@ -114,7 +113,7 @@ public class Computer {
 
 	/**
 	 * set date discontinued
-	 * 
+	 *
 	 * @param dateOut
 	 */
 	public void setDateOut(LocalDateTime dateOut) {
@@ -122,16 +121,17 @@ public class Computer {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return id company of computer
 	 */
 	public int getCompagnyId() {
 		return idCompany;
 	}
 
-	public String toString() {
-		return "Computer [id=" + id + ", name=" + name + ", dateIN=" + dateIN + ", dateOut=" + dateOut + " ,"
-				+ CompanyDAO.getCompanyID(idCompany).toString() + "]";
+
+	public String toString(int id) {
+		return "Computer [id=" + id + ", name=" + name + ", dateIN=" + dateIN + ", dateOut=" + dateOut + " , idCompany= "
+				+id + "]";
 	}
 
 }

@@ -1,32 +1,26 @@
-package fr.ebiz.computerDatabase.mapper;
+package fr.ebiz.computerDatabase.persistance;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import fr.ebiz.computerDatabase.model.Company;
-import fr.ebiz.computerDatabase.persistance.JDBCMySQLConnection;
-
 public class CompanyDAO {
 
-	private final static String companyName = "name";
-	private final static String companyId = "id";
-	private static Statement statement = null;
-	private static JDBCMySQLConnection c = JDBCMySQLConnection.getInstance();
+
+	private  Statement statement = null;
+	private JDBCMySQLConnection c = JDBCMySQLConnection.getInstance();
 
 	private static final Logger logger = LoggerFactory.getLogger(CompanyDAO.class);
 
 	/**
-	 * 
+	 *
 	 * @param id
 	 * @return company
 	 */
-	public static Company getCompanyID(int id) {
+	/*public static Company getCompanyID(int id) {
 		String selectCompanyByID = "select * from company where id=" + Integer.toString(id);
 		String name = null;
 		try {
@@ -46,39 +40,39 @@ public class CompanyDAO {
 		}
 		return new Company();
 	}
-
-	/**
-	 * 
-	 * @param name
-	 * @return list of company
 	 */
-	public static List<Company> getCompanyName(String name) {
-		String selectCompanyByName = "select * from company where name= " + "'" + name + "'";
-		List<Company> allCompany = new ArrayList<>();
+	public ResultSet getCompanyID(int id) {
+		String selectCompanyByID = "select * from company where id=" + Integer.toString(id);
+		ResultSet rs= null;
 		try {
+
 			statement = c.getConnection();
-			ResultSet rs = statement.executeQuery(selectCompanyByName);
-
-			while (rs.next()) {
-				int idCompany = rs.getInt(companyId);
-				allCompany.add(new Company(idCompany, name));
-			}
-			rs.close();
-			c.closeConnection();
-			return allCompany;
-
-		} catch (SQLException e) {
-			logger.error("Error in function getCompanyName");
+			rs = statement.executeQuery(selectCompanyByID);
 		}
-		return allCompany;
+		catch (Exception e) {
+			logger.error("Error in function getCompanyID");
+		}
+		return rs;
 	}
 
+
 	/**
-	 * 
+	 *
 	 * @return all company of data base
 	 */
+	public  ResultSet getAllCompany() {
+		String selectAllCompany = "select * from company";
+		ResultSet rs = null;
+		try {
+			statement = c.getConnection();
+			rs = statement.executeQuery(selectAllCompany);
+		} catch (SQLException e) {
+			logger.error("Error in function getAllCompany");
+		}
+		return rs;
+	}
 
-	public static List<Company> getAllCompany() {
+	/*public static List<Company> getAllCompany() {
 		String selectAllCompany = "select * from company ;";
 		List<Company> allCompany = new ArrayList<>();
 		try {
@@ -98,14 +92,26 @@ public class CompanyDAO {
 			logger.error("Error in function getAllCompany");
 		}
 		return allCompany;
-	}
-	
+	}*/
+
 	/**
-	 * 
+	 *
 	 * @return all company of data base
 	 */
 
-	public static List<Company> getAllCompany(int start) {
+	public  ResultSet getAllCompany(int start) {
+		String selectAllCompany = "select * from company limit 10 offset "+start;
+		ResultSet rs=null;
+
+		try {
+			statement = c.getConnection();
+			rs = statement.executeQuery(selectAllCompany);
+		} catch (SQLException e) {
+			logger.error("Error in function getAllCompany");
+		}
+		return rs;
+	}
+	/*public static List<Company> getAllCompany(int start) {
 		String selectAllCompany = "select * from company limit 10 offset "+start;
 		List<Company> allCompany = new ArrayList<>();
 		try {
@@ -126,6 +132,6 @@ public class CompanyDAO {
 		}
 		return allCompany;
 	}
-
+	 */
 
 }

@@ -3,18 +3,24 @@ package fr.ebiz.computerDatabase.service;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import fr.ebiz.computerDatabase.mapper.CompanyDAO;
-import fr.ebiz.computerDatabase.mapper.ComputerDAO;
+import fr.ebiz.computerDatabase.mapper.CompanyMapper;
+import fr.ebiz.computerDatabase.mapper.ComputerMapper;
 import fr.ebiz.computerDatabase.model.Company;
 import fr.ebiz.computerDatabase.model.Computer;
-import fr.ebiz.computerDatabase.utils.DateTime;
+import fr.ebiz.computerDatabase.validator.DateTime;
 
 public class ComputerService {
 
+	private ComputerMapper computerMap;
+	private CompanyMapper comanyMapper;
+	public ComputerService() {
+		computerMap= new ComputerMapper();
+		comanyMapper= new CompanyMapper();
+	}
 	/**
 	 * updateComputer has 2 actions: insert if action equal false, update if
 	 * action equal false
-	 * 
+	 *
 	 * @param id
 	 *            of computer 0 if action is an update
 	 * @param input
@@ -24,7 +30,7 @@ public class ComputerService {
 	 *            true or false
 	 * @return
 	 */
-	public static String updateComputer(int id, String input[], boolean action) {
+	public String updateComputer(int id, String input[], boolean action) {
 
 		Computer computer;
 		String name = input[0];
@@ -34,44 +40,38 @@ public class ComputerService {
 		String yes = "yes";
 		String no = "l'identifiant de la companie n'existe pas";
 
-		if (input[1] == null) {
-			dateIn = null;
-		} else {
-			dateIn = DateTime.convertDate(input[1]);
-			if (dateIn == null)
-				return input[1];
-		}
-		if (input[2] == null) {
-			dateOut = null;
-		} else {
+		if(input[1]!=null)
+			dateIn=DateTime.convertDate(input[1]);
+		else
+			dateIn=null;
+		if(input[2]!=null)
+			dateOut=DateTime.convertDate(input[2]);
+		else
+			dateOut=null;
 
-			dateOut = DateTime.convertDate(input[2]);
-			if (dateOut == null)
-				return input[2];
-		}
 		if ((input[1] != null) && (input[2] != null))
 			if (DateTime.dateCompare(input[1], input[2]) == false)
 				return invalideDate;
 
 		if (action == false) {
 			if (input[3] != null) {
-				Company cp = CompanyDAO.getCompanyID(Integer.parseInt(input[3]));
+				Company cp = comanyMapper.getCompanyIDMapper(Integer.parseInt(input[3]));
 				computer = new Computer(name, dateIn, dateOut, cp.getId());
 			} else
 				computer = new Computer(name, dateIn, dateOut, 0);
 
-			if (ComputerDAO.insert(computer) == 1)
+			if (computerMap.insertMapper(computer) == 1)
 				return yes;
 
 			else
 				return no;
 		} else {
 			if (input[3] != null) {
-				Company cp = CompanyDAO.getCompanyID(Integer.parseInt(input[3]));
+				Company cp = comanyMapper.getCompanyIDMapper(Integer.parseInt(input[3]));
 				computer = new Computer(id, name, dateIn, dateOut, cp.getId());
 			} else
 				computer = new Computer(id, name, dateIn, dateOut, 0);
-			if (ComputerDAO.update(computer) == 1)
+			if (computerMap.updateMapper(computer) == 1)
 
 				return yes;
 			else
@@ -82,14 +82,14 @@ public class ComputerService {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param id
 	 *            of computer to delete
 	 * @return true if delete correct, false else
 	 */
-	public static boolean deleteCpmouter(int id) {
+	public  boolean deleteCpmouter(int id) {
 
-		int deleletOK = ComputerDAO.delete(id);
+		int deleletOK = computerMap.deleteMapper(id);
 
 		if (deleletOK == 1)
 			return true;
@@ -98,31 +98,39 @@ public class ComputerService {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return list of computer
 	 */
 
-	public static List<Computer> getAllComputer() {
-		return ComputerDAO.getAllComputer();
+	public List<Computer> getAllComputer() {
+		return computerMap.getAllComputerMapper();
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @return sublist  of computer
 	 */
 
-	public static List<Computer> getAllComputer(int limit) {
-		return ComputerDAO.getAllComputer(limit);
+	public  List<Computer> getAllComputer(int limit) {
+		return computerMap.getAllComputerMapper(limit);
 	}
 
+
+
 	/**
-	 * 
+	 *
 	 * @param id
 	 *            of computer
 	 * @return a computer
 	 */
-	public static Computer showDetailsComputer(int id) {
-		return ComputerDAO.getComputerById(id);
+	public Computer showDetailsComputer(int id) {
+		return computerMap.getComputerByIdMapper(id);
+	}
+
+	public List<Computer> getComputerByNameMapper(String name) {
+
+		return computerMap.getComputerByNameMapper(name);
+
 	}
 
 }

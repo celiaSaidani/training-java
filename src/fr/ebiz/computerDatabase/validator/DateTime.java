@@ -1,4 +1,4 @@
-package fr.ebiz.computerDatabase.utils;
+package fr.ebiz.computerDatabase.validator;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -13,6 +13,7 @@ public class DateTime {
 			LocalDateTime formatDateTime = LocalDateTime.parse(date, formatter);
 			return formatDateTime;
 		} catch (DateTimeParseException e) {
+			System.err.println("date invalide, votre opération d'insertion ou de modification non reussie");
 			return null;
 		}
 
@@ -39,5 +40,6 @@ public class DateTime {
 		}
 
 	}
+	
 
 }
