@@ -5,41 +5,40 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class DateTime {
-	static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
-	public static LocalDateTime convertDate(String date) {
-		try {
+    public static LocalDateTime convertDate(String date) {
+        try {
 
-			LocalDateTime formatDateTime = LocalDateTime.parse(date, formatter);
-			return formatDateTime;
-		} catch (DateTimeParseException e) {
-			System.err.println("date invalide, votre opération d'insertion ou de modification non reussie");
-			return null;
-		}
+            LocalDateTime formatDateTime = LocalDateTime.parse(date, formatter);
+            return formatDateTime;
+        } catch (DateTimeParseException e) {
+            System.err.println("date invalide, votre opération d'insertion ou de modification non reussie");
+            return null;
+        }
 
-	}
+    }
 
-	public static String DateToString(LocalDateTime date) {
-		if (date == null)
-			return null;
+    public static String DateToString(LocalDateTime date) {
+        if (date == null)
+            return null;
 
-		String dateString = date.format(formatter);
+        String dateString = date.format(formatter);
 
-		return dateString;
+        return dateString;
 
-	}
+    }
 
-	public static boolean dateCompare(String date1, String date2) {
-		try {
+    public static boolean dateCompare(String date1, String date2) {
+        try {
 
-			LocalDateTime formatDateTime = LocalDateTime.parse(date1, formatter);
-			LocalDateTime formatDateTime2 = LocalDateTime.parse(date2, formatter);
-			return formatDateTime.isBefore(formatDateTime2);
-		} catch (DateTimeParseException e) {
-			return false;
-		}
+            LocalDateTime formatDateTime = LocalDateTime.parse(date1, formatter);
+            LocalDateTime formatDateTime2 = LocalDateTime.parse(date2, formatter);
+            return formatDateTime.isBefore(formatDateTime2);
+        } catch (DateTimeParseException e) {
+            return false;
+        }
 
-	}
-	
+    }
 
 }
