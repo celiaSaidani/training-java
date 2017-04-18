@@ -3,9 +3,10 @@ package fr.ebiz.computerDatabase.service;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import fr.ebiz.computerDatabase.dto.CompanyDTO;
+import fr.ebiz.computerDatabase.dto.ComputerDTO;
 import fr.ebiz.computerDatabase.mapper.CompanyMapper;
 import fr.ebiz.computerDatabase.mapper.ComputerMapper;
-import fr.ebiz.computerDatabase.model.Company;
 import fr.ebiz.computerDatabase.model.Computer;
 import fr.ebiz.computerDatabase.validator.DateTime;
 
@@ -53,8 +54,8 @@ public class ComputerService {
 
         if (action == false) {
             if (input[3] != null) {
-                Company cp = comanyMapper.getCompanyIDMapper(Integer.parseInt(input[3]));
-                computer = new Computer(name, dateIn, dateOut, cp.getId());
+                CompanyDTO cp = comanyMapper.getCompanyIDMapper(Integer.parseInt(input[3]));
+                computer = new Computer(name, dateIn, dateOut, Integer.parseInt(cp.getIdCompany()));
             } else
                 computer = new Computer(name, dateIn, dateOut, 0);
 
@@ -65,8 +66,8 @@ public class ComputerService {
                 return no;
         } else {
             if (input[3] != null) {
-                Company cp = comanyMapper.getCompanyIDMapper(Integer.parseInt(input[3]));
-                computer = new Computer(id, name, dateIn, dateOut, cp.getId());
+                CompanyDTO cp = comanyMapper.getCompanyIDMapper(Integer.parseInt(input[3]));
+                computer = new Computer(id, name, dateIn, dateOut, Integer.parseInt(cp.getIdCompany()));
             } else
                 computer = new Computer(id, name, dateIn, dateOut, 0);
             if (computerMap.updateMapper(computer) == 1)
@@ -97,7 +98,7 @@ public class ComputerService {
      * @return list of computer
      */
 
-    public List<Computer> getAllComputer() {
+    public List<ComputerDTO> getAllComputer() {
         return computerMap.getAllComputerMapper();
     }
 
@@ -105,7 +106,7 @@ public class ComputerService {
      * @return sublist of computer
      */
 
-    public List<Computer> getAllComputer(int limit) {
+    public List<ComputerDTO> getAllComputer(int limit) {
         return computerMap.getAllComputerMapper(limit);
     }
 
@@ -113,11 +114,11 @@ public class ComputerService {
      * @param id of computer
      * @return a computer
      */
-    public Computer showDetailsComputer(int id) {
+    public ComputerDTO showDetailsComputer(int id) {
         return computerMap.getComputerByIdMapper(id);
     }
 
-    public List<Computer> getComputerByNameMapper(String name) {
+    public List<ComputerDTO> getComputerByNameMapper(String name) {
 
         return computerMap.getComputerByNameMapper(name);
 

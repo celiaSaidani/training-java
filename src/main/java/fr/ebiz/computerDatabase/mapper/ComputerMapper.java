@@ -10,6 +10,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import fr.ebiz.computerDatabase.dto.ComputerDTO;
 import fr.ebiz.computerDatabase.model.Computer;
 import fr.ebiz.computerDatabase.persistance.ComputerDAO;
 
@@ -37,9 +38,9 @@ public class ComputerMapper {
         return computerDao.update(comp);
     }
 
-    public List<Computer> getAllComputerMapper() {
+    public List<ComputerDTO> getAllComputerMapper() {
 
-        List<Computer> allComputer = new ArrayList<>();
+        List<ComputerDTO> allComputer = new ArrayList<>();
         ResultSet rs = computerDao.getAllComputer();
 
         try {
@@ -56,8 +57,8 @@ public class ComputerMapper {
         return allComputer;
     }
 
-    public List<Computer> getAllComputerMapper(int start) {
-        List<Computer> allComputer = new ArrayList<>();
+    public List<ComputerDTO> getAllComputerMapper(int start) {
+        List<ComputerDTO> allComputer = new ArrayList<>();
         ResultSet rs = computerDao.getAllComputer(start);
         try {
             while (rs.next()) {
@@ -74,7 +75,7 @@ public class ComputerMapper {
         return allComputer;
     }
 
-    public Computer getComputerByIdMapper(int id) {
+    public ComputerDTO getComputerByIdMapper(int id) {
         ResultSet rs = computerDao.getComputerById(id);
         try {
             if (rs.next()) {
@@ -88,13 +89,13 @@ public class ComputerMapper {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        return new Computer();
+        return new ComputerDTO();
 
     }
 
-    public List<Computer> getComputerByNameMapper(String name) {
+    public List<ComputerDTO> getComputerByNameMapper(String name) {
         ResultSet rs = computerDao.getComputerByName(name);
-        List<Computer> listComputer = new ArrayList<>();
+        List<ComputerDTO> listComputer = new ArrayList<>();
 
         try {
             while (rs.next()) {
@@ -116,7 +117,7 @@ public class ComputerMapper {
      * @param rs
      * @return a computer
      */
-    private Computer getComputer(ResultSet rs) {
+    private ComputerDTO getComputer(ResultSet rs) {
         LocalDateTime inDate = null;
         LocalDateTime outDate = null;
         int idComputer;
@@ -135,14 +136,14 @@ public class ComputerMapper {
                 outDate = LocalDateTime.parse(discontinued, formatter);
             }
             int companyId = rs.getInt(computerColumns[4]);
-
-            return (new Computer(idComputer, nameComputer, inDate, outDate, companyId));
+            Computer comp= new Computer(idComputer, nameComputer, inDate, outDate, companyId);
+            return new ComputerDTO(comp);
 
         } catch (SQLException e) {
 
             logger.error("Error in function getComputer");
         }
-        return new Computer();
+        return new ComputerDTO();
     }
 
 }

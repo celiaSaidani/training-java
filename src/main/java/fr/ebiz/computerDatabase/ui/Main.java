@@ -5,8 +5,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Scanner;
 
-import fr.ebiz.computerDatabase.model.Company;
-import fr.ebiz.computerDatabase.model.Computer;
+import fr.ebiz.computerDatabase.dto.CompanyDTO;
+import fr.ebiz.computerDatabase.dto.ComputerDTO;
 import fr.ebiz.computerDatabase.service.CompanyService;
 import fr.ebiz.computerDatabase.service.ComputerService;
 import fr.ebiz.computerDatabase.validator.DateTime;
@@ -52,20 +52,21 @@ public class Main {
      */
     private void detailsComputerMenu() {
         int choice = 0;
-        List<Computer> computer = computerService.getAllComputer();
+        List<ComputerDTO> computer = computerService.getAllComputer();
         final String response = "cet ordinateur n'existe pas veuillez bien regarder la liste";
         do {
-            for (Computer cp : computer) {
-                System.out.println(cp.getId() + "\t" + cp.getName());
+            for (ComputerDTO cp : computer) {
+                System.out.println(cp.getIdComp() + "\t" + cp.getNameComp());
             }
             System.out.println("entrez 0 pour quitter,ou l'identifiant de l'ordinateur");
             choice = input.nextInt();
-            Computer comp =computerService.showDetailsComputer(choice);
+            ComputerDTO comp =computerService.showDetailsComputer(choice);
 
-            if (comp.getId() == 0) {
+            if (comp.getIdComp() == "0") {
                 System.out.println(response);
             } else {
-                System.out.println(comp.toString(comp.getCompagnyId()));
+                System.err.println(comp.getIdCompany());
+                System.out.println(comp.toString(comp.getIdCompany()));
             }
 
         } while (choice == 0);
@@ -82,13 +83,13 @@ public class Main {
             System.out.println("Entrez Q pour quitter,cliquez entrer pour continuer");
             resp = input.nextLine();
 
-            List<Company> company = companyService.getAllCompany(cpt);
+            List<CompanyDTO> company = companyService.getAllCompany(cpt);
             if (company.isEmpty())
                 break;
             else {
 
-                for (Company cp : company) {
-                    System.out.println(cp.getId() + "\t" + cp.getName());
+                for (CompanyDTO cp : company) {
+                    System.out.println(cp.getIdCompany() + "\t" + cp.getNameCompany());
                 }
                 cpt = cpt + 10;
                 System.out.println("NEXT>>");
@@ -107,14 +108,14 @@ public class Main {
         int cpt = 0;
         do {
             System.out.println("Entrez Q pour quitter,cliquez entrer pour continuer");
-            List<Computer> computer =computerService.getAllComputer(cpt);
+            List<ComputerDTO> computer =computerService.getAllComputer(cpt);
 
             resp = input.nextLine();
             if (computer.isEmpty())
                 break;
             else {
-                for (Computer cp : computer) {
-                    System.out.println(cp.getId() + "\t" + cp.getName());
+                for (ComputerDTO cp : computer) {
+                    System.out.println(cp.getIdComp() + "\t" + cp.getNameComp());
                 }
                 cpt = cpt + 100;
                 System.out.println("NEXT>>");
@@ -174,11 +175,11 @@ public class Main {
         System.out.println("tapez l'identifiant de l'ordinateur");
         choice = input.nextInt();
         detailsComputerMenuById(choice);
-        Computer computer = computerService.showDetailsComputer(choice);
+        ComputerDTO computer = computerService.showDetailsComputer(choice);
 
-        String[] cp = { Integer.toString(computer.getId()), computer.getName(),
-                DateTime.DateToString(computer.getDateIN()), DateTime.DateToString(computer.getDateOut()),
-                Integer.toString(computer.getCompagnyId()) };
+        String[] cp = { computer.getIdComp(), computer.getNameComp(),
+                computer.getDateIn(), computer.getDateOut(),
+                computer.getIdCompany() };
 
         String[] inputA = { "nom", "date d'entrée", "date d'arrêt", "identifiant de la compagnie" };
         int nbrAtt = 4;
@@ -263,8 +264,8 @@ public class Main {
 
     private  void detailsComputerMenuById(int id) {
 
-        Computer comp =computerService.showDetailsComputer(id);
-        System.out.println(comp.toString(comp.getCompagnyId()));
+        ComputerDTO comp =computerService.showDetailsComputer(id);
+        System.out.println(comp.getIdCompany());
     }
 
     public static void main(String[] args) throws SQLException {

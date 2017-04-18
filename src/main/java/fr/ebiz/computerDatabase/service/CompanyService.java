@@ -2,8 +2,8 @@ package fr.ebiz.computerDatabase.service;
 
 import java.util.List;
 
+import fr.ebiz.computerDatabase.dto.CompanyDTO;
 import fr.ebiz.computerDatabase.mapper.CompanyMapper;
-import fr.ebiz.computerDatabase.model.Company;
 
 public class CompanyService {
     private CompanyMapper companyMapper;
@@ -16,14 +16,14 @@ public class CompanyService {
     /**
      * @return list of all company of dataBase
      */
-    public List<Company> getAllCompany() {
+    public List<CompanyDTO> getAllCompany() {
         return companyMapper.getAllCompanyMapper();
     }
 
     /**
      * @return list of all company of dataBase
      */
-    public List<Company> getAllCompany(int start) {
+    public List<CompanyDTO> getAllCompany(int start) {
         return companyMapper.getAllCompanyMapper(start);
     }
 

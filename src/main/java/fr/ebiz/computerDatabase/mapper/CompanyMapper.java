@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import fr.ebiz.computerDatabase.dto.CompanyDTO;
 import fr.ebiz.computerDatabase.model.Company;
 import fr.ebiz.computerDatabase.persistance.CompanyDAO;
 
@@ -18,15 +19,16 @@ public class CompanyMapper {
         companyDAO = new CompanyDAO();
     }
 
-    public List<Company> getAllCompanyMapper() {
+    public List<CompanyDTO> getAllCompanyMapper() {
 
         ResultSet rs = companyDAO.getAllCompany();
-        List<Company> allCompany = new ArrayList<>();
+        List<CompanyDTO> allCompany = new ArrayList<>();
         try {
             while (rs.next()) {
                 int idCompany = rs.getInt(companyId);
                 String name = rs.getString(companyName);
-                allCompany.add(new Company(idCompany, name));
+                Company company= new Company(idCompany,name);
+                allCompany.add(new CompanyDTO(company));
             }
         } catch (SQLException e) {
             // TODO Auto-generated catch block
@@ -44,16 +46,17 @@ public class CompanyMapper {
 
     }
 
-    public List<Company> getAllCompanyMapper(int start) {
+    public List<CompanyDTO> getAllCompanyMapper(int start) {
         ResultSet rs = companyDAO.getAllCompany(start);
 
-        List<Company> allCompany = new ArrayList<>();
+        List<CompanyDTO> allCompany = new ArrayList<>();
 
         try {
             while (rs.next()) {
                 int idCompany = rs.getInt(companyId);
                 String name = rs.getString(companyName);
-                allCompany.add(new Company(idCompany, name));
+                Company comp = new Company(idCompany, name);
+                allCompany.add(new CompanyDTO(comp));
             }
         } catch (SQLException e) {
             // TODO Auto-generated catch block
@@ -70,14 +73,15 @@ public class CompanyMapper {
         return allCompany;
     }
 
-    public Company getCompanyIDMapper(int id) {
+    public CompanyDTO getCompanyIDMapper(int id) {
         ResultSet rs = companyDAO.getCompanyID(id);
         String name = null;
         try {
             if (rs.next()) {
                 name = rs.getString("name");
             }
-            return new Company(id, name);
+            Company comp= new Company(id,name);
+            return new CompanyDTO(comp);
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -90,6 +94,6 @@ public class CompanyMapper {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        return new Company();
+        return new CompanyDTO();
     }
 }
