@@ -13,7 +13,7 @@ public class DateTime {
             LocalDateTime formatDateTime = LocalDateTime.parse(date, formatter);
             return formatDateTime;
         } catch (DateTimeParseException e) {
-            System.err.println("date invalide, votre opération d'insertion ou de modification non reussie");
+            System.err.println("date invalide, votre opération d'insertin ou de modification non reussie");
             return null;
         }
 
