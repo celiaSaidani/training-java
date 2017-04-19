@@ -15,7 +15,7 @@ import fr.ebiz.computerDatabase.model.Computer;
 import fr.ebiz.computerDatabase.persistance.ComputerDAO;
 
 public class ComputerMapper {
-    private static String[] computerColumns = { "id", "name", "introduced", "discontinued", "company_id" };
+    private static String[] computerColumns = { "id", "name", "introduced", "discontinued", "company_id","companyName" };
     private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S");
     private static final Logger logger = LoggerFactory.getLogger(ComputerDAO.class);
 
@@ -136,8 +136,10 @@ public class ComputerMapper {
                 outDate = LocalDateTime.parse(discontinued, formatter);
             }
             int companyId = rs.getInt(computerColumns[4]);
+            String companyName=rs.getString(computerColumns[5]);
             Computer comp= new Computer(idComputer, nameComputer, inDate, outDate, companyId);
-            return new ComputerDTO(comp);
+
+            return new ComputerDTO(comp,companyName);
 
         } catch (SQLException e) {
 

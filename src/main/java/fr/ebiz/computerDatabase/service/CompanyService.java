@@ -27,4 +27,11 @@ public class CompanyService {
         return companyMapper.getAllCompanyMapper(start);
     }
 
+    /**
+     * @return list of all company by id
+     */
+    public CompanyDTO getCompanybyId(int id) {
+        return companyMapper.getCompanyIDMapper(id);
+    }
+
 }

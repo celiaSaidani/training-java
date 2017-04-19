@@ -125,7 +125,8 @@ public class ComputerDAO {
 
     public ResultSet getAllComputer() {
 
-        String selectAllComputer = "select * from computer";
+        String selectAllComputer = "select computer.id, computer.name, computer.introduced, computer.discontinued ,"
+                + "company.id as company_id, company.name as companyName from computer left join company on computer.company_id = company.id";
         statement = c.getConnection();
         ResultSet rs = null;
         try {
@@ -136,6 +137,7 @@ public class ComputerDAO {
         return rs;
 
     }
+
 
     /**
      * @return list off all computer

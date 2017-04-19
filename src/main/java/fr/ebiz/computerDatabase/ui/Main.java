@@ -65,7 +65,6 @@ public class Main {
             if (comp.getIdComp() == "0") {
                 System.out.println(response);
             } else {
-                System.err.println(comp.getIdCompany());
                 System.out.println(comp.toString(comp.getIdCompany()));
             }
 

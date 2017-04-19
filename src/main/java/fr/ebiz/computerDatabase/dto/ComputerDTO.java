@@ -9,16 +9,18 @@ public class ComputerDTO {
     private String dateIn;
     private String dateOut;
     private String idCompany;
+    private String nameCompany;
     public ComputerDTO() {
         // TODO Auto-generated constructor stub
     }
-    public ComputerDTO(Computer comp) {
+    public ComputerDTO(Computer comp,String companyName) {
 
         this.idComp=Integer.toString(comp.getId());
         this.nameComp=comp.getName();
         this.dateIn=DateTime.DateToString(comp.getDateIN());
         this.dateOut=DateTime.DateToString(comp.getDateOut());
-        this.idCompany=Integer.toOctalString(comp.getCompagnyId());
+        this.idCompany=Integer.toString(comp.getCompagnyId());
+        this.nameCompany=companyName;
     }
 
     public String getIdComp() {
@@ -64,6 +66,13 @@ public class ComputerDTO {
     public String toString(String id) {
         return "Computer [id=" + idComp + ", name=" + nameComp + ", dateIN=" + dateIn + ", dateOut=" + dateOut
                 + " , idCompany= " + id + "]";
+    }
+
+    public String getNameCompany() {
+        return nameCompany;
+    }
+    public void setNameCompany(String nameCompany) {
+        this.nameCompany = nameCompany;
     }
 
 }

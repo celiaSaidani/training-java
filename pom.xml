@@ -7,20 +7,10 @@
 	<packaging>war</packaging>
 	<name>ComputerDataBase</name>
 	<build>
-	<pluginManagement>
-      <plugins>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-surefire-plugin</artifactId>
-          <version> 2.19.1</version>
-          <configuration>
-                <includes>
-                    <include>fr.ebiz.computerDatabase.test.*</include>
-                </includes>
-            </configuration>
-        </plugin>
-      </plugins>
-    </pluginManagement>
+		<pluginManagement>
+			<plugins>
+			</plugins>
+		</pluginManagement>
 		<sourceDirectory>src/main/java</sourceDirectory>
 		<testSourceDirectory>src/test/java</testSourceDirectory>
 		<resources>
@@ -47,23 +37,18 @@
 					<warSourceDirectory>WebContent</warSourceDirectory>
 				</configuration>
 			</plugin>
-			 <!--<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-checkstyle-plugin</artifactId>
-				<configuration>
-					<configLocation>${basedir}/src/fr.ebiz.computerDatabase.test/resources/checkstyle.xml</configLocation>
-					<suppressionsLocation>${basedir}/src/fr.ebiz.computerDatabase.test/resources/suppressions.xml</suppressionsLocation>
-					<consoleOutput>true</consoleOutput>
-				</configuration>
-				<executions>
-					<execution>
-						<phase>verify</phase>
-						<goals>
-							<goal>check</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>-->
+
+			<!--<plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-checkstyle-plugin</artifactId> 
+				<configuration> <configLocation>${basedir}/src/fr.ebiz.computerDatabase.test/resources/checkstyle.xml</configLocation> 
+				<suppressionsLocation>${basedir}/src/fr.ebiz.computerDatabase.test/resources/suppressions.xml</suppressionsLocation> 
+				<consoleOutput>true</consoleOutput> </configuration> <executions> <execution> 
+				<phase>verify</phase> <goals> <goal>check</goal> </goals> </execution> </executions> 
+				</plugin> -->
+			<plugin>
+				<groupId>org.apache.tomcat.maven</groupId>
+				<artifactId>tomcat8-maven-plugin</artifactId>
+				<version>3.0-r1655215</version>
+			</plugin>
 		</plugins>
 	</build>
 	<dependencies>
@@ -78,7 +63,7 @@
 			<version>4.12</version>
 		</dependency>
 		<dependency>
-		
+
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
 			<version>1.7.25</version>
@@ -104,12 +89,22 @@
 			<scope>provided</scope>
 
 		</dependency>
+
 		<dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>jstl</artifactId>
-            <version>1.2</version>
-        </dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.apache.tomcat</groupId>
+			<artifactId>tomcat-catalina</artifactId>
+			<version>8.0.43</version>
+		</dependency>
+		
+
+
 	</dependencies>
-	
+
 
 </project>
