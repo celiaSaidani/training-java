@@ -1,6 +1,7 @@
 package fr.ebiz.computerDatabase.mapper;
 
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -19,13 +20,13 @@ public class ComputerMapper {
     private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S");
     private static final Logger logger = LoggerFactory.getLogger(ComputerDAO.class);
 
-    private ComputerDAO computerDao;
+
 
     public ComputerMapper() {
-        computerDao = new ComputerDAO();
+
     }
 
-    public int insertMapper(Computer comp) {
+    /*  public int insertMapper(Computer comp) {
 
         return computerDao.insert(comp);
     }
@@ -37,11 +38,10 @@ public class ComputerMapper {
     public int updateMapper(Computer comp) {
         return computerDao.update(comp);
     }
-
-    public List<ComputerDTO> getAllComputerMapper() {
+     */
+    public List<ComputerDTO> getAllComputerMapper(ResultSet rs) {
 
         List<ComputerDTO> allComputer = new ArrayList<>();
-        ResultSet rs = computerDao.getAllComputer();
 
         try {
             while (rs.next()) {
@@ -57,9 +57,9 @@ public class ComputerMapper {
         return allComputer;
     }
 
-    public List<ComputerDTO> getAllComputerMapper(int start) {
+    public List<ComputerDTO> getAllComputerMapperPage(ResultSet rs) {
         List<ComputerDTO> allComputer = new ArrayList<>();
-        ResultSet rs = computerDao.getAllComputer(start);
+
         try {
             while (rs.next()) {
                 allComputer.add(getComputer(rs));
@@ -75,8 +75,8 @@ public class ComputerMapper {
         return allComputer;
     }
 
-    public ComputerDTO getComputerByIdMapper(int id) {
-        ResultSet rs = computerDao.getComputerById(id);
+    public ComputerDTO getComputerByIdMapper(int id,ResultSet rs) {
+
         try {
             if (rs.next()) {
 
@@ -93,12 +93,13 @@ public class ComputerMapper {
 
     }
 
-    public List<ComputerDTO> getComputerByNameMapper(String name) {
-        ResultSet rs = computerDao.getComputerByName(name);
+    public List<ComputerDTO> getComputerByNameMapper(ResultSet rs) {
+
         List<ComputerDTO> listComputer = new ArrayList<>();
 
         try {
             while (rs.next()) {
+
                 listComputer.add(getComputer(rs));
 
             }
@@ -136,13 +137,18 @@ public class ComputerMapper {
                 outDate = LocalDateTime.parse(discontinued, formatter);
             }
             int companyId = rs.getInt(computerColumns[4]);
+
+            ResultSetMetaData rsmd = rs.getMetaData();
+            String name = rsmd.getColumnName(5);
             String companyName=rs.getString(computerColumns[5]);
             Computer comp= new Computer(idComputer, nameComputer, inDate, outDate, companyId);
+
+
 
             return new ComputerDTO(comp,companyName);
 
         } catch (SQLException e) {
-
+            e.printStackTrace();
             logger.error("Error in function getComputer");
         }
         return new ComputerDTO();

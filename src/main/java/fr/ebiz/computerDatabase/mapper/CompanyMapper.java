@@ -7,21 +7,15 @@ import java.util.List;
 
 import fr.ebiz.computerDatabase.dto.CompanyDTO;
 import fr.ebiz.computerDatabase.model.Company;
-import fr.ebiz.computerDatabase.persistance.CompanyDAO;
 
 public class CompanyMapper {
     private final String companyName = "name";
     private final String companyId = "id";
-    private CompanyDAO companyDAO;
 
-    public CompanyMapper() {
-        // TODO Auto-generated constructor stub
-        companyDAO = new CompanyDAO();
-    }
 
-    public List<CompanyDTO> getAllCompanyMapper() {
 
-        ResultSet rs = companyDAO.getAllCompany();
+    public List<CompanyDTO> getAllCompanyMapper(ResultSet rs) {
+
         List<CompanyDTO> allCompany = new ArrayList<>();
         try {
             while (rs.next()) {
@@ -46,8 +40,7 @@ public class CompanyMapper {
 
     }
 
-    public List<CompanyDTO> getAllCompanyMapper(int start) {
-        ResultSet rs = companyDAO.getAllCompany(start);
+    public List<CompanyDTO> getAllCompanyMapperPage(ResultSet rs ) {
 
         List<CompanyDTO> allCompany = new ArrayList<>();
 
@@ -73,8 +66,7 @@ public class CompanyMapper {
         return allCompany;
     }
 
-    public CompanyDTO getCompanyIDMapper(int id) {
-        ResultSet rs = companyDAO.getCompanyID(id);
+    public CompanyDTO getCompanyIDMapper(int id,ResultSet rs) {
         String name = null;
         try {
             if (rs.next()) {

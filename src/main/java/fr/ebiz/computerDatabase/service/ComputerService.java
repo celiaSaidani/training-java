@@ -1,23 +1,26 @@
 package fr.ebiz.computerDatabase.service;
 
+import java.sql.ResultSet;
 import java.time.LocalDateTime;
 import java.util.List;
 
 import fr.ebiz.computerDatabase.dto.CompanyDTO;
 import fr.ebiz.computerDatabase.dto.ComputerDTO;
-import fr.ebiz.computerDatabase.mapper.CompanyMapper;
 import fr.ebiz.computerDatabase.mapper.ComputerMapper;
 import fr.ebiz.computerDatabase.model.Computer;
+import fr.ebiz.computerDatabase.persistance.ComputerDAO;
 import fr.ebiz.computerDatabase.validator.DateTime;
 
 public class ComputerService {
 
     private ComputerMapper computerMap;
-    private CompanyMapper comanyMapper;
+    private ComputerDAO computerDao;
+    private CompanyService companyService;
 
     public ComputerService() {
         computerMap = new ComputerMapper();
-        comanyMapper = new CompanyMapper();
+        computerDao = new ComputerDAO();
+        companyService= new CompanyService();
     }
 
     /**
@@ -58,23 +61,24 @@ public class ComputerService {
 
         if (action == false) {
             if (input[3] != null) {
-                CompanyDTO cp = comanyMapper.getCompanyIDMapper(Integer.parseInt(input[3]));
+
+                CompanyDTO cp = companyService.getCompanybyId(Integer.parseInt(input[3]));
                 computer = new Computer(name, dateIn, dateOut, Integer.parseInt(cp.getIdCompany()));
             } else
                 computer = new Computer(name, dateIn, dateOut, 0);
 
-            if (computerMap.insertMapper(computer) == 1)
+            if (computerDao.insert(computer) == 1)
                 return true;
 
             else
                 return false;
         } else {
             if (input[3] != null) {
-                CompanyDTO cp = comanyMapper.getCompanyIDMapper(Integer.parseInt(input[3]));
+                CompanyDTO cp  = companyService.getCompanybyId(Integer.parseInt(input[3]));
                 computer = new Computer(id, name, dateIn, dateOut, Integer.parseInt(cp.getIdCompany()));
             } else
                 computer = new Computer(id, name, dateIn, dateOut, 0);
-            if (computerMap.updateMapper(computer) == 1)
+            if (computerDao.update(computer) == 1)
 
                 return true;
             else
@@ -90,7 +94,7 @@ public class ComputerService {
      */
     public boolean deleteCpmouter(int id) {
 
-        int deleletOK = computerMap.deleteMapper(id);
+        int deleletOK = computerDao.delete(id);
 
         if (deleletOK == 1)
             return true;
@@ -103,7 +107,8 @@ public class ComputerService {
      */
 
     public List<ComputerDTO> getAllComputer() {
-        return computerMap.getAllComputerMapper();
+        ResultSet rs = computerDao.getAllComputer();
+        return computerMap.getAllComputerMapper(rs);
     }
 
     /**
@@ -111,7 +116,8 @@ public class ComputerService {
      */
 
     public List<ComputerDTO> getAllComputer(int limit) {
-        return computerMap.getAllComputerMapper(limit);
+        ResultSet rs = computerDao.getAllComputer(limit);
+        return computerMap.getAllComputerMapper(rs);
     }
 
     /**
@@ -119,12 +125,13 @@ public class ComputerService {
      * @return a computer
      */
     public ComputerDTO showDetailsComputer(int id) {
-        return computerMap.getComputerByIdMapper(id);
+        ResultSet rs = computerDao.getComputerById(id);
+        return computerMap.getComputerByIdMapper(id,rs);
     }
 
     public List<ComputerDTO> getComputerByNameMapper(String name) {
-
-        return computerMap.getComputerByNameMapper(name);
+        ResultSet rs = computerDao.getComputerByName(name);
+        return computerMap.getComputerByNameMapper(rs);
 
     }
 
