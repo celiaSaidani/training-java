@@ -29,28 +29,32 @@ public class ComputerService {
      * @param action true or false
      * @return
      */
-    public String updateComputer(int id, String input[], boolean action) {
+    public boolean updateComputer(int id, String input[], boolean action) {
 
         Computer computer;
         String name = input[0];
         LocalDateTime dateIn;
         LocalDateTime dateOut;
         String invalideDate = "la date d'arret avant la date d'entrée";
-        String yes = "yes";
-        String no = "l'identifiant de la companie n'existe pas";
+        String nameRequired="nom obligatoire";
 
-        if (input[1] != null)
+        if(input[0].equals(""))
+            throw new NullPointerException(nameRequired);
+
+        if (!input[1].equals(""))
             dateIn = DateTime.convertDate(input[1]);
         else
             dateIn = null;
-        if (input[2] != null)
+        if (!input[2].equals(""))
             dateOut = DateTime.convertDate(input[2]);
         else
             dateOut = null;
 
-        if ((input[1] != null) && (input[2] != null))
-            if (DateTime.dateCompare(input[1], input[2]) == false)
-                return invalideDate;
+        if ((!input[1].equals("")) && (!input[2].equals("")))
+            if (DateTime.dateCompare(input[1], input[2]) == false){
+                System.err.println(invalideDate);
+                return false;
+            }
 
         if (action == false) {
             if (input[3] != null) {
@@ -60,10 +64,10 @@ public class ComputerService {
                 computer = new Computer(name, dateIn, dateOut, 0);
 
             if (computerMap.insertMapper(computer) == 1)
-                return yes;
+                return true;
 
             else
-                return no;
+                return false;
         } else {
             if (input[3] != null) {
                 CompanyDTO cp = comanyMapper.getCompanyIDMapper(Integer.parseInt(input[3]));
@@ -72,9 +76,9 @@ public class ComputerService {
                 computer = new Computer(id, name, dateIn, dateOut, 0);
             if (computerMap.updateMapper(computer) == 1)
 
-                return yes;
+                return true;
             else
-                return no;
+                return false;
 
         }
 

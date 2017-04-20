@@ -153,13 +153,15 @@ public class Main {
                 if (date == null)
                     return;
             }
-
         }
-        String modif = computerService.updateComputer(0, inputText, false);
-        if (modif.equals(yes))
+
+        /* try {
+            String modif = computerService.updateComputer(0, inputText, false);
+
             System.out.println("insertion reussie");
-        else
-            System.err.println("insertion non effectué " + modif);
+        } catch (NullPointerException e) {
+            System.err.println(e.getMessage());
+        }*/
 
     }
 
@@ -210,13 +212,13 @@ public class Main {
             }
         }
         int id = Integer.parseInt(cp[0]);
-        String modif = computerService.updateComputer(id, inputText, true);
+        /*  String modif = computerService.updateComputer(id, inputText, true);
 
         if (modif.equals(yes))
             System.out.println("modification reussie");
         else
             System.err.println("modification non effectué " + modif);
-
+         */
     }
 
     /**
