@@ -1,7 +1,6 @@
 package fr.ebiz.computerDatabase.mapper;
 
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -137,9 +136,6 @@ public class ComputerMapper {
                 outDate = LocalDateTime.parse(discontinued, formatter);
             }
             int companyId = rs.getInt(computerColumns[4]);
-
-            ResultSetMetaData rsmd = rs.getMetaData();
-            String name = rsmd.getColumnName(5);
             String companyName=rs.getString(computerColumns[5]);
             Computer comp= new Computer(idComputer, nameComputer, inDate, outDate, companyId);
 

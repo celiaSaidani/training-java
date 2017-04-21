@@ -108,6 +108,7 @@ public class ComputerService {
 
     public List<ComputerDTO> getAllComputer() {
         ResultSet rs = computerDao.getAllComputer();
+        System.out.println("resultsut "+rs);
         return computerMap.getAllComputerMapper(rs);
     }
 

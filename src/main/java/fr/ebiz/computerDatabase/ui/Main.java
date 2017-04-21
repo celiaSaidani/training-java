@@ -53,6 +53,7 @@ public class Main {
     private void detailsComputerMenu() {
         int choice = 0;
         List<ComputerDTO> computer = computerService.getAllComputer();
+
         final String response = "cet ordinateur n'existe pas veuillez bien regarder la liste";
         do {
             for (ComputerDTO cp : computer) {
@@ -129,7 +130,6 @@ public class Main {
         String inputText[] = new String[nbrAtt];
         String[] inputA = { "nom", "date d'entrée", "date d'arrêt", "identifiant de la compagnie" };
         String response;
-        String yes = "yes";
 
         inputText[0] = input.nextLine();
 
@@ -186,7 +186,6 @@ public class Main {
         int nbrAtt = 4;
         String inputText[] = new String[nbrAtt];
         String response;
-        String yes = "yes";
 
         inputText[0] = input.nextLine();
 
@@ -211,8 +210,8 @@ public class Main {
                     return;
             }
         }
-        int id = Integer.parseInt(cp[0]);
-        /*  String modif = computerService.updateComputer(id, inputText, true);
+        /* int id = Integer.parseInt(cp[0]);
+          String modif = computerService.updateComputer(id, inputText, true);
 
         if (modif.equals(yes))
             System.out.println("modification reussie");

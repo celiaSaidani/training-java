@@ -109,26 +109,13 @@ public class ComputerDAO {
     /**
      * @return list off all computer
      */
-    /*
-     * public static List<Computer> getAllComputer() {
-     *
-     * String selectAllComputer = "select * from computer"; statement =
-     * c.getConnection(); ResultSet rs; List<Computer> allComputer = new
-     * ArrayList<>(); try { rs = statement.executeQuery(selectAllComputer);
-     *
-     * while (rs.next()) { allComputer.add(getComputer(rs)); } rs.close();
-     * c.closeConnection(); return allComputer; } catch (SQLException e) {
-     * logger.error("Error in function getAllComputer"); } return allComputer;
-     *
-     * }
-     */
 
     public ResultSet getAllComputer() {
-
+        ResultSet rs = null;
         String selectAllComputer = "select computer.id, computer.name, computer.introduced, computer.discontinued ,"
                 + "company.id as company_id, company.name as companyName from computer left join company on computer.company_id = company.id";
         statement = c.getConnection();
-        ResultSet rs = null;
+
         try {
             rs = statement.executeQuery(selectAllComputer);
         } catch (SQLException e) {
@@ -142,23 +129,10 @@ public class ComputerDAO {
     /**
      * @return list off all computer
      */
-    /*
-     * public static List<Computer> getAllComputer(int start) {
-     *
-     * String selectAllComputer =
-     * "select * from computer limit 100 offset "+start ; statement =
-     * c.getConnection(); ResultSet rs; List<Computer> allComputer = new
-     * ArrayList<>(); try { rs = statement.executeQuery(selectAllComputer);
-     *
-     * while (rs.next()) { allComputer.add(getComputer(rs)); } rs.close();
-     * c.closeConnection(); return allComputer; } catch (SQLException e) {
-     * logger.error("Error in function getAllComputer"); } return allComputer;
-     *
-     * }
-     */
 
     public ResultSet getAllComputer(int start) {
-        String selectAllComputer = "select * from computer limit 100 offset " + start;
+        String selectAllComputer = "select computer.id, computer.name, computer.introduced, computer.discontinued ,"
+                + "company.id as company_id, company.name as companyName from computer left join company on computer.company_id = company.id limit 100 offset " + start;
 
         ResultSet rs = null;
         try {
@@ -189,26 +163,14 @@ public class ComputerDAO {
         return rs;
     }
 
-    /*
-     * public static Computer getComputerById(int id) { String
-     * selectComputerByid = "select * from computer where id=" +
-     * Integer.toString(id); try {
-     *
-     * statement = c.getConnection(); ResultSet rs =
-     * statement.executeQuery(selectComputerByid); if (rs.next()) {
-     *
-     * return (getComputer(rs)); } rs.close(); c.closeConnection();
-     *
-     * } catch (Exception e) { logger.error("Error in function getCompanyById");
-     * } return new Computer(); }
-     */
     /**
      * @param name
      * @return list of computer that have same name
      */
     public ResultSet getComputerByName(String name) {
         ResultSet rs = null;
-        String selectComputeryByName = "select * from computer where name= " + "'" + name + "'";
+        String selectComputeryByName = "select computer.id, computer.name, computer.introduced, computer.discontinued ,"
+                + "company.id as company_id, company.name as companyName from computer left join company on computer.company_id = company.id where name= " + "'" + name + "'";
         try {
             statement = c.getConnection();
             rs = statement.executeQuery(selectComputeryByName);
@@ -218,22 +180,5 @@ public class ComputerDAO {
         return rs;
 
     }
-
-    /*
-     * public static List<Computer> getComputerByName(String name) { String
-     * selectComputeryByName = "select * from computer where name= " + "'" +
-     * name + "'"; List<Computer> listComputer = new ArrayList<>();
-     *
-     * try { statement = c.getConnection(); ResultSet rs =
-     * statement.executeQuery(selectComputeryByName);
-     *
-     * while (rs.next()) { listComputer.add(getComputer(rs));
-     *
-     * } return listComputer;
-     *
-     * } catch (SQLException e) {
-     * logger.error("Error in function getComputerByName "); } return
-     * listComputer; }
-     */
 
 }
