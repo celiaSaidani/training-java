@@ -20,24 +20,6 @@ public class ComputerMapper {
     private static final Logger logger = LoggerFactory.getLogger(ComputerDAO.class);
 
 
-
-    public ComputerMapper() {
-
-    }
-
-    /*  public int insertMapper(Computer comp) {
-
-        return computerDao.insert(comp);
-    }
-
-    public int deleteMapper(int id) {
-        return computerDao.delete(id);
-    }
-
-    public int updateMapper(Computer comp) {
-        return computerDao.update(comp);
-    }
-     */
     public List<ComputerDTO> getAllComputerMapper(ResultSet rs) {
 
         List<ComputerDTO> allComputer = new ArrayList<>();

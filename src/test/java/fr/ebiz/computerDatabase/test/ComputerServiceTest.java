@@ -9,13 +9,6 @@ import fr.ebiz.computerDatabase.service.ComputerService;
 
 public class ComputerServiceTest {
     ComputerService computerService;
-    String no = "l'identifiant de la companie n'existe pas";
-    // @Test
-    /*public void testUpdateComputer() {
-        computerService = new ComputerService();
-        String input[]= new String[5];
-        assertEquals(no,computerService.updateComputer(0,input, true));
-    }*/
 
     @Test
     public void testDeleteCpmouter() {

@@ -170,7 +170,7 @@ public class ComputerDAO {
     public ResultSet getComputerByName(String name) {
         ResultSet rs = null;
         String selectComputeryByName = "select computer.id, computer.name, computer.introduced, computer.discontinued ,"
-                + "company.id as company_id, company.name as companyName from computer left join company on computer.company_id = company.id where name= " + "'" + name + "'";
+                + "company.id as company_id, company.name as companyName from computer left join company on computer.company_id = company.id where computer.name= " + "'" + name + "'";
         try {
             statement = c.getConnection();
             rs = statement.executeQuery(selectComputeryByName);

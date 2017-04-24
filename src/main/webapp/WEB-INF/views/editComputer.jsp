@@ -8,9 +8,9 @@
 <title>Computer Database</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!-- Bootstrap -->
-<link href="../css/bootstrap.min.css" rel="stylesheet" media="screen">
-<link href="../css/font-awesome.css" rel="stylesheet" media="screen">
-<link href="../css/main.css" rel="stylesheet" media="screen">
+<link href="./css/bootstrap.min.css" rel="stylesheet" media="screen">
+<link href="./css/font-awesome.css" rel="stylesheet" media="screen">
+<link href="./css/main.css" rel="stylesheet" media="screen">
 </head>
 <body>
     <header class="navbar navbar-inverse navbar-fixed-top">
@@ -32,7 +32,7 @@
                         <fieldset>
                             <div class="form-group">
                                 <label for="computerName">Computer name</label>
-                                <input type="text" class="form-control" id="computerName" placeholder="Computer name">
+                                <input type="text" class="form-control" id="computerName" placeholder="---">
                             </div>
                             <div class="form-group">
                                 <label for="introduced">Introduced date</label>
