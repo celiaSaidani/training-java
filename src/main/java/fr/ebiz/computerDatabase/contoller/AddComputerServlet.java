@@ -10,11 +10,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.eclipse.jdt.internal.compiler.ast.SynchronizedStatement;
+
 import fr.ebiz.computerDatabase.dto.CompanyDTO;
 import fr.ebiz.computerDatabase.service.CompanyService;
 import fr.ebiz.computerDatabase.service.ComputerService;
 import fr.ebiz.computerDatabase.validator.DateTime;
-import jdk.internal.dynalink.beans.StaticClass;
+
 
 /**
  * Servlet implementation class AddComputerServlet
@@ -27,7 +29,7 @@ public class AddComputerServlet extends HttpServlet {
     final static String DATEIN="introduced";
     final static String DATEOUT="discontinued";
     final static String idCompany="Company";
-    final static String time="00:00:00";
+    final  static String time=" 00:00:00";
     CompanyService companyService= new CompanyService();
     ComputerService computerService = new ComputerService();
     //final
@@ -65,16 +67,18 @@ public class AddComputerServlet extends HttpServlet {
         String company= request.getParameter(idCompany);
 
         String input[]={name,dateIn,dateout,company};
-        System.err.println(input.length);
+
         LocalDateTime date1=null,date2 = null;
 
         if(!dateIn.equals("")){
-            date1=DateTime.convertDate(dateIn);
+            input[1] = dateIn.trim().concat(" 00:00:00");
+            date1=DateTime.convertDate(input[1]);
             if(date1==null)
                 return;
         }
         if(!dateout.equals("")){
-            date2=DateTime.convertDate(dateout);
+            input[2] = dateout.trim().concat(" 00:00:00");
+            date2=DateTime.convertDate(input[2]);
             if(date2==null)
                 return;
         }

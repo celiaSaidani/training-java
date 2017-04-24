@@ -12,8 +12,7 @@
 <link href="css/font-awesome.css" rel="stylesheet" media="screen">
 <link href="css/main.css" rel="stylesheet" media="screen">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.5.3/css/bootstrapValidator.min.css" />
-
-
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.min.css" />
 
 </head>
 <body>
@@ -28,26 +27,36 @@
             <div class="row">
                 <div class="col-xs-8 col-xs-offset-2 box">
                     <h1>Add Computer</h1>
-                    <form id="Formulaire" role="form" data-toggle="validator" method="POST">
+                    <form id="Formulaire" role="form" method="POST">
                         <fieldset>
                             <div class="form-group">
                                 <label for="computerName">Computer name</label>
                                 <input  class="form-control" id="computerName" name="computerName" placeholder="Computer name" >
                             </div>
                             <div class="form-group">
-                                <label for="introduced">Introduced date</label>
-                                <input type="date" class="form-control" id="introduced" name="introduced" placeholder="Introduced date">
+                                <label class="control-label">Introduced date</label>
+                                <div class="date">
+                                    <div class="input-group input-append date" id="intoducedPicker">
+                                        <input type="text" class="form-control" name="introduced" id="introduced"/>
+                                        <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
+                                    </div>
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label for="discontinued">Discontinued date</label>
-                                <input type="date" class="form-control" id="discontinued" name="discontinued" placeholder="Discontinued date">
+                                <div class="date">
+                                    <div class="input-group input-append date" id="discontinuedPicker">
+                                        <input type="text" class="form-control" name="discontinued" id="discontinued"/>
+                                        <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
+                                    </div>
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label for="companyId">Company</label>
                                 <select class="form-control" id="companyId" name="company" >
                                    <c:forEach var="company" items="${requestScope.company}">
                                     <option value=${company.idCompany}>${company.nameCompany}</option>
-                                 </c:forEach>
+                                 	</c:forEach>
                                 </select>
                             </div>                  
                         </fieldset>
@@ -63,42 +72,58 @@
     </section>
 </body>
 <script src="js/jquery.min.js"></script>
-<script src="js/bootstrap-datepicker.js"></script>
+<script src="js/jbootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.5.3/js/bootstrapValidator.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.min.js"></script>
+
 <script type="text/javascript">
 $(document).ready(function() {
-	$("#Formulaire").bootstrapValidator({
-		feedbackIcons: {
-            valid: 'glyphicon glyphicon-ok',
-            invalid: 'glyphicon glyphicon-remove',
-            validating: 'glyphicon glyphicon-refresh'
-        },
-        fields: {
-        	computerName: {
-                validators: {
-                    notEmpty: {
-                        message: 'Le nom est obligatoire'
+    $('#intoducedPicker')
+        .datepicker({
+            format: 'yyyy-mm-dd'
+        }).on('changeDate', function (e) {
+  			 $('#Formulaire').bootstrapValidator('revalidateField', 'introduced');
+				});
+        
+    $('#discontinuedPicker')
+        .datepicker({
+            format: 'yyyy-mm-dd'
+        }).on('changeDate', function (e) {
+  			 $('#Formulaire').bootstrapValidator('revalidateField', 'discontinued');
+				});
+        
+    $("#Formulaire").bootstrapValidator({
+	    		feedbackIcons: {
+	                valid: 'glyphicon glyphicon-ok',
+	                invalid: 'glyphicon glyphicon-remove',
+	                validating: 'glyphicon glyphicon-refresh'
+	            },
+	            fields: {
+								computerName: {
+                	validators: {
+                  	notEmpty: {
+                    	message: 'The name is required'
+                      }
+                     }
+	                },
+								introduced: {
+									validators: {
+										date: {
+                    	format: 'YYYY-MM-DD',
+                      message: 'The value is not a valid date'
+                      }
+	                	}
+	            	},
+                discontinued: {
+									validators: {
+										date: {
+											format: 'YYYY-MM-DD',
+											message: 'The value is not a valid date :3'
                     }
-                }
-            },
-            introduced: {
-                validators: {
-                  datetime: {
-                    format: 'yyyy-mm-dd hh:mm:ss',
-                    message: 'The value is not a valid date'
-                  }
-            	}
-        	},
-        	discontinued: {
-                validators: {
-                  date: {
-                    format: 'yyyy-mm-dd',
-                    message: 'The value is not a valid date'
-                  }
-            	}
-        	}
-        }
-	});
+                	}
+	            	}
+	            }
+	    	});
 });
 </script>
     
