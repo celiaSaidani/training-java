@@ -108,7 +108,7 @@ public class Main {
         int cpt = 0;
         do {
             System.out.println("Entrez Q pour quitter,cliquez entrer pour continuer");
-            List<ComputerDTO> computer =computerService.getAllComputer(cpt);
+            List<ComputerDTO> computer =computerService.getAllComputer(cpt,0);
 
             resp = input.nextLine();
             if (computer.isEmpty())
