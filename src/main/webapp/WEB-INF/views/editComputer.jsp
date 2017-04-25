@@ -44,7 +44,7 @@
                             <div class="form-group">
                                 <label for="companyId">Company</label>
                                 <select class="form-control" id="companyId" >
-                                    <option value="${computerdb.dateOut}">--</option>
+                                    <option value="">${computerdb.nameCompany}</option>
                                 </select>
                             </div>            
                         </fieldset>

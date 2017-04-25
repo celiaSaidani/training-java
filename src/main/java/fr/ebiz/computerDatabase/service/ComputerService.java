@@ -118,8 +118,8 @@ public class ComputerService {
      * @return sublist of computer
      */
 
-    public List<ComputerDTO> getAllComputer(int limit) {
-        ResultSet rs = computerDao.getAllComputer(limit);
+    public List<ComputerDTO> getAllComputer(int start,int end) {
+        ResultSet rs = computerDao.getAllComputer(start,end);
         return computerMap.getAllComputerMapper(rs);
     }
 
@@ -135,6 +135,10 @@ public class ComputerService {
     public List<ComputerDTO> getComputerByNameMapper(String name) {
         ResultSet rs = computerDao.getComputerByName(name);
         return computerMap.getComputerByNameMapper(rs);
+
+    }
+    public int getCount() {
+       return computerDao.CountTotalLine();
 
     }
 

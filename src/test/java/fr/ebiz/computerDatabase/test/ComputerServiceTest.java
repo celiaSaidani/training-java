@@ -25,7 +25,7 @@ public class ComputerServiceTest {
     @Test
     public void testGetAllComputerInt() {
         computerService =new ComputerService();
-        assertNotNull(computerService.getAllComputer(0));
+        assertNotNull(computerService.getAllComputer(0,10));
     }
 
     @Test

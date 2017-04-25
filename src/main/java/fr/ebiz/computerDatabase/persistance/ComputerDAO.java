@@ -130,9 +130,9 @@ public class ComputerDAO {
      * @return list off all computer
      */
 
-    public ResultSet getAllComputer(int start) {
+    public ResultSet getAllComputer(int start, int end) {
         String selectAllComputer = "select computer.id, computer.name, computer.introduced, computer.discontinued ,"
-                + "company.id as company_id, company.name as companyName from computer left join company on computer.company_id = company.id limit 100 offset " + start;
+                + "company.id as company_id, company.name as companyName from computer left join company on computer.company_id = company.id limit "+ start+","+end;
 
         ResultSet rs = null;
         try {
@@ -181,6 +181,27 @@ public class ComputerDAO {
         }
         return rs;
 
+    }
+    
+    public int CountTotalLine() {
+        ResultSet rs = null;
+        String selectAllComputer = "select count(1) from computer";
+        int row_count = 0;
+        statement = c.getConnection();
+
+        try {
+            rs = statement.executeQuery(selectAllComputer);
+            while(rs.next())
+            {
+            row_count= rs.getInt("count(1)");
+            }
+            return row_count;
+        } catch (SQLException e) {
+            logger.error("Error in function getCount");
+        }
+        return 0;
+  
+        
     }
 
 }

@@ -27,10 +27,27 @@ public class DashboardServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // TODO Auto-generated method stub
-        List<ComputerDTO> computer =computerService.getAllComputer();
+        int size=10;
+        int page=0;
+        int count= computerService.getCount();
+        
+
+        if(request.getParameter("size")!=null){
+            size=Integer.parseInt((request.getParameter("size")));
+        }
+        
+        if(request.getParameter("page")!=null){
+            page=Integer.parseInt((request.getParameter("page")));
+        }
+        
+        List<ComputerDTO> computer =computerService.getAllComputer(page * size +1, size);
         String nbrComputer=Integer.toString(computer.size());
         request.setAttribute("computerdb", computer);
         request.setAttribute("computer",nbrComputer );
+        request.setAttribute("size", size);
+        request.setAttribute("page", page);
+        request.setAttribute("count", count);
+        
         this.getServletContext().getRequestDispatcher(DASHBOARD_VIEW).forward(request, response);
     }
 }

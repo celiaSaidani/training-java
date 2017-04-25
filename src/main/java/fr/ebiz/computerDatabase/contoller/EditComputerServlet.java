@@ -37,6 +37,7 @@ public class EditComputerServlet extends HttpServlet {
         ComputerDTO compDTO= computerService.showDetailsComputer(Integer.parseInt(request.getParameter("idComputer")));
         request.setAttribute("computerdb", compDTO);
         this.getServletContext().getRequestDispatcher(EDIT_VIEW).forward(request, response);
+        System.out.println(compDTO.getNameCompany());
     }
 
     /**
