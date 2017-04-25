@@ -13,7 +13,6 @@ public class DateTime {
             LocalDateTime formatDateTime = LocalDateTime.parse(date, formatter);
             return formatDateTime;
         } catch (DateTimeParseException e) {
-            System.err.println("date invalide");
             return null;
         }
 
@@ -31,7 +30,7 @@ public class DateTime {
 
     public static boolean dateCompare(String date1, String date2) {
         try {
-
+            
             LocalDateTime formatDateTime = LocalDateTime.parse(date1, formatter);
             LocalDateTime formatDateTime2 = LocalDateTime.parse(date2, formatter);
             return formatDateTime.isBefore(formatDateTime2);

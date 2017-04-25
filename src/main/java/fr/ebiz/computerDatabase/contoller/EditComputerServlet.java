@@ -8,6 +8,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import fr.ebiz.computerDatabase.dto.ComputerDTO;
+import fr.ebiz.computerDatabase.service.ComputerService;
+
 /**
  * Servlet implementation class EditComputerServlet
  */
@@ -15,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 public class EditComputerServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     public static final String EDIT_VIEW = "/WEB-INF/views/editComputer.jsp";
+    public final ComputerService computerService = new ComputerService();
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -29,6 +33,9 @@ public class EditComputerServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // TODO Auto-generated method stub
+        System.out.println(request.getParameter("idComputer"));
+        ComputerDTO compDTO= computerService.showDetailsComputer(Integer.parseInt(request.getParameter("idComputer")));
+        request.setAttribute("computerdb", compDTO);
         this.getServletContext().getRequestDispatcher(EDIT_VIEW).forward(request, response);
     }
 

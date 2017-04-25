@@ -87,7 +87,7 @@
                             <input type="checkbox" name="cb" class="cb" value="0">
                         </td>
                         <td>
-                            <a href="editComputer.html" onclick="">${computerdb.nameComp}</a>
+                            <a href="EditComputerServlet?idComputer=${computerdb.idComp}" onclick="">${computerdb.nameComp}</a>
                         </td>
                         <td>${computerdb.dateIn}</td>
                         <td>${computerdb.dateOut}</td>

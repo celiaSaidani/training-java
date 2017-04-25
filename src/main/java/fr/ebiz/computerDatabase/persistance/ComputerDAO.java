@@ -150,7 +150,9 @@ public class ComputerDAO {
      * @return computer that have their id equal to id in parameter
      */
     public ResultSet getComputerById(int id) {
-        String selectComputerByid = "select * from computer where id=" + Integer.toString(id);
+        String selectComputerByid = "select computer.id, computer.name, computer.introduced, computer.discontinued ,"
+                + "company.id as company_id, company.name as companyName from computer left join company on computer.company_id = company.id "
+                + " where computer.id=" + Integer.toString(id);
         ResultSet rs = null;
         try {
 

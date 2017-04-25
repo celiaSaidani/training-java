@@ -2,13 +2,17 @@ package fr.ebiz.computerDatabase.service;
 
 import java.sql.ResultSet;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.util.List;
+
+import org.apache.taglibs.standard.lang.jstl.BooleanLiteral;
 
 import fr.ebiz.computerDatabase.dto.CompanyDTO;
 import fr.ebiz.computerDatabase.dto.ComputerDTO;
 import fr.ebiz.computerDatabase.mapper.ComputerMapper;
 import fr.ebiz.computerDatabase.model.Computer;
 import fr.ebiz.computerDatabase.persistance.ComputerDAO;
+import fr.ebiz.computerDatabase.validator.ComputerValidator;
 import fr.ebiz.computerDatabase.validator.DateTime;
 
 public class ComputerService {
@@ -32,47 +36,46 @@ public class ComputerService {
      * @param action true or false
      * @return
      */
-    public boolean updateComputer(int id, String input[], boolean action) {
-
-        Computer computer;
-        String name = input[0];
-        LocalDateTime dateIn;
-        LocalDateTime dateOut;
-        String invalideDate = "la date d'arret avant la date d'entrée";
-        String nameRequired="nom obligatoire";
-
-        if(input[0].equals(""))
-            throw new NullPointerException(nameRequired);
-
-        if (!input[1].equals(""))
-            dateIn = DateTime.convertDate(input[1]);
-        else
-            dateIn = null;
-        if (!input[2].equals(""))
-            dateOut = DateTime.convertDate(input[2]);
-        else
-            dateOut = null;
-
-        if ((!input[1].equals("")) && (!input[2].equals("")))
-            if (DateTime.dateCompare(input[1], input[2]) == false){
-                System.err.println(invalideDate);
-                return false;
+    public boolean InsertComputer(ComputerDTO comp) {
+        
+        try {
+            System.out.println(ComputerValidator.isValid(comp)? "dto valide": "No valide");
+        
+            ComputerValidator.isValid(comp);
+            Computer computer;
+            String name = comp.getNameComp();
+            String companyId=comp.getIdCompany();
+            LocalDateTime dateIn=null;
+            LocalDateTime dateOut=null;
+            
+            if(comp.getDateIn()!=null){
+                dateIn=DateTime.convertDate(comp.getDateIn().trim().concat(" 00:00:00"));
             }
-
-        if (action == false) {
-            if (input[3] != null) {
-
-                CompanyDTO cp = companyService.getCompanybyId(Integer.parseInt(input[3]));
+            if(comp.getDateOut()!=null){
+            dateOut=DateTime.convertDate(comp.getDateOut().trim().concat(" 00:00:00"));
+            }
+            
+            if (comp.getIdCompany()!=null) {
+                CompanyDTO cp = companyService.getCompanybyId(Integer.parseInt(companyId));
                 computer = new Computer(name, dateIn, dateOut, Integer.parseInt(cp.getIdCompany()));
             } else
-                computer = new Computer(name, dateIn, dateOut, 0);
+                  computer = new Computer(name, dateIn, dateOut, 0);
+    
+                if (computerDao.insert(computer) == 1){
+                    return true;
+                }
+                else{
+                    return false;
+                }
+        } catch (DateTimeParseException |NullPointerException e) {
+                    System.err.println(e.getMessage());
+          }
+        return false;
 
-            if (computerDao.insert(computer) == 1)
-                return true;
-
-            else
-                return false;
-        } else {
+    }
+    public Boolean updateComputer(int id, ComputerDTO comp) {
+        return false;
+       /* else {
             if (input[3] != null) {
                 CompanyDTO cp  = companyService.getCompanybyId(Integer.parseInt(input[3]));
                 computer = new Computer(id, name, dateIn, dateOut, Integer.parseInt(cp.getIdCompany()));
@@ -84,8 +87,8 @@ public class ComputerService {
             else
                 return false;
 
-        }
-
+        }*/
+        
     }
 
     /**
