@@ -32,13 +32,23 @@ public class ComputerDTO {
         this.nameComp=comp.getName();
         this.dateIn=DateTime.DateToString(comp.getDateIN());
         this.dateOut=DateTime.DateToString(comp.getDateOut());
+        if(comp.getCompany().getId()!=0){
         this.idCompany=Integer.toString(comp.getCompany().getId());
+        }
         this.nameCompany=comp.getCompany().getName();;
     }
     
     
     public ComputerDTO(String name,String introduced,String discontinued,String idComp) {
       
+        this.nameComp=name;
+        this.dateIn=introduced;
+        this.dateOut=discontinued;
+        this.idCompany=idComp;
+        //this.nameCompany=companyName;
+    }
+    public ComputerDTO(String id,String name,String introduced,String discontinued,String idComp) {
+    	this.idComp=id;
         this.nameComp=name;
         this.dateIn=introduced;
         this.dateOut=discontinued;

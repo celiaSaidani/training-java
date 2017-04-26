@@ -1,6 +1,7 @@
 package fr.ebiz.computerDatabase.contoller;
 
 import java.io.IOException;
+import java.time.format.DateTimeParseException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,7 +19,14 @@ import fr.ebiz.computerDatabase.service.ComputerService;
 public class EditComputerServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     public static final String EDIT_VIEW = "/WEB-INF/views/editComputer.jsp";
+    public static final String error_VIEW = "/WEB-INF/views/500.jsp";
+
     public final ComputerService computerService = new ComputerService();
+    public final String ID="computerId";
+    public final String NAME="computerName";
+    public final String DATEIN="computerId";
+    public final String DATEOUT="computerId";
+    public final String IDCOMPANY="computerId";
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -46,7 +54,33 @@ public class EditComputerServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // TODO Auto-generated method stub
-        doGet(request, response);
-    }
+    	 String id = request.getParameter(ID);
+    	 String name = request.getParameter(ID);
+         String dateIn = request.getParameter(DATEIN);
+         String dateout = request.getParameter(DATEOUT);
+         String company= request.getParameter(IDCOMPANY);
+         
+
+        ComputerDTO cpDto= new ComputerDTO(id,name,dateIn,dateout,company);
+        try {
+            boolean update= computerService.updateComputer(cpDto);
+
+            if(update){
+                System.out.println("modification reussie");
+                response.sendRedirect(request.getContextPath()+"/DashboardServlet");
+                return ;        
+            }
+            else{
+                System.err.println("modification non reussie");
+            }
+               
+         } catch (DateTimeParseException |NullPointerException e) {
+            System.err.println(e.getMessage());
+         }
+        //response.sendRedirect(request.getContextPath()+error_VIEW);
+
+     }
+
+    
 
 }

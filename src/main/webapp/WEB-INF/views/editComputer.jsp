@@ -26,20 +26,20 @@
                     </div>
                     <h1>Edit Computer</h1>
 
-                    <form action="editComputer" method="POST">
-                        <input type="hidden" value="${computerdb.idComp}" id="id"/> <!-- TODO: Change this value with the computer id -->
+                    <form action="EditComputerServlet" method="POST">
+                        <input type="hidden" value="${computerdb.idComp}" id="id" name="computerId"/> <!-- TODO: Change this value with the computer id -->
                         <fieldset>
                             <div class="form-group">
                                 <label for="computerName">Computer name</label>
-                                <input type="text" class="form-control" id="computerName" value="${computerdb.nameComp}"> 
+                                <input type="text" class="form-control" id="computerName" name="computerName" value="${computerdb.nameComp}"> 
                             </div>
                             <div class="form-group">
                                 <label for="introduced">Introduced date</label>
-                                <input type="date" class="form-control" id="introduced" value="${computerdb.dateIn}" >
+                                <input type="date" class="form-control" id="introduced" name="introduced"  value="${computerdb.dateIn}" >
                             </div>
                             <div class="form-group">
                                 <label for="discontinued">Discontinued date</label>
-                                <input type="date" class="form-control" id="discontinued" value="${computerdb.dateOut}">
+                                <input type="date" class="form-control" id="discontinued" name="discontinued"  value="${computerdb.dateOut}">
                             </div>
                             <div class="form-group">
                                 <label for="companyId">Company</label>

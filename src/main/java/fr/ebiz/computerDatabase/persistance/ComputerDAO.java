@@ -104,6 +104,7 @@ public class ComputerDAO {
             }
 
         } catch (SQLException e) {
+        	e.printStackTrace();
             logger.error("Error in function update");
         }
         return 0;
