@@ -83,7 +83,7 @@ public class Main {
             System.out.println("Entrez Q pour quitter,cliquez entrer pour continuer");
             resp = input.nextLine();
 
-            List<CompanyDTO> company = companyService.getAllCompany(cpt);
+            List<CompanyDTO> company = companyService.getAllCompanyPage(cpt);
             if (company.isEmpty())
                 break;
             else {
@@ -108,7 +108,7 @@ public class Main {
         int cpt = 0;
         do {
             System.out.println("Entrez Q pour quitter,cliquez entrer pour continuer");
-            List<ComputerDTO> computer =computerService.getAllComputer(cpt,0);
+            List<ComputerDTO> computer =computerService.getAllComputerPage(cpt,10);
 
             resp = input.nextLine();
             if (computer.isEmpty())

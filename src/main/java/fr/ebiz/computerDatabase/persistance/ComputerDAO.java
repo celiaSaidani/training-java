@@ -5,10 +5,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import fr.ebiz.computerDatabase.dto.ComputerDTO;
 import fr.ebiz.computerDatabase.model.Computer;
 
 public class ComputerDAO {
@@ -19,6 +21,7 @@ public class ComputerDAO {
     private static String[] computerColumns = { "id", "name", "introduced", "discontinued", "company_id" };
     private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S");
     private static final Logger logger = LoggerFactory.getLogger(ComputerDAO.class);
+    private ComputerDAOMapper cpm= new ComputerDAOMapper();
 
     /**
      * @param computer
@@ -110,7 +113,7 @@ public class ComputerDAO {
      * @return list off all computer
      */
 
-    public ResultSet getAllComputer() {
+    /*public ResultSet getAllComputer() {
         ResultSet rs = null;
         String selectAllComputer = "select computer.id, computer.name, computer.introduced, computer.discontinued ,"
                 + "company.id as company_id, company.name as companyName from computer left join company on computer.company_id = company.id";
@@ -123,13 +126,24 @@ public class ComputerDAO {
         }
         return rs;
 
+    }*/
+    public List<Computer> getAllComputer() {
+        ResultSet rs = null;
+        String selectAllComputer = "select computer.id, computer.name, computer.introduced, computer.discontinued ,"
+                + "company.id as company_id, company.name as companyName from computer left join company on computer.company_id = company.id";
+        statement = c.getConnection();
+    
+        try {
+            rs = statement.executeQuery(selectAllComputer);
+            return cpm.getAllComputer(rs);
+        } catch (SQLException e) {
+            logger.error("Error in function getAllComputer");
+        }
+        return null;
+
     }
-
-
-    /**
-     * @return list off all computer
-     */
-
+/*
+    
     public ResultSet getAllComputer(int start, int end) {
         String selectAllComputer = "select computer.id, computer.name, computer.introduced, computer.discontinued ,"
                 + "company.id as company_id, company.name as companyName from computer left join company on computer.company_id = company.id limit "+ start+","+end;
@@ -143,12 +157,29 @@ public class ComputerDAO {
             logger.error("Error in function getAllComputer");
         }
         return rs;
+    }*/
+    /**
+     * @return list off all computer
+     */
+
+    public List<Computer> getAllComputerPage(int start, int end) {
+        String selectAllComputer = "select computer.id, computer.name, computer.introduced, computer.discontinued ,"
+                + "company.id as company_id, company.name as companyName from computer left join company on computer.company_id = company.id limit "+ start+","+end;
+
+        ResultSet rs = null;
+        try {
+            statement = c.getConnection();
+            rs = statement.executeQuery(selectAllComputer);
+            return cpm.getAllComputerMapperPage(rs);
+
+        } catch (SQLException e) {
+            logger.error("Error in function getAllComputer");
+        }
+        return null;
     }
 
-    /**
-     * @param id
-     * @return computer that have their id equal to id in parameter
-     */
+
+    /*
     public ResultSet getComputerById(int id) {
         String selectComputerByid = "select computer.id, computer.name, computer.introduced, computer.discontinued ,"
                 + "company.id as company_id, company.name as companyName from computer left join company on computer.company_id = company.id "
@@ -163,12 +194,32 @@ public class ComputerDAO {
             logger.error("Error in function getCompanyById");
         }
         return rs;
+    }*/
+    
+    /**
+     * @param id
+     * @return computer that have their id equal to id in parameter
+     */
+    public Computer getComputerById(int id) {
+        String selectComputerByid = "select computer.id, computer.name, computer.introduced, computer.discontinued ,"
+                + "company.id as company_id, company.name as companyName from computer left join company on computer.company_id = company.id "
+                + " where computer.id=" + Integer.toString(id);
+        ResultSet rs = null;
+        try {
+
+            statement = c.getConnection();
+            rs = statement.executeQuery(selectComputerByid);
+            return cpm.getComputerByIdMapper(id, rs);
+           
+
+        } catch (Exception e) {
+            logger.error("Error in function getCompanyById");
+        }
+        return  null;
     }
 
-    /**
-     * @param name
-     * @return list of computer that have same name
-     */
+
+  /*
     public ResultSet getComputerByName(String name) {
         ResultSet rs = null;
         String selectComputeryByName = "select computer.id, computer.name, computer.introduced, computer.discontinued ,"
@@ -182,6 +233,25 @@ public class ComputerDAO {
         return rs;
 
     }
+    */
+    /**
+    * @param name
+    * @return list of computer that have same name
+    */
+   public List<Computer> getComputerByName(String name) {
+       ResultSet rs = null;
+       String selectComputeryByName = "select computer.id, computer.name, computer.introduced, computer.discontinued ,"
+               + "company.id as company_id, company.name as companyName from computer left join company on computer.company_id = company.id where computer.name= " + "'" + name + "'";
+       try {
+           statement = c.getConnection();
+           rs = statement.executeQuery(selectComputeryByName);
+           return cpm.getComputerByNameMapper(rs);
+       } catch (SQLException e) {
+           logger.error("Error in function getComputerByName ");
+       }
+       return null;
+
+   }
     
     public int CountTotalLine() {
         ResultSet rs = null;

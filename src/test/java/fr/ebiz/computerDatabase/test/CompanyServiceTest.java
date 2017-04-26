@@ -22,7 +22,7 @@ public class CompanyServiceTest {
     @Test
     public void testGetAllCompanyInt() {
         company= new CompanyService();
-        assertNotNull(company.getAllCompany(0));
+        assertNotNull(company.getAllCompanyPage(0));
 
     }
 

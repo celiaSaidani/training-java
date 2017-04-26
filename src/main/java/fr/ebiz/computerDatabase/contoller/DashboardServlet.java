@@ -40,8 +40,7 @@ public class DashboardServlet extends HttpServlet {
             page=Integer.parseInt((request.getParameter("page")));
         }
         
-        List<ComputerDTO> computer =computerService.getAllComputer((page-1) * size, size);
-        String nbrComputer=Integer.toString(computer.size());
+        List<ComputerDTO> computer =computerService.getAllComputerPage((page-1) * size, size);
         request.setAttribute("computerdb", computer);
         request.setAttribute("computer",count );
         request.setAttribute("size", size);

@@ -8,6 +8,7 @@ public class Computer {
     private LocalDateTime dateIN;
     private LocalDateTime dateOut;
     private int idCompany;
+    private Company Company;
 
     /**
      * default constructor
@@ -31,6 +32,15 @@ public class Computer {
         this.dateIN = in;
         this.dateOut = out;
         this.idCompany = idCompany;
+    }
+
+    public Computer(int id, String name, LocalDateTime in, LocalDateTime out,Company company) {
+        // TODO Auto-generated constructor stub
+        this.id = id;
+        this.name = name;
+        this.dateIN = in;
+        this.dateOut = out;
+        this.setCompany(company);
     }
 
     /**
@@ -119,6 +129,14 @@ public class Computer {
     public String toString(int id) {
         return "Computer [id=" + id + ", name=" + name + ", dateIN=" + dateIN + ", dateOut=" + dateOut
                 + " , idCompany= " + id + "]";
+    }
+
+    public Company getCompany() {
+        return Company;
+    }
+
+    public void setCompany(Company company) {
+        Company = company;
     }
 
 }

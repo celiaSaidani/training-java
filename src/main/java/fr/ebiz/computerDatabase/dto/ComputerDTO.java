@@ -10,6 +10,7 @@ public class ComputerDTO {
     private String dateOut;
     private String idCompany;
     private String nameCompany;
+
     public ComputerDTO() {
         // TODO Auto-generated constructor stub
     }
@@ -23,6 +24,18 @@ public class ComputerDTO {
         this.idCompany=Integer.toString(comp.getCompagnyId());
         this.nameCompany=companyName;
     }
+    
+    public ComputerDTO(Computer comp) {
+        if(comp.getId()!=0){
+            this.idComp=Integer.toString(comp.getId());
+        }
+        this.nameComp=comp.getName();
+        this.dateIn=DateTime.DateToString(comp.getDateIN());
+        this.dateOut=DateTime.DateToString(comp.getDateOut());
+        this.idCompany=Integer.toString(comp.getCompany().getId());
+        this.nameCompany=comp.getCompany().getName();;
+    }
+    
     
     public ComputerDTO(String name,String introduced,String discontinued,String idComp) {
       

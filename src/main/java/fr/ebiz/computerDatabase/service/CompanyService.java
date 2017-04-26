@@ -1,10 +1,11 @@
 package fr.ebiz.computerDatabase.service;
 
-import java.sql.ResultSet;
+
 import java.util.List;
 
 import fr.ebiz.computerDatabase.dto.CompanyDTO;
 import fr.ebiz.computerDatabase.mapper.CompanyMapper;
+import fr.ebiz.computerDatabase.model.Company;
 import fr.ebiz.computerDatabase.persistance.CompanyDAO;
 
 public class CompanyService {
@@ -22,24 +23,24 @@ public class CompanyService {
      * @return list of all company of dataBase
      */
     public List<CompanyDTO> getAllCompany() {
-        ResultSet rs= companyDao.getAllCompany();
-        return companyMapper.getAllCompanyMapper(rs);
+       List<Company> cp= companyDao.getAllCompany();
+        return companyMapper.getCompanyDTOs(cp);
     }
 
     /**
      * @return list of all company of dataBase
      */
-    public List<CompanyDTO> getAllCompany(int start) {
-        ResultSet rs=companyDao.getAllCompany(start);
-        return companyMapper.getAllCompanyMapperPage(rs);
+    public List<CompanyDTO> getAllCompanyPage(int start) {
+        List<Company> cp=companyDao.getAllCompany(start);
+        return companyMapper.getCompanyDTOs(cp);
     }
 
     /**
      * @return list of all company by id
      */
     public CompanyDTO getCompanybyId(int id) {
-        ResultSet rs= companyDao.getCompanyID(id);
-        return companyMapper.getCompanyIDMapper(id,rs);
+       Company cp= companyDao.getCompanyID(id);
+        return companyMapper.getCompanyDTO(cp);
     }
 
 }

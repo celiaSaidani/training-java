@@ -22,11 +22,11 @@ public class ComputerServiceTest {
         assertNotNull(computerService.getAllComputer());
     }
 
-    @Test
+    /*@Test
     public void testGetAllComputerInt() {
         computerService =new ComputerService();
         assertNotNull(computerService.getAllComputer(0,10));
-    }
+    }*/
 
     @Test
     public void testGetComputerByNameMapper() {

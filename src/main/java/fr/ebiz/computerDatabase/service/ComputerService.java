@@ -1,12 +1,7 @@
 package fr.ebiz.computerDatabase.service;
-
-import java.sql.ResultSet;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.List;
-
-import org.apache.taglibs.standard.lang.jstl.BooleanLiteral;
-
 import fr.ebiz.computerDatabase.dto.CompanyDTO;
 import fr.ebiz.computerDatabase.dto.ComputerDTO;
 import fr.ebiz.computerDatabase.mapper.ComputerMapper;
@@ -110,17 +105,18 @@ public class ComputerService {
      */
 
     public List<ComputerDTO> getAllComputer() {
-        ResultSet rs = computerDao.getAllComputer();
-        return computerMap.getAllComputerMapper(rs);
+        List<Computer> allComp = computerDao.getAllComputer();
+        return computerMap.getComputerDTOs(allComp);
     }
 
     /**
      * @return sublist of computer
      */
 
-    public List<ComputerDTO> getAllComputer(int start,int end) {
-        ResultSet rs = computerDao.getAllComputer(start,end);
-        return computerMap.getAllComputerMapper(rs);
+    public List<ComputerDTO> getAllComputerPage(int start,int end) {
+        List<Computer> allComp = computerDao.getAllComputerPage(start,end);
+        System.out.println("all comp"+allComp.size());
+        return computerMap.getComputerDTOs(allComp);
     }
 
     /**
@@ -128,13 +124,13 @@ public class ComputerService {
      * @return a computer
      */
     public ComputerDTO showDetailsComputer(int id) {
-        ResultSet rs = computerDao.getComputerById(id);
-        return computerMap.getComputerByIdMapper(id,rs);
+        Computer cp = computerDao.getComputerById(id);
+        return computerMap.getComputerDTO(cp);
     }
 
     public List<ComputerDTO> getComputerByNameMapper(String name) {
-        ResultSet rs = computerDao.getComputerByName(name);
-        return computerMap.getComputerByNameMapper(rs);
+        List<Computer> cp = computerDao.getComputerByName(name);
+        return computerMap.getComputerDTOs(cp);
 
     }
     public int getCount() {
