@@ -2,10 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ taglib prefix="mylib" tagdir="/WEB-INF/tags" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!DOCTYPE html>
 <html>
 <head>
 <title>Computer Database</title>
@@ -39,12 +36,12 @@
                 </div>
                 <div class="pull-right">
                     <a class="btn btn-success" id="addComputer" href="${pageContext.request.contextPath}/AddComputerServlet">Add Computer</a> 
-                    <a class="btn btn-default" id="editComputer" href="${pageContext.request.contextPath}/EditComputerServlet" onclick="$.fn.toggleEditMode();">Edit</a>
+                    <a class="btn btn-default" id="editComputer" href="#" onclick="$.fn.toggleEditMode();">Edit</a>
                 </div>
             </div>
         </div>
 
-        <form id="deleteForm" action="#" method="POST">
+        <form id="deleteForm" action="${pageContext.request.contextPath}/DashboardServlet" method="POST">
             <input type="hidden" name="selection" value="">
         </form>
 
@@ -85,7 +82,7 @@
                 <c:forEach var="computerdb" items="${requestScope.computerdb}">
                     <tr>
                         <td class="editMode">
-                            <input type="checkbox" name="cb" class="cb" value="0">
+                            <input type="checkbox" name="cb" class="cb" value="${computerdb.idComp}">
                         </td>
                         <td>
                             <a href="EditComputerServlet?idComputer=${computerdb.idComp}" onclick="">${computerdb.nameComp}</a>
@@ -108,6 +105,8 @@
        
 	  </div>
     </footer>
-<script src="../js/jquery.min.js"></script>
-<script src="../js/bootstrap.min.js"></script>
-<script src="../js/dashboard.js"></script>
+<script src="./js/jquery.min.js"></script>
+<script src="./js/bootstrap.min.js"></script>
+<script src="./js/dashboard.js"></script>
+</body>
+</html>

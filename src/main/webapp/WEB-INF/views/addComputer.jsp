@@ -72,7 +72,7 @@
     </section>
 </body>
 <script src="js/jquery.min.js"></script>
-<script src="js/jbootstrap.min.js"></script>
+<script src="/js/jbootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.5.3/js/bootstrapValidator.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.min.js"></script>
 
