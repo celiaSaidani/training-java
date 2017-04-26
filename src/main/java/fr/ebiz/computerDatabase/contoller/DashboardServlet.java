@@ -28,7 +28,7 @@ public class DashboardServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // TODO Auto-generated method stub
         int size=10;
-        int page=0;
+        int page=1;
         int count= computerService.getCount();
         
 

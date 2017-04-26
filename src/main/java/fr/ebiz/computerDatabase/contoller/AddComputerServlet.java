@@ -1,7 +1,6 @@
 package fr.ebiz.computerDatabase.contoller;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.List;
 
@@ -10,14 +9,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import fr.ebiz.computerDatabase.Exception.EmptyStringException;
 import fr.ebiz.computerDatabase.dto.CompanyDTO;
 import fr.ebiz.computerDatabase.dto.ComputerDTO;
 import fr.ebiz.computerDatabase.service.CompanyService;
 import fr.ebiz.computerDatabase.service.ComputerService;
-import fr.ebiz.computerDatabase.validator.ComputerValidator;
-import fr.ebiz.computerDatabase.validator.DateTime;
+
 
 
 /**
