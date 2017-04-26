@@ -6,7 +6,7 @@
 
 <fmt:parseNumber var="nbrPage" integerOnly="true" type="number" value="${count/size}" />
 <c:if test="${count % size != 0}">
-	<c:set var="nbrPage" value="${nbrPage}" />
+	<c:set var="nbrPage" value="${nbrPage+1}" />
 </c:if>
 
 <ul class="pagination">
