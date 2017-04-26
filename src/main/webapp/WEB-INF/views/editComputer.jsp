@@ -43,7 +43,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="companyId">Company</label>
-                                <select class="form-control" id="companyId" >
+                                <select class="form-control" name="company" id="companyId" >
                                     <option value="">${computerdb.nameCompany}</option>
                                 </select>
                             </div>            

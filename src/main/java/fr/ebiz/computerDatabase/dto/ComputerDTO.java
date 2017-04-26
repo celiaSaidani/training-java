@@ -32,9 +32,7 @@ public class ComputerDTO {
         this.nameComp=comp.getName();
         this.dateIn=DateTime.DateToString(comp.getDateIN());
         this.dateOut=DateTime.DateToString(comp.getDateOut());
-        if(comp.getCompany().getId()!=0){
         this.idCompany=Integer.toString(comp.getCompany().getId());
-        }
         this.nameCompany=comp.getCompany().getName();;
     }
     

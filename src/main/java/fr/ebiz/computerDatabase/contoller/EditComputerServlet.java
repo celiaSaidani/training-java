@@ -24,9 +24,9 @@ public class EditComputerServlet extends HttpServlet {
     public final ComputerService computerService = new ComputerService();
     public final String ID="computerId";
     public final String NAME="computerName";
-    public final String DATEIN="computerId";
-    public final String DATEOUT="computerId";
-    public final String IDCOMPANY="computerId";
+    public final String DATEIN="introduced";
+    public final String DATEOUT="discontinued";
+    public final String IDCOMPANY="company";
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -55,7 +55,7 @@ public class EditComputerServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // TODO Auto-generated method stub
     	 String id = request.getParameter(ID);
-    	 String name = request.getParameter(ID);
+    	 String name = request.getParameter(NAME);
          String dateIn = request.getParameter(DATEIN);
          String dateout = request.getParameter(DATEOUT);
          String company= request.getParameter(IDCOMPANY);
