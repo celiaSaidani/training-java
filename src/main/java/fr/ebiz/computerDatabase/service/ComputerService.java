@@ -115,7 +115,6 @@ public class ComputerService {
 
     public List<ComputerDTO> getAllComputerPage(int start,int end) {
         List<Computer> allComp = computerDao.getAllComputerPage(start,end);
-        System.out.println("all comp"+allComp.size());
         return computerMap.getComputerDTOs(allComp);
     }
 
@@ -132,6 +131,10 @@ public class ComputerService {
         List<Computer> cp = computerDao.getComputerByName(name);
         return computerMap.getComputerDTOs(cp);
 
+    }
+    public List<ComputerDTO> Search(String name, int start, int end){
+    	List<Computer> cp=computerDao.Serach(name,  start,end);
+    	return computerMap.getComputerDTOs(cp);
     }
     public int getCount() {
        return computerDao.CountTotalLine();

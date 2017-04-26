@@ -31,8 +31,8 @@ public class DashboardServlet extends HttpServlet {
         int size=10;
         int page=1;
         int count= computerService.getCount();
-        
-
+        List<ComputerDTO> computer=null;
+       
         if(request.getParameter("size")!=null){
             size=Integer.parseInt((request.getParameter("size")));
         }
@@ -40,8 +40,14 @@ public class DashboardServlet extends HttpServlet {
         if(request.getParameter("page")!=null){
             page=Integer.parseInt((request.getParameter("page")));
         }
-        
-        List<ComputerDTO> computer =computerService.getAllComputerPage((page-1) * size, size);
+        if(request.getParameter("search")!=null){
+        	computer=computerService.Search(request.getParameter("search"),(page-1) * size, size);
+            request.setAttribute("search", request.getParameter("search"));
+
+		}
+        else{
+        	computer =computerService.getAllComputerPage((page-1) * size, size);
+        }
         request.setAttribute("computerdb", computer);
         request.setAttribute("computer",count );
         request.setAttribute("size", size);
@@ -56,21 +62,25 @@ public class DashboardServlet extends HttpServlet {
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // TODO Auto-generated method stub
-        String selected = request.getParameter("selection");
-        String ids[]=selected.split(",");
-        if(ids.length!=0){
-            while (i<ids.length) {
-                boolean delete= computerService.deleteCpmouter(Integer.parseInt(ids[i]));
-                if(delete){
-                    System.out.println("Insertion reussie");
-                }
-                else{
-                    System.out.println("Insertion non reussie");
-                }
-                i++;
-            }
-        }
+    	if(request.getParameter("selection")!=null){
+    		String selected = request.getParameter("selection");
+    		String ids[]=selected.split(",");
+    		if(ids.length!=0){
+    			while (i<ids.length) {
+    				boolean delete= computerService.deleteCpmouter(Integer.parseInt(ids[i]));
+    				if(delete){
+    					System.out.println("Delete reussie");
+    				}
+    				else{
+    					System.out.println("Delete non reussie");
+    				}
+    				i++;
+    			}
+    		}
+    	}
+    		
         response.sendRedirect("DashboardServlet");
     }
+    
     
 }

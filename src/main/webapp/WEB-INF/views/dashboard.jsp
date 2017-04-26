@@ -27,9 +27,9 @@
             </h1>
             <div id="actions" class="form-horizontal">
                 <div class="pull-left">
-                    <form id="searchForm" action="#" method="GET" class="form-inline">
-
-                        <input type="search" id="searchbox" name="search" class="form-control" placeholder="Search name" />
+                    <form id="searchForm" action="${pageContext.request.contextPath}/DashboardServlet" method="GET"
+                     class="form-inline">
+                        <input type="search" id="searchbox" name="search" class="form-control" placeholder="Search name" value="${search}"/>
                         <input type="submit" id="searchsubmit" value="Filter by name"
                         class="btn btn-primary" />
                     </form>

@@ -93,7 +93,26 @@ public class ComputerDAOMapper {
         return listComputer;
     }
 
+    public List<Computer> SearchMapper(ResultSet rs) {
+		
+    	 List<Computer> listComputer = new ArrayList<>();
 
+         try {
+             while (rs.next()) {
+
+                 listComputer.add(getComputer(rs));
+
+             }
+             if (rs != null && rs.getStatement() != null && rs.getStatement().getConnection() != null) {
+                 rs.getStatement().getConnection().close();
+             }
+         } catch (SQLException e) {
+             // TODO Auto-generated catch block
+             e.printStackTrace();
+         }
+
+         return listComputer;
+     }
 /**
  * @param rs
  * @return a computer

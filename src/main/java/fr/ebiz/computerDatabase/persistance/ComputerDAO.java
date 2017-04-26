@@ -252,6 +252,23 @@ public class ComputerDAO {
        return null;
 
    }
+   
+   public List<Computer> Serach(String name, int start, int end) {
+       ResultSet rs = null;
+       String search = "select computer.id, computer.name, computer.introduced, computer.discontinued ,"
+               + "company.id as company_id, company.name as companyName from computer left join company on computer.company_id = company.id where computer.name like " + "'%" +name+ "%'"
+               		+ "limit "+ start+","+end;
+       try {
+           statement = c.getConnection();
+           rs = statement.executeQuery(search);
+           return cpm.SearchMapper(rs);
+       } catch (SQLException e) {
+           logger.error("Error in function getComputerByName ");
+       }
+       return null;
+
+   }
+    
     
     public int CountTotalLine() {
         ResultSet rs = null;
