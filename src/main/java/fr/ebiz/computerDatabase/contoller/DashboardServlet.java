@@ -19,7 +19,6 @@ import fr.ebiz.computerDatabase.service.ComputerService;
 public class DashboardServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private ComputerService computerService= new ComputerService();
-    private int i=0;
 
     public static final String DASHBOARD_VIEW = "/WEB-INF/views/dashboard.jsp";
     /**
@@ -62,6 +61,8 @@ public class DashboardServlet extends HttpServlet {
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // TODO Auto-generated method stub
+        int i=0;
+
     	if(request.getParameter("selection")!=null){
     		String selected = request.getParameter("selection");
     		String ids[]=selected.split(",");
