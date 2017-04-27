@@ -15,9 +15,9 @@ import fr.ebiz.computerDatabase.model.Computer;
 
 public class ComputerDAO {
 
-    private static Statement statement = null;
-    private static PreparedStatement ps;
-    private static JDBCMySQLConnection c = JDBCMySQLConnection.getInstance();
+    
+   
+  
     private static String[] computerColumns = { "id", "name", "introduced", "discontinued", "company_id" };
     private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S");
     private static final Logger logger = LoggerFactory.getLogger(ComputerDAO.class);
@@ -30,9 +30,10 @@ public class ComputerDAO {
     public int insert(Computer computer) {
 
         String insertComputer = "insert into computer(name,introduced,discontinued,company_id) values(?,?,?,?)";
+        PreparedStatement ps=null;
 
         try {
-
+            ConnectionDB c = ConnectionDB.getInstance();
             ps = c.getConnectionP().prepareStatement(insertComputer);
             ps.setString(1, computer.getName());
             ps.setString(2, computer.getDateIN() == null ? null : computer.getDateIN().format(formatter));
@@ -42,11 +43,17 @@ public class ComputerDAO {
             else
                 ps.setInt(4, computer.getCompagnyId());
             if (ps.executeUpdate() == 1) {
+                ps.close();
                 c.closeConnection();
                 return 1;
-            } else
+            } else{
+                c.closeConnection();
                 return 0;
-
+               
+            }
+                
+            
+           
         } catch (SQLException e) {
             logger.error("Error in function insert");
             return 0;
@@ -61,8 +68,10 @@ public class ComputerDAO {
     public int delete(int id) {
         String deleteComputer = "delete from computer where id= " + id;
         int delete = 0;
+        Statement statement = null;
 
         try {
+            ConnectionDB c = ConnectionDB.getInstance();
             statement = c.getConnection();
             delete = statement.executeUpdate(deleteComputer);
             c.closeConnection();
@@ -82,9 +91,12 @@ public class ComputerDAO {
      * @return 1 if the update successful 0 else
      */
     public int update(Computer computer) {
+        PreparedStatement ps=null;
         String updateComputer = "update computer set " + computerColumns[1] + "=? ," + computerColumns[2] + "=? ,"
                 + computerColumns[3] + "=? ," + computerColumns[4] + "= ? where " + computerColumns[0] + "= ?";
+        System.err.println(computer.getCompagnyId());
         try {
+            ConnectionDB c = ConnectionDB.getInstance();
             ps = c.getConnectionP().prepareStatement(updateComputer);
             ps.setString(1, computer.getName());
             ps.setString(2, computer.getDateIN() == null ? null : computer.getDateIN().format(formatter));
@@ -130,13 +142,21 @@ public class ComputerDAO {
     }*/
     public List<Computer> getAllComputer() {
         ResultSet rs = null;
+        Statement statement=null;
         String selectAllComputer = "select computer.id, computer.name, computer.introduced, computer.discontinued ,"
                 + "company.id as company_id, company.name as companyName from computer left join company on computer.company_id = company.id";
+        ConnectionDB c = ConnectionDB.getInstance();
         statement = c.getConnection();
     
         try {
             rs = statement.executeQuery(selectAllComputer);
-            return cpm.getAllComputer(rs);
+            List<Computer> cp= cpm.getAllComputer(rs);
+            if (rs != null && rs.getStatement() != null && c != null) {
+               rs.close();
+               c.closeConnection();
+             
+            }
+            return cp;
         } catch (SQLException e) {
             logger.error("Error in function getAllComputer");
         }
@@ -168,10 +188,17 @@ public class ComputerDAO {
                 + "company.id as company_id, company.name as companyName from computer left join company on computer.company_id = company.id limit "+ start+","+end;
 
         ResultSet rs = null;
+        Statement statement=null;
         try {
+            ConnectionDB c = ConnectionDB.getInstance();
             statement = c.getConnection();
             rs = statement.executeQuery(selectAllComputer);
-            return cpm.getAllComputerMapperPage(rs);
+            List<Computer> cp= cpm.getAllComputerMapperPage(rs);
+            if (rs != null && rs.getStatement() != null && c != null) {
+                rs.close();
+                c.closeConnection();
+             }
+            return cp;
 
         } catch (SQLException e) {
             logger.error("Error in function getAllComputer");
@@ -202,15 +229,22 @@ public class ComputerDAO {
      * @return computer that have their id equal to id in parameter
      */
     public Computer getComputerById(int id) {
+        Statement statement=null;
         String selectComputerByid = "select computer.id, computer.name, computer.introduced, computer.discontinued ,"
                 + "company.id as company_id, company.name as companyName from computer left join company on computer.company_id = company.id "
                 + " where computer.id=" + Integer.toString(id);
         ResultSet rs = null;
         try {
-
+            ConnectionDB c = ConnectionDB.getInstance();
             statement = c.getConnection();
             rs = statement.executeQuery(selectComputerByid);
-            return cpm.getComputerByIdMapper(id, rs);
+            Computer cp= cpm.getComputerByIdMapper(id, rs);
+            if (rs != null && rs.getStatement() != null && c != null) {
+                rs.close();
+                c.closeConnection();
+              
+             }
+            return cp;
            
 
         } catch (Exception e) {
@@ -241,12 +275,20 @@ public class ComputerDAO {
     */
    public List<Computer> getComputerByName(String name) {
        ResultSet rs = null;
+       Statement statement=null;
        String selectComputeryByName = "select computer.id, computer.name, computer.introduced, computer.discontinued ,"
                + "company.id as company_id, company.name as companyName from computer left join company on computer.company_id = company.id where computer.name= " + "'" + name + "'";
        try {
+           ConnectionDB c = ConnectionDB.getInstance();
            statement = c.getConnection();
            rs = statement.executeQuery(selectComputeryByName);
-           return cpm.getComputerByNameMapper(rs);
+           List<Computer> cp=cpm.getComputerByNameMapper(rs);
+           if (rs != null && rs.getStatement() != null && c != null) {
+               rs.close();
+               c.closeConnection();
+             
+            }
+           return cp;
        } catch (SQLException e) {
            logger.error("Error in function getComputerByName ");
        }
@@ -256,13 +298,21 @@ public class ComputerDAO {
    
    public List<Computer> Serach(String name, int start, int end) {
        ResultSet rs = null;
+       Statement statement=null;
        String search = "select computer.id, computer.name, computer.introduced, computer.discontinued ,"
                + "company.id as company_id, company.name as companyName from computer left join company on computer.company_id = company.id where computer.name like " + "'%" +name+ "%'"
                		+ "limit "+ start+","+end;
        try {
+           ConnectionDB c = ConnectionDB.getInstance();
            statement = c.getConnection();
            rs = statement.executeQuery(search);
-           return cpm.SearchMapper(rs);
+           List<Computer> cp=cpm.SearchMapper(rs);
+           if (rs != null && rs.getStatement() != null && c != null) {
+               rs.close();
+               c.closeConnection();
+             
+            }
+           return cp;
        } catch (SQLException e) {
            logger.error("Error in function getComputerByName ");
        }
@@ -273,8 +323,10 @@ public class ComputerDAO {
     
     public int CountTotalLine() {
         ResultSet rs = null;
+        Statement statement=null;
         String selectAllComputer = "select count(1) from computer";
         int row_count = 0;
+        ConnectionDB c = ConnectionDB.getInstance();
         statement = c.getConnection();
 
         try {
@@ -283,6 +335,11 @@ public class ComputerDAO {
             {
             row_count= rs.getInt("count(1)");
             }
+            if (rs != null && rs.getStatement() != null && c != null) {
+                rs.close();
+                c.closeConnection();
+              
+             }
             return row_count;
         } catch (SQLException e) {
             logger.error("Error in function getCount");

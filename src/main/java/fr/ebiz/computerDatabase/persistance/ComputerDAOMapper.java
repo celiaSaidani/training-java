@@ -26,9 +26,6 @@ public class ComputerDAOMapper {
             while (rs.next()) {
                 allComputer.add(getComputer(rs));
             }
-            if (rs != null && rs.getStatement() != null && rs.getStatement().getConnection() != null) {
-                rs.getStatement().getConnection().close();
-            }
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -43,9 +40,7 @@ public class ComputerDAOMapper {
             while (rs.next()) {
                 allComputer.add(getComputer(rs));
             }
-            if (rs != null && rs.getStatement() != null && rs.getStatement().getConnection() != null) {
-                rs.getStatement().getConnection().close();
-            }
+           
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -60,9 +55,6 @@ public class ComputerDAOMapper {
             if (rs.next()) {
 
                 return (getComputer(rs));
-            }
-            if (rs != null && rs.getStatement() != null && rs.getStatement().getConnection() != null) {
-                rs.getStatement().getConnection().close();
             }
         } catch (SQLException e) {
             // TODO Auto-generated catch block
@@ -82,9 +74,6 @@ public class ComputerDAOMapper {
                 listComputer.add(getComputer(rs));
 
             }
-            if (rs != null && rs.getStatement() != null && rs.getStatement().getConnection() != null) {
-                rs.getStatement().getConnection().close();
-            }
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -102,9 +91,6 @@ public class ComputerDAOMapper {
 
                  listComputer.add(getComputer(rs));
 
-             }
-             if (rs != null && rs.getStatement() != null && rs.getStatement().getConnection() != null) {
-                 rs.getStatement().getConnection().close();
              }
          } catch (SQLException e) {
              // TODO Auto-generated catch block

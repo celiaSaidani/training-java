@@ -85,7 +85,7 @@ public class ComputerService {
              dateOut=DateTime.convertDate(comp.getDateOut().trim().concat(" 00:00:00"));
              }
              
-             if (comp.getIdCompany().equals("")) {
+             if (!comp.getIdCompany().equals("")) {
                  CompanyDTO cp = companyService.getCompanybyId(Integer.parseInt(companyId));
                  computer = new Computer(id,name, dateIn, dateOut, Integer.parseInt(cp.getIdCompany()));
              } else

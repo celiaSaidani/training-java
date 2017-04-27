@@ -13,8 +13,7 @@ import fr.ebiz.computerDatabase.model.Company;
 public class CompanyDAO {
 
     private Statement statement = null;
-    private JDBCMySQLConnection c = JDBCMySQLConnection.getInstance();
-
+    //private JDBCMySQLConnection c = JDBCMySQLConnection.getInstance();
     private static final Logger logger = LoggerFactory.getLogger(CompanyDAO.class);
     public CompanyDAOMapper cdm= new CompanyDAOMapper();
 
@@ -26,14 +25,20 @@ public class CompanyDAO {
         String selectCompanyByID = "select * from company where id=" + Integer.toString(id);
         ResultSet rs = null;
         try {
-
+            ConnectionDB c = ConnectionDB.getInstance();
             statement = c.getConnection();
             rs = statement.executeQuery(selectCompanyByID);
+           Company comp= cdm.getCompanyID(id, rs);
+               if (rs != null && rs.getStatement() != null && c != null) {
+                   rs.close();
+                   c.closeConnection();
+                   return comp;
+               }
          
         } catch (Exception e) {
             logger.error("Error in function getCompanyID");
         }
-        return cdm.getCompanyID(id, rs);
+      return null;
     }
 
     
@@ -45,12 +50,20 @@ public class CompanyDAO {
         String selectAllCompany = "select * from company";
         ResultSet rs = null;
         try {
+            ConnectionDB c = ConnectionDB.getInstance();
             statement = c.getConnection();
             rs = statement.executeQuery(selectAllCompany);
+            List<Company> compL= cdm.getAllCompany(rs);
+            if (rs != null && rs.getStatement() != null && c != null) {
+                rs.close();
+                c.closeConnection();
+                return compL;
+            }
+      
         } catch (SQLException e) {
             logger.error("Error in function getAllCompany");
         }
-        return cdm.getAllCompany(rs);
+        return null ;
     }
 
     /**
@@ -62,11 +75,20 @@ public class CompanyDAO {
         ResultSet rs = null;
 
         try {
+            ConnectionDB c = ConnectionDB.getInstance();
             statement = c.getConnection();
             rs = statement.executeQuery(selectAllCompany);
+            List<Company> compL= cdm.getAllCompanyPage(rs);
+            if (rs != null && rs.getStatement() != null && c != null) {
+                rs.close();
+                c.closeConnection();
+                return compL;
+            }
+      
+            
         } catch (SQLException e) {
             logger.error("Error in function getAllCompany");
         }
-        return  cdm.getAllCompanyPage(rs);
+        return  null;
     }
 }

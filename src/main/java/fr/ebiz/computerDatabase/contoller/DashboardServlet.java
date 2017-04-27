@@ -67,7 +67,9 @@ public class DashboardServlet extends HttpServlet {
     		String ids[]=selected.split(",");
     		if(ids.length!=0){
     			while (i<ids.length) {
+    			    System.out.println(ids[i]);
     				boolean delete= computerService.deleteCpmouter(Integer.parseInt(ids[i]));
+    				System.out.println(i);
     				if(delete){
     					System.out.println("Delete reussie");
     				}
@@ -79,7 +81,7 @@ public class DashboardServlet extends HttpServlet {
     		}
     	}
     		
-        response.sendRedirect("DashboardServlet");
+      doGet(request, response);
     }
     
     

@@ -68,7 +68,7 @@ public class EditComputerServlet extends HttpServlet {
          String company= request.getParameter(IDCOMPANY);
          
 
-         System.out.println(id+""+name+""+id+""+DATEIN+""+DATEOUT+""+IDCOMPANY);
+         System.out.println(id+" "+name+" "+id+" "+dateIn+" "+dateout+" "+company);
         ComputerDTO cpDto= new ComputerDTO(id,name,dateIn,dateout,company);
         try {
             boolean update= computerService.updateComputer(cpDto);

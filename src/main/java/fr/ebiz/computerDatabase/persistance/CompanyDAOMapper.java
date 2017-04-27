@@ -23,14 +23,7 @@ public class CompanyDAOMapper {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        try {
-            if (rs != null && rs.getStatement() != null && rs.getStatement().getConnection() != null) {
-                rs.getStatement().getConnection().close();
-            }
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+       
         return new Company();
     }
     
@@ -44,14 +37,6 @@ public class CompanyDAOMapper {
                 String name = rs.getString(companyName);
                 Company comp = new Company(idCompany, name);
                 allCompany.add(comp);
-            }
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        try {
-            if (rs != null && rs.getStatement() != null && rs.getStatement().getConnection() != null) {
-                rs.getStatement().getConnection().close();
             }
         } catch (SQLException e) {
             // TODO Auto-generated catch block
@@ -71,16 +56,7 @@ public class CompanyDAOMapper {
             }
         } catch (SQLException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        try {
-            if (rs != null && rs.getStatement() != null && rs.getStatement().getConnection() != null) {
-                rs.getStatement().getConnection().close();
-            }
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+            e.printStackTrace();}
         return allCompany;
 
     }
