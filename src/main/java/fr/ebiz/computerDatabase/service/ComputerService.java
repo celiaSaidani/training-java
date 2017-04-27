@@ -85,7 +85,7 @@ public class ComputerService {
              dateOut=DateTime.convertDate(comp.getDateOut().trim().concat(" 00:00:00"));
              }
              
-             if (comp.getIdCompany()!=null) {
+             if (comp.getIdCompany().equals("")) {
                  CompanyDTO cp = companyService.getCompanybyId(Integer.parseInt(companyId));
                  computer = new Computer(id,name, dateIn, dateOut, Integer.parseInt(cp.getIdCompany()));
              } else
@@ -155,7 +155,18 @@ public class ComputerService {
      */
     public ComputerDTO showDetailsComputer(int id) {
         Computer cp = computerDao.getComputerById(id);
-        return computerMap.getComputerDTO(cp);
+        ComputerDTO cpDto= computerMap.getComputerDTO(cp);
+        if(cpDto.getDateIn()!=null){
+           
+            String newDate=cpDto.getDateIn().substring(0,10);
+            cpDto.setDateIn(newDate);
+        }
+        if(cpDto.getDateOut()!=null){
+            String newDate=cpDto.getDateOut().substring(0,10);
+            cpDto.setDateOut(newDate);
+        }
+        
+        return cpDto;
     }
 
     public List<ComputerDTO> getComputerByNameMapper(String name) {

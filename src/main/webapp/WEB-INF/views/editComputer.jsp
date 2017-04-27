@@ -26,7 +26,7 @@
                     </div>
                     <h1>Edit Computer</h1>
 
-                    <form action="EditComputerServlet" method="POST">
+                    <form id="Formulaire" action="EditComputerServlet" method="POST">
                         <input type="hidden" value="${computerdb.idComp}" id="id" name="computerId"/> <!-- TODO: Change this value with the computer id -->
                         <fieldset>
                             <div class="form-group">
@@ -35,18 +35,33 @@
                             </div>
                             <div class="form-group">
                                 <label for="introduced">Introduced date</label>
-                                <input type="date" class="form-control" id="introduced" name="introduced"  value="${computerdb.dateIn}" >
+                                <div class="date">
+                                    <div class="input-group input-append date" id="intoducedPicker">
+                                        <input type="text" class="form-control" name="introduced" id="introduced" value="${computerdb.dateIn}"/>
+                                        <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
+                                    </div>
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label for="discontinued">Discontinued date</label>
-                                <input type="date" class="form-control" id="discontinued" name="discontinued"  value="${computerdb.dateOut}">
+                                <div class="date">
+                                    <div class="input-group input-append date" id="discontinuedPicker">
+                                        <input type="text" class="form-control" name="discontinued" id="discontinued" value="${computerdb.dateOut}"/>
+                                        <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="form-group">
+                             <div class="form-group">
                                 <label for="companyId">Company</label>
-                                <select class="form-control" name="company" id="companyId" >
-                                    <option value="">${computerdb.nameCompany}</option>
+                                <select class="form-control" id="companyId" name="company" >
+                                   <c:forEach var="company" items="${requestScope.company}">
+                                    <option value=${company.idCompany} 
+                                    	<c:if test="${company.idCompany == computerdb.idCompany}">selected</c:if>
+                                    	>${company.nameCompany}</option>
+                                 	</c:forEach>
                                 </select>
-                            </div>            
+                            </div> 
+                           
                         </fieldset>
                         <div class="actions pull-right">
                             <input type="submit" value="Edit" class="btn btn-primary">
@@ -59,4 +74,59 @@
         </div>
     </section>
 </body>
+<script src="js/jquery.min.js"></script>
+<script src="/js/jbootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.5.3/js/bootstrapValidator.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function() {
+    $('#intoducedPicker')
+        .datepicker({
+            format: 'yyyy-mm-dd'
+        }).on('changeDate', function (e) {
+  			 $('#Formulaire').bootstrapValidator('revalidateField', 'introduced');
+				});
+        
+    $('#discontinuedPicker')
+        .datepicker({
+            format: 'yyyy-mm-dd'
+        }).on('changeDate', function (e) {
+  			 $('#Formulaire').bootstrapValidator('revalidateField', 'discontinued');
+				});
+        
+    $("#Formulaire").bootstrapValidator({
+	    		feedbackIcons: {
+	                valid: 'glyphicon glyphicon-ok',
+	                invalid: 'glyphicon glyphicon-remove',
+	                validating: 'glyphicon glyphicon-refresh'
+	            },
+	            fields: {
+								computerName: {
+                	validators: {
+                  	notEmpty: {
+                    	message: 'The name is required'
+                      }
+                     }
+	                },
+								introduced: {
+									validators: {
+										date: {
+                    	format: 'YYYY-MM-DD',
+                      message: 'The value is not a valid date'
+                      }
+	                	}
+	            	},
+                discontinued: {
+									validators: {
+										date: {
+											format: 'YYYY-MM-DD',
+											message: 'The value is not a valid date :3'
+                    }
+                	}
+	            	}
+	            }
+	    	});
+});
+</script>
 </html>

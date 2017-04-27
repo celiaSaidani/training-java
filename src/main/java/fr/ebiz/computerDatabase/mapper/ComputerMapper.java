@@ -21,7 +21,6 @@ public class ComputerMapper {
     
     public List<ComputerDTO> getComputerDTOs(List<Computer> cp){
         List<ComputerDTO> allComputer = new ArrayList<>();
-        System.out.println(cp.size());
         for(int i=0;i<cp.size();i++){
             allComputer.add(new ComputerDTO(cp.get(i)));
         }

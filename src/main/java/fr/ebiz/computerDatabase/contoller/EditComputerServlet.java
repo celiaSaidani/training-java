@@ -2,6 +2,7 @@ package fr.ebiz.computerDatabase.contoller;
 
 import java.io.IOException;
 import java.time.format.DateTimeParseException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,7 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import fr.ebiz.computerDatabase.dto.CompanyDTO;
 import fr.ebiz.computerDatabase.dto.ComputerDTO;
+import fr.ebiz.computerDatabase.service.CompanyService;
 import fr.ebiz.computerDatabase.service.ComputerService;
 
 /**
@@ -22,6 +25,7 @@ public class EditComputerServlet extends HttpServlet {
     public static final String error_VIEW = "/WEB-INF/views/500.jsp";
 
     public final ComputerService computerService = new ComputerService();
+    CompanyService companyService= new CompanyService();
     public final String ID="computerId";
     public final String NAME="computerName";
     public final String DATEIN="introduced";
@@ -44,8 +48,11 @@ public class EditComputerServlet extends HttpServlet {
         System.out.println(request.getParameter("idComputer"));
         ComputerDTO compDTO= computerService.showDetailsComputer(Integer.parseInt(request.getParameter("idComputer")));
         request.setAttribute("computerdb", compDTO);
-        this.getServletContext().getRequestDispatcher(EDIT_VIEW).forward(request, response);
+        
+        List<CompanyDTO> company =companyService.getAllCompany();
+        request.setAttribute("company", company);
         System.out.println(compDTO.getNameCompany());
+        this.getServletContext().getRequestDispatcher(EDIT_VIEW).forward(request, response);
     }
 
     /**
@@ -61,6 +68,7 @@ public class EditComputerServlet extends HttpServlet {
          String company= request.getParameter(IDCOMPANY);
          
 
+         System.out.println(id+""+name+""+id+""+DATEIN+""+DATEOUT+""+IDCOMPANY);
         ComputerDTO cpDto= new ComputerDTO(id,name,dateIn,dateout,company);
         try {
             boolean update= computerService.updateComputer(cpDto);
