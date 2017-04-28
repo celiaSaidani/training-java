@@ -321,7 +321,6 @@ public class ComputerDAO {
 
    }
     
-    
     public int CountTotalLine() {
         ResultSet rs = null;
         Statement statement=null;
@@ -376,6 +375,35 @@ public class ComputerDAO {
         return 0;
   
         
+    }
+
+
+    public List<Computer> getComputerOrder(int start, int end, String reqBy,String name) {
+        ResultSet rs = null;
+        Statement statement=null;
+        String orderBy = "select computer.id, computer.name, computer.introduced, computer.discontinued ,"
+                + "company.id as company_id, company.name as companyName from computer left join company "
+                + "on computer.company_id = company.id"
+                + " ORDER BY "+ name +" "+ reqBy + " limit "+ start+ "," +end;
+     
+        try {
+            ConnectionDB c = ConnectionDB.getInstance();
+          
+            statement = c.getConnection();
+            rs = statement.executeQuery(orderBy);
+      
+           
+            List<Computer> cp=cpm.OrderByMapper(rs);
+            if (rs != null && rs.getStatement() != null && c != null) {
+                rs.close();
+                c.closeConnection();
+              
+             }
+            return cp;
+        } catch (SQLException e) {
+            logger.error("Error in function order ");
+        }
+        return null;
     }
 
 

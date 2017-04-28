@@ -12,6 +12,7 @@
 <link href="./css/bootstrap.min.css" rel="stylesheet" media="screen">
 <link href="./css/font-awesome.css" rel="stylesheet" media="screen">
 <link href="./css/main.css" rel="stylesheet" media="screen">
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 </head>
 <body>
     <header class="navbar navbar-inverse navbar-fixed-top">
@@ -60,21 +61,7 @@
                                     </a>
                             </span>
                         </th>
-                        <th>
-                            Computer name
-                        </th>
-                        <th>
-                            Introduced date
-                        </th>
-                        <!-- Table header for Discontinued Date -->
-                        <th>
-                            Discontinued date
-                        </th>
-                        <!-- Table header for Company -->
-                        <th>
-                            Company
-                        </th>
-
+                        <mylib:tableheader order="${requestScope.order}" by="${requestScope.by}" />
                     </tr>
                 </thead>
                 <!-- Browse attribute computers -->

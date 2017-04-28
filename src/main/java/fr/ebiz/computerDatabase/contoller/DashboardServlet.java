@@ -31,7 +31,22 @@ public class DashboardServlet extends HttpServlet {
         int page=1;
         String search="";
         int count=0;
+        String order = "computer", by = "up";
+        String reqOrder,reqBy;
         List<ComputerDTO> computer=null;
+        
+        if ((reqOrder = request.getParameter("order")) != null) {
+            order = reqOrder;
+        }
+
+        if ((reqBy = request.getParameter("by")) != null) {
+            if (reqBy.equalsIgnoreCase("up")) {
+                by = "down";
+            } else if (reqBy.equalsIgnoreCase("down")) {
+                by = "up";
+            }
+
+}
        
         if(request.getParameter("size")!=null){
             size=Integer.parseInt((request.getParameter("size")));
@@ -47,12 +62,15 @@ public class DashboardServlet extends HttpServlet {
                 computer=computerService.Search(request.getParameter("search").trim(),(page-1) * size, size);
                 search= request.getParameter("search");
             }
-
 		}
         else{
         	count= computerService.getCount();
         	if(count>0){
-        	    computer =computerService.getAllComputerPage((page-1) * size, size);
+        	    if((reqOrder!=null)&&(reqBy!=null)){
+        	        computer =computerService.getComputerOrder((page-1) * size, size,reqBy,reqOrder);
+        	    }
+        	    else
+        	        computer =computerService.getAllComputerPage((page-1) * size, size);
         	}
         }
         request.setAttribute("computerdb", computer);
@@ -61,6 +79,8 @@ public class DashboardServlet extends HttpServlet {
         request.setAttribute("page", page);
         request.setAttribute("count", count);
         request.setAttribute("search",search);
+        request.setAttribute("order", order);
+        request.setAttribute("by", by); 
         
         this.getServletContext().getRequestDispatcher(DASHBOARD_VIEW).forward(request, response);
     }

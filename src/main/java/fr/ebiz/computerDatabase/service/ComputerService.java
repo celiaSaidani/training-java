@@ -148,6 +148,18 @@ public class ComputerService {
         List<Computer> allComp = computerDao.getAllComputerPage(start,end);
         return computerMap.getComputerDTOs(allComp);
     }
+    public List<ComputerDTO> getComputerOrder(int start, int end, String reqBy,String name) {
+        System.out.println(reqBy);
+        name=name.trim();
+        if(reqBy.equals("up")){
+            reqBy="ASC";
+        }
+        else{
+            reqBy="DECS";
+        }
+        List<Computer> lcp= computerDao.getComputerOrder(start,end,reqBy,name);
+         return computerMap.getComputerDTOs(lcp) ;
+     }
 
     /**
      * @param id of computer
@@ -186,5 +198,7 @@ public class ComputerService {
         return computerDao.CountTotalLine(search);
 
      }
+
+   
 
 }

@@ -99,6 +99,24 @@ public class ComputerDAOMapper {
 
          return listComputer;
      }
+    public List<Computer> OrderByMapper(ResultSet rs) {
+        
+        List<Computer> listComputer = new ArrayList<>();
+
+        try {
+            while (rs.next()) {
+
+                listComputer.add(getComputer(rs));
+
+            }
+            System.out.println("taille de array list"+ listComputer.size());
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        return listComputer;
+    }
 /**
  * @param rs
  * @return a computer
