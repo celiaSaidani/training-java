@@ -301,6 +301,7 @@ public class ComputerDAO {
        Statement statement=null;
        String search = "select computer.id, computer.name, computer.introduced, computer.discontinued ,"
                + "company.id as company_id, company.name as companyName from computer left join company on computer.company_id = company.id where computer.name like " + "'%" +name+ "%'"
+                       + "or company.name like " + "'%" +name+ "%'"
                		+ "limit "+ start+","+end;
        try {
            ConnectionDB c = ConnectionDB.getInstance();
@@ -348,5 +349,34 @@ public class ComputerDAO {
   
         
     }
+    
+    public int CountTotalLine(String search) {
+        ResultSet rs = null;
+        Statement statement=null;
+        String selectAllComputer = "select count(1) from computer left join company on computer.company_id = company.id where computer.name like " + "'%" +search+ "%'";
+        int row_count = 0;
+        ConnectionDB c = ConnectionDB.getInstance();
+        statement = c.getConnection();
+
+        try {
+            rs = statement.executeQuery(selectAllComputer);
+            while(rs.next())
+            {
+            row_count= rs.getInt("count(1)");
+            }
+            if (rs != null && rs.getStatement() != null && c != null) {
+                rs.close();
+                c.closeConnection();
+              
+             }
+            return row_count;
+        } catch (SQLException e) {
+            logger.error("Error in function getCount");
+        }
+        return 0;
+  
+        
+    }
+
 
 }

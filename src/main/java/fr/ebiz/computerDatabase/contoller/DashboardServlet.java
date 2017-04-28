@@ -29,7 +29,8 @@ public class DashboardServlet extends HttpServlet {
         // TODO Auto-generated method stub
         int size=10;
         int page=1;
-        int count= computerService.getCount();
+        String search="";
+        int count=0;
         List<ComputerDTO> computer=null;
        
         if(request.getParameter("size")!=null){
@@ -40,18 +41,26 @@ public class DashboardServlet extends HttpServlet {
             page=Integer.parseInt((request.getParameter("page")));
         }
         if(request.getParameter("search")!=null){
-        	computer=computerService.Search(request.getParameter("search"),(page-1) * size, size);
-            request.setAttribute("search", request.getParameter("search"));
+            count=computerService.getCount(request.getParameter("search").trim());
+            
+            if(count>0){
+                computer=computerService.Search(request.getParameter("search").trim(),(page-1) * size, size);
+                search= request.getParameter("search");
+            }
 
 		}
         else{
-        	computer =computerService.getAllComputerPage((page-1) * size, size);
+        	count= computerService.getCount();
+        	if(count>0){
+        	    computer =computerService.getAllComputerPage((page-1) * size, size);
+        	}
         }
         request.setAttribute("computerdb", computer);
         request.setAttribute("computer",count );
         request.setAttribute("size", size);
         request.setAttribute("page", page);
         request.setAttribute("count", count);
+        request.setAttribute("search",search);
         
         this.getServletContext().getRequestDispatcher(DASHBOARD_VIEW).forward(request, response);
     }
@@ -68,9 +77,8 @@ public class DashboardServlet extends HttpServlet {
     		String ids[]=selected.split(",");
     		if(ids.length!=0){
     			while (i<ids.length) {
-    			    System.out.println(ids[i]);
+    			
     				boolean delete= computerService.deleteCpmouter(Integer.parseInt(ids[i]));
-    				System.out.println(i);
     				if(delete){
     					System.out.println("Delete reussie");
     				}

@@ -175,12 +175,16 @@ public class ComputerService {
 
     }
     public List<ComputerDTO> Search(String name, int start, int end){
-    	List<Computer> cp=computerDao.Serach(name,  start,end);
+    	List<Computer> cp=computerDao.Serach(name,start,end);
     	return computerMap.getComputerDTOs(cp);
     }
     public int getCount() {
        return computerDao.CountTotalLine();
 
     }
+    public int getCount(String search) {
+        return computerDao.CountTotalLine(search);
+
+     }
 
 }
