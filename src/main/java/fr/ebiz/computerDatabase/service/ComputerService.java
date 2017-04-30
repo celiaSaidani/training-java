@@ -149,13 +149,12 @@ public class ComputerService {
         return computerMap.getComputerDTOs(allComp);
     }
     public List<ComputerDTO> getComputerOrder(int start, int end, String reqBy,String name) {
-        System.out.println(reqBy);
         name=name.trim();
         if(reqBy.equals("up")){
             reqBy="ASC";
         }
         else{
-            reqBy="DECS";
+            reqBy="DESC";
         }
         List<Computer> lcp= computerDao.getComputerOrder(start,end,reqBy,name);
          return computerMap.getComputerDTOs(lcp) ;
