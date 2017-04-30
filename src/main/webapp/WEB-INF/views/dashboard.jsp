@@ -87,7 +87,9 @@
 
     <footer class="navbar-fixed-bottom">
         <div class="container text-center">
-            <mylib:pagination page="${requestScope.page}" count="${requestScope.count}" size="${requestScope.size}" search="${requestScope.search}" />
+            <mylib:pagination page="${requestScope.page}" count="${requestScope.count}" size="${requestScope.size}" 
+            				  search="${requestScope.search}" order="${requestScope.order}" 
+            				  by="${requestScope.by}" />
 	  </div>
     </footer>
 <script src="./js/jquery.min.js"></script>
