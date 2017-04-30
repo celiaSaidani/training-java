@@ -12,7 +12,7 @@
 <c:set var="byCompany" value="up" />
 
 <c:choose>
-		<c:when test="${order == 'computer'}">
+		<c:when test="${order == 'computer.name'}">
 			<c:set var="orderComputer" value="-${by}" />
 			<c:set var="byComputer" value="${by}" />
 		</c:when>
@@ -24,7 +24,7 @@
 			<c:set var="orderDiscontinued" value="-${by}" />
 			<c:set var="byDiscontinued" value="${by}" />
 		</c:when>
-		<c:when test="${order == 'company'}">
+		<c:when test="${order == 'company.name'}">
 			<c:set var="orderCompany" value="-${by}" />
 			<c:set var="byCompany" value="${by}" />
 		</c:when>

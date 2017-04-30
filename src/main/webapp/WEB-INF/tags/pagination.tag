@@ -63,7 +63,7 @@
 	</a></li>
 </ul>
 <div class="btn-group btn-group-sm pull-right" role="group">
-		<a type="button" class="btn btn-default<c:if test='${size == 10}'> active</c:if>" href="dashboard?${search}page=1&size=10${orderby}">10</a>
-	<a type="button" class="btn btn-default<c:if test='${size == 50}'> active</c:if>"href="dashboard?${search}page=1&size=50${orderby}">50</a>
-	<a type="button" class="btn btn-default<c:if test='${size == 100}'> active</c:if>"href="dashboard?${search}page=1&size=100${orderby}">100</a>
+		<a type="button" class="btn btn-default<c:if test='${size == 10}'> active</c:if>" href="DashboardServlet?${search}page=1&size=10${orderby}">10</a>
+	<a type="button" class="btn btn-default<c:if test='${size == 50}'> active</c:if>"href="DashboardServlet?${search}page=1&size=50${orderby}">50</a>
+	<a type="button" class="btn btn-default<c:if test='${size == 100}'> active</c:if>"href="DashboardServlet?${search}page=1&size=100${orderby}">100</a>
 </div>

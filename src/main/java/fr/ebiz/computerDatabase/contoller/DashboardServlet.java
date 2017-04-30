@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import fr.ebiz.computerDatabase.Exception.ServiceException;
 import fr.ebiz.computerDatabase.dto.ComputerDTO;
 import fr.ebiz.computerDatabase.service.ComputerService;
 
@@ -19,7 +20,6 @@ import fr.ebiz.computerDatabase.service.ComputerService;
 public class DashboardServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
   private ComputerService computerService = new ComputerService();
-
   public static final String DASHBOARD_VIEW = "/WEB-INF/views/dashboard.jsp";
 
   /**
@@ -34,7 +34,7 @@ public class DashboardServlet extends HttpServlet {
     String search = "";
     int count = 0;
     String order = "name", by = "up";
-    String reqOrder, reqBy,reqPage,reqSort="";
+    String reqOrder, reqBy, reqSort = "";
     List<ComputerDTO> computer = null;
     boolean sort = false;
 
@@ -51,7 +51,7 @@ public class DashboardServlet extends HttpServlet {
       }
 
     }
-    if ((reqPage = request.getParameter("sort")) != null) {
+    if ((request.getParameter("sort")) != null) {
       try {
         sort = Boolean.parseBoolean(reqSort);
       } catch (NumberFormatException e) {
@@ -67,20 +67,35 @@ public class DashboardServlet extends HttpServlet {
       page = Integer.parseInt((request.getParameter("page")));
     }
     if (request.getParameter("search") != null) {
-      count = computerService.getCount(request.getParameter("search").trim());
-      if (count > 0) {
-        computer = computerService.Search(request.getParameter("search").trim(), (page - 1) * size,
-            size);
-        search = request.getParameter("search");
+      try {
+        count = computerService.getCount(request.getParameter("search").trim());
+        if (count > 0) {
+          try {
+            computer = computerService.Search(request.getParameter("search").trim(),
+                (page - 1) * size, size);
+          } catch (ServiceException e) {
+            System.err.println(e.getMessage());
+          }
+          search = request.getParameter("search");
+        }
+      } catch (ServiceException e) {
+        System.err.println(e.getMessage());
       }
+
     } else {
-      count = computerService.getCount();
-      if (count > 0) {
-        if ((reqOrder != null) && (reqBy != null)) {
-          computer = computerService.getComputerOrder((page - 1) * size, size, reqBy, reqOrder);
-        } else
-          computer = computerService.getAllComputerPage((page - 1) * size, size);
+      try {
+        count = computerService.getCount();
+        if (count > 0) {
+          if ((reqOrder != null) && (reqBy != null)) {
+            computer = computerService.getComputerOrder((page - 1) * size, size, reqBy, reqOrder);
+          } else
+            computer = computerService.getAllComputerPage((page - 1) * size, size);
+        }
+      } catch (ServiceException e) {
+        System.err.println(e.getMessage());
+        
       }
+
     }
     request.setAttribute("computerdb", computer);
     request.setAttribute("computer", count);
@@ -109,12 +124,14 @@ public class DashboardServlet extends HttpServlet {
       if (ids.length != 0) {
         while (i < ids.length) {
 
-          boolean delete = computerService.deleteCpmouter(Integer.parseInt(ids[i]));
-          if (delete) {
-            System.out.println("Delete reussie");
-          } else {
-            System.out.println("Delete non reussie");
+          try {
+            computerService.deleteCpmouter(Integer.parseInt(ids[i]));
+          } catch (NumberFormatException e) {
+            System.out.println(e.getMessage());
+          } catch (ServiceException e) {
+            System.err.println(e.getMessage());
           }
+
           i++;
         }
       }
