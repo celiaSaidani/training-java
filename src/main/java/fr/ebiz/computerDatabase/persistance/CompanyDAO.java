@@ -1,5 +1,6 @@
 package fr.ebiz.computerDatabase.persistance;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -17,6 +18,7 @@ public class CompanyDAO {
   private Statement statement = null;
   private final String companyName = "name";
   private final String companyId = "id";
+  private Connection connection = null;
   // private JDBCMySQLConnection c = JDBCMySQLConnection.getInstance();
   private static final Logger logger = LoggerFactory.getLogger(CompanyDAO.class);
 
@@ -27,23 +29,23 @@ public class CompanyDAO {
   public Company getCompanyID(int id) throws DAOException {
     String selectCompanyByID = "select * from company where id=" + Integer.toString(id);
     ResultSet rs = null;
-    ConnectionDB c = null;
+
     try {
-      c = ConnectionDB.getInstance();
-      statement = c.getConnection();
+      connection = ConnectionDB.getInstance().getConnection();
+      statement = connection.createStatement();
       rs = statement.executeQuery(selectCompanyByID);
       Company comp = mappCompany(id, rs);
       return comp;
 
-    } catch (Exception e) {
+    } catch (SQLException e) {
       logger.error("[Error DAO] in function getCompanyID");
       throw new DAOException("[DAO EXCEPTION] enable to find company by id in dataBase");
     } finally {
       try {
-        if ((rs != null) & (rs.getStatement() != null) & (c != null)) {
+        if ((rs != null) & (rs.getStatement() != null) & (connection != null)) {
           rs.close();
           rs.getStatement().close();
-          c.closeConnection();
+          connection.close();
         }
 
       } catch (SQLException e) {
@@ -58,10 +60,9 @@ public class CompanyDAO {
   public List<Company> getAllCompany() throws DAOException {
     String selectAllCompany = "select * from company";
     ResultSet rs = null;
-    ConnectionDB c = null;
     try {
-      c = ConnectionDB.getInstance();
-      statement = c.getConnection();
+      connection = ConnectionDB.getInstance().getConnection();
+      statement = connection.createStatement();
       rs = statement.executeQuery(selectAllCompany);
       List<Company> compL = mappCompanyL(rs);
       return compL;
@@ -71,10 +72,10 @@ public class CompanyDAO {
       throw new DAOException("[DAO EXCEPTION] Impossible to get all company from dataBase");
     } finally {
       try {
-        if ((rs != null) & (rs.getStatement() != null) & (c != null)) {
+        if ((rs != null) & (rs.getStatement() != null) & (connection != null)) {
           rs.close();
           rs.getStatement().close();
-          c.closeConnection();
+          connection.close();
         }
       } catch (SQLException e) {
         throw new DAOException("enable to close connection");
@@ -89,11 +90,10 @@ public class CompanyDAO {
   public List<Company> getAllCompany(int start) throws DAOException {
     String selectAllCompany = "select * from company limit 10 offset " + start;
     ResultSet rs = null;
-    ConnectionDB c = null;
 
     try {
-      c = ConnectionDB.getInstance();
-      statement = c.getConnection();
+      connection = ConnectionDB.getInstance().getConnection();
+      statement = connection.createStatement();
       rs = statement.executeQuery(selectAllCompany);
       List<Company> compL = mappCompanyL(rs);
 
@@ -105,10 +105,10 @@ public class CompanyDAO {
           "[DAO EXCEPTION] Impossible to get all company  by limit from dataBase");
     } finally {
       try {
-        if ((rs != null) & (rs.getStatement() != null) & (c != null)) {
+        if ((rs != null) & (rs.getStatement() != null) & (connection != null)) {
           rs.close();
           rs.getStatement().close();
-          c.closeConnection();
+          connection.close();
         }
 
       } catch (SQLException e) {
@@ -116,6 +116,20 @@ public class CompanyDAO {
       }
     }
 
+  }
+  public void delete(int id) throws DAOException {
+    String deleteCompany=" delete from company where company.id = "+id;
+    connection=Transaction.getConnetion();
+    try {
+      statement = connection.createStatement();
+      statement.executeQuery(deleteCompany);
+      statement.close();
+    } catch (SQLException e) {
+      logger.error("[Error DAO] in function delete company");
+      throw new DAOException("[DAO EXCEPTION] Impossible to delete this company from dataBase");
+    }
+    
+    
   }
 
   private Company mappCompany(int id, ResultSet rs) {

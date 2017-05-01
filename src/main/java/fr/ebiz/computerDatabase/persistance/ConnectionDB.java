@@ -3,7 +3,6 @@ package fr.ebiz.computerDatabase.persistance;
 import java.sql.Connection;
 
 import java.sql.SQLException;
-import java.sql.Statement;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -63,7 +62,7 @@ public class ConnectionDB {
 }
 
   
-    public Statement getConnection() {
+   /* public Statement getConnection() {
 
        dbConnection = createConnection();
         try {
@@ -74,9 +73,9 @@ public class ConnectionDB {
         }
         return null;
 
-    }
+    }*/
 
-    public Connection getConnectionP() {
+    public Connection getConnection() {
 
         dbConnection = createConnection();
         return dbConnection;
@@ -90,6 +89,7 @@ public class ConnectionDB {
     public int closeConnection() {
         try {
             dbConnection.close();
+            dataSource.close();
         } catch (SQLException e) {
             logger.error("Error Unable to close connection");
             return 1;

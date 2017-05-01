@@ -1,5 +1,6 @@
 package fr.ebiz.computerDatabase.persistance;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -20,6 +21,8 @@ public class ComputerDAO {
 
   private static String[] computerColumns = { "id", "name", "introduced", "discontinued",
       "company_id", "companyName" };
+  private Connection connection = null;
+
   private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S");
   private static final Logger logger = LoggerFactory.getLogger(ComputerDAO.class);
 
@@ -31,11 +34,10 @@ public class ComputerDAO {
 
     String insertComputer = "insert into computer(name,introduced,discontinued,company_id) values(?,?,?,?)";
     PreparedStatement ps = null;
-    ConnectionDB c = null;
 
     try {
-      c = ConnectionDB.getInstance();
-      ps = c.getConnectionP().prepareStatement(insertComputer);
+      connection = ConnectionDB.getInstance().getConnection();
+      ps = connection.prepareStatement(insertComputer);
       ps.setString(1, computer.getName());
       ps.setString(2, computer.getDateIN() == null ? null : computer.getDateIN().format(formatter));
       ps.setString(3,
@@ -53,9 +55,9 @@ public class ComputerDAO {
           "[DAO EXCEPTION] enable to insert computer in data base, id company not found");
     } finally {
       try {
-        if ((ps != null) && (c != null)) {
+        if ((ps != null) && (connection != null)) {
           ps.close();
-          c.closeConnection();
+          connection.close();
         }
 
       } catch (SQLException e) {
@@ -74,11 +76,10 @@ public class ComputerDAO {
     String deleteComputer = "delete from computer where id= " + id;
     int delete = 0;
     Statement statement = null;
-    ConnectionDB c = null;
 
     try {
-      c = ConnectionDB.getInstance();
-      statement = c.getConnection();
+      connection = ConnectionDB.getInstance().getConnection();
+      statement = connection.createStatement();
       delete = statement.executeUpdate(deleteComputer);
       if (delete == 1)
         logger.info("delete computer successful");
@@ -90,9 +91,9 @@ public class ComputerDAO {
       throw new DAOException("[DAO EXCEPTION] Impossible to delete computer delete from database");
     } finally {
       try {
-        if ((statement != null) && (c != null)) {
+        if ((statement != null) && (connection != null)) {
           statement.close();
-          c.closeConnection();
+          connection.close();
         }
 
       } catch (SQLException e) {
@@ -110,10 +111,9 @@ public class ComputerDAO {
     String updateComputer = "update computer set " + computerColumns[1] + "=? ,"
         + computerColumns[2] + "=? ," + computerColumns[3] + "=? ," + computerColumns[4]
         + "= ? where " + computerColumns[0] + "= ?";
-    ConnectionDB c = null;
     try {
-      c = ConnectionDB.getInstance();
-      ps = c.getConnectionP().prepareStatement(updateComputer);
+      connection = ConnectionDB.getInstance().getConnection();
+      ps = connection.prepareStatement(updateComputer);
       ps.setString(1, computer.getName());
       ps.setString(2, computer.getDateIN() == null ? null : computer.getDateIN().format(formatter));
       ps.setString(3,
@@ -135,9 +135,9 @@ public class ComputerDAO {
       throw new DAOException("[DAO EXCEPTION] Impossible to update computer delete from database");
     } finally {
       try {
-        if ((ps != null) && (c != null)) {
+        if ((ps != null) && (connection != null)) {
           ps.close();
-          c.closeConnection();
+          connection.close();
         }
 
       } catch (SQLException e) {
@@ -152,11 +152,10 @@ public class ComputerDAO {
     Statement statement = null;
     String selectAllComputer = "select computer.id, computer.name, computer.introduced, computer.discontinued ,"
         + "company.id as company_id, company.name as companyName from computer left join company on computer.company_id = company.id";
-    ConnectionDB c = null;
 
     try {
-      c = ConnectionDB.getInstance();
-      statement = c.getConnection();
+      connection = ConnectionDB.getInstance().getConnection();
+      statement = connection.createStatement();
       rs = statement.executeQuery(selectAllComputer);
       List<Computer> cp = mappDaoL(rs);
       return cp;
@@ -165,9 +164,9 @@ public class ComputerDAO {
       throw new DAOException("[DAO EXCEPTION] Impossible to get All computer from dataBase");
     } finally {
       try {
-        if ((statement != null) && (c != null)) {
+        if ((statement != null) && (connection != null)) {
           statement.close();
-          c.closeConnection();
+          connection.close();
         }
 
       } catch (SQLException e) {
@@ -187,10 +186,10 @@ public class ComputerDAO {
 
     ResultSet rs = null;
     Statement statement = null;
-    ConnectionDB c = null;
+
     try {
-      c = ConnectionDB.getInstance();
-      statement = c.getConnection();
+      connection = ConnectionDB.getInstance().getConnection();
+      statement = connection.createStatement();
       rs = statement.executeQuery(selectAllComputer);
       List<Computer> cp = mappDaoL(rs);
       return cp;
@@ -200,9 +199,10 @@ public class ComputerDAO {
       throw new DAOException("[DAO EXCEPTION] Impossible to get All computer from dataBase");
     } finally {
       try {
-        if ((statement != null) && (c != null)) {
+        if ((statement != null) && (connection != null)) {
           statement.close();
-          c.closeConnection();
+          connection.close();
+          ;
         }
 
       } catch (SQLException e) {
@@ -221,10 +221,9 @@ public class ComputerDAO {
         + "company.id as company_id, company.name as companyName from computer left join company on computer.company_id = company.id "
         + " where computer.id=" + Integer.toString(id);
     ResultSet rs = null;
-    ConnectionDB c = null;
     try {
-      c = ConnectionDB.getInstance();
-      statement = c.getConnection();
+      connection = ConnectionDB.getInstance().getConnection();
+      statement = connection.createStatement();
       rs = statement.executeQuery(selectComputerByid);
       Computer cp = mappDao(rs);
 
@@ -235,9 +234,9 @@ public class ComputerDAO {
       throw new DAOException("[DAO EXCEPTION] error in function getComputerById");
     } finally {
       try {
-        if ((statement != null) && (c != null)) {
+        if ((statement != null) && (connection != null)) {
           statement.close();
-          c.closeConnection();
+          connection.close();
         }
 
       } catch (SQLException e) {
@@ -254,13 +253,12 @@ public class ComputerDAO {
   public List<Computer> getComputerByName(String name) throws DAOException {
     ResultSet rs = null;
     Statement statement = null;
-    ConnectionDB c = null;
     String selectComputeryByName = "select computer.id, computer.name, computer.introduced, computer.discontinued ,"
         + "company.id as company_id, company.name as companyName from computer left join company on computer.company_id = company.id where computer.name= "
         + "'" + name + "'";
     try {
-      c = ConnectionDB.getInstance();
-      statement = c.getConnection();
+      connection = ConnectionDB.getInstance().getConnection();
+      statement = connection.createStatement();
       rs = statement.executeQuery(selectComputeryByName);
       List<Computer> cp = mappDaoL(rs);
       return cp;
@@ -270,9 +268,9 @@ public class ComputerDAO {
           "[DAO EXCEPTION] Impossible to get All computer by Name from dataBase");
     } finally {
       try {
-        if ((statement != null) && (c != null)) {
+        if ((statement != null) && (connection != null)) {
           statement.close();
-          c.closeConnection();
+          connection.close();
         }
 
       } catch (SQLException e) {
@@ -284,14 +282,13 @@ public class ComputerDAO {
   public List<Computer> Serach(String name, int start, int end) throws DAOException {
     ResultSet rs = null;
     Statement statement = null;
-    ConnectionDB c = null;
     String search = "select computer.id, computer.name, computer.introduced, computer.discontinued ,"
         + "company.id as company_id, company.name as companyName from computer left join company on computer.company_id = company.id where computer.name like "
         + "'%" + name + "%'" + "or company.name like " + "'%" + name + "%'" + "limit " + start + ","
         + end;
     try {
-      c = ConnectionDB.getInstance();
-      statement = c.getConnection();
+      connection = ConnectionDB.getInstance().getConnection();
+      statement = connection.createStatement();
       rs = statement.executeQuery(search);
       List<Computer> cp = mappDaoL(rs);
       return cp;
@@ -300,9 +297,9 @@ public class ComputerDAO {
       throw new DAOException("[DAO EXCEPTION] Impossible to find computer in dataBase");
     } finally {
       try {
-        if ((statement != null) && (c != null)) {
+        if ((statement != null) && (connection != null)) {
           statement.close();
-          c.closeConnection();
+          connection.close();
         }
 
       } catch (SQLException e) {
@@ -316,11 +313,10 @@ public class ComputerDAO {
     Statement statement = null;
     String selectAllComputer = "select count(1) from computer";
     int row_count = 0;
-    ConnectionDB c = null;
 
     try {
-      c = ConnectionDB.getInstance();
-      statement = c.getConnection();
+      connection = ConnectionDB.getInstance().getConnection();
+      statement = connection.createStatement();
       rs = statement.executeQuery(selectAllComputer);
       while (rs.next()) {
         row_count = rs.getInt("count(1)");
@@ -331,9 +327,9 @@ public class ComputerDAO {
       throw new DAOException("Impossible to count computer in dataBase");
     } finally {
       try {
-        if ((statement != null) && (c != null)) {
+        if ((statement != null) && (connection != null)) {
           statement.close();
-          c.closeConnection();
+          connection.close();
         }
 
       } catch (SQLException e) {
@@ -349,11 +345,10 @@ public class ComputerDAO {
     String selectAllComputer = "select count(1) from computer left join company on computer.company_id = company.id where computer.name like "
         + "'%" + search + "%'";
     int row_count = 0;
-    ConnectionDB c = null;
 
     try {
-      c = ConnectionDB.getInstance();
-      statement = c.getConnection();
+      connection = ConnectionDB.getInstance().getConnection();
+      statement = connection.createStatement();
       rs = statement.executeQuery(selectAllComputer);
       while (rs.next()) {
         row_count = rs.getInt("count(1)");
@@ -364,9 +359,9 @@ public class ComputerDAO {
       throw new DAOException("Impossible to count computer for this search in dataBase");
     } finally {
       try {
-        if ((statement != null) && (c != null)) {
+        if ((statement != null) && (connection != null)) {
           statement.close();
-          c.closeConnection();
+          connection.close();
         }
 
       } catch (SQLException e) {
@@ -384,11 +379,10 @@ public class ComputerDAO {
         + "company.id as company_id, company.name as companyName from computer left join company "
         + "on computer.company_id = company.id" + " ORDER BY " + name + " " + reqBy + " limit "
         + start + "," + end;
-    ConnectionDB c = null;
 
     try {
-      c = ConnectionDB.getInstance();
-      statement = c.getConnection();
+      connection = ConnectionDB.getInstance().getConnection();
+      statement = connection.createStatement();
       rs = statement.executeQuery(orderBy);
 
       List<Computer> cp = mappDaoL(rs);
@@ -398,9 +392,9 @@ public class ComputerDAO {
       throw new DAOException("Impossible to find computer for this order in dataBase");
     } finally {
       try {
-        if ((statement != null) && (c != null)) {
+        if ((statement != null) && (connection != null)) {
           statement.close();
-          c.closeConnection();
+          connection.close();
         }
 
       } catch (SQLException e) {
