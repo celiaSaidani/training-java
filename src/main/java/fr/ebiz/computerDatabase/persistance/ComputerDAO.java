@@ -342,14 +342,17 @@ public class ComputerDAO {
   public int CountTotalLine(String search) throws DAOException {
     ResultSet rs = null;
     Statement statement = null;
+    
     String selectAllComputer = "select count(1) from computer left join company on computer.company_id = company.id where computer.name like "
-        + "'%" + search + "%'";
+        + "'%" + search + "%' OR company.name like "+ "'%" + search + "%' ";
     int row_count = 0;
 
     try {
       connection = ConnectionDB.getInstance().getConnection();
+
       statement = connection.createStatement();
       rs = statement.executeQuery(selectAllComputer);
+     
       while (rs.next()) {
         row_count = rs.getInt("count(1)");
       }
@@ -402,6 +405,41 @@ public class ComputerDAO {
       }
     }
   }
+  public List<Computer> getComputerOrderBy(int start, int end, String reqorder, String reqBy, String search) throws DAOException{
+
+      ResultSet rs = null;
+      Statement statement = null;
+      String orderBy = "select computer.id, computer.name, computer.introduced, computer.discontinued ,"
+          + "company.id as company_id, company.name as companyName from computer left join company "
+          + "on computer.company_id = company.id where computer.name like '%"+search+"%' or company.name like '%"+search+"%' "
+                  + "ORDER BY " + reqorder + " " + reqBy + " limit "
+          + start + "," + end;
+      try {
+          System.err.println("DAO "+reqorder+" "+reqBy+" "+search+" "+start+" "+end);
+          System.out.println(orderBy);
+          connection = ConnectionDB.getInstance().getConnection();
+          statement = connection.createStatement();
+          rs = statement.executeQuery(orderBy);
+
+          List<Computer> cp = mappDaoL(rs);
+          System.out.println(cp.size());
+          return cp;
+        } catch (SQLException e) {
+          logger.error("[Error DAO] in function getComputerOrderBy");
+          throw new DAOException("Impossible to find computer for this order in dataBase");
+        } finally {
+          try {
+            if ((statement != null) && (connection != null)) {
+              statement.close();
+              connection.close();
+            }
+
+          } catch (SQLException e) {
+            throw new DAOException("enable to close connection");
+          }
+        }
+  }
+
 
   private List<Computer> mappDaoL(ResultSet rs) {
 
@@ -462,5 +500,6 @@ public class ComputerDAO {
     }
     return new Computer();
   }
+
 
 }

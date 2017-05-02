@@ -1,7 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    <%@ taglib prefix="mylib" tagdir="/WEB-INF/tags" %>
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="mylib" tagdir="/WEB-INF/tags"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,86 +14,91 @@
 <link href="./css/main.css" rel="stylesheet" media="screen">
 </head>
 <body>
-    <header class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <a class="navbar-brand" href="DashboardServlet"> Application - Computer Database </a>
-        </div>
-    </header>
+	<header class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+			<a class="navbar-brand" href="DashboardServlet"> Application -
+				Computer Database </a>
+		</div>
+	</header>
+	<section id="main">
+		<div class="container">
+			<h1 id="homeTitle">${computer} Computers found</h1>
+			<div id="actions" class="form-horizontal">
+				<div class="pull-left">
+					<form id="searchForm"
+						action="${pageContext.request.contextPath}/DashboardServlet"
+						method="GET" class="form-inline">
+						<input type="search" id="searchbox" name="search"
+							class="form-control" placeholder="Search name" value="${search}" />
+						<input type="submit" id="searchsubmit" value="Filter by name"
+							class="btn btn-primary" />
+					</form>
+				</div>
+				<div class="pull-right">
+					<a class="btn btn-success" id="addComputer"
+						href="${pageContext.request.contextPath}/AddComputerServlet">Add
+						Computer</a> <a class="btn btn-default" id="editComputer" href="#"
+						onclick="$.fn.toggleEditMode();">Edit</a>
+				</div>
+			</div>
+		</div>
 
-    <section id="main">
-        <div class="container">
-            <h1 id="homeTitle">
-              ${computer} Computers found
-            </h1>
-            <div id="actions" class="form-horizontal">
-                <div class="pull-left">
-                    <form id="searchForm" action="${pageContext.request.contextPath}/DashboardServlet" method="GET"
-                     class="form-inline">
-                        <input type="search" id="searchbox" name="search" class="form-control" placeholder="Search name" value="${search}"/>
-                        <input type="submit" id="searchsubmit" value="Filter by name"
-                        class="btn btn-primary" />
-                    </form>
-                </div>
-                <div class="pull-right">
-                    <a class="btn btn-success" id="addComputer" href="${pageContext.request.contextPath}/AddComputerServlet">Add Computer</a> 
-                    <a class="btn btn-default" id="editComputer" href="#" onclick="$.fn.toggleEditMode();">Edit</a>
-                </div>
-            </div>
-        </div>
+		<form id="deleteForm"
+			action="${pageContext.request.contextPath}/DashboardServlet"
+			method="POST">
+			<input type="hidden" name="selection" value="">
+		</form>
 
-        <form id="deleteForm" action="${pageContext.request.contextPath}/DashboardServlet" method="POST">
-            <input type="hidden" name="selection" value="">
-        </form>
+		<div class="container" style="margin-top: 10px;">
+			<table class="table table-striped table-bordered">
+				<thead>
+					<tr>
+						<!-- Variable declarations for passing labels as parameters -->
+						<!-- Table header for Computer Name -->
 
-        <div class="container" style="margin-top: 10px;">
-            <table class="table table-striped table-bordered">
-                <thead>
-                    <tr>
-                        <!-- Variable declarations for passing labels as parameters -->
-                        <!-- Table header for Computer Name -->
+						<th class="editMode" style="width: 60px; height: 22px;"><input
+							type="checkbox" id="selectall" /> <span
+							style="vertical-align: top;"> - <a href="#"
+								id="deleteSelected" onclick="$.fn.deleteSelected();"> <i
+									class="fa fa-trash-o fa-lg"></i>
+							</a>
+						</span></th>
+						<mylib:tableheader size="${requestScope.size}" order="${requestScope.order}" by="${requestScope.by}" 
+						sort="${requestScope.sort}" search="${requestScope.search}"/>
+						
+					</tr>
+				</thead>
+				<!-- Browse attribute computers -->
+				<tbody id="results">
+					<c:forEach var="computerdb" items="${requestScope.computerdb}">
+						<tr>
+							<td class="editMode"><input type="checkbox" name="cb"
+								class="cb" value="${computerdb.idComp}"></td>
+							<td><a
+								href="EditComputerServlet?idComputer=${computerdb.idComp}"
+								onclick="">${computerdb.nameComp}</a></td>
+							<td>${computerdb.dateIn}</td>
+							<td>${computerdb.dateOut}</td>
+							<td>${computerdb.nameCompany}</td>
 
-                        <th class="editMode" style="width: 60px; height: 22px;">
-                            <input type="checkbox" id="selectall" /> 
-                            <span style="vertical-align: top;">
-                                 -  <a href="#" id="deleteSelected" onclick="$.fn.deleteSelected();">
-                                        <i class="fa fa-trash-o fa-lg"></i>
-                                    </a>
-                            </span>
-                        </th>
-                        <mylib:tableheader order="${requestScope.order}" by="${requestScope.by}" />
-                    </tr>
-                </thead>
-                <!-- Browse attribute computers -->
-                <tbody id="results">
-                <c:forEach var="computerdb" items="${requestScope.computerdb}">
-                    <tr>
-                        <td class="editMode">
-                            <input type="checkbox" name="cb" class="cb" value="${computerdb.idComp}">
-                        </td>
-                        <td>
-                            <a href="EditComputerServlet?idComputer=${computerdb.idComp}" onclick="">${computerdb.nameComp}</a>
-                        </td>
-                        <td>${computerdb.dateIn}</td>
-                        <td>${computerdb.dateOut}</td>
-                        <td>${computerdb.nameCompany}</td>
+						</tr>
+					</c:forEach>
 
-                    </tr>
-                    </c:forEach>
-                    
-                </tbody>
-            </table>
-        </div>
-    </section>
+				</tbody>
+			</table>
+		</div>
+	</section>
 
-    <footer class="navbar-fixed-bottom">
-        <div class="container text-center">
-            <mylib:pagination page="${requestScope.page}" count="${requestScope.count}" size="${requestScope.size}" 
-            				  search="${requestScope.search}" order="${requestScope.order}" 
-            				  by="${requestScope.by}" />
-	  </div>
-    </footer>
-<script src="./js/jquery.min.js"></script>
-<script src="./js/bootstrap.min.js"></script>
-<script src="./js/dashboard.js"></script>
+	<footer class="navbar-fixed-bottom">
+		<div class="container text-center">
+			<mylib:pagination page="${requestScope.page}"
+				count="${requestScope.count}" size="${requestScope.size}"
+				search="${requestScope.search}" order="${requestScope.order}"
+				by="${requestScope.by}" sort="${requestScope.sort}" />
+		</div>
+	</footer>
+	<script src="./js/jquery.min.js"></script>
+	<script src="./js/bootstrap.min.js"></script>
+	<script src="./js/dashboard.js"></script>
 </body>
 </html>
