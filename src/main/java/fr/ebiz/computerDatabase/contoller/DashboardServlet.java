@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import fr.ebiz.computerDatabase.Exception.ServiceException;
 import fr.ebiz.computerDatabase.dto.ComputerDTO;
+import fr.ebiz.computerDatabase.dto.ComputerDTOPage;
 import fr.ebiz.computerDatabase.service.ComputerService;
 
 /**
@@ -35,7 +36,7 @@ public class DashboardServlet extends HttpServlet {
         String search = "";
         int count = 0;
         String order ="computer.name", by = "down";
-        String reqOrder, reqBy, reqSort ,reqSize;
+        String reqOrder, reqBy, reqSort;
         List<ComputerDTO> computer = null;
         boolean sort = false;
 
@@ -64,7 +65,9 @@ public class DashboardServlet extends HttpServlet {
             page = Integer.parseInt((request.getParameter("page")));
         }
         if (request.getParameter("search") != null) {
+           
             try {
+                
                 count = computerService.getCount(request.getParameter("search").trim());
                 if (count > 0) {
                     try {
@@ -75,7 +78,6 @@ public class DashboardServlet extends HttpServlet {
                             
                         }
                         else {
-                            System.err.println("dasboard "+search);
                             computer = computerService.Search(request.getParameter("search").trim(), (page - 1) * size,
                                     size);
                         }
@@ -91,12 +93,13 @@ public class DashboardServlet extends HttpServlet {
 
         } else {
             try {
-                count = computerService.getCount();
+                ComputerDTOPage data=  computerService.getAllComputerPage((page - 1) * size, size);
+                count = data.getCount();
                 if (count > 0) {
                     if ((reqOrder != null) && (reqBy != null)) {
                         computer = computerService.getComputerOrder((page - 1) * size, size, reqBy, reqOrder);
                     } else
-                        computer = computerService.getAllComputerPage((page - 1) * size, size);
+                        computer =data.getComputersDTO();
                 }
             } catch (ServiceException e) {
                 System.err.println(e.getMessage());

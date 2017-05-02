@@ -7,6 +7,7 @@ import java.util.Scanner;
 import fr.ebiz.computerDatabase.Exception.ServiceException;
 import fr.ebiz.computerDatabase.dto.CompanyDTO;
 import fr.ebiz.computerDatabase.dto.ComputerDTO;
+import fr.ebiz.computerDatabase.dto.ComputerDTOPage;
 import fr.ebiz.computerDatabase.service.CompanyService;
 import fr.ebiz.computerDatabase.service.ComputerService;
 
@@ -121,7 +122,8 @@ public class Main {
     do {
       System.out.println("Entrez Q pour quitter,cliquez entrer pour continuer");
       try {
-        computer = computerService.getAllComputerPage(cpt, 100);
+          ComputerDTOPage data = computerService.getAllComputerPage(cpt, 100);
+        computer = data.getComputersDTO();
         resp = input.nextLine();
         if (computer.isEmpty())
           break;
