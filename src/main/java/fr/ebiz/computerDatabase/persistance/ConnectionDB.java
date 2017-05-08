@@ -12,89 +12,86 @@ import com.zaxxer.hikari.HikariDataSource;
 
 public class ConnectionDB {
 
-    //private static JDBCMySQLConnection instance = new JDBCMySQLConnection();
-    public static final String URL = "jdbc:mysql://localhost:3306/computer-database-db?useSSL=false&zeroDateTimeBehavior=convertToNull";
-    public static final String USER = "admincdb";
-    public static final String PASSWORD = "qwerty1234";
-    public static final String DRIVER_CLASS = "com.mysql.jdbc.Driver";
-    public static ConnectionDB instance= new ConnectionDB();
-    private static final Logger logger = LoggerFactory.getLogger(ConnectionDB.class);
-    String configFile = "/src/main/resources/db.propreties";
-    private HikariDataSource dataSource = null;
-    private Connection dbConnection;
-   
+  // private static JDBCMySQLConnection instance = new JDBCMySQLConnection();
+  public static final String URL = "jdbc:mysql://localhost:3306/computer-database-db?useSSL=false&zeroDateTimeBehavior=convertToNull";
+  public static final String USER = "admincdb";
+  public static final String PASSWORD = "qwerty1234";
+  public static final String DRIVER_CLASS = "com.mysql.jdbc.Driver";
+  public static ConnectionDB instance = new ConnectionDB();
+  private static final Logger LOGGER = LoggerFactory.getLogger(ConnectionDB.class);
+  String configFile = "/src/main/resources/db.propreties";
+  private HikariDataSource dataSource = null;
+  private Connection dbConnection;
 
-    /**
-     * Contructor for connection to mysql db.
-     * @throws ConnectionException if error on co to db
-     */
-    private ConnectionDB() {
-        super();
-        
-        HikariConfig config  = new HikariConfig();
-        config.setDriverClassName("com.mysql.jdbc.Driver");
-        config.setJdbcUrl("jdbc:mysql://localhost:3306/computer-database-db?useSSL=false&zeroDateTimeBehavior=convertToNull");
-        config.setMaximumPoolSize(20);
-        config.setUsername("admincdb");
-        config.setPassword("qwerty1234");
-        config.setConnectionTimeout(10000);
-        dataSource = new HikariDataSource(config);
+  /**
+   * Contructor for connection to mysql db.
+   * @throws ConnectionException
+   *           if error on co to db
+   */
+  private ConnectionDB() {
+    super();
+
+    HikariConfig config = new HikariConfig();
+    config.setDriverClassName("com.mysql.jdbc.Driver");
+    config.setJdbcUrl(
+        "jdbc:mysql://localhost:3306/computer-database-db?useSSL=false&zeroDateTimeBehavior=convertToNull");
+    config.setMaximumPoolSize(20);
+    config.setUsername("admincdb");
+    config.setPassword("qwerty1234");
+    config.setConnectionTimeout(10000);
+    dataSource = new HikariDataSource(config);
+  }
+
+  /**
+   *
+   * @return new connection
+   */
+  private Connection createConnection() {
+
+    Connection connection = null;
+    try {
+
+      connection = dataSource.getConnection();
+    } catch (SQLException e) {
+      e.printStackTrace();
+      LOGGER.error("Error Unable to Connect to Database");
     }
+    return connection;
+  }
 
-    
-    private Connection createConnection() {
-
-        Connection connection = null;
-        try {
-          
-            connection = dataSource.getConnection();
-        } catch (SQLException e) {
-            e.printStackTrace();
-            logger.error("Error Unable to Connect to Database");
-        }
-        return connection;
+  /**
+   * @return instance of connection
+   */
+  public static ConnectionDB getInstance() {
+    if (ConnectionDB.instance == null) {
+      ConnectionDB.instance = new ConnectionDB();
     }
-    public static ConnectionDB getInstance() {
-        if (ConnectionDB.instance == null) {
-            ConnectionDB.instance = new ConnectionDB();
-        }
-        return ConnectionDB.instance;
-}
+    return ConnectionDB.instance;
+  }
 
-  
-   /* public Statement getConnection() {
+  /**
+   * @return connection
+   */
+  public Connection getConnection() {
 
-       dbConnection = createConnection();
-        try {
-            Statement statement = dbConnection.createStatement();
-            return statement;
-        } catch (SQLException e) {
-            logger.error("Error in function getConnection");
-        }
-        return null;
+    dbConnection = createConnection();
+    return dbConnection;
 
-    }*/
+  }
 
-    public Connection getConnection() {
-
-        dbConnection = createConnection();
-        return dbConnection;
-
+  /**
+   * close connexion.
+   * @return 0 if fine else 0
+   */
+  public int closeConnection() {
+    try {
+      dbConnection.close();
+      dataSource.close();
+    } catch (SQLException e) {
+      LOGGER.error("Error Unable to close connection");
+      return 1;
     }
+    return 0;
 
-    /**
-     * close connexion
-     * @return
-     */
-    public int closeConnection() {
-        try {
-            dbConnection.close();
-            dataSource.close();
-        } catch (SQLException e) {
-            logger.error("Error Unable to close connection");
-            return 1;
-        }
-        return 0;
-
-    }
+  }
 }

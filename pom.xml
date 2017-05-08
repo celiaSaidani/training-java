@@ -24,6 +24,7 @@
 				<configuration>
 					<configLocation>${basedir}/src/test/resources/checkstyle.xml</configLocation>
 					<suppressionsLocation>${basedir}/src/test/resources/suppressions.xml</suppressionsLocation>
+						<propertyExpansion>basedir=${basedir}</propertyExpansion>
 					<consoleOutput>true</consoleOutput>
 				</configuration>
 				<executions>

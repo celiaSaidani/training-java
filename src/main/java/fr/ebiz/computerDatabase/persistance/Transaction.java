@@ -3,18 +3,25 @@ package fr.ebiz.computerDatabase.persistance;
 import java.sql.Connection;
 
 public class Transaction {
-  public static ThreadLocal<Connection> TH = new ThreadLocal<>();
+  public static ThreadLocal<Connection> connectionPool = new ThreadLocal<>();
 
   public static Connection getConnetion() {
-    return TH.get();
+    return connectionPool.get();
   }
 
+  /**
+   * @param con
+   *          to set in connectionPool
+   */
   public static void set(Connection con) {
-    TH.set(con);
+    connectionPool.set(con);
   }
 
+  /**
+   * Remove conncetion from connectionPool.
+   */
   public static void remove() {
-    TH.remove();
+    connectionPool.remove();
   }
 
 }

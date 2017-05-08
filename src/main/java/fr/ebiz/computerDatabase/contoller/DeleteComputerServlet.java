@@ -7,9 +7,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 /**
- * Servlet implementation class DeleteComputerServlet
+ * Servlet implementation class DeleteComputerServlet.
  */
 @WebServlet("/DeleteComputerServlet")
 public class DeleteComputerServlet extends HttpServlet {
@@ -24,7 +23,7 @@ public class DeleteComputerServlet extends HttpServlet {
   }
 
   /**
-   * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+   * {@inheritDoc}
    */
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
@@ -33,7 +32,7 @@ public class DeleteComputerServlet extends HttpServlet {
   }
 
   /**
-   * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+   * {@inheritDoc}
    */
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {

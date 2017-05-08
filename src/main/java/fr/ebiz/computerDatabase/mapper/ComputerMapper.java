@@ -7,10 +7,20 @@ import fr.ebiz.computerDatabase.dto.ComputerDTO;
 import fr.ebiz.computerDatabase.model.Computer;
 
 public class ComputerMapper {
-
+  /**
+   * @param cp
+   *          computer
+   * @return computer DTO
+   */
   public ComputerDTO getComputerDTO(Computer cp) {
     return new ComputerDTO(cp);
   }
+
+  /**
+   * @param cp
+   *          computer
+   * @return list of computer DTO
+   */
 
   public List<ComputerDTO> getComputerDTOs(List<Computer> cp) {
     List<ComputerDTO> allComputer = new ArrayList<>();

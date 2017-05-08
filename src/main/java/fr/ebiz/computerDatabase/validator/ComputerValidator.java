@@ -7,6 +7,12 @@ import fr.ebiz.computerDatabase.dto.ComputerDTO;
 
 public class ComputerValidator {
 
+  /**
+   * check if computer DTO is valid.
+   * @param cp
+   *          computer DTO
+   * @return true if valid else false
+   */
   public static boolean isValid(ComputerDTO cp) {
 
     String invalideDateIN = "Date introduced inavlide";
@@ -36,8 +42,8 @@ public class ComputerValidator {
       }
     }
     if ((!date1.equals("")) && (!date2.equals(""))) {
-      if (DateTime.dateCompare(date1.trim().concat(" 00:00:00"),
-          date2.trim().concat(" 00:00:00")) == false) {
+      if (!DateTime.dateCompare(date1.trim().concat(" 00:00:00"),
+          date2.trim().concat(" 00:00:00"))) {
         throw new DateTimeParseException(dateNotBefore, date1, 0);
 
       }

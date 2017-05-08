@@ -16,13 +16,13 @@ import fr.ebiz.computerDatabase.service.CompanyService;
 import fr.ebiz.computerDatabase.service.ComputerService;
 
 /**
- * Servlet implementation class EditComputerServlet
+ * Servlet implementation class EditComputerServlet.
  */
 @WebServlet("/EditComputerServlet")
 public class EditComputerServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
   public static final String EDIT_VIEW = "/WEB-INF/views/editComputer.jsp";
-  public static final String error_VIEW = "/WEB-INF/views/500.jsp";
+  public static final String ERROR_VIEW = "/WEB-INF/views/500.jsp";
 
   public final ComputerService computerService = new ComputerService();
   CompanyService companyService = new CompanyService();
@@ -41,7 +41,7 @@ public class EditComputerServlet extends HttpServlet {
   }
 
   /**
-   * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+   * {@inheritDoc}
    */
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -60,9 +60,8 @@ public class EditComputerServlet extends HttpServlet {
     }
 
   }
-
   /**
-   * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+   * {@inheritDoc}
    */
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -89,7 +88,7 @@ public class EditComputerServlet extends HttpServlet {
     } catch (ServiceException e) {
       System.err.println(e.getMessage());
     }
-    response.sendRedirect(request.getContextPath() + error_VIEW);
+    response.sendRedirect(request.getContextPath() + ERROR_VIEW);
 
   }
 

@@ -17,13 +17,16 @@ public class Main {
   private ComputerService computerService;
   private CompanyService companyService;
 
+  /**
+   * Default constructor.
+   */
   public Main() {
     computerService = new ComputerService();
     companyService = new CompanyService();
   }
 
   /**
-   * Main menu
+   * Main menu.
    *
    * @return the selection of the user
    */
@@ -49,7 +52,7 @@ public class Main {
   }
 
   /**
-   * menu to show the details of a computer selected by id
+   * menu to show the details of a computer selected by id.
    */
   private void detailsComputerMenu() {
     int choice = 0;
@@ -79,7 +82,7 @@ public class Main {
   }
 
   /**
-   * menu to show all Company in database
+   * menu to show all Company in database.
    */
 
   private void showListCompanyMenu() {
@@ -92,9 +95,9 @@ public class Main {
       List<CompanyDTO> company;
       try {
         company = companyService.getAllCompanyPage(cpt);
-        if (company.isEmpty())
+        if (company.isEmpty()) {
           break;
-        else {
+        } else {
 
           for (CompanyDTO cp : company) {
             System.out.println(cp.getIdCompany() + "\t" + cp.getNameCompany());
@@ -105,15 +108,15 @@ public class Main {
         }
 
       } catch (ServiceException e) {
-       System.err.println(e.getMessage());
+        System.err.println(e.getMessage());
       }
-      
+
     } while (!resp.equals("Q"));
 
   }
 
   /**
-   * menu to show all computer in database
+   * menu to show all computer in database.
    */
   private void showListComputerMenu() {
     String resp = null;
@@ -122,12 +125,12 @@ public class Main {
     do {
       System.out.println("Entrez Q pour quitter,cliquez entrer pour continuer");
       try {
-          ComputerDTOPage data = computerService.getAllComputerPage(cpt, 100);
+        ComputerDTOPage data = computerService.getAllComputerPage(cpt, 100);
         computer = data.getComputersDTO();
         resp = input.nextLine();
-        if (computer.isEmpty())
+        if (computer.isEmpty()) {
           break;
-        else {
+        } else {
           for (ComputerDTO cp : computer) {
             System.out.println(cp.getIdComp() + "\t" + cp.getNameComp());
           }
@@ -144,10 +147,13 @@ public class Main {
 
   }
 
+  /**
+   * menu for adding computer.
+   */
   private void addComputerMenu() {
     int nbrAtt = 4;
-    String inputText[] = new String[nbrAtt];
-    String[] inputA = { "nom", "date d'entrée", "date d'arrêt", "identifiant de la compagnie" };
+    String[] inputText = new String[nbrAtt];
+    String[] inputA = {"nom", "date d'entrée", "date d'arrêt", "identifiant de la compagnie" };
     String response;
 
     inputText[0] = input.nextLine();
@@ -169,7 +175,7 @@ public class Main {
     }
     try {
       computerService
-          .InsertComputer(new ComputerDTO(inputText[0], inputText[1], inputText[2], inputText[3]));
+          .insertComputer(new ComputerDTO(inputText[0], inputText[1], inputText[2], inputText[3]));
     } catch (ServiceException e) {
       System.err.println(e.getMessage());
     }
@@ -177,7 +183,7 @@ public class Main {
   }
 
   /**
-   * update a computer
+   * update a computer.
    */
 
   private void updateComputerMenu() {
@@ -190,12 +196,12 @@ public class Main {
     ComputerDTO computer;
     try {
       computer = computerService.showDetailsComputer(choice);
-      String[] cp = { computer.getIdComp(), computer.getNameComp(), computer.getDateIn(),
+      String[] cp = {computer.getIdComp(), computer.getNameComp(), computer.getDateIn(),
           computer.getDateOut(), computer.getIdCompany() };
 
-      String[] inputA = { "nom", "date d'entrée", "date d'arrêt", "identifiant de la compagnie" };
+      String[] inputA = {"nom", "date d'entrée", "date d'arrêt", "identifiant de la compagnie" };
       int nbrAtt = 4;
-      String inputText[] = new String[nbrAtt];
+      String[] inputText = new String[nbrAtt];
       String response;
 
       inputText[0] = input.nextLine();
@@ -213,28 +219,20 @@ public class Main {
         }
 
         inputText[i] = input.nextLine();
-        if(!inputText.equals("")){
-          cp[i]=inputText[i];
+        if (!inputText.equals("")) {
+          cp[i] = inputText[i];
         }
-       
+
       }
-      computerService.updateComputer(
-          new ComputerDTO(cp[0], cp[1], cp[2], cp[3]));
+      computerService.updateComputer(new ComputerDTO(cp[0], cp[1], cp[2], cp[3]));
     } catch (ServiceException e) {
       System.err.println(e.getMessage());
 
     }
-    /*
-     * int id = Integer.parseInt(cp[0]); String modif = computerService.updateComputer(id,
-     * inputText, true);
-     * 
-     * if (modif.equals(yes)) System.out.println("modification reussie"); else
-     * System.err.println("modification non effectué " + modif);
-     */
   }
 
   /**
-   * delete a computer
+   * delete a computer.
    */
   private void deleteComputerMenu() {
     int choice = 0;
@@ -245,8 +243,9 @@ public class Main {
       System.out.println(
           "selectinnez un identifiant d'ordinateur parmis cette liste, entrer 0 pour quitter");
       choice = input.nextInt();
-      if (choice == 0)
+      if (choice == 0) {
         break;
+      }
       delete = true;
       // computerService.deleteCpmouter(choice);
       if (delete) {
@@ -258,6 +257,11 @@ public class Main {
     } while (choice != 0);
   }
 
+  /**
+   * print text on the console.
+   * @param i
+   *          message output
+   */
   private static void printText(int i) {
 
     switch (i) {
@@ -278,6 +282,10 @@ public class Main {
 
   }
 
+  /**
+   * @param id
+   *          of computer
+   */
   private void detailsComputerMenuById(int id) {
 
     ComputerDTO comp;
@@ -290,7 +298,13 @@ public class Main {
 
   }
 
-  public static void main(String[] args) throws SQLException {
+  /**
+   * Main methode.
+   * @param args
+   *          null
+   * @throws SQLException
+   */
+  public static void main(String[] args) {
     Main vue = new Main();
     int choice = 0;
     do {

@@ -16,20 +16,20 @@ import fr.ebiz.computerDatabase.service.CompanyService;
 import fr.ebiz.computerDatabase.service.ComputerService;
 
 /**
- * Servlet implementation class AddComputerServlet
+ * . Servlet implementation class AddComputerServlet.
  */
 @WebServlet("/AddComputerServlet")
 public class AddComputerServlet extends HttpServlet {
   private static final long serialVersionUID = 1L;
-  public static final String ADDComputer_VIEW = "/WEB-INF/views/addComputer.jsp";
-  public static final String error_VIEW = "/WEB-INF/views/500.jsp";
+  public static final String ADDCOMPUTERVIEW = "/WEB-INF/views/addComputer.jsp";
+  public static final String ERRORVIEW = "/WEB-INF/views/500.jsp";
 
-  final static String NAME = "computerName";
-  final static String DATEIN = "introduced";
-  final static String DATEOUT = "discontinued";
-  final static String idCompany = "company";
-  final static String time = " 00:00:00";
-  private static final String companyStr="company";
+  static final String NAME = "computerName";
+  static final String DATEIN = "introduced";
+  static final String DATEOUT = "discontinued";
+  static final String IDCOMPANY = "company";
+  static final String TIME = " 00:00:00";
+  private static final String COMPANYSTR = "company";
 
   CompanyService companyService = new CompanyService();
   ComputerService computerService = new ComputerService();
@@ -43,7 +43,7 @@ public class AddComputerServlet extends HttpServlet {
   }
 
   /**
-   * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+   * {@inheritDoc}
    */
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -52,17 +52,16 @@ public class AddComputerServlet extends HttpServlet {
     List<CompanyDTO> company;
     try {
       company = companyService.getAllCompany();
-      request.setAttribute(companyStr, company);
-      this.getServletContext().getRequestDispatcher(ADDComputer_VIEW).forward(request, response);
+      request.setAttribute(COMPANYSTR, company);
+      this.getServletContext().getRequestDispatcher(ADDCOMPUTERVIEW).forward(request, response);
     } catch (ServiceException e) {
-     System.err.println(e.getMessage());
+      System.err.println(e.getMessage());
     }
-   
 
   }
 
   /**
-   * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+   * {@inheritDoc}
    */
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -71,16 +70,16 @@ public class AddComputerServlet extends HttpServlet {
     String name = request.getParameter(NAME);
     String dateIn = request.getParameter(DATEIN);
     String dateout = request.getParameter(DATEOUT);
-    String company = request.getParameter(idCompany);
+    String company = request.getParameter(IDCOMPANY);
 
     ComputerDTO cpDto = new ComputerDTO(name, dateIn, dateout, company);
     try {
-      computerService.InsertComputer(cpDto);
+      computerService.insertComputer(cpDto);
       System.out.println("insertion reussie");
       response.sendRedirect(request.getContextPath() + "/DashboardServlet");
     } catch (ServiceException e) {
       System.err.println(e.getMessage());
-      response.sendRedirect(request.getContextPath() + error_VIEW);
+      response.sendRedirect(request.getContextPath() + ERRORVIEW);
     }
 
   }
