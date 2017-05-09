@@ -13,13 +13,9 @@ import com.zaxxer.hikari.HikariDataSource;
 public class ConnectionDB {
 
   // private static JDBCMySQLConnection instance = new JDBCMySQLConnection();
-  public static final String URL = "jdbc:mysql://localhost:3306/computer-database-db?useSSL=false&zeroDateTimeBehavior=convertToNull";
-  public static final String USER = "admincdb";
-  public static final String PASSWORD = "qwerty1234";
-  public static final String DRIVER_CLASS = "com.mysql.jdbc.Driver";
   public static ConnectionDB instance = new ConnectionDB();
   private static final Logger LOGGER = LoggerFactory.getLogger(ConnectionDB.class);
-  String configFile = "/src/main/resources/db.propreties";
+  static final String configFile = "/db.propreties";
   private HikariDataSource dataSource = null;
   private Connection dbConnection;
 
@@ -31,14 +27,7 @@ public class ConnectionDB {
   private ConnectionDB() {
     super();
 
-    HikariConfig config = new HikariConfig();
-    config.setDriverClassName("com.mysql.jdbc.Driver");
-    config.setJdbcUrl(
-        "jdbc:mysql://localhost:3306/computer-database-db?useSSL=false&zeroDateTimeBehavior=convertToNull");
-    config.setMaximumPoolSize(20);
-    config.setUsername("admincdb");
-    config.setPassword("qwerty1234");
-    config.setConnectionTimeout(10000);
+    HikariConfig config = new HikariConfig(configFile);
     dataSource = new HikariDataSource(config);
   }
 
