@@ -15,19 +15,29 @@ public class ConnectionDB {
   // private static JDBCMySQLConnection instance = new JDBCMySQLConnection();
   public static ConnectionDB instance = new ConnectionDB();
   private static final Logger LOGGER = LoggerFactory.getLogger(ConnectionDB.class);
-  static final String configFile = "/db.propreties";
+  static final String CONFIGFILE = "/db.propreties";
   private HikariDataSource dataSource = null;
   private Connection dbConnection;
+  public static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
 
   /**
    * Contructor for connection to mysql db.
-   * @throws ConnectionException
    *           if error on co to db
    */
   private ConnectionDB() {
     super();
+    try {
 
-    HikariConfig config = new HikariConfig(configFile);
+      Class.forName(instance.JDBC_DRIVER);
+
+    } catch (ClassNotFoundException e) {
+
+      e.printStackTrace();
+
+      throw new RuntimeException("Impossible de charger jdbc driver");
+
+    }
+    HikariConfig config = new HikariConfig(CONFIGFILE);
     dataSource = new HikariDataSource(config);
   }
 
