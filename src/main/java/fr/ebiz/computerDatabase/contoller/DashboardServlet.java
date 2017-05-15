@@ -82,6 +82,7 @@ public class DashboardServlet extends HttpServlet {
 
           } catch (ServiceException e) {
             System.err.println(e.getMessage());
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
           }
           search = request.getParameter("search");
         }
@@ -102,6 +103,7 @@ public class DashboardServlet extends HttpServlet {
         }
       } catch (ServiceException e) {
         System.err.println(e.getMessage());
+        response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 
       }
 

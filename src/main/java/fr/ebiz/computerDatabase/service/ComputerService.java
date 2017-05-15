@@ -17,8 +17,8 @@ import fr.ebiz.computerDatabase.dto.ComputerDTOPage;
 import fr.ebiz.computerDatabase.mapper.ComputerMapper;
 import fr.ebiz.computerDatabase.model.Computer;
 import fr.ebiz.computerDatabase.persistance.ComputerDAO;
-import fr.ebiz.computerDatabase.persistance.ConnectionDB;
-import fr.ebiz.computerDatabase.persistance.Transaction;
+import fr.ebiz.computerDatabase.persistance.ConnectionManager;
+
 import fr.ebiz.computerDatabase.validator.ComputerValidator;
 import fr.ebiz.computerDatabase.validator.DateTime;
 
@@ -28,7 +28,8 @@ public class ComputerService {
   private ComputerDAO computerDao;
   private CompanyService companyService;
   private static final Logger LOGGER = LoggerFactory.getLogger(ComputerService.class);
-  private Connection connection = null;
+  private ConnectionManager cm = ConnectionManager.getInstance();
+  
 
   /**
    * Constructor.
@@ -49,10 +50,6 @@ public class ComputerService {
   public boolean insertComputer(ComputerDTO comp) throws ServiceException {
 
     try {
-      System.out.println(ComputerValidator.isValid(comp) ? "dto valide" : "No valide");
-      connection = ConnectionDB.getInstance().getConnection();
-      Transaction.set(connection);
-      System.out.println("niveau sercice " + connection);
       ComputerValidator.isValid(comp);
       Computer computer;
       String name = comp.getNameComp();
@@ -80,16 +77,6 @@ public class ComputerService {
       System.err.println(e.getMessage());
       LOGGER.error("[Error Service] in function insert Computer");
       throw new ServiceException("can't insert computer");
-    } finally {
-      try {
-        if (connection != null) {
-          Transaction.remove();
-          connection.close();
-        }
-
-      } catch (SQLException e) {
-        throw new ServiceException("enable to close connection");
-      }
     }
 
   }
@@ -103,8 +90,7 @@ public class ComputerService {
    */
   public Boolean updateComputer(ComputerDTO comp) throws ServiceException {
     try {
-      connection = ConnectionDB.getInstance().getConnection();
-      Transaction.set(connection);
+     
       ComputerValidator.isValid(comp);
       Computer computer;
       int id = Integer.parseInt(comp.getIdComp());
@@ -133,16 +119,7 @@ public class ComputerService {
       System.err.println(e.getMessage());
       LOGGER.error("[Error Service] in function update Computer");
       throw new ServiceException("can't update computer");
-    } finally {
-      try {
-        if (connection != null) {
-          Transaction.remove();
-          connection.close();
-        }
-      } catch (SQLException e) {
-        throw new ServiceException("enable to close connection");
-      }
-    }
+    } 
   }
 
   /**
@@ -155,26 +132,13 @@ public class ComputerService {
   public boolean deleteCpmouter(int id) throws ServiceException {
 
     try {
-      connection = ConnectionDB.getInstance().getConnection();
-      Transaction.set(connection);
       computerDao.delete(id);
       return true;
     } catch (DAOException e) {
       System.err.println(e.getMessage());
       LOGGER.error("[Error Service] in function delete Computer");
       throw new ServiceException("can't delete computer");
-    } finally {
-      try {
-        if (connection != null) {
-          Transaction.remove();
-          connection.close();
-        }
-
-      } catch (SQLException e) {
-        throw new ServiceException("unable to close connection");
-      }
-    }
-
+    } 
   }
 
   /**
@@ -186,25 +150,13 @@ public class ComputerService {
   public List<ComputerDTO> getAllComputer() throws ServiceException {
     List<Computer> allComp;
     try {
-      connection = ConnectionDB.getInstance().getConnection();
-      Transaction.set(connection);
       allComp = computerDao.getAllComputer();
       return computerMap.getComputerDTOs(allComp);
     } catch (DAOException e) {
       System.err.println(e.getMessage());
       LOGGER.error("[Error Service] in function getAllComputer");
       throw new ServiceException("can't get all computer");
-    } finally {
-      try {
-        if (connection != null) {
-          Transaction.remove();
-          connection.close();
-        }
-
-      } catch (SQLException e) {
-        throw new ServiceException("unable to close connection");
-      }
-    }
+    } 
   }
 
   /**
@@ -221,26 +173,22 @@ public class ComputerService {
     ComputerDTOPage data = new ComputerDTOPage();
     List<Computer> allComp;
     try {
-      connection = ConnectionDB.getInstance().getConnection();
-      Transaction.set(connection);
+      cm.startTransaction();
       allComp = computerDao.getAllComputerPage(start, end);
       data.setComputersDTO(computerMap.getComputerDTOs(allComp));
       data.setCount(computerDao.countTotalLine());
+      cm.commit();
       return data;
     } catch (DAOException e) {
       System.err.println(e.getMessage());
+      cm.rollback();
       LOGGER.error("[Error Service] in function getAllComputerPage");
       throw new ServiceException("can't get all computer by limit");
-    } finally {
-      try {
-        if (connection != null) {
-          Transaction.remove();
-          connection.close();
-        }
-
-      } catch (SQLException e) {
-        throw new ServiceException("enable to close connection");
-      }
+    }
+    finally {
+      
+            cm.closeConnection();
+       
     }
   }
 
@@ -254,8 +202,6 @@ public class ComputerService {
   public ComputerDTO showDetailsComputer(int id) throws ServiceException {
     Computer cp;
     try {
-      connection = ConnectionDB.getInstance().getConnection();
-      Transaction.set(connection);
       cp = computerDao.getComputerById(id);
       ComputerDTO cpDto = computerMap.getComputerDTO(cp);
       if (cpDto.getDateIn() != null) {
@@ -272,16 +218,6 @@ public class ComputerService {
       System.err.println(e.getMessage());
       LOGGER.error("[Error Service] in function showDetailsComputer");
       throw new ServiceException("can't get computer Details");
-    } finally {
-      try {
-        if (connection != null) {
-          Transaction.remove();
-          connection.close();
-        }
-
-      } catch (SQLException e) {
-        throw new ServiceException("enable to close connection");
-      }
     }
 
   }
@@ -296,25 +232,13 @@ public class ComputerService {
   public List<ComputerDTO> getComputerByName(String name) throws ServiceException {
     List<Computer> cp;
     try {
-      connection = ConnectionDB.getInstance().getConnection();
-      Transaction.set(connection);
       cp = computerDao.getComputerByName(name);
       return computerMap.getComputerDTOs(cp);
     } catch (DAOException e) {
       System.err.println(e.getMessage());
       LOGGER.error("[Error Service] in function getComputerByName");
       throw new ServiceException("can't get list of computer by name");
-    } finally {
-      try {
-        if (connection != null) {
-          Transaction.remove();
-          connection.close();
-        }
-
-      } catch (SQLException e) {
-        throw new ServiceException("enable to close connection");
-      }
-    }
+    } 
 
   }
 
@@ -332,8 +256,6 @@ public class ComputerService {
   public List<ComputerDTO> search(String name, int start, int end) throws ServiceException {
     List<Computer> cp;
     try {
-      connection = ConnectionDB.getInstance().getConnection();
-      Transaction.set(connection);
       cp = computerDao.search(name, start, end);
       return computerMap.getComputerDTOs(cp);
 
@@ -341,17 +263,7 @@ public class ComputerService {
       System.err.println(e.getMessage());
       LOGGER.error("[Error Service] in function search");
       throw new ServiceException("can't find list of computer");
-    } finally {
-      try {
-        if (connection != null) {
-          Transaction.remove();
-          connection.close();
-        }
-
-      } catch (SQLException e) {
-        throw new ServiceException("enable to close connection");
-      }
-    }
+    } 
   }
 
   /**
@@ -361,7 +273,6 @@ public class ComputerService {
    */
   public int getCount() throws ServiceException {
     try {
-
       return computerDao.countTotalLine();
     } catch (DAOException e) {
       System.err.println(e.getMessage());
@@ -380,24 +291,13 @@ public class ComputerService {
    */
   public int getCount(String search) throws ServiceException {
     try {
-      connection = ConnectionDB.getInstance().getConnection();
-      Transaction.set(connection);
       return computerDao.countTotalLine(search);
     } catch (DAOException e) {
       System.err.println(e.getMessage());
       LOGGER.error("[Error Service] in function getCount ");
       throw new ServiceException("can't count computer for on search");
-    } finally {
-      try {
-        if (connection != null) {
-          Transaction.remove();
-          connection.close();
-        }
+    } 
 
-      } catch (SQLException e) {
-        throw new ServiceException("enable to close connection");
-      }
-    }
 
   }
 
@@ -429,8 +329,6 @@ public class ComputerService {
     }
     List<Computer> lcp;
     try {
-      connection = ConnectionDB.getInstance().getConnection();
-      Transaction.set(connection);
       lcp = computerDao.getComputerOrderBy(start, end, reqorder, reqBy, search);
       return computerMap.getComputerDTOs(lcp);
 
@@ -438,16 +336,6 @@ public class ComputerService {
       System.err.println(e.getMessage());
       LOGGER.error("[Error Service] in function getComputerOrder");
       throw new ServiceException("can't get computer orderBy");
-    } finally {
-      try {
-        if (connection != null) {
-          Transaction.remove();
-          connection.close();
-        }
-
-      } catch (SQLException e) {
-        throw new ServiceException("enable to close connection");
-      }
     }
 
   }
@@ -477,8 +365,6 @@ public class ComputerService {
     }
     List<Computer> lcp;
     try {
-      connection = ConnectionDB.getInstance().getConnection();
-      Transaction.set(connection);
       lcp = computerDao.getComputerOrderBy(start, end, reqBy, name);
       return computerMap.getComputerDTOs(lcp);
 
@@ -486,17 +372,7 @@ public class ComputerService {
       System.err.println(e.getMessage());
       LOGGER.error("[Error Service] in function getComputerOrder");
       throw new ServiceException("can't get computer orderBy");
-    } finally {
-      try {
-        if (connection != null) {
-          Transaction.remove();
-          connection.close();
-        }
-
-      } catch (SQLException e) {
-        throw new ServiceException("enable to close connection");
-      }
-    }
+    } 
   }
 
 }

@@ -15,177 +15,171 @@ import fr.ebiz.computerDatabase.model.Company;
 
 public class CompanyDAO {
 
-  private Statement statement = null;
-  private final String companyName = "name";
-  private final String companyId = "id";
-  private Connection connection = null;
-  // private JDBCMySQLConnection c = JDBCMySQLConnection.getInstance();
-  private static final Logger LOG = LoggerFactory.getLogger(CompanyDAO.class);
+    private final String companyName = "name";
+    private final String companyId = "id";
+    private ConnectionManager cm = ConnectionManager.getInstance();
 
-  /**
-   * @param id
-   *          of company
-   * @throws DAOException
-   *           for sql error
-   * @return company
-   */
-  public Company getCompanyID(int id) throws DAOException {
-    String selectCompanyByID = "select * from company where id=" + Integer.toString(id);
-    ResultSet rs = null;
+    // private JDBCMySQLConnection c = JDBCMySQLConnection.getInstance();
+    private static final Logger LOG = LoggerFactory.getLogger(CompanyDAO.class);
 
-    try {
-      connection = Transaction.getConnetion();
-      statement = connection.createStatement();
-      rs = statement.executeQuery(selectCompanyByID);
-      Company comp = mappCompany(id, rs);
-      return comp;
+    /**
+     * @param id
+     *          of company
+     * @throws DAOException
+     *           for sql error
+     * @return company
+     */
+    public Company getCompanyID(int id) throws DAOException {
+        String selectCompanyByID = "select * from company where id=" + Integer.toString(id);
+        ResultSet rs = null;
+        Statement statement = null;
+        Connection connection;
+        try {
+            connection = cm.getConnection();
+            statement = connection.createStatement();
+            rs = statement.executeQuery(selectCompanyByID);
+            Company comp = mappCompany(id, rs);
+            return comp;
 
-    } catch (SQLException e) {
-      LOG.error("[Error DAO] in function getCompanyID");
-      throw new DAOException("[DAO EXCEPTION] enable to find company by id in dataBase");
-    } finally {
-      try {
-        if (rs != null) {
-          rs.close();
+        } catch (SQLException e) {
+            LOG.error("[Error DAO] in function getCompanyID");
+            throw new DAOException("[DAO EXCEPTION] enable to find company by id in dataBase");
+        } finally {
+            if (!cm.isTransactional()) {
+                cm.closeConnection();
+            }
+            cm.closeObjects(statement, rs);
+        }
+    }
+
+        /**
+         * @throws DAOException
+         *           for sql error
+         * @return all company of data base
+         */
+        public List<Company> getAllCompany() throws DAOException {
+            String selectAllCompany = "select * from company";
+            ResultSet rs = null;
+            Statement statement = null;
+            Connection connection;
+            
+            try {
+                connection = cm.getConnection();
+                statement = connection.createStatement();
+                rs = statement.executeQuery(selectAllCompany);
+                List<Company> compL = mappCompanyL(rs);
+                return compL;
+
+            } catch (SQLException e) {
+                LOG.error("[Error DAO] in function getAllCompany");
+                throw new DAOException("[DAO EXCEPTION] Impossible to get all company from dataBase");
+            } finally {
+                if (!cm.isTransactional()) {
+                    cm.closeConnection();
+                }
+                cm.closeObjects(statement, rs);
+            }
         }
 
-      } catch (SQLException e) {
-        throw new DAOException("enable to close resultSet");
-      }
-    }
-  }
+        /**
+         * @throws DAOException
+         *           for sql error
+         * @param start
+         *          start
+         * @return all company of data base
+         */
 
-  /**
-   * @throws DAOException
-   *           for sql error
-   * @return all company of data base
-   */
-  public List<Company> getAllCompany() throws DAOException {
-    String selectAllCompany = "select * from company";
-    ResultSet rs = null;
-    try {
-      connection = Transaction.getConnetion();
-      statement = connection.createStatement();
-      rs = statement.executeQuery(selectAllCompany);
-      List<Company> compL = mappCompanyL(rs);
-      return compL;
+        public List<Company> getAllCompany(int start) throws DAOException {
+            String selectAllCompany = "select * from company limit 10 offset " + start;
+            ResultSet rs = null;
+            Statement statement = null;
+            Connection connection;
+            
+            try {
+                connection = cm.getConnection();
+                System.err.println(connection);
+                statement = connection.createStatement();
+                rs = statement.executeQuery(selectAllCompany);
+                List<Company> compL = mappCompanyL(rs);
+                return compL;
+            } catch (SQLException e) {
+                LOG.error("[Error DAO] in function getAllCompany by limit");
+                throw new DAOException("[DAO EXCEPTION] Impossible to get all company  by limit from dataBase");
+            } finally {
+                if (!cm.isTransactional()) {
+                    cm.closeConnection();
+                }
+                cm.closeObjects(statement, rs);
+            }
 
-    } catch (SQLException e) {
-      LOG.error("[Error DAO] in function getAllCompany");
-      throw new DAOException("[DAO EXCEPTION] Impossible to get all company from dataBase");
-    } finally {
-      try {
-        if (rs != null) {
-          rs.close();
         }
 
-      } catch (SQLException e) {
-        throw new DAOException("enable to close resultSet");
-      }
-    }
-  }
+        /**
+         * @param id
+         *          of computer to delete
+         * @throws DAOException
+         *           for sql exceptions
+         */
+        public void delete(int id) throws DAOException {
+            String deleteCompany = " delete from company where company.id = " + id;
+            Statement statement = null;
+            Connection connection;
+            
+            try {
+                connection = ConnectionManager.getInstance().getConnection();
+                statement = connection.createStatement();
+                statement.executeQuery(deleteCompany);
+                statement.close();
+            } catch (SQLException e) {
+                LOG.error("[Error DAO] in function delete company");
+                throw new DAOException("[DAO EXCEPTION] Impossible to delete this company from dataBase");
+            }
 
-  /**
-   * @throws DAOException
-   *           for sql error
-   * @param start
-   *          start
-   * @return all company of data base
-   */
-
-  public List<Company> getAllCompany(int start) throws DAOException {
-    String selectAllCompany = "select * from company limit 10 offset " + start;
-    ResultSet rs = null;
-
-    try {
-      connection = Transaction.getConnetion();
-      statement = connection.createStatement();
-      rs = statement.executeQuery(selectAllCompany);
-      List<Company> compL = mappCompanyL(rs);
-
-      return compL;
-
-    } catch (SQLException e) {
-      LOG.error("[Error DAO] in function getAllCompany by limit");
-      throw new DAOException(
-          "[DAO EXCEPTION] Impossible to get all company  by limit from dataBase");
-    } finally {
-      try {
-        if (rs != null) {
-          rs.close();
         }
 
-      } catch (SQLException e) {
-        throw new DAOException("enable to close resultSet");
-      }
-    }
+        /**
+         * @param id
+         *          of company
+         * @param rs
+         *          resultSet to map
+         * @return company object
+         */
+        private Company mappCompany(int id, ResultSet rs) {
+            String name = null;
+            try {
+                if (rs.next()) {
+                    name = rs.getString("name");
+                }
+                return new Company(id, name);
+            } catch (SQLException e) {
+                LOG.error("[Error DAO] in function mappCompany");
+            }
 
-  }
+            return new Company();
+        }
 
-  /**
-   * @param id
-   *          of computer to delete
-   * @throws DAOException
-   *           for sql exceptions
-   */
-  public void delete(int id) throws DAOException {
-    String deleteCompany = " delete from company where company.id = " + id;
+        /**
+         * @param rs
+         *          resultSet to map
+         * @return company object
+         */
+        private List<Company> mappCompanyL(ResultSet rs) {
 
-    try {
-      connection = ConnectionDB.getInstance().getConnection();
-      statement = connection.createStatement();
-      statement.executeQuery(deleteCompany);
-      statement.close();
-    } catch (SQLException e) {
-      LOG.error("[Error DAO] in function delete company");
-      throw new DAOException("[DAO EXCEPTION] Impossible to delete this company from dataBase");
-    }
+            List<Company> allCompany = new ArrayList<>();
 
-  }
+            try {
+                while (rs.next()) {
+                    int idCompany = rs.getInt(companyId);
+                    String name = rs.getString(companyName);
+                    Company comp = new Company(idCompany, name);
+                    allCompany.add(comp);
+                }
+            } catch (SQLException e) {
+                LOG.error("[Error DAO] in function mappCompanyL");
+                System.err.println("can't mapp company result set");
 
-  /**
-   * @param id
-   *          of company
-   * @param rs
-   *          resultSet to map
-   * @return company object
-   */
-  private Company mappCompany(int id, ResultSet rs) {
-    String name = null;
-    try {
-      if (rs.next()) {
-        name = rs.getString("name");
-      }
-      return new Company(id, name);
-    } catch (SQLException e) {
-      LOG.error("[Error DAO] in function mappCompany");
-    }
-
-    return new Company();
-  }
-
-  /**
-   * @param rs
-   *          resultSet to map
-   * @return company object
-   */
-  private List<Company> mappCompanyL(ResultSet rs) {
-
-    List<Company> allCompany = new ArrayList<>();
-
-    try {
-      while (rs.next()) {
-        int idCompany = rs.getInt(companyId);
-        String name = rs.getString(companyName);
-        Company comp = new Company(idCompany, name);
-        allCompany.add(comp);
-      }
-    } catch (SQLException e) {
-      LOG.error("[Error DAO] in function mappCompanyL");
-      System.err.println("can't mapp company result set");
+            }
+            return allCompany;
+        }
 
     }
-    return allCompany;
-  }
-
-}

@@ -4,4 +4,4 @@ dataSource.password=qwerty1234
 dataSource.cachePrepStmts=true
 dataSource.prepStmtCacheSize=250
 dataSource.prepStmtCacheSqlLimit=2048
-dataSource.maximumPoolSize=20
+maximumPoolSize=100

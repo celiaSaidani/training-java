@@ -56,6 +56,7 @@ public class AddComputerServlet extends HttpServlet {
       this.getServletContext().getRequestDispatcher(ADDCOMPUTERVIEW).forward(request, response);
     } catch (ServiceException e) {
       System.err.println(e.getMessage());
+      response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
     }
 
   }
@@ -79,7 +80,7 @@ public class AddComputerServlet extends HttpServlet {
       response.sendRedirect(request.getContextPath() + "/DashboardServlet");
     } catch (ServiceException e) {
       System.err.println(e.getMessage());
-      response.sendRedirect(request.getContextPath() + ERRORVIEW);
+      response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
     }
 
   }
