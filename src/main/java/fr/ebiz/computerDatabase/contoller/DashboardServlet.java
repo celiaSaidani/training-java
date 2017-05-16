@@ -70,8 +70,8 @@ public class DashboardServlet extends HttpServlet {
         if (count > 0) {
           try {
             if (reqOrder != null & reqBy != null) {
-              System.out.println("in the dashboard " + reqOrder + " " + reqBy + " "
-                  + request.getParameter("search").trim());
+              //System.out.println("in the dashboard " + reqOrder + " " + reqBy + " "
+                 // + request.getParameter("search").trim());
               computer = computerService.searchOrderBy((page - 1) * size, size, reqOrder, reqBy,
                   request.getParameter("search").trim());
 

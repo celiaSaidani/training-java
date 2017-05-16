@@ -43,7 +43,6 @@ public class ComputerDTO {
         this.nameComp = comp.getName();
         this.dateIn = DateTime.dateToString(comp.getDateIN());
         this.dateOut = DateTime.dateToString(comp.getDateOut());
-        System.out.println(comp.getCompagnyId());
         if (comp.getCompany().getId() != 0) {
             this.idCompany = Integer.toString(comp.getCompany().getId());
         }

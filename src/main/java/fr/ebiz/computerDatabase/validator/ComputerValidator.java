@@ -22,7 +22,7 @@ public class ComputerValidator {
     LocalDateTime dateIn, dateOut;
     String date1 = cp.getDateIn();
     String date2 = cp.getDateOut();
-
+    //System.out.println("name is"+ cp.getNameComp() );
     if (cp.getNameComp().equals("")) {
 
       throw new NullPointerException(nameRequired);

@@ -97,7 +97,6 @@ public class CompanyDAO {
             
             try {
                 connection = cm.getConnection();
-                System.err.println(connection);
                 statement = connection.createStatement();
                 rs = statement.executeQuery(selectAllCompany);
                 List<Company> compL = mappCompanyL(rs);

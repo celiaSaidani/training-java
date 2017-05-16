@@ -27,7 +27,7 @@ public class ComputerService {
   private ComputerMapper computerMap;
   private ComputerDAO computerDao;
   private CompanyService companyService;
-  private static final Logger LOGGER = LoggerFactory.getLogger(ComputerService.class);
+  //private static final Logger LOGGER = LoggerFactory.getLogger(ComputerService.class);
   private ConnectionManager cm = ConnectionManager.getInstance();
   
 
@@ -74,8 +74,9 @@ public class ComputerService {
       return true;
 
     } catch (DateTimeParseException | NullPointerException | DAOException e) {
+        e.printStackTrace();
       System.err.println(e.getMessage());
-      LOGGER.error("[Error Service] in function insert Computer");
+     // LOGGER.error("[Error Service] in function insert Computer");
       throw new ServiceException("can't insert computer");
     }
 
@@ -117,7 +118,7 @@ public class ComputerService {
 
     } catch (DateTimeParseException | NullPointerException | DAOException e) {
       System.err.println(e.getMessage());
-      LOGGER.error("[Error Service] in function update Computer");
+      //LOGGER.error("[Error Service] in function update Computer");
       throw new ServiceException("can't update computer");
     } 
   }
@@ -136,7 +137,7 @@ public class ComputerService {
       return true;
     } catch (DAOException e) {
       System.err.println(e.getMessage());
-      LOGGER.error("[Error Service] in function delete Computer");
+      //LOGGER.error("[Error Service] in function delete Computer");
       throw new ServiceException("can't delete computer");
     } 
   }
@@ -154,7 +155,7 @@ public class ComputerService {
       return computerMap.getComputerDTOs(allComp);
     } catch (DAOException e) {
       System.err.println(e.getMessage());
-      LOGGER.error("[Error Service] in function getAllComputer");
+      //LOGGER.error("[Error Service] in function getAllComputer");
       throw new ServiceException("can't get all computer");
     } 
   }
@@ -182,7 +183,7 @@ public class ComputerService {
     } catch (DAOException e) {
       System.err.println(e.getMessage());
       cm.rollback();
-      LOGGER.error("[Error Service] in function getAllComputerPage");
+      //LOGGER.error("[Error Service] in function getAllComputerPage");
       throw new ServiceException("can't get all computer by limit");
     }
     finally {
@@ -216,7 +217,7 @@ public class ComputerService {
       return cpDto;
     } catch (DAOException e) {
       System.err.println(e.getMessage());
-      LOGGER.error("[Error Service] in function showDetailsComputer");
+     // LOGGER.error("[Error Service] in function showDetailsComputer");
       throw new ServiceException("can't get computer Details");
     }
 
@@ -236,7 +237,7 @@ public class ComputerService {
       return computerMap.getComputerDTOs(cp);
     } catch (DAOException e) {
       System.err.println(e.getMessage());
-      LOGGER.error("[Error Service] in function getComputerByName");
+     // LOGGER.error("[Error Service] in function getComputerByName");
       throw new ServiceException("can't get list of computer by name");
     } 
 
@@ -261,7 +262,7 @@ public class ComputerService {
 
     } catch (DAOException e) {
       System.err.println(e.getMessage());
-      LOGGER.error("[Error Service] in function search");
+     // LOGGER.error("[Error Service] in function search");
       throw new ServiceException("can't find list of computer");
     } 
   }
@@ -276,7 +277,7 @@ public class ComputerService {
       return computerDao.countTotalLine();
     } catch (DAOException e) {
       System.err.println(e.getMessage());
-      LOGGER.error("[Error Service] in function getCount");
+     // LOGGER.error("[Error Service] in function getCount");
       throw new ServiceException("can't count computer");
     }
 
@@ -294,7 +295,7 @@ public class ComputerService {
       return computerDao.countTotalLine(search);
     } catch (DAOException e) {
       System.err.println(e.getMessage());
-      LOGGER.error("[Error Service] in function getCount ");
+     // LOGGER.error("[Error Service] in function getCount ");
       throw new ServiceException("can't count computer for on search");
     } 
 
@@ -334,7 +335,7 @@ public class ComputerService {
 
     } catch (DAOException e) {
       System.err.println(e.getMessage());
-      LOGGER.error("[Error Service] in function getComputerOrder");
+     // LOGGER.error("[Error Service] in function getComputerOrder");
       throw new ServiceException("can't get computer orderBy");
     }
 
@@ -370,7 +371,7 @@ public class ComputerService {
 
     } catch (DAOException e) {
       System.err.println(e.getMessage());
-      LOGGER.error("[Error Service] in function getComputerOrder");
+     // LOGGER.error("[Error Service] in function getComputerOrder");
       throw new ServiceException("can't get computer orderBy");
     } 
   }

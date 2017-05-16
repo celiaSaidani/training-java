@@ -78,11 +78,11 @@ public class EditComputerServlet extends HttpServlet {
       boolean update = computerService.updateComputer(cpDto);
 
       if (update) {
-        System.out.println("modification reussie");
+       // System.out.println("modification reussie");
         response.sendRedirect(request.getContextPath() + "/DashboardServlet");
         return;
       } else {
-        System.err.println("modification non reussie");
+        //System.err.println("modification non reussie");
       }
 
     } catch (ServiceException e) {

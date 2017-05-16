@@ -76,7 +76,7 @@ public class AddComputerServlet extends HttpServlet {
     ComputerDTO cpDto = new ComputerDTO(name, dateIn, dateout, company);
     try {
       computerService.insertComputer(cpDto);
-      System.out.println("insertion reussie");
+     // System.out.println("insertion reussie");
       response.sendRedirect(request.getContextPath() + "/DashboardServlet");
     } catch (ServiceException e) {
       System.err.println(e.getMessage());

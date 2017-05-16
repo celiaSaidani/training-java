@@ -24,35 +24,29 @@ public class ConnectionManager {
 
     private ThreadLocal<Connection> connections = new ThreadLocal<>();
 
-    /**
-     * Contructor for connection to mysql db. if error on co to db
-     */
-    private ConnectionManager() {
-        super();
-        try {
-
-            Class.forName(instance.JDBC_DRIVER);
-
-        } catch (ClassNotFoundException e) {
-
-            e.printStackTrace();
-
-            throw new RuntimeException("Impossible de charger jdbc driver");
-
-        }
-        HikariConfig config = new HikariConfig(CONFIGFILE);
-        dataSource = new HikariDataSource(config);
+    /* Private class Singleton Holder */
+    private static class SingletonManagerHolder {
+        private static final ConnectionManager INSTANCE = new ConnectionManager();
     }
 
+    // private class variables
+    //private static final Logger LOGGER = LoggerFactory.getLogger(ConnectionManager.class);
+   // private static final String HIKARICP_CONFIG = "/hikari.properties";
+
     /**
-     * @return instance of connection
+     * @return ConnectionDB Singleton
      */
     public static ConnectionManager getInstance() {
-        if (ConnectionManager.instance == null) {
-            ConnectionManager.instance = new ConnectionManager();
-        }
-        return ConnectionManager.instance;
+        return SingletonManagerHolder.INSTANCE;
     }
+
+    /**
+     * Contructor for connection to mysql db.
+     */
+    private ConnectionManager() {
+        HikariConfig config = new HikariConfig(CONFIGFILE);
+        dataSource = new HikariDataSource(config);
+}
 
     /**
      * @return connection
@@ -106,7 +100,6 @@ public class ConnectionManager {
 
     public void commit() {
         Connection connection = connections.get();
- 
         if (connection == null) {
             LOGGER.error("Cannot commit non-existent transaction");
             throw new IllegalStateException("Cannot commit non-existent transaction");
@@ -137,10 +130,6 @@ public class ConnectionManager {
     }
 
     public void closeObjects(Statement st) throws DAOException {
-        closeObjects(st, null);
-    }
-
-    public void closeObjects(Statement st, ResultSet rs) throws DAOException {
         if (st != null) {
             try {
                 st.close();
@@ -148,6 +137,10 @@ public class ConnectionManager {
                 throw new DAOException(e);
             }
         }
+    }
+
+    public void closeObjects(Statement st, ResultSet rs) throws DAOException {
+        closeObjects(st);
         if (rs != null) {
             try {
                 rs.close();
