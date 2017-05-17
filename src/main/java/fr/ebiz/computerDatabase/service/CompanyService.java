@@ -13,20 +13,22 @@ import fr.ebiz.computerDatabase.model.Company;
 import fr.ebiz.computerDatabase.persistance.CompanyDAO;
 
 public class CompanyService {
-    private CompanyMapper companyMapper;
-    private CompanyDAO companyDao;
+
     private static final Logger LOGGER = LoggerFactory.getLogger(CompanyService.class);
+    private static CompanyDAO companyDao;
+    private static CompanyMapper companyMapper;
+
 
     /**
      * Default constructor.
-     */
+
     public CompanyService() {
         // TODO Auto-generated constructor stub
         companyMapper = new CompanyMapper();
         companyDao = new CompanyDAO();
 
     }
-
+*/
     /**
      * @return list of company DTO
      * @throws ServiceException for errors in companyDTO
@@ -88,5 +90,15 @@ public class CompanyService {
             throw new ServiceException("can't get all company by id");
         }
     }
+
+
+    public void setCompanyDao(CompanyDAO companyDao) {
+        this.companyDao = companyDao;
+    }
+
+    public void setCompanyMapper(CompanyMapper companyMapper) {
+        this.companyMapper = companyMapper;
+    }
+
 
 }

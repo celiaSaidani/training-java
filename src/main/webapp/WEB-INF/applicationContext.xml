@@ -1,0 +1,27 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+
+<beans xmlns = "http://www.springframework.org/schema/beans"
+       xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation = "http://www.springframework.org/schema/beans
+   http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+    <bean id = "computerDAO" class = "fr.ebiz.computerDatabase.persistance.ComputerDAO">
+    </bean>
+    <bean id = "companyDao" class = "fr.ebiz.computerDatabase.persistance.CompanyDAO">
+    </bean>
+    <bean id = "computerMap" class = "fr.ebiz.computerDatabase.mapper.ComputerMapper">
+    </bean>
+    <bean id = "companyMapper" class = "fr.ebiz.computerDatabase.mapper.CompanyMapper">
+    </bean>
+
+    <bean id = "companyService" class = "fr.ebiz.computerDatabase.service.CompanyService">
+        <property name = "companyDao" ref="companyDao"/>
+        <property name="companyMapper" ref="companyMapper"/>
+    </bean>
+    <bean id = "ComputerService" class = "fr.ebiz.computerDatabase.service.ComputerService">
+        <property name = "computerDAO" ref="computerDAO"/>
+        <property name = "companyService" ref="companyService"/>
+        <property name = "computerMap" ref="computerMap"/>
+    </bean>
+
+</beans>

@@ -21,6 +21,14 @@
 		<appender-ref ref="STDOUT" />
 	</logger>
 
+	<logger name="org.apache" level="DEBUG" />
+	<logger name="java.sql" level="DEBUG" />
+	<logger name="jdbc.audit" level="DEBUG" />
+	<logger name="jdbc.connection" level="DEBUG" />
+	<logger name="jdbc.sqltiming" level="DEBUG" />
+	<logger name="jdbc.resultset" level="DEBUG" />
+	<logger name="jdbc.resultsettable" level="DEBUG" />
+
 	<root level="error">
 		<appender-ref ref="FILE" />
 	</root>

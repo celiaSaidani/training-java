@@ -24,7 +24,10 @@ public class ComputerDAO {
 
     private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S");
     private static final Logger LOGGER = LoggerFactory.getLogger(ComputerDAO.class);
+    private String selectAllComputer = "select computer.id, computer.name, computer.introduced, computer.discontinued ,"
+            + "company.id as company_id, company.name as companyName from computer left join company on computer.company_id = company.id";
     private ConnectionManager cm = ConnectionManager.getInstance();
+
 
     /**
      * @param computer valid computer object
@@ -141,8 +144,7 @@ public class ComputerDAO {
         ResultSet rs = null;
         Connection connection = null;
         Statement statement = null;
-        String selectAllComputer = "select computer.id, computer.name, computer.introduced, computer.discontinued ,"
-                + "company.id as company_id, company.name as companyName from computer left join company on computer.company_id = company.id";
+
 
         try {
             connection = cm.getConnection();
@@ -169,9 +171,7 @@ public class ComputerDAO {
      */
 
     public List<Computer> getAllComputerPage(int start, int end) throws DAOException {
-        String selectAllComputer = "select computer.id, computer.name, computer.introduced, computer.discontinued ,"
-                + "company.id as company_id, company.name as companyName from computer left join company on computer.company_id = company.id limit "
-                + start + "," + end;
+
 
         ResultSet rs = null;
         Connection connection = null;

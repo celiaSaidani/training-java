@@ -22,21 +22,21 @@ import fr.ebiz.computerDatabase.validator.DateTime;
 
 public class ComputerService {
 
-    private ComputerMapper computerMap;
-    private ComputerDAO computerDao;
-    private CompanyService companyService;
+    private static ComputerMapper computerMap;
+    private static  ComputerDAO computerDAO;
+    private static  CompanyService companyService;
     private static final Logger LOGGER = LoggerFactory.getLogger(ComputerService.class);
     private ConnectionManager cm = ConnectionManager.getInstance();
 
     /**
      * Constructor.
-     */
-    public ComputerService() {
-        computerMap = new ComputerMapper();
-        computerDao = new ComputerDAO();
-        companyService = new CompanyService();
-    }
 
+     public ComputerService() {
+     computerMap = new ComputerMapper();
+     computerDAO = new ComputerDAO();
+     companyService = new CompanyService();
+     }
+     */
     /**
      * @param comp insert a computerDTO
      * @return true if insertion ok else false
@@ -65,7 +65,7 @@ public class ComputerService {
             } else {
                 computer = new Computer(name, dateIn, dateOut, 0);
             }
-            computerDao.insert(computer);
+            computerDAO.insert(computer);
             return true;
 
         } catch (DateTimeParseException | NullPointerException | DAOException e) {
@@ -106,7 +106,7 @@ public class ComputerService {
             } else {
                 computer = new Computer(id, name, dateIn, dateOut, 0);
             }
-            computerDao.update(computer);
+            computerDAO.update(computer);
             return true;
 
         } catch (DateTimeParseException | NullPointerException | DAOException e) {
@@ -124,7 +124,7 @@ public class ComputerService {
     public boolean deleteCpmouter(int id) throws ServiceException {
 
         try {
-            computerDao.delete(id);
+            computerDAO.delete(id);
             return true;
         } catch (DAOException e) {
             System.err.println(e.getMessage());
@@ -141,7 +141,7 @@ public class ComputerService {
     public List<ComputerDTO> getAllComputer() throws ServiceException {
         List<Computer> allComp;
         try {
-            allComp = computerDao.getAllComputer();
+            allComp = computerDAO.getAllComputer();
             return computerMap.getComputerDTOs(allComp);
         } catch (DAOException e) {
             System.err.println(e.getMessage());
@@ -152,7 +152,7 @@ public class ComputerService {
 
     /**
      * @param start page
-     * @param end page
+     * @param end   page
      * @return list of computer page
      * @throws ServiceException when we catch DAOException from computerDAO
      */
@@ -162,9 +162,10 @@ public class ComputerService {
         List<Computer> allComp;
         try {
             cm.startTransaction();
-            allComp = computerDao.getAllComputerPage(start, end);
+            System.err.println(computerDAO);
+            allComp = computerDAO.getAllComputerPage(start, end);
             data.setComputersDTO(computerMap.getComputerDTOs(allComp));
-            data.setCount(computerDao.countTotalLine());
+            data.setCount(computerDAO.countTotalLine());
             cm.commit();
             return data;
         } catch (DAOException e) {
@@ -187,7 +188,7 @@ public class ComputerService {
     public ComputerDTO showDetailsComputer(int id) throws ServiceException {
         Computer cp;
         try {
-            cp = computerDao.getComputerById(id);
+            cp = computerDAO.getComputerById(id);
             ComputerDTO cpDto = computerMap.getComputerDTO(cp);
             if (cpDto.getDateIn() != null) {
 
@@ -215,7 +216,7 @@ public class ComputerService {
     public List<ComputerDTO> getComputerByName(String name) throws ServiceException {
         List<Computer> cp;
         try {
-            cp = computerDao.getComputerByName(name);
+            cp = computerDAO.getComputerByName(name);
             return computerMap.getComputerDTOs(cp);
         } catch (DAOException e) {
             System.err.println(e.getMessage());
@@ -226,16 +227,16 @@ public class ComputerService {
     }
 
     /**
-     * @param name of computer
+     * @param name  of computer
      * @param start page
-     * @param end page
+     * @param end   page
      * @return list of computer DTO
      * @throws ServiceException when we catch DAOException from computerDAO
      */
     public List<ComputerDTO> search(String name, int start, int end) throws ServiceException {
         List<Computer> cp;
         try {
-            cp = computerDao.search(name, start, end);
+            cp = computerDAO.search(name, start, end);
             return computerMap.getComputerDTOs(cp);
 
         } catch (DAOException e) {
@@ -251,7 +252,7 @@ public class ComputerService {
      */
     public int getCount() throws ServiceException {
         try {
-            return computerDao.countTotalLine();
+            return computerDAO.countTotalLine();
         } catch (DAOException e) {
             System.err.println(e.getMessage());
             LOGGER.error("[Error Service] in function getCount");
@@ -267,7 +268,7 @@ public class ComputerService {
      */
     public int getCount(String search) throws ServiceException {
         try {
-            return computerDao.countTotalLine(search);
+            return computerDAO.countTotalLine(search);
         } catch (DAOException e) {
             System.err.println(e.getMessage());
             LOGGER.error("[Error Service] in function getCount ");
@@ -277,11 +278,11 @@ public class ComputerService {
     }
 
     /**
-     * @param start page
-     * @param end page
+     * @param start    page
+     * @param end      page
      * @param reqorder column name
-     * @param reqBy ASC or DESC
-     * @param search name of computer
+     * @param reqBy    ASC or DESC
+     * @param search   name of computer
      * @return list of computerDTO
      * @throws ServiceException when we catch DAOException from computerDAO
      */
@@ -298,7 +299,7 @@ public class ComputerService {
         }
         List<Computer> lcp;
         try {
-            lcp = computerDao.getComputerOrderBy(start, end, reqorder, reqBy, search);
+            lcp = computerDAO.getComputerOrderBy(start, end, reqorder, reqBy, search);
             return computerMap.getComputerDTOs(lcp);
 
         } catch (DAOException e) {
@@ -311,9 +312,9 @@ public class ComputerService {
 
     /**
      * @param start page
-     * @param end page
+     * @param end   page
      * @param reqBy ASC or DESC
-     * @param name column name
+     * @param name  column name
      * @return list of computerDTO
      * @throws ServiceException when we catch DAOException from computerDAO
      */
@@ -328,7 +329,7 @@ public class ComputerService {
         }
         List<Computer> lcp;
         try {
-            lcp = computerDao.getComputerOrderBy(start, end, reqBy, name);
+            lcp = computerDAO.getComputerOrderBy(start, end, reqBy, name);
             return computerMap.getComputerDTOs(lcp);
 
         } catch (DAOException e) {
@@ -338,4 +339,18 @@ public class ComputerService {
         }
     }
 
+
+    public void setComputerDAO(ComputerDAO computerDAO) {
+        this.computerDAO = computerDAO;
+    }
+
+
+
+    public void setComputerMap(ComputerMapper computerMap) {
+        this.computerMap = computerMap;
+    }
+
+    public void setCompanyService(CompanyService companyService) {
+        this.companyService=companyService;
+    }
 }
