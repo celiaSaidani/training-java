@@ -84,9 +84,9 @@ local.properties
 hs_err_pid*
 
 #intelij file
-.idea
+*.idea
 #intelij file
-training-java.iml
+*.iml
 
 
 # End of https://www.gitignore.io/api/java,eclipse
