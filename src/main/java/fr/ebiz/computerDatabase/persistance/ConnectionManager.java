@@ -15,23 +15,16 @@ import fr.ebiz.computerDatabase.Exception.DAOException;
 
 public class ConnectionManager {
 
-    // private static JDBCMySQLConnection instance = new JDBCMySQLConnection();
     public static ConnectionManager instance = new ConnectionManager();
     private static final Logger LOGGER = LoggerFactory.getLogger(ConnectionManager.class);
     static final String CONFIGFILE = "/db.propreties";
     private HikariDataSource dataSource = null;
-    public static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-
     private ThreadLocal<Connection> connections = new ThreadLocal<>();
 
     /* Private class Singleton Holder */
     private static class SingletonManagerHolder {
         private static final ConnectionManager INSTANCE = new ConnectionManager();
     }
-
-    // private class variables
-    //private static final Logger LOGGER = LoggerFactory.getLogger(ConnectionManager.class);
-   // private static final String HIKARICP_CONFIG = "/hikari.properties";
 
     /**
      * @return ConnectionDB Singleton
@@ -46,7 +39,7 @@ public class ConnectionManager {
     private ConnectionManager() {
         HikariConfig config = new HikariConfig(CONFIGFILE);
         dataSource = new HikariDataSource(config);
-}
+    }
 
     /**
      * @return connection
@@ -65,6 +58,9 @@ public class ConnectionManager {
         return connection;
     }
 
+    /**
+     * start transaction.
+     */
     public void startTransaction() {
         try {
             getConnection().setAutoCommit(false);
@@ -74,6 +70,10 @@ public class ConnectionManager {
         }
     }
 
+    /**
+     * check if it's transactional state.
+     * @return true or false
+     */
     public boolean isTransactional() {
         try {
             return !getConnection().getAutoCommit();
@@ -82,6 +82,10 @@ public class ConnectionManager {
             throw new IllegalStateException(e);
         }
     }
+
+    /**
+     * rollback transaction.
+     */
 
     public void rollback() {
         Connection connection = connections.get();
@@ -98,6 +102,10 @@ public class ConnectionManager {
         }
     }
 
+    /**
+     * commit transaction.
+     */
+
     public void commit() {
         Connection connection = connections.get();
         if (connection == null) {
@@ -113,6 +121,9 @@ public class ConnectionManager {
         }
     }
 
+    /**
+     * close connection.
+     */
     public void closeConnection() {
         Connection connection = connections.get();
         if (connection == null) {
@@ -129,6 +140,12 @@ public class ConnectionManager {
         }
     }
 
+    /**
+     * close statement.
+     * @param st statement
+     * @throws DAOException for sql exceptions
+     */
+
     public void closeObjects(Statement st) throws DAOException {
         if (st != null) {
             try {
@@ -138,6 +155,12 @@ public class ConnectionManager {
             }
         }
     }
+
+    /**
+     * @param st statement
+     * @param rs result
+     * @throws DAOException for sql exceptions
+     */
 
     public void closeObjects(Statement st, ResultSet rs) throws DAOException {
         closeObjects(st);

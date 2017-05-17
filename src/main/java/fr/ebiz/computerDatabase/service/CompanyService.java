@@ -1,7 +1,5 @@
 package fr.ebiz.computerDatabase.service;
 
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -13,13 +11,12 @@ import fr.ebiz.computerDatabase.dto.CompanyDTO;
 import fr.ebiz.computerDatabase.mapper.CompanyMapper;
 import fr.ebiz.computerDatabase.model.Company;
 import fr.ebiz.computerDatabase.persistance.CompanyDAO;
-import fr.ebiz.computerDatabase.persistance.ConnectionManager;
 
 public class CompanyService {
     private CompanyMapper companyMapper;
     private CompanyDAO companyDao;
     private static final Logger LOGGER = LoggerFactory.getLogger(CompanyService.class);
-    private ConnectionManager cm = ConnectionManager.getInstance();
+
     /**
      * Default constructor.
      */
@@ -32,8 +29,7 @@ public class CompanyService {
 
     /**
      * @return list of company DTO
-     * @throws ServiceException
-     *           for errors in companyDTO
+     * @throws ServiceException for errors in companyDTO
      */
     public List<CompanyDTO> getAllCompany() throws ServiceException {
         List<Company> cp;
@@ -47,11 +43,9 @@ public class CompanyService {
     }
 
     /**
-     * @param start
-     *          page
+     * @param start page
      * @return list companyDTO
-     * @throws ServiceException
-     *           for errors in companyDTO
+     * @throws ServiceException for errors in companyDTO
      */
     public List<CompanyDTO> getAllCompanyPage(int start) throws ServiceException {
         List<Company> cp;
@@ -65,11 +59,9 @@ public class CompanyService {
     }
 
     /**
-     * @param id
-     *          of company
+     * @param id of company
      * @return company by ID
-     * @throws ServiceException
-     *           for errors in companyDTO
+     * @throws ServiceException for errors in companyDTO
      */
     public CompanyDTO getCompanybyId(int id) throws ServiceException {
         try {
@@ -82,14 +74,12 @@ public class CompanyService {
     }
 
     /**
-     * @param id
-     *          of company
+     * @param id of company
      * @return companyDTO
-     * @throws ServiceException
-     *           for errors in companyDTO
+     * @throws ServiceException for errors in companyDTO
      */
     public CompanyDTO getCompanybyIdLocal(int id) throws ServiceException {
-        
+
         try {
             Company cp = companyDao.getCompanyID(id);
             return companyMapper.getCompanyDTO(cp);

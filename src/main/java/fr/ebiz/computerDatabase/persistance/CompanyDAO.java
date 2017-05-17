@@ -18,8 +18,6 @@ public class CompanyDAO {
     private final String companyName = "name";
     private final String companyId = "id";
     private ConnectionManager cm = ConnectionManager.getInstance();
-
-    // private JDBCMySQLConnection c = JDBCMySQLConnection.getInstance();
     private static final Logger LOG = LoggerFactory.getLogger(CompanyDAO.class);
 
     /**
@@ -62,7 +60,6 @@ public class CompanyDAO {
             ResultSet rs = null;
             Statement statement = null;
             Connection connection;
-            
             try {
                 connection = cm.getConnection();
                 statement = connection.createStatement();
@@ -94,7 +91,6 @@ public class CompanyDAO {
             ResultSet rs = null;
             Statement statement = null;
             Connection connection;
-            
             try {
                 connection = cm.getConnection();
                 statement = connection.createStatement();
@@ -123,7 +119,6 @@ public class CompanyDAO {
             String deleteCompany = " delete from company where company.id = " + id;
             Statement statement = null;
             Connection connection;
-            
             try {
                 connection = ConnectionManager.getInstance().getConnection();
                 statement = connection.createStatement();
