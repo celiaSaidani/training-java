@@ -1,32 +1,33 @@
-package fr.ebiz.computerDatabase.persistance;
+package fr.ebiz.computerDatabase.persistence;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import com.zaxxer.hikari.HikariDataSource;
+import fr.ebiz.computerDatabase.exception.DAOException;
+import fr.ebiz.computerDatabase.model.Company;
+import fr.ebiz.computerDatabase.model.Computer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import java.sql.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import fr.ebiz.computerDatabase.Exception.DAOException;
-import fr.ebiz.computerDatabase.model.Company;
-import fr.ebiz.computerDatabase.model.Computer;
-
+@Repository
 public class ComputerDAO {
 
     private static String[] computerColumns = {"id", "name", "introduced", "discontinued", "company_id",
-            "companyName" };
+            "companyName"};
 
     private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S");
     private static final Logger LOGGER = LoggerFactory.getLogger(ComputerDAO.class);
     private String selectAllComputer = "select computer.id, computer.name, computer.introduced, computer.discontinued ,"
             + "company.id as company_id, company.name as companyName from computer left join company on computer.company_id = company.id";
-    private ConnectionManager cm = ConnectionManager.getInstance();
+   // private ConnectionManager cm = ConnectionManager.getInstance();
+   @Autowired
+    private HikariDataSource dataSource;
 
 
     /**
@@ -40,7 +41,8 @@ public class ComputerDAO {
         Connection connection = null;
 
         try {
-            connection = cm.getConnection();
+            // connection = cm.getConnection();
+            connection = dataSource.getConnection();
             statement = connection.prepareStatement(insertComputer);
             statement.setString(1, computer.getName());
             statement.setString(2, computer.getDateIN() == null ? null : computer.getDateIN().format(formatter));
@@ -57,10 +59,15 @@ public class ComputerDAO {
             LOGGER.error("[Error ComputerDao] in function insert");
             throw new DAOException("[DAO EXCEPTION] enable to insert computer in data base, id company not found");
         } finally {
-            if (!cm.isTransactional()) {
+            /*if (!cm.isTransactional()) {
                 cm.closeConnection();
+            }*/
+            ConnectionManager.closeObjects(statement);
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
-            cm.closeObjects(statement);
         }
 
     }
@@ -76,7 +83,8 @@ public class ComputerDAO {
         Connection connection = null;
 
         try {
-            connection = cm.getConnection();
+            //connection = cm.getConnection();
+            connection = dataSource.getConnection();
             statement = connection.createStatement();
             delete = statement.executeUpdate(deleteComputer);
             if (delete == 1) {
@@ -88,17 +96,22 @@ public class ComputerDAO {
             LOGGER.error("[Error ComputerDao] in function delete");
             throw new DAOException("[DAO EXCEPTION] Impossible to delete computer delete from database");
         } finally {
-            if (!cm.isTransactional()) {
+            /*if (!cm.isTransactional()) {
                 cm.closeConnection();
+            }*/
+            ConnectionManager.closeObjects(statement);
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
-            cm.closeObjects(statement);
         }
     }
 
     /**
      * @param computer valid computer object to update
-     * @throws DAOException for sql Exceptions
      * @return 1 if the update successful 0 else
+     * @throws DAOException for sql Exceptions
      */
     public int update(Computer computer) throws DAOException {
         PreparedStatement statement = null;
@@ -106,7 +119,8 @@ public class ComputerDAO {
         String updateComputer = "update computer set " + computerColumns[1] + "=? ," + computerColumns[2] + "=? ,"
                 + computerColumns[3] + "=? ," + computerColumns[4] + "= ? where " + computerColumns[0] + "= ?";
         try {
-            connection = cm.getConnection();
+            // connection = cm.getConnection();
+            connection = dataSource.getConnection();
             statement = connection.prepareStatement(updateComputer);
             statement.setString(1, computer.getName());
             statement.setString(2, computer.getDateIN() == null ? null : computer.getDateIN().format(formatter));
@@ -128,10 +142,16 @@ public class ComputerDAO {
             LOGGER.error("[Error ComputerDao] in function update");
             throw new DAOException("[DAO EXCEPTION] Impossible to update computer delete from database");
         } finally {
-            if (!cm.isTransactional()) {
+            /*if (!cm.isTransactional()) {
                 cm.closeConnection();
+            }*/
+            ConnectionManager.closeObjects(statement);
+
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
-            cm.closeObjects(statement);
         }
         return 0;
     }
@@ -147,7 +167,8 @@ public class ComputerDAO {
 
 
         try {
-            connection = cm.getConnection();
+            // connection = cm.getConnection();
+            connection = dataSource.getConnection();
             statement = connection.createStatement();
             rs = statement.executeQuery(selectAllComputer);
             List<Computer> cp = mappDaoL(rs);
@@ -156,21 +177,31 @@ public class ComputerDAO {
             LOGGER.error("[Error ComputerDao] in function getAllComputer");
             throw new DAOException("[DAO EXCEPTION] Impossible to get All computer from dataBase");
         } finally {
-            if (!cm.isTransactional()) {
+            /*if (!cm.isTransactional()) {
                 cm.closeConnection();
+            }*/
+            ConnectionManager.closeObjects(statement, rs);
+
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
-            cm.closeObjects(statement, rs);
+
         }
     }
 
     /**
      * @param start start page
-     * @param end end page
-     * @throws DAOException for sql exceptions
+     * @param end   end page
      * @return list off all computer
+     * @throws DAOException for sql exceptions
      */
 
     public List<Computer> getAllComputerPage(int start, int end) throws DAOException {
+        String selectAllComputer = "select computer.id, computer.name, computer.introduced, computer.discontinued ,"
+                + "company.id as company_id, company.name as companyName from computer left join company on computer.company_id = company.id limit "
+                + start + "," + end;
 
 
         ResultSet rs = null;
@@ -178,7 +209,8 @@ public class ComputerDAO {
         Statement statement = null;
 
         try {
-            connection = cm.getConnection();
+            //connection = cm.getConnection();
+            connection = dataSource.getConnection();
             statement = connection.createStatement();
             rs = statement.executeQuery(selectAllComputer);
             List<Computer> cp = mappDaoL(rs);
@@ -188,17 +220,22 @@ public class ComputerDAO {
             LOGGER.error("[Error ComputerDao] in function getAllComputer(int start, int end)");
             throw new DAOException("[DAO EXCEPTION] Impossible to get All computer from dataBase");
         } finally {
-            if (!cm.isTransactional()) {
+            /*if (!cm.isTransactional()) {
                 cm.closeConnection();
+            }*/
+            ConnectionManager.closeObjects(statement, rs);
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
-            cm.closeObjects(statement, rs);
         }
     }
 
     /**
      * @param id id of computer
-     * @throws DAOException for sql error
      * @return computer that have their id equal to id in parameter
+     * @throws DAOException for sql error
      */
     public Computer getComputerById(int id) throws DAOException {
         Statement statement = null;
@@ -208,7 +245,8 @@ public class ComputerDAO {
         ResultSet rs = null;
         Connection connection = null;
         try {
-            connection = cm.getConnection();
+            //connection = cm.getConnection();
+            connection = dataSource.getConnection();
             statement = connection.createStatement();
             rs = statement.executeQuery(selectComputerByid);
             Computer cp = mappDao(rs);
@@ -219,18 +257,23 @@ public class ComputerDAO {
             LOGGER.error("[Error ComputerDAO] in function getCompanyById");
             throw new DAOException("[DAO EXCEPTION] error in function getComputerById");
         } finally {
-            if (!cm.isTransactional()) {
+            /*if (!cm.isTransactional()) {
                 cm.closeConnection();
+            }*/
+            ConnectionManager.closeObjects(statement, rs);
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
-            cm.closeObjects(statement, rs);
         }
 
     }
 
     /**
      * @param name of computer
-     * @throws DAOException for sql error
      * @return list of computer that have same name
+     * @throws DAOException for sql error
      */
     public List<Computer> getComputerByName(String name) throws DAOException {
         ResultSet rs = null;
@@ -240,7 +283,8 @@ public class ComputerDAO {
                 + "company.id as company_id, company.name as companyName from computer left join company on computer.company_id = company.id where computer.name= "
                 + "'" + name + "'";
         try {
-            connection = cm.getConnection();
+            //connection = cm.getConnection();
+            connection = dataSource.getConnection();
             statement = connection.createStatement();
             rs = statement.executeQuery(selectComputeryByName);
             List<Computer> cp = mappDaoL(rs);
@@ -249,17 +293,22 @@ public class ComputerDAO {
             LOGGER.error("[Error ComputerDAO] in function getComputerByName ");
             throw new DAOException("[DAO EXCEPTION] Impossible to get All computer by Name from dataBase");
         } finally {
-            if (!cm.isTransactional()) {
+           /* if (!cm.isTransactional()) {
                 cm.closeConnection();
+            }*/
+            ConnectionManager.closeObjects(statement, rs);
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
-            cm.closeObjects(statement, rs);
         }
     }
 
     /**
-     * @param name of computer
+     * @param name  of computer
      * @param start page
-     * @param end page
+     * @param end   page
      * @return list of computer
      * @throws DAOException for sql exceptions
      */
@@ -271,7 +320,8 @@ public class ComputerDAO {
                 + "company.id as company_id, company.name as companyName from computer left join company on computer.company_id = company.id where computer.name like "
                 + "'%" + name + "%'" + "or company.name like " + "'%" + name + "%'" + "limit " + start + "," + end;
         try {
-            connection = cm.getConnection();
+            // connection = cm.getConnection();
+            connection = dataSource.getConnection();
             statement = connection.createStatement();
             rs = statement.executeQuery(search);
             List<Computer> cp = mappDaoL(rs);
@@ -280,10 +330,16 @@ public class ComputerDAO {
             LOGGER.error("[Error DAO] in function getComputerByName ");
             throw new DAOException("[DAO EXCEPTION] Impossible to find computer in dataBase");
         } finally {
-            if (!cm.isTransactional()) {
+           /* if (!cm.isTransactional()) {
                 cm.closeConnection();
+            }*/
+            ConnectionManager.closeObjects(statement, rs);
+
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
-            cm.closeObjects(statement, rs);
         }
     }
 
@@ -299,8 +355,8 @@ public class ComputerDAO {
         int rowCount = 0;
 
         try {
-            connection = cm.getConnection();
-
+            // connection = cm.getConnection();
+            connection = dataSource.getConnection();
             statement = connection.createStatement();
 
             rs = statement.executeQuery(selectAllComputer);
@@ -313,10 +369,16 @@ public class ComputerDAO {
             LOGGER.error("[Error DAO] in function getCountLine");
             throw new DAOException("Impossible to count computer in dataBase");
         } finally {
-            if (!cm.isTransactional()) {
+            /*if (!cm.isTransactional()) {
                 cm.closeConnection();
+            }*/
+            ConnectionManager.closeObjects(statement, rs);
+
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
-            cm.closeObjects(statement, rs);
         }
 
     }
@@ -335,8 +397,8 @@ public class ComputerDAO {
         int rowcount = 0;
 
         try {
-            connection = cm.getConnection();
-
+            // connection = cm.getConnection();
+            connection = dataSource.getConnection();
             statement = connection.createStatement();
             rs = statement.executeQuery(selectAllComputer);
 
@@ -348,19 +410,25 @@ public class ComputerDAO {
             LOGGER.error("[Error DAO] in function CountTotalLine");
             throw new DAOException("Impossible to count computer for this search in dataBase");
         } finally {
-            if (!cm.isTransactional()) {
+            /*if (!cm.isTransactional()) {
                 cm.closeConnection();
+            }*/
+            ConnectionManager.closeObjects(statement, rs);
+
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
-            cm.closeObjects(statement, rs);
         }
 
     }
 
     /**
      * @param start page
-     * @param end page
+     * @param end   page
      * @param reqBy ASC or DESC
-     * @param name of computer
+     * @param name  of computer
      * @return list of computer
      * @throws DAOException of sql exceptions
      */
@@ -374,7 +442,8 @@ public class ComputerDAO {
                 + end;
 
         try {
-            connection = cm.getConnection();
+            // connection = cm.getConnection();
+            connection = dataSource.getConnection();
             statement = connection.createStatement();
             rs = statement.executeQuery(orderBy);
 
@@ -384,18 +453,23 @@ public class ComputerDAO {
             LOGGER.error("[Error DAO] in function getComputerOrderBy");
             throw new DAOException("Impossible to find computer for this order in dataBase");
         } finally {
-            if (!cm.isTransactional()) {
+          /*  if (!cm.isTransactional()) {
                 cm.closeConnection();
+            }*/
+            ConnectionManager.closeObjects(statement, rs);
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
-            cm.closeObjects(statement, rs);
         }
     }
 
     /**
-     * @param start page
-     * @param end page
-     * @param reqBy ASC or DESC
-     * @param search of computer
+     * @param start    page
+     * @param end      page
+     * @param reqBy    ASC or DESC
+     * @param search   of computer
      * @param reqorder name of coulumn
      * @return list of computer
      * @throws DAOException of sql exceptions
@@ -415,7 +489,8 @@ public class ComputerDAO {
              * System.err.println("DAO " + reqorder + " " + reqBy + " " + search
              * + " " + start + " " + end); System.out.println(orderBy);
              */
-            connection = cm.getConnection();
+            //  connection = cm.getConnection();
+            connection = dataSource.getConnection();
             statement = connection.createStatement();
             rs = statement.executeQuery(orderBy);
 
@@ -425,10 +500,16 @@ public class ComputerDAO {
             LOGGER.error("[Error DAO] in function getComputerOrderBy");
             throw new DAOException("Impossible to find computer for this order in dataBase");
         } finally {
-            if (!cm.isTransactional()) {
+           /* if (!cm.isTransactional()) {
                 cm.closeConnection();
+            }*/
+            ConnectionManager.closeObjects(statement, rs);
+
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
-            cm.closeObjects(statement, rs);
         }
     }
 

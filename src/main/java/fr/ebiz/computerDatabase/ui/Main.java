@@ -4,7 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Scanner;
 
-import fr.ebiz.computerDatabase.Exception.ServiceException;
+import fr.ebiz.computerDatabase.exception.ServiceException;
 import fr.ebiz.computerDatabase.dto.CompanyDTO;
 import fr.ebiz.computerDatabase.dto.ComputerDTO;
 import fr.ebiz.computerDatabase.dto.ComputerDTOPage;

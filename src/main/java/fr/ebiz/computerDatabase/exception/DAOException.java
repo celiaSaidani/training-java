@@ -1,4 +1,4 @@
-package fr.ebiz.computerDatabase.Exception;
+package fr.ebiz.computerDatabase.exception;
 
 public class DAOException extends Exception {
 

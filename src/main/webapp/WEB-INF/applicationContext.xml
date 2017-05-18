@@ -2,26 +2,36 @@
 
 <beans xmlns = "http://www.springframework.org/schema/beans"
        xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context = "http://www.springframework.org/schema/context"
        xsi:schemaLocation = "http://www.springframework.org/schema/beans
-   http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+   http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+   http://www.springframework.org/schema/context
+   http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+    <context:annotation-config />
 
-    <bean id = "computerDAO" class = "fr.ebiz.computerDatabase.persistance.ComputerDAO">
-    </bean>
-    <bean id = "companyDao" class = "fr.ebiz.computerDatabase.persistance.CompanyDAO">
-    </bean>
-    <bean id = "computerMap" class = "fr.ebiz.computerDatabase.mapper.ComputerMapper">
-    </bean>
-    <bean id = "companyMapper" class = "fr.ebiz.computerDatabase.mapper.CompanyMapper">
-    </bean>
+    <bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource"  destroy-method="close">
+        <property name="dataSourceClassName" value="com.mysql.jdbc.jdbc2.optional.MysqlDataSource"/>
+        <property name="maximumPoolSize" value="17" />
+        <property name="maxLifetime" value="30000" />
+        <property name="idleTimeout" value="30000" />
+        <property name="dataSourceProperties">
+            <props>
+                <prop key="url">jdbc:mysql://localhost/computer-database-db?useSSL=false&amp;zeroDateTimeBehavior=convertToNull</prop>
+                <prop key="user">admincdb</prop>
+                <prop key="password">qwerty1234</prop>
+                <prop key="prepStmtCacheSize">250</prop>
+                <prop key="prepStmtCacheSqlLimit">2048</prop>
+                <prop key="cachePrepStmts">true</prop>
+                <prop key="useServerPrepStmts">true</prop>
+            </props>
 
-    <bean id = "companyService" class = "fr.ebiz.computerDatabase.service.CompanyService">
-        <property name = "companyDao" ref="companyDao"/>
-        <property name="companyMapper" ref="companyMapper"/>
+        </property>
     </bean>
-    <bean id = "ComputerService" class = "fr.ebiz.computerDatabase.service.ComputerService">
-        <property name = "computerDAO" ref="computerDAO"/>
-        <property name = "companyService" ref="companyService"/>
-        <property name = "computerMap" ref="computerMap"/>
-    </bean>
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+    <property name="dataSource" ref= "dataSource" />
+</bean>
+    <context:component-scan base-package="fr.ebiz.computerDatabase.persistence" />
+    <context:component-scan base-package="fr.ebiz.computerDatabase.mapper" />
+    <context:component-scan base-package="fr.ebiz.computerDatabase.service" />
 
 </beans>

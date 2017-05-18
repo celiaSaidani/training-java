@@ -4,7 +4,7 @@ import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
 
-import fr.ebiz.computerDatabase.Exception.ServiceException;
+import fr.ebiz.computerDatabase.exception.ServiceException;
 import fr.ebiz.computerDatabase.service.ComputerService;
 
 public class ComputerServiceTest {

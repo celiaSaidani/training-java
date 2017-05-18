@@ -1,19 +1,21 @@
 package fr.ebiz.computerDatabase.contoller;
 
-import java.io.IOException;
-import java.util.List;
+import fr.ebiz.computerDatabase.exception.ServiceException;
+import fr.ebiz.computerDatabase.dto.CompanyDTO;
+import fr.ebiz.computerDatabase.dto.ComputerDTO;
+import fr.ebiz.computerDatabase.service.CompanyService;
+import fr.ebiz.computerDatabase.service.ComputerService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import fr.ebiz.computerDatabase.Exception.ServiceException;
-import fr.ebiz.computerDatabase.dto.CompanyDTO;
-import fr.ebiz.computerDatabase.dto.ComputerDTO;
-import fr.ebiz.computerDatabase.service.CompanyService;
-import fr.ebiz.computerDatabase.service.ComputerService;
+import java.io.IOException;
+import java.util.List;
 
 /**
  * Servlet implementation class EditComputerServlet.
@@ -23,21 +25,22 @@ public class EditComputerServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     public static final String EDIT_VIEW = "/WEB-INF/views/editComputer.jsp";
     public static final String ERROR_VIEW = "/WEB-INF/views/500.jsp";
-
-    public final ComputerService computerService = new ComputerService();
-    CompanyService companyService = new CompanyService();
     public final String ID = "computerId";
     public final String NAME = "computerName";
     public final String DATEIN = "introduced";
     public final String DATEOUT = "discontinued";
     public final String IDCOMPANY = "company";
-
+    @Autowired
+    private  CompanyService companyService;
+    @Autowired
+    private ComputerService computerService;
     /**
-     * @see HttpServlet#HttpServlet()
+     * {@inheritDoc}
      */
-    public EditComputerServlet() {
-        super();
-        // TODO Auto-generated constructor stub
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        SpringBeanAutowiringSupport.processInjectionBasedOnServletContext(this, config.getServletContext());
     }
 
     /**

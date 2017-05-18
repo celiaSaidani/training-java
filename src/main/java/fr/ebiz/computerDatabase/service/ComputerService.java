@@ -1,32 +1,35 @@
 package fr.ebiz.computerDatabase.service;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeParseException;
-import java.util.List;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import fr.ebiz.computerDatabase.Exception.DAOException;
-import fr.ebiz.computerDatabase.Exception.ServiceException;
+import fr.ebiz.computerDatabase.exception.DAOException;
+import fr.ebiz.computerDatabase.exception.ServiceException;
 import fr.ebiz.computerDatabase.dto.CompanyDTO;
 import fr.ebiz.computerDatabase.dto.ComputerDTO;
 import fr.ebiz.computerDatabase.dto.ComputerDTOPage;
 import fr.ebiz.computerDatabase.mapper.ComputerMapper;
 import fr.ebiz.computerDatabase.model.Computer;
-import fr.ebiz.computerDatabase.persistance.ComputerDAO;
-import fr.ebiz.computerDatabase.persistance.ConnectionManager;
-
+import fr.ebiz.computerDatabase.persistence.ComputerDAO;
 import fr.ebiz.computerDatabase.validator.ComputerValidator;
 import fr.ebiz.computerDatabase.validator.DateTime;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
+import java.util.List;
+
+@Service
 public class ComputerService {
+    @Autowired
+    private ComputerMapper computerMap;
+    @Autowired
+    private  ComputerDAO computerDAO;
+    @Autowired
+    private  CompanyService companyService;
 
-    private static ComputerMapper computerMap;
-    private static  ComputerDAO computerDAO;
-    private static  CompanyService companyService;
     private static final Logger LOGGER = LoggerFactory.getLogger(ComputerService.class);
-    private ConnectionManager cm = ConnectionManager.getInstance();
+    //private ConnectionManager cm = ConnectionManager.getInstance();
 
     /**
      * Constructor.
@@ -130,6 +133,7 @@ public class ComputerService {
             System.err.println(e.getMessage());
             LOGGER.error("[Error Service] in function delete Computer");
             throw new ServiceException("can't delete computer");
+
         }
     }
 
@@ -161,23 +165,22 @@ public class ComputerService {
         ComputerDTOPage data = new ComputerDTOPage();
         List<Computer> allComp;
         try {
-            cm.startTransaction();
-            System.err.println(computerDAO);
+            // cm.startTransaction();
             allComp = computerDAO.getAllComputerPage(start, end);
             data.setComputersDTO(computerMap.getComputerDTOs(allComp));
             data.setCount(computerDAO.countTotalLine());
-            cm.commit();
+            // cm.commit();
             return data;
         } catch (DAOException e) {
             System.err.println(e.getMessage());
-            cm.rollback();
+            // cm.rollback();
             LOGGER.error("[Error Service] in function getAllComputerPage");
             throw new ServiceException("can't get all computer by limit");
-        } finally {
+        } /*finally {
 
             cm.closeConnection();
 
-        }
+        }*/
     }
 
     /**
@@ -339,18 +342,4 @@ public class ComputerService {
         }
     }
 
-
-    public void setComputerDAO(ComputerDAO computerDAO) {
-        this.computerDAO = computerDAO;
-    }
-
-
-
-    public void setComputerMap(ComputerMapper computerMap) {
-        this.computerMap = computerMap;
-    }
-
-    public void setCompanyService(CompanyService companyService) {
-        this.companyService=companyService;
-    }
 }

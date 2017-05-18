@@ -5,7 +5,9 @@ import java.util.List;
 
 import fr.ebiz.computerDatabase.dto.ComputerDTO;
 import fr.ebiz.computerDatabase.model.Computer;
+import org.springframework.stereotype.Component;
 
+@Component
 public class ComputerMapper {
   /**
    * @param cp

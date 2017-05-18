@@ -5,30 +5,35 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import fr.ebiz.computerDatabase.Exception.DAOException;
-import fr.ebiz.computerDatabase.Exception.ServiceException;
+import fr.ebiz.computerDatabase.exception.DAOException;
+import fr.ebiz.computerDatabase.exception.ServiceException;
 import fr.ebiz.computerDatabase.dto.CompanyDTO;
 import fr.ebiz.computerDatabase.mapper.CompanyMapper;
 import fr.ebiz.computerDatabase.model.Company;
-import fr.ebiz.computerDatabase.persistance.CompanyDAO;
+import fr.ebiz.computerDatabase.persistence.CompanyDAO;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class CompanyService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CompanyService.class);
-    private static CompanyDAO companyDao;
-    private static CompanyMapper companyMapper;
+    @Autowired
+    private CompanyDAO companyDao;
+    @Autowired
+    private CompanyMapper companyMapper;
 
 
     /**
      * Default constructor.
 
-    public CompanyService() {
-        // TODO Auto-generated constructor stub
-        companyMapper = new CompanyMapper();
-        companyDao = new CompanyDAO();
+     public CompanyService() {
+     // TODO Auto-generated constructor stub
+     companyMapper = new CompanyMapper();
+     companyDao = new CompanyDAO();
 
-    }
-*/
+     }
+     */
     /**
      * @return list of company DTO
      * @throws ServiceException for errors in companyDTO
@@ -89,15 +94,6 @@ public class CompanyService {
             LOGGER.error("[Error service] error in function getCompanybyIdLocal ");
             throw new ServiceException("can't get all company by id");
         }
-    }
-
-
-    public void setCompanyDao(CompanyDAO companyDao) {
-        this.companyDao = companyDao;
-    }
-
-    public void setCompanyMapper(CompanyMapper companyMapper) {
-        this.companyMapper = companyMapper;
     }
 
 

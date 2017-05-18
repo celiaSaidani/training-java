@@ -5,7 +5,9 @@ import java.util.List;
 
 import fr.ebiz.computerDatabase.dto.CompanyDTO;
 import fr.ebiz.computerDatabase.model.Company;
+import org.springframework.stereotype.Component;
 
+@Component
 public class CompanyMapper {
   /**
    * @param cp

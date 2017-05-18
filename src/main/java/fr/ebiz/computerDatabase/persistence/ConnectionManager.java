@@ -1,17 +1,15 @@
-package fr.ebiz.computerDatabase.persistance;
+package fr.ebiz.computerDatabase.persistence;
+
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
+import fr.ebiz.computerDatabase.exception.DAOException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import com.zaxxer.hikari.HikariConfig;
-import com.zaxxer.hikari.HikariDataSource;
-
-import fr.ebiz.computerDatabase.Exception.DAOException;
 
 public class ConnectionManager {
 
@@ -72,6 +70,7 @@ public class ConnectionManager {
 
     /**
      * check if it's transactional state.
+     *
      * @return true or false
      */
     public boolean isTransactional() {
@@ -142,11 +141,12 @@ public class ConnectionManager {
 
     /**
      * close statement.
+     *
      * @param st statement
      * @throws DAOException for sql exceptions
      */
 
-    public void closeObjects(Statement st) throws DAOException {
+    public static void closeObjects(Statement st) throws DAOException {
         if (st != null) {
             try {
                 st.close();
@@ -162,7 +162,7 @@ public class ConnectionManager {
      * @throws DAOException for sql exceptions
      */
 
-    public void closeObjects(Statement st, ResultSet rs) throws DAOException {
+    public static void closeObjects(Statement st, ResultSet rs) throws DAOException {
         closeObjects(st);
         if (rs != null) {
             try {
@@ -170,6 +170,7 @@ public class ConnectionManager {
             } catch (SQLException e) {
                 throw new DAOException(e);
             }
+
         }
     }
 
