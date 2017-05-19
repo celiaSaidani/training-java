@@ -84,7 +84,7 @@ local.properties
 hs_err_pid*
 
 #intelij file
-*.idea
+*/.idea
 #intelij file
 *.iml
 #gatling test
