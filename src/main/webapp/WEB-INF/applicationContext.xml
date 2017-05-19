@@ -1,15 +1,25 @@
 <?xml version = "1.0" encoding = "UTF-8"?>
 
-<beans xmlns = "http://www.springframework.org/schema/beans"
-       xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:context = "http://www.springframework.org/schema/context"
-       xsi:schemaLocation = "http://www.springframework.org/schema/beans
-   http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
-   http://www.springframework.org/schema/context
-   http://www.springframework.org/schema/context/spring-context-4.3.xsd">
-    <context:annotation-config />
+<beans xmlns="http://www.springframework.org/schema/beans"
 
-    <bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource"  destroy-method="close">
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+
+       xmlns:tx="http://www.springframework.org/schema/tx"
+
+       xmlns:context="http://www.springframework.org/schema/context"
+
+       xsi:schemaLocation="
+
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+
+        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+
+
+
+<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource"  destroy-method="close">
         <property name="dataSourceClassName" value="com.mysql.jdbc.jdbc2.optional.MysqlDataSource"/>
         <property name="maximumPoolSize" value="17" />
         <property name="maxLifetime" value="30000" />
@@ -27,11 +37,15 @@
 
         </property>
     </bean>
+    <tx:annotation-driven />
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
     <property name="dataSource" ref= "dataSource" />
 </bean>
-    <context:component-scan base-package="fr.ebiz.computerDatabase.persistence" />
-    <context:component-scan base-package="fr.ebiz.computerDatabase.mapper" />
-    <context:component-scan base-package="fr.ebiz.computerDatabase.service" />
+    <context:annotation-config />
+    <context:component-scan base-package="fr.ebiz.computerDatabase.service"/>
+
+    <context:component-scan base-package="fr.ebiz.computerDatabase.persistence"/>
+
+    <context:component-scan base-package="fr.ebiz.computerDatabase.mapper"/>
 
 </beans>

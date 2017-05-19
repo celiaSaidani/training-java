@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import fr.ebiz.computerDatabase.exception.DAOException;
 import fr.ebiz.computerDatabase.model.Company;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.datasource.DataSourceUtils;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -21,7 +22,7 @@ public class CompanyDAO {
 
     private final String companyName = "name";
     private final String companyId = "id";
-    private ConnectionManager cm = ConnectionManager.getInstance();
+ //   private Utils cm = Utils.getInstance();
     private static final Logger LOG = LoggerFactory.getLogger(CompanyDAO.class);
     @Autowired
     private HikariDataSource dataSource;
@@ -38,7 +39,7 @@ public class CompanyDAO {
         Connection connection = null;
         try {
             //connection = cm.getConnection();
-            connection = dataSource.getConnection();
+            connection = DataSourceUtils.getConnection(dataSource);
             statement = connection.createStatement();
             rs = statement.executeQuery(selectCompanyByID);
             Company comp = mappCompany(id, rs);
@@ -48,14 +49,9 @@ public class CompanyDAO {
             LOG.error("[Error DAO] in function getCompanyID");
             throw new DAOException("[DAO EXCEPTION] enable to find company by id in dataBase");
         } finally {
-           /* if (!cm.isTransactional()) {
-                cm.closeConnection();
-            }*/
-            ConnectionManager.closeObjects(statement, rs);
-            try {
-                connection.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
+            Utils.closeObjects(statement, rs);
+            if (!DataSourceUtils.isConnectionTransactional(connection, dataSource)) {
+                Utils.closeConnection(dataSource, connection);
             }
         }
     }
@@ -71,7 +67,7 @@ public class CompanyDAO {
         Connection connection = null;
         try {
             //connection = cm.getConnection();
-            connection = dataSource.getConnection();
+            connection = DataSourceUtils.getConnection(dataSource);
             statement = connection.createStatement();
             rs = statement.executeQuery(selectAllCompany);
             List<Company> compL = mappCompanyL(rs);
@@ -81,15 +77,10 @@ public class CompanyDAO {
             LOG.error("[Error DAO] in function getAllCompany");
             throw new DAOException("[DAO EXCEPTION] Impossible to get all company from dataBase");
         } finally {
-              /*  if (!cm.isTransactional()) {
-                    cm.closeConnection();
-                }*/
-            ConnectionManager.closeObjects(statement, rs);
-            try {
-                connection.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
+            if (!DataSourceUtils.isConnectionTransactional(connection, dataSource)) {
+                Utils.closeConnection(dataSource, connection);
             }
+            Utils.closeObjects(statement, rs);
         }
     }
 
@@ -106,7 +97,7 @@ public class CompanyDAO {
         Connection connection = null;
         try {
             // connection = cm.getConnection();
-            connection = dataSource.getConnection();
+            connection = DataSourceUtils.getConnection(dataSource);
             statement = connection.createStatement();
             rs = statement.executeQuery(selectAllCompany);
             List<Company> compL = mappCompanyL(rs);
@@ -115,15 +106,10 @@ public class CompanyDAO {
             LOG.error("[Error DAO] in function getAllCompany by limit");
             throw new DAOException("[DAO EXCEPTION] Impossible to get all company  by limit from dataBase");
         } finally {
-                /*if (!cm.isTransactional()) {
-                    cm.closeConnection();
-                }*/
-            ConnectionManager.closeObjects(statement, rs);
-            try {
-                connection.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
+            if (!DataSourceUtils.isConnectionTransactional(connection, dataSource)) {
+                Utils.closeConnection(dataSource, connection);
             }
+            Utils.closeObjects(statement, rs);
         }
 
     }
@@ -137,8 +123,8 @@ public class CompanyDAO {
         Statement statement = null;
         Connection connection = null;
         try {
-            //connection = ConnectionManager.getInstance().getConnection();
-            connection = dataSource.getConnection();
+            //connection = Utils.getInstance().getConnection();
+            connection = DataSourceUtils.getConnection(dataSource);
             statement = connection.createStatement();
             statement.executeQuery(deleteCompany);
             statement.close();
@@ -146,12 +132,11 @@ public class CompanyDAO {
             LOG.error("[Error DAO] in function delete company");
             throw new DAOException("[DAO EXCEPTION] Impossible to delete this company from dataBase");
         } finally {
-            ConnectionManager.closeObjects(statement);
-            try {
-                connection.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
+            if (!DataSourceUtils.isConnectionTransactional(connection, dataSource)) {
+                Utils.closeConnection(dataSource, connection);
             }
+            Utils.closeObjects(statement);
+
         }
 
     }

@@ -87,7 +87,8 @@ hs_err_pid*
 *.idea
 #intelij file
 *.iml
-
+#gatling test
+/gatling-test
 
 # End of https://www.gitignore.io/api/java,eclipse
 /build/

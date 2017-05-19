@@ -14,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
@@ -29,7 +30,7 @@ public class ComputerService {
     private  CompanyService companyService;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ComputerService.class);
-    //private ConnectionManager cm = ConnectionManager.getInstance();
+    //private Utils cm = Utils.getInstance();
 
     /**
      * Constructor.
@@ -124,7 +125,7 @@ public class ComputerService {
      * @return true if delete correct, false else
      * @throws ServiceException when we catch DAOException from computerDAO
      */
-    public boolean deleteCpmouter(int id) throws ServiceException {
+    public boolean deleteComputer(int id) throws ServiceException {
 
         try {
             computerDAO.delete(id);
@@ -160,27 +161,20 @@ public class ComputerService {
      * @return list of computer page
      * @throws ServiceException when we catch DAOException from computerDAO
      */
-
+    @Transactional
     public ComputerDTOPage getAllComputerPage(int start, int end) throws ServiceException {
         ComputerDTOPage data = new ComputerDTOPage();
         List<Computer> allComp;
         try {
-            // cm.startTransaction();
             allComp = computerDAO.getAllComputerPage(start, end);
             data.setComputersDTO(computerMap.getComputerDTOs(allComp));
             data.setCount(computerDAO.countTotalLine());
-            // cm.commit();
             return data;
         } catch (DAOException e) {
             System.err.println(e.getMessage());
-            // cm.rollback();
             LOGGER.error("[Error Service] in function getAllComputerPage");
             throw new ServiceException("can't get all computer by limit");
-        } /*finally {
-
-            cm.closeConnection();
-
-        }*/
+        }
     }
 
     /**

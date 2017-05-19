@@ -20,6 +20,7 @@ import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 /**
  * Servlet implementation class DashboardServlet.
  */
+
 @WebServlet("/DashboardServlet")
 public class DashboardServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
@@ -81,8 +82,6 @@ public class DashboardServlet extends HttpServlet {
                 if (count > 0) {
                     try {
                         if (reqOrder != null & reqBy != null) {
-                            //System.out.println("in the dashboard " + reqOrder + " " + reqBy + " "
-                            // + request.getParameter("search").trim());
                             computer = computerService.searchOrderBy((page - 1) * size, size, reqOrder, reqBy,
                                     request.getParameter("search").trim());
 
@@ -147,7 +146,7 @@ public class DashboardServlet extends HttpServlet {
                 while (i < ids.length) {
 
                     try {
-                        computerService.deleteCpmouter(Integer.parseInt(ids[i]));
+                        computerService.deleteComputer(Integer.parseInt(ids[i]));
                     } catch (NumberFormatException e) {
                         System.out.println(e.getMessage());
                     } catch (ServiceException e) {
