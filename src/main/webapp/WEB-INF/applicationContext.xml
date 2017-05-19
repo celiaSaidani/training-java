@@ -17,13 +17,11 @@
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
 
-
-
-<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource"  destroy-method="close">
+    <bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
         <property name="dataSourceClassName" value="com.mysql.jdbc.jdbc2.optional.MysqlDataSource"/>
-        <property name="maximumPoolSize" value="17" />
-        <property name="maxLifetime" value="30000" />
-        <property name="idleTimeout" value="30000" />
+        <property name="maximumPoolSize" value="17"/>
+        <property name="maxLifetime" value="30000"/>
+        <property name="idleTimeout" value="30000"/>
         <property name="dataSourceProperties">
             <props>
                 <prop key="url">jdbc:mysql://localhost/computer-database-db?useSSL=false&amp;zeroDateTimeBehavior=convertToNull</prop>
@@ -37,11 +35,14 @@
 
         </property>
     </bean>
-    <tx:annotation-driven />
+    <tx:annotation-driven/>
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-    <property name="dataSource" ref= "dataSource" />
-</bean>
-    <context:annotation-config />
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+    <bean id="jdbcTemplateObject" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+    <context:annotation-config/>
     <context:component-scan base-package="fr.ebiz.computerDatabase.service"/>
 
     <context:component-scan base-package="fr.ebiz.computerDatabase.persistence"/>

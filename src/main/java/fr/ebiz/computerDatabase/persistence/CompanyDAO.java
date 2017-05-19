@@ -14,6 +14,8 @@ import org.slf4j.LoggerFactory;
 import fr.ebiz.computerDatabase.exception.DAOException;
 import fr.ebiz.computerDatabase.model.Company;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DataSourceUtils;
 import org.springframework.stereotype.Repository;
 
@@ -26,6 +28,8 @@ public class CompanyDAO {
     private static final Logger LOG = LoggerFactory.getLogger(CompanyDAO.class);
     @Autowired
     private HikariDataSource dataSource;
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
 
     /**
      * @param id of company
@@ -33,26 +37,12 @@ public class CompanyDAO {
      * @throws DAOException for sql error
      */
     public Company getCompanyID(int id) throws DAOException {
-        String selectCompanyByID = "select * from company where id=" + Integer.toString(id);
-        ResultSet rs = null;
-        Statement statement = null;
-        Connection connection = null;
+        String selectCompanyByID = "select * from company where id= ? ";
         try {
-            //connection = cm.getConnection();
-            connection = DataSourceUtils.getConnection(dataSource);
-            statement = connection.createStatement();
-            rs = statement.executeQuery(selectCompanyByID);
-            Company comp = mappCompany(id, rs);
-            return comp;
-
-        } catch (SQLException e) {
+           return jdbcTemplate.queryForObject(selectCompanyByID,new Object[]{id}, new CompanyDaoMapper());
+        } catch (DataAccessException e) {
             LOG.error("[Error DAO] in function getCompanyID");
             throw new DAOException("[DAO EXCEPTION] enable to find company by id in dataBase");
-        } finally {
-            Utils.closeObjects(statement, rs);
-            if (!DataSourceUtils.isConnectionTransactional(connection, dataSource)) {
-                Utils.closeConnection(dataSource, connection);
-            }
         }
     }
 
@@ -62,7 +52,7 @@ public class CompanyDAO {
      */
     public List<Company> getAllCompany() throws DAOException {
         String selectAllCompany = "select * from company";
-        ResultSet rs = null;
+       /* ResultSet rs = null;
         Statement statement = null;
         Connection connection = null;
         try {
@@ -81,6 +71,12 @@ public class CompanyDAO {
                 Utils.closeConnection(dataSource, connection);
             }
             Utils.closeObjects(statement, rs);
+        }*/
+        try {
+            return jdbcTemplate.query(selectAllCompany, new CompanyDaoMapper());
+        } catch (DataAccessException e) {
+            LOG.error("[Error DAO] in function getCompanyID");
+            throw new DAOException("[DAO EXCEPTION] enable to find company by id in dataBase");
         }
     }
 
@@ -91,8 +87,8 @@ public class CompanyDAO {
      */
 
     public List<Company> getAllCompany(int start) throws DAOException {
-        String selectAllCompany = "select * from company limit 10 offset " + start;
-        ResultSet rs = null;
+        String selectAllCompany = "select * from company limit 10 offset ? ";
+       /* ResultSet rs = null;
         Statement statement = null;
         Connection connection = null;
         try {
@@ -110,6 +106,12 @@ public class CompanyDAO {
                 Utils.closeConnection(dataSource, connection);
             }
             Utils.closeObjects(statement, rs);
+        }*/
+        try {
+            return jdbcTemplate.query(selectAllCompany, new Object[]{start},new CompanyDaoMapper());
+        } catch (DataAccessException e) {
+            LOG.error("[Error DAO] in function getAllCompany by limit");
+            throw new DAOException("[DAO EXCEPTION] Impossible to get all company  by limit from dataBase");
         }
 
     }
@@ -119,8 +121,8 @@ public class CompanyDAO {
      * @throws DAOException for sql exceptions
      */
     public void delete(int id) throws DAOException {
-        String deleteCompany = " delete from company where company.id = " + id;
-        Statement statement = null;
+        String deleteCompany = " delete from company where company.id = ?";
+       /* Statement statement = null;
         Connection connection = null;
         try {
             //connection = Utils.getInstance().getConnection();
@@ -136,8 +138,15 @@ public class CompanyDAO {
                 Utils.closeConnection(dataSource, connection);
             }
             Utils.closeObjects(statement);
+        }*/
+       try {
+           jdbcTemplate.update(deleteCompany, id);
+       }
+       catch (DataAccessException e) {
+           LOG.error("[Error DAO] in function delete company");
+           throw new DAOException("[DAO EXCEPTION] Impossible to delete this company from dataBase");
+       }
 
-        }
 
     }
 
