@@ -2,6 +2,9 @@ package fr.ebiz.computerDatabase.persistence;
 
 import fr.ebiz.computerDatabase.model.Company;
 import fr.ebiz.computerDatabase.model.Computer;
+import fr.ebiz.computerDatabase.service.CompanyService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;
@@ -13,6 +16,7 @@ import java.time.format.DateTimeFormatter;
  * Created by ebiz on 19/05/17.
  */
 public class ComputerDaoMapper implements RowMapper<Computer> {
+    private static final Logger LOGGER = LoggerFactory.getLogger(CompanyService.class);
     private static String[] computerColumns = {"id", "name", "introduced", "discontinued", "company_id",
             "companyName"};
     LocalDateTime inDate = null;
@@ -20,6 +24,11 @@ public class ComputerDaoMapper implements RowMapper<Computer> {
     int idComputer;
     private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S");
 
+    /**
+     * @param rs     resultSet
+     * @param rowNum num of row
+     * @return computer
+     */
     public Computer mapRow(ResultSet rs, int rowNum) {
         try {
             idComputer = rs.getInt(computerColumns[0]);
@@ -41,7 +50,7 @@ public class ComputerDaoMapper implements RowMapper<Computer> {
                     new Company(companyId, companyName));
             return comp;
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage());
         }
         return new Computer();
     }

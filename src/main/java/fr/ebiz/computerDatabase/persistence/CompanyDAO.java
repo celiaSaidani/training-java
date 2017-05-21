@@ -1,33 +1,28 @@
 package fr.ebiz.computerDatabase.persistence;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
-
-import com.zaxxer.hikari.HikariDataSource;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import fr.ebiz.computerDatabase.exception.DAOException;
 import fr.ebiz.computerDatabase.model.Company;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.datasource.DataSourceUtils;
 import org.springframework.stereotype.Repository;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 @Repository
 public class CompanyDAO {
 
     private final String companyName = "name";
     private final String companyId = "id";
- //   private Utils cm = Utils.getInstance();
+    //   private Utils cm = Utils.getInstance();
     private static final Logger LOG = LoggerFactory.getLogger(CompanyDAO.class);
-    @Autowired
-    private HikariDataSource dataSource;
+    //@Autowired
+    // private HikariDataSource dataSource;
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
@@ -39,7 +34,7 @@ public class CompanyDAO {
     public Company getCompanyID(int id) throws DAOException {
         String selectCompanyByID = "select * from company where id= ? ";
         try {
-           return jdbcTemplate.queryForObject(selectCompanyByID,new Object[]{id}, new CompanyDaoMapper());
+            return jdbcTemplate.queryForObject(selectCompanyByID, new Object[]{id}, new CompanyDaoMapper());
         } catch (DataAccessException e) {
             LOG.error("[Error DAO] in function getCompanyID");
             throw new DAOException("[DAO EXCEPTION] enable to find company by id in dataBase");
@@ -108,7 +103,7 @@ public class CompanyDAO {
             Utils.closeObjects(statement, rs);
         }*/
         try {
-            return jdbcTemplate.query(selectAllCompany, new Object[]{start},new CompanyDaoMapper());
+            return jdbcTemplate.query(selectAllCompany, new Object[]{start}, new CompanyDaoMapper());
         } catch (DataAccessException e) {
             LOG.error("[Error DAO] in function getAllCompany by limit");
             throw new DAOException("[DAO EXCEPTION] Impossible to get all company  by limit from dataBase");
@@ -139,13 +134,12 @@ public class CompanyDAO {
             }
             Utils.closeObjects(statement);
         }*/
-       try {
-           jdbcTemplate.update(deleteCompany, id);
-       }
-       catch (DataAccessException e) {
-           LOG.error("[Error DAO] in function delete company");
-           throw new DAOException("[DAO EXCEPTION] Impossible to delete this company from dataBase");
-       }
+        try {
+            jdbcTemplate.update(deleteCompany, id);
+        } catch (DataAccessException e) {
+            LOG.error("[Error DAO] in function delete company");
+            throw new DAOException("[DAO EXCEPTION] Impossible to delete this company from dataBase");
+        }
 
 
     }
