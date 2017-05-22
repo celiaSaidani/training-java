@@ -8,21 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
-
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 @Repository
 public class CompanyDAO {
-
-    private final String companyName = "name";
-    private final String companyId = "id";
-    //   private Utils cm = Utils.getInstance();
     private static final Logger LOG = LoggerFactory.getLogger(CompanyDAO.class);
-    //@Autowired
-    // private HikariDataSource dataSource;
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
@@ -47,26 +37,6 @@ public class CompanyDAO {
      */
     public List<Company> getAllCompany() throws DAOException {
         String selectAllCompany = "select * from company";
-       /* ResultSet rs = null;
-        Statement statement = null;
-        Connection connection = null;
-        try {
-            //connection = cm.getConnection();
-            connection = DataSourceUtils.getConnection(dataSource);
-            statement = connection.createStatement();
-            rs = statement.executeQuery(selectAllCompany);
-            List<Company> compL = mappCompanyL(rs);
-            return compL;
-
-        } catch (SQLException e) {
-            LOG.error("[Error DAO] in function getAllCompany");
-            throw new DAOException("[DAO EXCEPTION] Impossible to get all company from dataBase");
-        } finally {
-            if (!DataSourceUtils.isConnectionTransactional(connection, dataSource)) {
-                Utils.closeConnection(dataSource, connection);
-            }
-            Utils.closeObjects(statement, rs);
-        }*/
         try {
             return jdbcTemplate.query(selectAllCompany, new CompanyDaoMapper());
         } catch (DataAccessException e) {
@@ -83,25 +53,6 @@ public class CompanyDAO {
 
     public List<Company> getAllCompany(int start) throws DAOException {
         String selectAllCompany = "select * from company limit 10 offset ? ";
-       /* ResultSet rs = null;
-        Statement statement = null;
-        Connection connection = null;
-        try {
-            // connection = cm.getConnection();
-            connection = DataSourceUtils.getConnection(dataSource);
-            statement = connection.createStatement();
-            rs = statement.executeQuery(selectAllCompany);
-            List<Company> compL = mappCompanyL(rs);
-            return compL;
-        } catch (SQLException e) {
-            LOG.error("[Error DAO] in function getAllCompany by limit");
-            throw new DAOException("[DAO EXCEPTION] Impossible to get all company  by limit from dataBase");
-        } finally {
-            if (!DataSourceUtils.isConnectionTransactional(connection, dataSource)) {
-                Utils.closeConnection(dataSource, connection);
-            }
-            Utils.closeObjects(statement, rs);
-        }*/
         try {
             return jdbcTemplate.query(selectAllCompany, new Object[]{start}, new CompanyDaoMapper());
         } catch (DataAccessException e) {
@@ -117,23 +68,6 @@ public class CompanyDAO {
      */
     public void delete(int id) throws DAOException {
         String deleteCompany = " delete from company where company.id = ?";
-       /* Statement statement = null;
-        Connection connection = null;
-        try {
-            //connection = Utils.getInstance().getConnection();
-            connection = DataSourceUtils.getConnection(dataSource);
-            statement = connection.createStatement();
-            statement.executeQuery(deleteCompany);
-            statement.close();
-        } catch (SQLException e) {
-            LOG.error("[Error DAO] in function delete company");
-            throw new DAOException("[DAO EXCEPTION] Impossible to delete this company from dataBase");
-        } finally {
-            if (!DataSourceUtils.isConnectionTransactional(connection, dataSource)) {
-                Utils.closeConnection(dataSource, connection);
-            }
-            Utils.closeObjects(statement);
-        }*/
         try {
             jdbcTemplate.update(deleteCompany, id);
         } catch (DataAccessException e) {
@@ -142,47 +76,5 @@ public class CompanyDAO {
         }
 
 
-    }
-
-    /**
-     * @param id of company
-     * @param rs resultSet to map
-     * @return company object
-     */
-    private Company mappCompany(int id, ResultSet rs) {
-        String name = null;
-        try {
-            if (rs.next()) {
-                name = rs.getString("name");
-            }
-            return new Company(id, name);
-        } catch (SQLException e) {
-            LOG.error("[Error DAO] in function mappCompany");
-        }
-
-        return new Company();
-    }
-
-    /**
-     * @param rs resultSet to map
-     * @return company object
-     */
-    private List<Company> mappCompanyL(ResultSet rs) {
-
-        List<Company> allCompany = new ArrayList<>();
-
-        try {
-            while (rs.next()) {
-                int idCompany = rs.getInt(companyId);
-                String name = rs.getString(companyName);
-                Company comp = new Company(idCompany, name);
-                allCompany.add(comp);
-            }
-        } catch (SQLException e) {
-            LOG.error("[Error DAO] in function mappCompanyL");
-            System.err.println("can't mapp company result set");
-
-        }
-        return allCompany;
     }
 }
