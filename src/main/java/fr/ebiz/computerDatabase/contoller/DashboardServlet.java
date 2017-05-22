@@ -25,7 +25,7 @@ public class DashboardServlet {
     private final String SEARCH = "search";
     private final String COUNT = "count";
     private final String COMPUTER = "computerdb";
-    public static final String DASHBOARD_VIEW = "dashboard";
+    private static final String DASHBOARD_VIEW = "dashboard";
 
     @Autowired
     private ComputerService computerService;

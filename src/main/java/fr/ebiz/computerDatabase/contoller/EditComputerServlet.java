@@ -17,14 +17,14 @@ import java.util.List;
 @Controller
 @RequestMapping("/EditComputerServlet")
 public class EditComputerServlet {
-    public final String ID = "computerId";
-    public final String NAME = "computerName";
-    public final String DATEIN = "introduced";
-    public final String DATEOUT = "discontinued";
+    private final String ID = "computerId";
+    private final String NAME = "computerName";
+    private final String DATEIN = "introduced";
+    private final String DATEOUT = "discontinued";
     private final String COMPUTERDB = "computerdb";
     private final String COMPANY = "company";
-    public static final String EDIT_VIEW = "editComputer";
-    public static final String ERROR_VIEW = "500.jsp";
+    private static final String EDIT_VIEW = "editComputer";
+    private static final String ERROR_VIEW = "500.jsp";
     @Autowired
     private CompanyService companyService;
     @Autowired

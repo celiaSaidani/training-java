@@ -105,14 +105,13 @@ public class ComputerDAO {
 
     public List<Computer> getAllComputerPage(int start, int end) throws DAOException {
         String selectAllComputer = "select computer.id, computer.name, computer.introduced, computer.discontinued ,"
-                + "company.id as company_id, company.name as companyName from computer left join company on computer.company_id = company.id limit ?, ?";
+                + "company.id as company_id, company.name as companyName from computer left join company on " +
+                "computer.company_id = company.id limit ?, ?";
 
         List<Computer> allComp;
         try {
 
             allComp = jdbcTemplate.query(selectAllComputer, new Object[]{start, end}, new ComputerDaoMapper());
-            LOGGER.error("cm 200 is " + String.valueOf(allComp.get(2).getName()));
-            LOGGER.error(String.valueOf(allComp.get(2).getDateIN()));
             return allComp;
         } catch (DataAccessException e) {
             LOGGER.error("[Error ComputerDao] in function getAllComputer(int start, int end)");

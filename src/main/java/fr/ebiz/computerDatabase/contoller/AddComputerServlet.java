@@ -17,8 +17,8 @@ import java.util.List;
 @Controller
 @RequestMapping("/AddComputerServlet")
 public class AddComputerServlet {
-    public static final String ADDCOMPUTERVIEW = "addComputer";
-    public static final String ERRORVIEW = "500";
+    static final String ADDCOMPUTERVIEW = "addComputer";
+    static final String ERRORVIEW = "500";
     static final String NAME = "computerName";
     static final String DATEIN = "introduced";
     static final String DATEOUT = "discontinued";
