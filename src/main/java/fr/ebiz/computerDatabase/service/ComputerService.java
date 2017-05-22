@@ -230,12 +230,15 @@ public class ComputerService {
      * @return list of computer DTO
      * @throws ServiceException when we catch DAOException from computerDAO
      */
-    public List<ComputerDTO> search(String name, int start, int end) throws ServiceException {
+    @Transactional
+    public ComputerDTOPage search(String name, int start, int end) throws ServiceException {
         List<Computer> cp;
+        ComputerDTOPage data = new ComputerDTOPage();
         try {
             cp = computerDAO.search(name, start, end);
-            return computerMap.getComputerDTOs(cp);
-
+           data.setComputersDTO(computerMap.getComputerDTOs(cp));
+           data.setCount(computerDAO.countTotalLine(name));
+           return  data;
         } catch (DAOException e) {
             System.err.println(e.getMessage());
             // LOGGER.error("[Error Service] in function search");
@@ -283,9 +286,10 @@ public class ComputerService {
      * @return list of computerDTO
      * @throws ServiceException when we catch DAOException from computerDAO
      */
-    public List<ComputerDTO> searchOrderBy(int start, int end, String reqorder, String reqBy, String search)
+    @Transactional
+    public ComputerDTOPage searchOrderBy(int start, int end, String reqorder, String reqBy, String search)
             throws ServiceException {
-
+        ComputerDTOPage data = new ComputerDTOPage();
         reqorder = reqorder.trim();
         search = search.trim();
 
@@ -297,7 +301,9 @@ public class ComputerService {
         List<Computer> lcp;
         try {
             lcp = computerDAO.getComputerOrderBy(start, end, reqorder, reqBy, search);
-            return computerMap.getComputerDTOs(lcp);
+            data.setComputersDTO(computerMap.getComputerDTOs(lcp));
+            data.setCount(computerDAO.countTotalLine(search));
+            return data;
 
         } catch (DAOException e) {
             System.err.println(e.getMessage());

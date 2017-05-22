@@ -17,8 +17,6 @@ public class ComputerDAO {
     private static String[] computerColumns = {"id", "name", "introduced", "discontinued", "company_id",
             "companyName"};
     private static final Logger LOGGER = LoggerFactory.getLogger(ComputerDAO.class);
-    private String selectAllComputer = "select computer.id, computer.name, computer.introduced, computer.discontinued ,"
-            + "company.id as company_id, company.name as companyName from computer left join company on computer.company_id = company.id";
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
@@ -70,6 +68,7 @@ public class ComputerDAO {
         String updateComputer = "update computer set " + computerColumns[1] + "=? ," + computerColumns[2] + "=? ,"
                 + computerColumns[3] + "=? ," + computerColumns[4] + "= ? where " + computerColumns[0] + "= ?";
         try {
+            LOGGER.error("is " + String.valueOf(computer.getId()));
             this.jdbcTemplate.update(updateComputer, computer.getName(),
                     computer.getDateIN(), computer.getDateOut(),
                     computer.getCompagnyId(), computer.getId());
@@ -87,6 +86,8 @@ public class ComputerDAO {
      * @throws DAOException for sql exceptions
      */
     public List<Computer> getAllComputer() throws DAOException {
+        String selectAllComputer = "select computer.id, computer.name, computer.introduced, computer.discontinued ,"
+                + "company.id as company_id, company.name as companyName from computer left join company on computer.company_id = company.id";
         try {
             return jdbcTemplate.query(selectAllComputer, new ComputerDaoMapper());
         } catch (DataAccessException e) {
@@ -105,8 +106,14 @@ public class ComputerDAO {
     public List<Computer> getAllComputerPage(int start, int end) throws DAOException {
         String selectAllComputer = "select computer.id, computer.name, computer.introduced, computer.discontinued ,"
                 + "company.id as company_id, company.name as companyName from computer left join company on computer.company_id = company.id limit ?, ?";
+
+        List<Computer> allComp;
         try {
-            return jdbcTemplate.query(selectAllComputer, new Object[]{start, end}, new ComputerDaoMapper());
+
+            allComp = jdbcTemplate.query(selectAllComputer, new Object[]{start, end}, new ComputerDaoMapper());
+            LOGGER.error("cm 200 is " + String.valueOf(allComp.get(2).getName()));
+            LOGGER.error(String.valueOf(allComp.get(2).getDateIN()));
+            return allComp;
         } catch (DataAccessException e) {
             LOGGER.error("[Error ComputerDao] in function getAllComputer(int start, int end)");
             throw new DAOException("[DAO EXCEPTION] Impossible to get All computer from dataBase");
@@ -225,6 +232,7 @@ public class ComputerDAO {
             throw new DAOException("Impossible to find computer for this order in dataBase");
         }
     }
+
     /**
      * @param start    page
      * @param end      page

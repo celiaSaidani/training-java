@@ -63,9 +63,9 @@ public class EditComputerServlet {
                 System.err.println("modification non reussie");
             }
         } catch (ServiceException e) {
-            System.err.println(e.getMessage());
+            return "500";
         }
-        return "redirect://" + ERROR_VIEW;
+return  "500";
     }
 
 }

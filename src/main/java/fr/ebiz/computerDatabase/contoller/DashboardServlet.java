@@ -1,103 +1,62 @@
 package fr.ebiz.computerDatabase.contoller;
 
-import java.io.IOException;
-import java.util.List;
-
-import javax.servlet.ServletConfig;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import fr.ebiz.computerDatabase.exception.ServiceException;
 import fr.ebiz.computerDatabase.dto.ComputerDTO;
 import fr.ebiz.computerDatabase.dto.ComputerDTOPage;
+import fr.ebiz.computerDatabase.exception.ServiceException;
 import fr.ebiz.computerDatabase.service.ComputerService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.context.support.SpringBeanAutowiringSupport;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
-/**
- * Servlet implementation class DashboardServlet.
- */
+import java.util.List;
 
-@WebServlet("/DashboardServlet")
-public class DashboardServlet extends HttpServlet {
-    private static final long serialVersionUID = 1L;
+@Controller
+@RequestMapping("/DashboardServlet")
+public class DashboardServlet {
+    private final String SELECTION = "selection";
+    private final String ORDER = "order";
+    private final String BY = "by";
+    private final String SORT = "sort";
+    private final String SIZE = "size";
+    private final String PAGE = "page";
+    private final String SEARCH = "search";
+    private final String COUNT = "count";
+    private final String COMPUTER = "computerdb";
+    public static final String DASHBOARD_VIEW = "dashboard";
+
     @Autowired
     private ComputerService computerService;
-    public static final String DASHBOARD_VIEW = "/WEB-INF/views/dashboard.jsp";
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void init(ServletConfig config) throws ServletException {
-        super.init(config);
-        SpringBeanAutowiringSupport.processInjectionBasedOnServletContext(this, config.getServletContext());
-    }
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        // TODO Auto-generated method stub
-        int size = 10;
-        int page = 1;
-        String search = "";
+
+
+    @RequestMapping(method = RequestMethod.GET)
+    protected String get(@RequestParam(value = ORDER, defaultValue = "computer.name") String reqOrder,
+                         @RequestParam(value = BY, required = false) String reqBy,
+                         @RequestParam(value = SORT, defaultValue = "false") boolean reqSort,
+                         @RequestParam(value = SIZE, defaultValue = "10") int size,
+                         @RequestParam(value = PAGE, defaultValue = "1") int page,
+                         @RequestParam(value = SEARCH, required = false) String search,
+                         ModelMap model) {
         int count = 0;
-        String order = "computer.name", by = "down";
-        String reqOrder, reqBy, reqSort;
         List<ComputerDTO> computer = null;
-        boolean sort = false;
 
-        if ((reqOrder = request.getParameter("order")) != null) {
-            order = reqOrder;
-        }
-
-        if ((reqBy = request.getParameter("by")) != null) {
-            by = reqBy;
-
-        }
-        if ((reqSort = request.getParameter("sort")) != null) {
-            try {
-                sort = Boolean.parseBoolean(reqSort);
-            } catch (NumberFormatException e) {
-                response.sendError(HttpServletResponse.SC_NOT_FOUND);
-            }
-        }
-
-        if (request.getParameter("size") != null) {
-            size = Integer.parseInt((request.getParameter("size")));
-        }
-
-        if (request.getParameter("page") != null) {
-            page = Integer.parseInt((request.getParameter("page")));
-        }
-        if (request.getParameter("search") != null) {
+        if (search != null) {
+            ComputerDTOPage dataSearch;
 
             try {
-
-                count = computerService.getCount(request.getParameter("search").trim());
-                if (count > 0) {
-                    try {
-                        if (reqOrder != null & reqBy != null) {
-                            computer = computerService.searchOrderBy((page - 1) * size, size, reqOrder, reqBy,
-                                    request.getParameter("search").trim());
-
-                        } else {
-                            computer = computerService.search(request.getParameter("search").trim(),
-                                    (page - 1) * size, size);
-                        }
-
-                    } catch (ServiceException e) {
-                        System.err.println(e.getMessage());
-                        response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-                    }
-                    search = request.getParameter("search");
+                if (reqOrder != null & reqBy != null) {
+                    dataSearch = computerService.searchOrderBy((page - 1) * size, size, reqOrder, reqBy, search.trim());
+                    count = dataSearch.getCount();
+                    computer = dataSearch.getComputersDTO();
+                } else {
+                    dataSearch = computerService.search(search.trim(), (page - 1) * size, size);
+                    computer = dataSearch.getComputersDTO();
+                    count = dataSearch.getCount();
                 }
             } catch (ServiceException e) {
-                System.err.println(e.getMessage());
+                return "500";
             }
 
         } else {
@@ -112,52 +71,35 @@ public class DashboardServlet extends HttpServlet {
                     }
                 }
             } catch (ServiceException e) {
-                System.err.println(e.getMessage());
-                response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-
+                return "500";
             }
 
         }
-        request.setAttribute("computerdb", computer);
-        request.setAttribute("computer", count);
-        request.setAttribute("size", size);
-        request.setAttribute("page", page);
-        request.setAttribute("count", count);
-        request.setAttribute("search", search);
-        request.setAttribute("order", order);
-        request.setAttribute("sort", sort);
-        request.setAttribute("by", by);
-
-        this.getServletContext().getRequestDispatcher(DASHBOARD_VIEW).forward(request, response);
+        model.addAttribute(COMPUTER, computer);
+        model.addAttribute(SIZE, size);
+        model.addAttribute(PAGE, page);
+        model.addAttribute(COUNT, count);
+        model.addAttribute(SEARCH, search);
+        model.addAttribute(ORDER, reqOrder);
+        model.addAttribute(SORT, reqSort);
+        model.addAttribute(BY, reqBy);
+        return DASHBOARD_VIEW;
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        // TODO Auto-generated method stub
+    @RequestMapping(method = RequestMethod.POST)
+    protected String post(@RequestParam(SELECTION) String[] selected) {
         int i = 0;
-
-        if (request.getParameter("selection") != null) {
-            String selected = request.getParameter("selection");
-            String[] ids = selected.split(",");
-            if (ids.length != 0) {
-                while (i < ids.length) {
-
-                    try {
-                        computerService.deleteComputer(Integer.parseInt(ids[i]));
-                    } catch (NumberFormatException e) {
-                        System.out.println(e.getMessage());
-                    } catch (ServiceException e) {
-                        System.err.println(e.getMessage());
-                    }
-
-                    i++;
-                }
+        while (i < selected.length) {
+            try {
+                computerService.deleteComputer(Integer.parseInt(selected[i]));
+            } catch (NumberFormatException e) {
+                return "500";
+            } catch (ServiceException e) {
+                return "500";
             }
+            i++;
         }
-        doGet(request, response);
+        return "redirect://localhost:8080/DashboardServlet";
     }
 
 }

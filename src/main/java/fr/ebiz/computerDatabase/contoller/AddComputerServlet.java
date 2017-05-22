@@ -1,93 +1,60 @@
 package fr.ebiz.computerDatabase.contoller;
 
-import fr.ebiz.computerDatabase.exception.ServiceException;
 import fr.ebiz.computerDatabase.dto.CompanyDTO;
 import fr.ebiz.computerDatabase.dto.ComputerDTO;
+import fr.ebiz.computerDatabase.exception.ServiceException;
 import fr.ebiz.computerDatabase.service.CompanyService;
 import fr.ebiz.computerDatabase.service.ComputerService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.context.support.SpringBeanAutowiringSupport;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.servlet.ServletConfig;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.List;
 
-/**
- * . Servlet implementation class AddComputerServlet.
- */
-@WebServlet("/AddComputerServlet")
-public class AddComputerServlet extends HttpServlet {
-    private static final long serialVersionUID = 1L;
-    public static final String ADDCOMPUTERVIEW = "/WEB-INF/views/addComputer.jsp";
-    public static final String ERRORVIEW = "/WEB-INF/views/500.jsp";
-
+@Controller
+@RequestMapping("/AddComputerServlet")
+public class AddComputerServlet {
+    public static final String ADDCOMPUTERVIEW = "addComputer";
+    public static final String ERRORVIEW = "500";
     static final String NAME = "computerName";
     static final String DATEIN = "introduced";
     static final String DATEOUT = "discontinued";
     static final String IDCOMPANY = "company";
-    static final String TIME = " 00:00:00";
     private static final String COMPANYSTR = "company";
     @Autowired
-    private  CompanyService companyService;
+    private CompanyService companyService;
     @Autowired
-    private  ComputerService computerService;
+    private ComputerService computerService;
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void init(ServletConfig config) throws ServletException {
-        super.init(config);
-        SpringBeanAutowiringSupport.processInjectionBasedOnServletContext(this, config.getServletContext());
-
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        // TODO Auto-generated method stub
+    @RequestMapping(method = RequestMethod.GET)
+    protected String get(ModelMap model) {
         List<CompanyDTO> company;
         try {
             company = companyService.getAllCompany();
-            request.setAttribute(COMPANYSTR, company);
-            this.getServletContext().getRequestDispatcher(ADDCOMPUTERVIEW).forward(request, response);
+            model.addAttribute(COMPANYSTR, company);
+            return ADDCOMPUTERVIEW;
         } catch (ServiceException e) {
             System.err.println(e.getMessage());
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-        }
 
+        }
+        return ERRORVIEW;
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        // TODO Auto-generated method stub
-        String name = request.getParameter(NAME);
-        String dateIn = request.getParameter(DATEIN);
-        String dateout = request.getParameter(DATEOUT);
-        String company = request.getParameter(IDCOMPANY);
-
+    @RequestMapping(method = RequestMethod.POST)
+    protected String post(@RequestParam(NAME) String name,
+                          @RequestParam(DATEIN) String dateIn, @RequestParam(DATEOUT) String dateout,
+                          @RequestParam(IDCOMPANY) String company) {
         ComputerDTO cpDto = new ComputerDTO(name, dateIn, dateout, company);
         try {
             computerService.insertComputer(cpDto);
-            // System.out.println("insertion reussie");
-            response.sendRedirect(request.getContextPath() + "/DashboardServlet");
+            System.out.println("insertion reussie");
+            return "redirect://localhost:8080/DashboardServlet";
         } catch (ServiceException e) {
-            System.err.println(e.getMessage());
-            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            return "500";
+
         }
-
     }
-
 }
