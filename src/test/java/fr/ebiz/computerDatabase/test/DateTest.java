@@ -10,7 +10,12 @@ import java.time.format.DateTimeFormatter;
 import org.junit.Test;
 
 import fr.ebiz.computerDatabase.validator.DateTime;
+import org.junit.runner.RunWith;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = {"classpath:testContext.xml"})
 public class DateTest {
   static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
   String date2 = "2017-05-05 00:00:00";

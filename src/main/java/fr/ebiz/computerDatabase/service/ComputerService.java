@@ -49,7 +49,7 @@ public class ComputerService {
     public boolean insertComputer(ComputerDTO comp) throws ServiceException {
 
         try {
-            ComputerValidator.isValid(comp);
+            //ComputerValidator.isValid(comp);
             Computer computer;
             String name = comp.getNameComp();
             String companyId = comp.getIdCompany();
@@ -65,6 +65,7 @@ public class ComputerService {
 
             if (comp.getIdCompany() != null) {
                 CompanyDTO cp = companyService.getCompanybyIdLocal(Integer.parseInt(companyId));
+
                 computer = new Computer(name, dateIn, dateOut, Integer.parseInt(cp.getIdCompany()));
             } else {
                 computer = new Computer(name, dateIn, dateOut, 0);
@@ -89,7 +90,7 @@ public class ComputerService {
     public Boolean updateComputer(ComputerDTO comp) throws ServiceException {
         try {
 
-            ComputerValidator.isValid(comp);
+           // ComputerValidator.isValid(comp);
             Computer computer;
             int id = Integer.parseInt(comp.getIdComp());
             String name = comp.getNameComp();

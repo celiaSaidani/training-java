@@ -8,7 +8,7 @@ public class ComputerDTO {
     private String nameComp;
     private String dateIn;
     private String dateOut;
-    private String idCompany;
+    private String company;
     private String nameCompany;
 
     /**
@@ -16,21 +16,6 @@ public class ComputerDTO {
      */
     public ComputerDTO() {
         // TODO Auto-generated constructor stub
-    }
-
-    /**
-     * @param comp computer object
-     * @param companyName Company name
-     */
-    public ComputerDTO(Computer comp, String companyName) {
-        if (comp.getId() != 0) {
-            this.idComp = Integer.toString(comp.getId());
-        }
-        this.nameComp = comp.getName();
-        this.dateIn = DateTime.dateToString(comp.getDateIN());
-        this.dateOut = DateTime.dateToString(comp.getDateOut());
-        this.idCompany = Integer.toString(comp.getCompagnyId());
-        this.nameCompany = companyName;
     }
 
     /**
@@ -44,7 +29,7 @@ public class ComputerDTO {
         this.dateIn = DateTime.dateToString(comp.getDateIN());
         this.dateOut = DateTime.dateToString(comp.getDateOut());
         if (comp.getCompany().getId() != 0) {
-            this.idCompany = Integer.toString(comp.getCompany().getId());
+            this.company = Integer.toString(comp.getCompany().getId());
         }
         this.nameCompany = comp.getCompany().getName();
     }
@@ -60,7 +45,7 @@ public class ComputerDTO {
         this.nameComp = name;
         this.dateIn = introduced;
         this.dateOut = discontinued;
-        this.idCompany = idComp;
+        this.company = idComp;
     }
 
     /**
@@ -75,7 +60,7 @@ public class ComputerDTO {
         this.nameComp = name;
         this.dateIn = introduced;
         this.dateOut = discontinued;
-        this.idCompany = idComp;
+        this.company = idComp;
     }
 
     public String getIdComp() {
@@ -111,11 +96,11 @@ public class ComputerDTO {
     }
 
     public String getIdCompany() {
-        return idCompany;
+        return company;
     }
 
-    public void setIdCompany(String idCompany) {
-        this.idCompany = idCompany;
+    public void setCompany(String idCompany) {
+        this.company = idCompany;
     }
 
     /**

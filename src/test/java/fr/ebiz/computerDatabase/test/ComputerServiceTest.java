@@ -6,15 +6,22 @@ import org.junit.Test;
 
 import fr.ebiz.computerDatabase.exception.ServiceException;
 import fr.ebiz.computerDatabase.service.ComputerService;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = {"classpath:testContext.xml"})
 public class ComputerServiceTest {
+  @Autowired
   ComputerService computerService;
   /**
    * @Test
    */
   @Test
   public void testGetAllComputer() {
-    computerService = new ComputerService();
+
     try {
       assertNotNull(computerService.getAllComputer());
     } catch (ServiceException e) {
@@ -27,7 +34,6 @@ public class ComputerServiceTest {
   */
   @Test
   public void testGetComputerByNameMapper() {
-    computerService = new ComputerService();
     try {
       assertNotNull(computerService.getComputerByName(" "));
     } catch (ServiceException e) {

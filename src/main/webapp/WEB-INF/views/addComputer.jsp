@@ -31,13 +31,13 @@
                         <fieldset>
                             <div class="form-group">
                                 <label for="computerName">Computer name</label>
-                                <input  class="form-control" id="computerName" name="computerName" placeholder="Computer name" >
+                                <input  class="form-control" id="computerName" name="nameComp" placeholder="Computer name" >
                             </div>
                             <div class="form-group">
                                 <label class="control-label">Introduced date</label>
                                 <div class="date">
                                     <div class="input-group input-append date" id="intoducedPicker">
-                                        <input type="text" class="form-control" name="introduced" id="introduced"/>
+                                        <input type="text" class="form-control" name="dateIn" id="introduced"/>
                                         <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
                                     </div>
                                 </div>
@@ -46,19 +46,19 @@
                                 <label for="discontinued">Discontinued date</label>
                                 <div class="date">
                                     <div class="input-group input-append date" id="discontinuedPicker">
-                                        <input type="text" class="form-control" name="discontinued" id="discontinued"/>
+                                        <input type="text" class="form-control" name="dateOut" id="discontinued"/>
                                         <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="companyId">Company</label>
-                                <select class="form-control" id="companyId" name="company" >
+                                <label for="company">Company</label>
+                                <select class="form-control" id="company" name="company" >
                                    <c:forEach var="company" items="${requestScope.company}">
                                     <option value=${company.idCompany}>${company.nameCompany}</option>
                                  	</c:forEach>
                                 </select>
-                            </div>                  
+                            </div>
                         </fieldset>
                         <div class="actions pull-right">
                             <input type="submit" value="Add" class="btn btn-primary" >
@@ -126,5 +126,5 @@ $(document).ready(function() {
 	    	});
 });
 </script>
-    
+
 </html>

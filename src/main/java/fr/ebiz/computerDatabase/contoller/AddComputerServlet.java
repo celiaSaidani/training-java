@@ -8,9 +8,14 @@ import fr.ebiz.computerDatabase.service.ComputerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+
 
 import java.util.List;
 
@@ -19,11 +24,13 @@ import java.util.List;
 public class AddComputerServlet {
     static final String ADDCOMPUTERVIEW = "addComputer";
     static final String ERRORVIEW = "500";
-    static final String NAME = "computerName";
-    static final String DATEIN = "introduced";
-    static final String DATEOUT = "discontinued";
-    static final String IDCOMPANY = "company";
-    private static final String COMPANYSTR = "company";
+    static final String NAME = "nameComp";
+    static final String DATEIN = "dateIn";
+    static final String DATEOUT = "dateOut";
+    static final String COMPANY = "company";
+    @Autowired
+    private Validator computerValidator;
+
     @Autowired
     private CompanyService companyService;
     @Autowired
@@ -34,7 +41,7 @@ public class AddComputerServlet {
         List<CompanyDTO> company;
         try {
             company = companyService.getAllCompany();
-            model.addAttribute(COMPANYSTR, company);
+            model.addAttribute(COMPANY, company);
             return ADDCOMPUTERVIEW;
         } catch (ServiceException e) {
             System.err.println(e.getMessage());
@@ -44,17 +51,26 @@ public class AddComputerServlet {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    protected String post(@RequestParam(NAME) String name,
-                          @RequestParam(DATEIN) String dateIn, @RequestParam(DATEOUT) String dateout,
-                          @RequestParam(IDCOMPANY) String company) {
-        ComputerDTO cpDto = new ComputerDTO(name, dateIn, dateout, company);
+    protected String post(@Validated ComputerDTO computerDTO, BindingResult bindingResult) {
+        System.err.println(">>"+computerDTO.getIdCompany());
+        System.err.println(">>"+computerDTO.getNameCompany());
         try {
-            computerService.insertComputer(cpDto);
-            System.out.println("insertion reussie");
+            if (bindingResult.hasErrors()) {
+                System.err.println(  bindingResult.toString());
+                return "500";
+            } else {
+                computerService.insertComputer(computerDTO);
+                System.out.println("insertion reussie");
+            }
             return "redirect://localhost:8080/DashboardServlet";
         } catch (ServiceException e) {
             return "500";
 
         }
     }
+    @InitBinder
+    private void initBinder(WebDataBinder binder) {
+        binder.addValidators(computerValidator);
+    }
+
 }

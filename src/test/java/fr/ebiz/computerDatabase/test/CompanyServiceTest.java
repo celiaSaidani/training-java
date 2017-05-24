@@ -6,8 +6,15 @@ import org.junit.Test;
 
 import fr.ebiz.computerDatabase.exception.ServiceException;
 import fr.ebiz.computerDatabase.service.CompanyService;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = {"classpath:testContext.xml"})
 public class CompanyServiceTest {
+  @Autowired
   CompanyService company;
 
   /**
@@ -15,7 +22,7 @@ public class CompanyServiceTest {
    */
   @Test
   public void testGetAllCompany() {
-    company = new CompanyService();
+
     try {
       assertNotNull(company.getAllCompany());
     } catch (ServiceException e) {
@@ -28,7 +35,6 @@ public class CompanyServiceTest {
    */
   @Test
   public void testGetAllCompanyInt() {
-    company = new CompanyService();
     try {
       assertNotNull(company.getAllCompanyPage(0));
     } catch (ServiceException e) {
