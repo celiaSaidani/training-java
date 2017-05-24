@@ -73,7 +73,7 @@ public class ComputerService {
             computerDAO.insert(computer);
             return true;
 
-        } catch (DateTimeParseException | NullPointerException | DAOException e) {
+        } catch (DAOException e) {
             e.printStackTrace();
             System.err.println(e.getMessage());
             LOGGER.error("[Error Service] in function insert Computer");
@@ -114,7 +114,7 @@ public class ComputerService {
             computerDAO.update(computer);
             return true;
 
-        } catch (DateTimeParseException | NullPointerException | DAOException e) {
+        } catch ( DAOException e) {
             System.err.println(e.getMessage());
             LOGGER.error("[Error Service] in function update Computer");
             throw new ServiceException("can't update computer");

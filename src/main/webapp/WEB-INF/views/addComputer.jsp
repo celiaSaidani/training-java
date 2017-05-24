@@ -30,23 +30,23 @@
                     <form id="Formulaire" role="form" method="POST">
                         <fieldset>
                             <div class="form-group">
-                                <label for="computerName">Computer name</label>
-                                <input  class="form-control" id="computerName" name="nameComp" placeholder="Computer name" >
+                                <label for="nameComp">Computer name</label>
+                                <input  class="form-control" id="nameComp" name="nameComp" placeholder="Computer name" >
                             </div>
                             <div class="form-group">
-                                <label class="control-label">Introduced date</label>
+                                <label  for="dateIn" class="control-label">Introduced date</label>
                                 <div class="date">
                                     <div class="input-group input-append date" id="intoducedPicker">
-                                        <input type="text" class="form-control" name="dateIn" id="introduced"/>
+                                        <input type="text" class="form-control" name="dateIn" id="dateIn"/>
                                         <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="discontinued">Discontinued date</label>
+                                <label for="dateOut">Discontinued date</label>
                                 <div class="date">
                                     <div class="input-group input-append date" id="discontinuedPicker">
-                                        <input type="text" class="form-control" name="dateOut" id="discontinued"/>
+                                        <input type="text" class="form-control" name="dateOut" id="dateOut"/>
                                         <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
                                     </div>
                                 </div>
@@ -99,14 +99,14 @@ $(document).ready(function() {
 	                validating: 'glyphicon glyphicon-refresh'
 	            },
 	            fields: {
-								computerName: {
+                    nameComp: {
                 	validators: {
                   	notEmpty: {
                     	message: 'The name is required'
                       }
                      }
 	                },
-								introduced: {
+                    dateIn: {
 									validators: {
 										date: {
                     	format: 'YYYY-MM-DD',
@@ -114,7 +114,7 @@ $(document).ready(function() {
                       }
 	                	}
 	            	},
-                discontinued: {
+                    dateOut: {
 									validators: {
 										date: {
 											format: 'YYYY-MM-DD',

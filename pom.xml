@@ -6,6 +6,13 @@
     <version>0.0.1-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>ComputerDataBase</name>
+    <repositories>
+        <repository>
+            <id>version99</id>
+            <!-- highly available repository serving empty artifacts -->
+            <url>http://version99.qos.ch/</url>
+        </repository>
+    </repositories>
     <build>
         <!-- maven compiler Plugin -->
         <plugins>
@@ -55,6 +62,12 @@
 
     <!--dependencies -->
     <dependencies>
+        <!-- commons-logging -->
+        <dependency>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+            <version>99-empty</version>
+        </dependency>
 
         <!-- MySql -->
         <dependency>
@@ -72,12 +85,6 @@
         </dependency>
 
         <!-- slf4j -->
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>1.7.25</version>
-        </dependency>
-
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>jcl-over-slf4j</artifactId>
@@ -124,13 +131,13 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
             <version>4.3.8.RELEASE</version>
-            <exclusions>
+           <!-- <exclusions>
                 <exclusion>
                     <groupId>commons-logging</groupId>
                     <artifactId>commons-logging</artifactId>
                 </exclusion>
 
-            </exclusions>
+            </exclusions>-->
         </dependency>
         <!--spring -->
         <dependency>

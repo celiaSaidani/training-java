@@ -2,20 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="308b5b16-3ece-468d-949e-821fefcf0b71" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/resources/testContext.xml" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__commons_logging_commons_logging_1_2.xml" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/artifacts/training_java_war_exploded.xml" afterPath="$PROJECT_DIR$/.idea/artifacts/training_java_war_exploded.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/fr/ebiz/computerDatabase/contoller/AddComputerServlet.java" afterPath="$PROJECT_DIR$/src/main/java/fr/ebiz/computerDatabase/contoller/AddComputerServlet.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/fr/ebiz/computerDatabase/dto/ComputerDTO.java" afterPath="$PROJECT_DIR$/src/main/java/fr/ebiz/computerDatabase/dto/ComputerDTO.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/fr/ebiz/computerDatabase/service/ComputerService.java" afterPath="$PROJECT_DIR$/src/main/java/fr/ebiz/computerDatabase/service/ComputerService.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/fr/ebiz/computerDatabase/validator/ComputerValidator.java" afterPath="$PROJECT_DIR$/src/main/java/fr/ebiz/computerDatabase/validator/ComputerValidator.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/applicationContext.xml" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/applicationContext.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/dispatcherConf.xml" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/dispatcherConf.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/addComputer.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/addComputer.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/fr/ebiz/computerDatabase/test/CompanyServiceTest.java" afterPath="$PROJECT_DIR$/src/test/java/fr/ebiz/computerDatabase/test/CompanyServiceTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/fr/ebiz/computerDatabase/test/ComputerServiceTest.java" afterPath="$PROJECT_DIR$/src/test/java/fr/ebiz/computerDatabase/test/ComputerServiceTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/fr/ebiz/computerDatabase/test/DateTest.java" afterPath="$PROJECT_DIR$/src/test/java/fr/ebiz/computerDatabase/test/DateTest.java" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -40,98 +33,21 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="testContext.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/resources/testContext.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="288">
-              <caret line="18" column="0" lean-forward="false" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AddComputerServlet.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/fr/ebiz/computerDatabase/contoller/AddComputerServlet.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-138">
-              <caret line="29" column="28" lean-forward="false" selection-start-line="29" selection-start-column="28" selection-end-line="29" selection-end-column="28" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="ComputerService.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/fr/ebiz/computerDatabase/service/ComputerService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="576">
-              <caret line="54" column="51" lean-forward="false" selection-start-line="54" selection-start-column="51" selection-end-line="54" selection-end-column="51" />
+            <state relative-caret-position="-1857">
+              <caret line="116" column="17" lean-forward="false" selection-start-line="116" selection-start-column="17" selection-end-line="116" selection-end-column="17" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ComputerDAO.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/fr/ebiz/computerDatabase/persistence/ComputerDAO.java">
+      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/pom.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-208">
-              <caret line="41" column="0" lean-forward="false" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
-              <folding>
-                <marker date="1495524872977" expanded="true" signature="984:1061" ph="insert into computer... " />
-                <marker date="1495524872977" expanded="true" signature="1842:1874" ph="delete from " />
-                <marker date="1495524872977" expanded="true" signature="2502:2693" ph="update compu... " />
-                <marker date="1495524872977" expanded="true" signature="3479:3700" ph="select compu... computer" />
-                <marker date="1495524872977" expanded="true" signature="4319:4572" ph="select compu... computer" />
-                <marker date="1495524872977" expanded="true" signature="5279:5543" ph="select compu... computer" />
-                <marker date="1495524872977" expanded="true" signature="6157:6402" ph="select compu... computer" />
-                <marker date="1495524872977" expanded="true" signature="7063:7367" ph="select compu... computer" />
-                <marker date="1495524872977" expanded="true" signature="7928:7957" ph="select count... computer" />
-                <marker date="1495524872977" expanded="true" signature="8597:8751" ph="select count... computer" />
-                <marker date="1495524872977" expanded="true" signature="9527:9817" ph="select compu... computer" />
-                <marker date="1495524872977" expanded="true" signature="10589:11002" ph="select compu... computer" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="DashboardServlet.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/fr/ebiz/computerDatabase/contoller/DashboardServlet.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1296">
-              <caret line="92" column="17" lean-forward="false" selection-start-line="92" selection-start-column="17" selection-end-line="92" selection-end-column="17" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ComputerValidator.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/fr/ebiz/computerDatabase/validator/ComputerValidator.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="608">
-              <caret line="52" column="30" lean-forward="false" selection-start-line="52" selection-start-column="30" selection-end-line="52" selection-end-column="30" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ComputerDTO.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/fr/ebiz/computerDatabase/dto/ComputerDTO.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="160">
-              <caret line="77" column="37" lean-forward="true" selection-start-line="77" selection-start-column="37" selection-end-line="77" selection-end-column="37" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="addComputer.jsp" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/addComputer.jsp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="246">
-              <caret line="58" column="48" lean-forward="true" selection-start-line="58" selection-start-column="48" selection-end-line="58" selection-end-column="48" />
+            <state relative-caret-position="240">
+              <caret line="81" column="42" lean-forward="true" selection-start-line="81" selection-start-column="42" selection-end-line="81" selection-end-column="42" />
               <folding />
             </state>
           </provider>
@@ -201,14 +117,14 @@
         <option value="$PROJECT_DIR$/src/test/java/fr/ebiz/computerDatabase/test/CompanyServiceTest.java" />
         <option value="$PROJECT_DIR$/src/test/resources/testContext.xml" />
         <option value="$PROJECT_DIR$/src/test/java/fr/ebiz/computerDatabase/validatorTest/validatorComputerDTOtest.java" />
-        <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/applicationContext.xml" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/dispatcherConf.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/fr/ebiz/computerDatabase/validator/ComputerValidator.java" />
-        <option value="$PROJECT_DIR$/src/main/java/fr/ebiz/computerDatabase/service/ComputerService.java" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/addComputer.jsp" />
         <option value="$PROJECT_DIR$/src/main/java/fr/ebiz/computerDatabase/contoller/AddComputerServlet.java" />
         <option value="$PROJECT_DIR$/src/main/java/fr/ebiz/computerDatabase/dto/ComputerDTO.java" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/addComputer.jsp" />
+        <option value="$PROJECT_DIR$/src/main/java/fr/ebiz/computerDatabase/validator/ComputerValidator.java" />
+        <option value="$PROJECT_DIR$/src/main/java/fr/ebiz/computerDatabase/service/ComputerService.java" />
+        <option value="$PROJECT_DIR$/pom.xml" />
       </list>
     </option>
   </component>
@@ -1251,7 +1167,7 @@
       <workItem from="1495438723300" duration="27599000" />
       <workItem from="1495484595543" duration="1855000" />
       <workItem from="1495525018688" duration="21862000" />
-      <workItem from="1495612751533" duration="4450000" />
+      <workItem from="1495612751533" duration="5512000" />
     </task>
     <servers />
   </component>
@@ -1288,7 +1204,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="79813000" />
+    <option name="totallyTimeSpent" value="80875000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1626,14 +1542,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="185" column="46" lean-forward="true" selection-start-line="185" selection-start-column="45" selection-end-line="185" selection-end-column="46" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/404.jsp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="352">
@@ -1663,32 +1571,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="48">
           <caret line="6" column="28" lean-forward="false" selection-start-line="6" selection-start-column="28" selection-end-line="6" selection-end-column="28" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/fr/ebiz/computerDatabase/validator/ComputerValidator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="608">
-          <caret line="52" column="30" lean-forward="false" selection-start-line="52" selection-start-column="30" selection-end-line="52" selection-end-column="30" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/fr/ebiz/computerDatabase/service/ComputerService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="576">
-          <caret line="54" column="51" lean-forward="false" selection-start-line="54" selection-start-column="51" selection-end-line="54" selection-end-column="51" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/fr/ebiz/computerDatabase/contoller/DashboardServlet.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1296">
-          <caret line="92" column="17" lean-forward="false" selection-start-line="92" selection-start-column="17" selection-end-line="92" selection-end-column="17" />
           <folding />
         </state>
       </provider>
@@ -1724,18 +1606,52 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/fr/ebiz/computerDatabase/dto/ComputerDTO.java">
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/addComputer.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="77" column="37" lean-forward="true" selection-start-line="77" selection-start-column="37" selection-end-line="77" selection-end-column="37" />
+        <state relative-caret-position="189">
+          <caret line="108" column="26" lean-forward="false" selection-start-line="108" selection-start-column="20" selection-end-line="108" selection-end-column="26" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/addComputer.jsp">
+    <entry file="file://$PROJECT_DIR$/src/main/java/fr/ebiz/computerDatabase/dto/ComputerDTO.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="246">
-          <caret line="58" column="48" lean-forward="true" selection-start-line="58" selection-start-column="48" selection-end-line="58" selection-end-column="48" />
+        <state relative-caret-position="272">
+          <caret line="92" column="0" lean-forward="true" selection-start-line="92" selection-start-column="0" selection-end-line="92" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/fr/ebiz/computerDatabase/validator/ComputerValidator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="438">
+          <caret line="67" column="5" lean-forward="false" selection-start-line="67" selection-start-column="5" selection-end-line="67" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/fr/ebiz/computerDatabase/contoller/DashboardServlet.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1296">
+          <caret line="92" column="17" lean-forward="false" selection-start-line="92" selection-start-column="17" selection-end-line="92" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/fr/ebiz/computerDatabase/service/ComputerService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1857">
+          <caret line="116" column="17" lean-forward="false" selection-start-line="116" selection-start-column="17" selection-end-line="116" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="81" column="42" lean-forward="true" selection-start-line="81" selection-start-column="42" selection-end-line="81" selection-end-column="42" />
           <folding />
         </state>
       </provider>
