@@ -27,26 +27,26 @@
                     <h1>Edit Computer</h1>
 
                     <form id="Formulaire" action="EditComputerServlet" method="POST">
-                        <input type="hidden" value="${computerdb.idComp}" id="id" name="computerId"/> <!-- TODO: Change this value with the computer id -->
+                        <input type="hidden" value="${computerdb.idComp}" id="idComp" name="idComp"/> <!-- TODO: Change this value with the computer id -->
                         <fieldset>
                             <div class="form-group">
-                                <label for="computerName">Computer name</label>
-                                <input type="text" class="form-control" id="computerName" name="computerName" value="${computerdb.nameComp}"> 
+                                <label for="nameComp">Computer name</label>
+                                <input type="text" class="form-control" id="nameComp" name="nameComp" value="${computerdb.nameComp}">
                             </div>
                             <div class="form-group">
-                                <label for="introduced">Introduced date</label>
+                                <label for="dateIn">Introduced date</label>
                                 <div class="date">
                                     <div class="input-group input-append date" id="intoducedPicker">
-                                        <input type="text" class="form-control" name="introduced" id="introduced" value="${computerdb.dateIn}"/>
+                                        <input type="text" class="form-control" name="dateIn" id="dateIn" value="${computerdb.dateIn}"/>
                                         <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="discontinued">Discontinued date</label>
+                                <label for="dateOut">Discontinued date</label>
                                 <div class="date">
                                     <div class="input-group input-append date" id="discontinuedPicker">
-                                        <input type="text" class="form-control" name="discontinued" id="discontinued" value="${computerdb.dateOut}"/>
+                                        <input type="text" class="form-control" name="dateOut" id="dateOut" value="${computerdb.dateOut}"/>
                                         <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
                                     </div>
                                 </div>
@@ -85,14 +85,14 @@ $(document).ready(function() {
         .datepicker({
             format: 'yyyy-mm-dd'
         }).on('changeDate', function (e) {
-  			 $('#Formulaire').bootstrapValidator('revalidateField', 'introduced');
+  			 $('#Formulaire').bootstrapValidator('revalidateField', 'dateIn');
 				});
         
     $('#discontinuedPicker')
         .datepicker({
             format: 'yyyy-mm-dd'
         }).on('changeDate', function (e) {
-  			 $('#Formulaire').bootstrapValidator('revalidateField', 'discontinued');
+  			 $('#Formulaire').bootstrapValidator('revalidateField', 'dateOut');
 				});
         
     $("#Formulaire").bootstrapValidator({
@@ -102,14 +102,14 @@ $(document).ready(function() {
 	                validating: 'glyphicon glyphicon-refresh'
 	            },
 	            fields: {
-								computerName: {
+                    nameComp: {
                 	validators: {
                   	notEmpty: {
                     	message: 'The name is required'
                       }
                      }
 	                },
-								introduced: {
+                    dateIn: {
 									validators: {
 										date: {
                     	format: 'YYYY-MM-DD',
@@ -117,7 +117,7 @@ $(document).ready(function() {
                       }
 	                	}
 	            	},
-                discontinued: {
+                    dateOut: {
 									validators: {
 										date: {
 											format: 'YYYY-MM-DD',

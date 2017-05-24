@@ -4,9 +4,11 @@ import fr.ebiz.computerDatabase.dto.ComputerDTO;
 import fr.ebiz.computerDatabase.dto.ComputerDTOPage;
 import fr.ebiz.computerDatabase.exception.ServiceException;
 import fr.ebiz.computerDatabase.service.ComputerService;
+import fr.ebiz.computerDatabase.util.PageRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -26,9 +28,12 @@ public class DashboardServlet {
     private final String COUNT = "count";
     private final String COMPUTER = "computerdb";
     private static final String DASHBOARD_VIEW = "dashboard";
+    static final String ERRORVIEW = "500";
 
     @Autowired
     private ComputerService computerService;
+    @Autowired
+    private PageRequest pageRequest;
 
 
     @RequestMapping(method = RequestMethod.GET)
@@ -38,47 +43,19 @@ public class DashboardServlet {
                          @RequestParam(value = SIZE, defaultValue = "10") int size,
                          @RequestParam(value = PAGE, defaultValue = "1") int page,
                          @RequestParam(value = SEARCH, required = false) String search,
-                         ModelMap model) {
+                         ModelMap model) throws ServiceException {
         int count = 0;
         List<ComputerDTO> computer = null;
+        ComputerDTOPage pageReqst = null;
 
-        if (search != null) {
-            ComputerDTOPage dataSearch;
+        pageReqst = pageRequest.getPage(reqOrder, reqBy, size, page, search);
+        count = pageReqst.getCount();
+        computer = pageReqst.getComputersDTO();
 
-            try {
-                if (reqOrder != null & reqBy != null) {
-                    dataSearch = computerService.searchOrderBy((page - 1) * size, size, reqOrder, reqBy, search.trim());
-                    count = dataSearch.getCount();
-                    computer = dataSearch.getComputersDTO();
-                } else {
-                    dataSearch = computerService.search(search.trim(), (page - 1) * size, size);
-                    computer = dataSearch.getComputersDTO();
-                    count = dataSearch.getCount();
-                }
-            } catch (ServiceException e) {
-                return "500";
-            }
-
-        } else {
-            try {
-                ComputerDTOPage data = computerService.getAllComputerPage((page - 1) * size, size);
-                count = data.getCount();
-                if (count > 0) {
-                    if ((reqOrder != null) && (reqBy != null)) {
-                        computer = computerService.getComputerOrder((page - 1) * size, size, reqBy, reqOrder);
-                    } else {
-                        computer = data.getComputersDTO();
-                    }
-                }
-            } catch (ServiceException e) {
-                return "500";
-            }
-
-        }
         model.addAttribute(COMPUTER, computer);
         model.addAttribute(SIZE, size);
         model.addAttribute(PAGE, page);
-        model.addAttribute(COUNT, count);
+        model.addAttribute(COUNT, String.valueOf(count));
         model.addAttribute(SEARCH, search);
         model.addAttribute(ORDER, reqOrder);
         model.addAttribute(SORT, reqSort);
@@ -87,19 +64,40 @@ public class DashboardServlet {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    protected String post(@RequestParam(SELECTION) String[] selected) {
+    protected String post(@RequestParam(SELECTION) String[] selected) throws ServiceException {
         int i = 0;
         while (i < selected.length) {
-            try {
-                computerService.deleteComputer(Integer.parseInt(selected[i]));
-            } catch (NumberFormatException e) {
-                return "500";
-            } catch (ServiceException e) {
-                return "500";
-            }
+            computerService.deleteComputer(Integer.parseInt(selected[i]));
             i++;
         }
         return "redirect://localhost:8080/DashboardServlet";
     }
+
+
+    /**
+     *
+     * @param ex serviceException
+     * @return 500
+     */
+    @ExceptionHandler(ServiceException.class)
+    public String handleCustomException(ServiceException ex) {
+        System.err.println(ex.getMessage());
+        return ERRORVIEW;
+
+    }
+
+
+    /**
+     *
+     * @param ex NumberFormatException
+     * @return 500
+     */
+    @ExceptionHandler(NumberFormatException.class)
+    public String numberFormatException(ServiceException ex) {
+        System.err.println(ex.getMessage());
+        return "500";
+
+    }
+
 
 }

@@ -1,14 +1,13 @@
 package fr.ebiz.computerDatabase.service;
 
-import fr.ebiz.computerDatabase.exception.DAOException;
-import fr.ebiz.computerDatabase.exception.ServiceException;
 import fr.ebiz.computerDatabase.dto.CompanyDTO;
 import fr.ebiz.computerDatabase.dto.ComputerDTO;
 import fr.ebiz.computerDatabase.dto.ComputerDTOPage;
+import fr.ebiz.computerDatabase.exception.DAOException;
+import fr.ebiz.computerDatabase.exception.ServiceException;
 import fr.ebiz.computerDatabase.mapper.ComputerMapper;
 import fr.ebiz.computerDatabase.model.Computer;
 import fr.ebiz.computerDatabase.persistence.ComputerDAO;
-import fr.ebiz.computerDatabase.validator.ComputerValidator;
 import fr.ebiz.computerDatabase.validator.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,7 +16,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeParseException;
 import java.util.List;
 
 @Service
@@ -25,9 +23,9 @@ public class ComputerService {
     @Autowired
     private ComputerMapper computerMap;
     @Autowired
-    private  ComputerDAO computerDAO;
+    private ComputerDAO computerDAO;
     @Autowired
-    private  CompanyService companyService;
+    private CompanyService companyService;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ComputerService.class);
     //private Utils cm = Utils.getInstance();
@@ -90,7 +88,7 @@ public class ComputerService {
     public Boolean updateComputer(ComputerDTO comp) throws ServiceException {
         try {
 
-           // ComputerValidator.isValid(comp);
+            // ComputerValidator.isValid(comp);
             Computer computer;
             int id = Integer.parseInt(comp.getIdComp());
             String name = comp.getNameComp();
@@ -114,7 +112,7 @@ public class ComputerService {
             computerDAO.update(computer);
             return true;
 
-        } catch ( DAOException e) {
+        } catch (DAOException e) {
             System.err.println(e.getMessage());
             LOGGER.error("[Error Service] in function update Computer");
             throw new ServiceException("can't update computer");
@@ -237,9 +235,9 @@ public class ComputerService {
         ComputerDTOPage data = new ComputerDTOPage();
         try {
             cp = computerDAO.search(name, start, end);
-           data.setComputersDTO(computerMap.getComputerDTOs(cp));
-           data.setCount(computerDAO.countTotalLine(name));
-           return  data;
+            data.setComputersDTO(computerMap.getComputerDTOs(cp));
+            data.setCount(computerDAO.countTotalLine(name));
+            return data;
         } catch (DAOException e) {
             System.err.println(e.getMessage());
             // LOGGER.error("[Error Service] in function search");
@@ -322,9 +320,9 @@ public class ComputerService {
      * @return list of computerDTO
      * @throws ServiceException when we catch DAOException from computerDAO
      */
-
-    public List<ComputerDTO> getComputerOrder(int start, int end, String reqBy, String name) throws ServiceException {
-
+    @Transactional
+    public ComputerDTOPage getComputerOrder(int start, int end, String reqBy, String name) throws ServiceException {
+        ComputerDTOPage data = new ComputerDTOPage();
         name = name.trim();
         if (reqBy.equals("up")) {
             reqBy = "ASC";
@@ -334,7 +332,9 @@ public class ComputerService {
         List<Computer> lcp;
         try {
             lcp = computerDAO.getComputerOrderBy(start, end, reqBy, name);
-            return computerMap.getComputerDTOs(lcp);
+            data.setComputersDTO(computerMap.getComputerDTOs(lcp));
+            data.setCount(computerDAO.countTotalLine());
+            return data;
 
         } catch (DAOException e) {
             System.err.println(e.getMessage());

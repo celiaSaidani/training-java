@@ -2,9 +2,14 @@ package fr.ebiz.computerDatabase.dto;
 
 import fr.ebiz.computerDatabase.model.Computer;
 import fr.ebiz.computerDatabase.validator.DateTime;
+import org.hibernate.validator.constraints.NotEmpty;
+
+import javax.validation.constraints.Pattern;
 
 public class ComputerDTO {
     private String idComp;
+    @NotEmpty(message = "name requeried")
+    @Pattern(regexp = "\"^\\\\d+$\"", message = "name must not contain special character.")
     private String nameComp;
     private String dateIn;
     private String dateOut;
@@ -16,6 +21,21 @@ public class ComputerDTO {
      */
     public ComputerDTO() {
         // TODO Auto-generated constructor stub
+    }
+
+    /**
+     * @param comp        computer object
+     * @param companyName Company name
+     */
+    public ComputerDTO(Computer comp, String companyName) {
+        if (comp.getId() != 0) {
+            this.idComp = Integer.toString(comp.getId());
+        }
+        this.nameComp = comp.getName();
+        this.dateIn = DateTime.dateToString(comp.getDateIN());
+        this.dateOut = DateTime.dateToString(comp.getDateOut());
+        this.company = Integer.toString(comp.getCompagnyId());
+        this.nameCompany = companyName;
     }
 
     /**
@@ -35,10 +55,10 @@ public class ComputerDTO {
     }
 
     /**
-     * @param name name of computer
-     * @param introduced introduced date
+     * @param name         name of computer
+     * @param introduced   introduced date
      * @param discontinued discontinued date
-     * @param idComp id of computer
+     * @param idComp       id of computer
      */
     public ComputerDTO(String name, String introduced, String discontinued, String idComp) {
 
@@ -49,11 +69,11 @@ public class ComputerDTO {
     }
 
     /**
-     * @param id id of computer
-     * @param name name of computer
-     * @param introduced introduced date
+     * @param id           id of computer
+     * @param name         name of computer
+     * @param introduced   introduced date
      * @param discontinued discontinued date
-     * @param idComp id of company
+     * @param idComp       id of company
      */
     public ComputerDTO(String id, String name, String introduced, String discontinued, String idComp) {
         this.idComp = id;
@@ -99,7 +119,12 @@ public class ComputerDTO {
         return company;
     }
 
-    public void setCompany(String idCompany) {
+    /**
+     *
+     * @param idCompany to set
+     */
+
+    public void setcompany(String idCompany) {
         this.company = idCompany;
     }
 

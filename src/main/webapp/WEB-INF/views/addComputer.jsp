@@ -103,8 +103,10 @@ $(document).ready(function() {
                 	validators: {
                   	notEmpty: {
                     	message: 'The name is required'
-                      }
-                     }
+                      },
+                        regex: /^\\d+$/
+                    }
+
 	                },
                     dateIn: {
 									validators: {

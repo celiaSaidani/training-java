@@ -12,6 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -22,12 +23,10 @@ import java.util.List;
 @Controller
 @RequestMapping("/AddComputerServlet")
 public class AddComputerServlet {
-    static final String ADDCOMPUTERVIEW = "addComputer";
-    static final String ERRORVIEW = "500";
-    static final String NAME = "nameComp";
-    static final String DATEIN = "dateIn";
-    static final String DATEOUT = "dateOut";
-    static final String COMPANY = "company";
+    private static final String ADDCOMPUTERVIEW = "addComputer";
+    private static final String ERRORVIEW = "500";
+    private static final String COMPANY = "company";
+    private static final String DASHBOARD_VIEW = "redirect://localhost:8080/DashboardServlet";
     @Autowired
     private Validator computerValidator;
 
@@ -37,40 +36,46 @@ public class AddComputerServlet {
     private ComputerService computerService;
 
     @RequestMapping(method = RequestMethod.GET)
-    protected String get(ModelMap model) {
+    protected String get(ModelMap model) throws ServiceException {
         List<CompanyDTO> company;
-        try {
-            company = companyService.getAllCompany();
-            model.addAttribute(COMPANY, company);
-            return ADDCOMPUTERVIEW;
-        } catch (ServiceException e) {
-            System.err.println(e.getMessage());
 
-        }
-        return ERRORVIEW;
+        company = companyService.getAllCompany();
+        model.addAttribute(COMPANY, company);
+        return ADDCOMPUTERVIEW;
+
+
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    protected String post(@Validated ComputerDTO computerDTO, BindingResult bindingResult) {
-        System.err.println(">>"+computerDTO.getIdCompany());
-        System.err.println(">>"+computerDTO.getNameCompany());
-        try {
-            if (bindingResult.hasErrors()) {
-                System.err.println(  bindingResult.toString());
-                return "500";
-            } else {
-                computerService.insertComputer(computerDTO);
-                System.out.println("insertion reussie");
-            }
-            return "redirect://localhost:8080/DashboardServlet";
-        } catch (ServiceException e) {
-            return "500";
-
+    protected String post(@Validated ComputerDTO computerDTO, BindingResult bindingResult, ModelMap model) throws ServiceException {
+        if (bindingResult.hasErrors()) {
+            System.err.println(bindingResult.toString());
+            return get(model);
+        } else {
+            computerService.insertComputer(computerDTO);
         }
+        return DASHBOARD_VIEW;
+
     }
+
+    /**
+     *
+     * @param binder to bind validator
+     */
     @InitBinder
     private void initBinder(WebDataBinder binder) {
         binder.addValidators(computerValidator);
     }
 
+    /**
+     *
+     * @param ex serviceException
+     * @return 500
+     */
+    @ExceptionHandler(ServiceException.class)
+    public String handleCustomException(ServiceException ex) {
+        System.err.println(ex.getMessage());
+        return ERRORVIEW;
+
+    }
 }

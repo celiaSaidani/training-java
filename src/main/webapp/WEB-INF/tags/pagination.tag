@@ -8,6 +8,7 @@
 <%@ attribute name="by" required="false" type="java.lang.String" description="Ascending or descending"%>
 <%@ attribute name="sort" required="false" type="java.lang.Boolean" description="Sort mode"%>
 
+
 <fmt:parseNumber var="nbrPage" integerOnly="true" type="number" value="${count/size}" />
 <c:if test="${count % size != 0}">
 	<c:set var="nbrPage" value="${nbrPage+1}" />

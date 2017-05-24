@@ -3,9 +3,24 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>training-java</groupId>
     <artifactId>training-java</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.5.1-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>ComputerDataBase</name>
+
+    <properties>
+        <java.version>1.8</java.version>
+        <mysql.version>5.1.41</mysql.version>
+        <junit.version>4.12</junit.version>
+        <servlet.version>3.1.0</servlet.version>
+        <jstl.version>1.2</jstl.version>
+        <jcl.slf4j.version>1.7.25</jcl.slf4j.version>
+        <hikaricp.version>2.6.1</hikaricp.version>
+        <spring.version>4.3.8.RELEASE</spring.version>
+        <validation.version>1.1.0.Final</validation.version>
+        <hibernate.validator.version>5.4.1.Final</hibernate.validator.version>
+        <glassfish.el.version>3.0.0</glassfish.el.version>
+    </properties>
+
     <repositories>
         <repository>
             <id>version99</id>
@@ -73,14 +88,14 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>5.1.41</version>
+            <version>${mysql.version}</version>
         </dependency>
 
         <!-- JUNIT -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.12</version>
+            <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
 
@@ -88,7 +103,7 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>jcl-over-slf4j</artifactId>
-            <version>1.7.25</version>
+            <version>${jcl.slf4j.version}</version>
         </dependency>
 
         <!-- LOGBACK -->
@@ -109,7 +124,7 @@
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
-            <version>3.0.1</version>
+            <version>${servlet.version}</version>
             <scope>provided</scope>
         </dependency>
 
@@ -117,68 +132,68 @@
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>jstl</artifactId>
-            <version>1.2</version>
+            <version>${jstl.version}</version>
         </dependency>
 
         <!-- HICARI CP -->
         <dependency>
             <groupId>com.zaxxer</groupId>
             <artifactId>HikariCP</artifactId>
-            <version>2.6.1</version>
+            <version>${hikaricp.version}</version>
         </dependency>
         <!--spring -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
-            <version>4.3.8.RELEASE</version>
-           <!-- <exclusions>
-                <exclusion>
-                    <groupId>commons-logging</groupId>
-                    <artifactId>commons-logging</artifactId>
-                </exclusion>
+            <version>${spring.version}</version>
+            <!-- <exclusions>
+                 <exclusion>
+                     <groupId>commons-logging</groupId>
+                     <artifactId>commons-logging</artifactId>
+                 </exclusion>
 
-            </exclusions>-->
+             </exclusions>-->
         </dependency>
         <!--spring -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-core</artifactId>
-            <version>4.3.8.RELEASE</version>
+            <version>${spring.version}</version>
         </dependency>
         <!--spring Web-->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-web</artifactId>
-            <version>4.3.8.RELEASE</version>
+            <version>${spring.version}</version>
         </dependency>
         <!--spring jdbc-->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-jdbc</artifactId>
-            <version>4.3.8.RELEASE</version>
+            <version>${spring.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-tx</artifactId>
-            <version>4.3.8.RELEASE</version>
+            <version>${spring.version}</version>
         </dependency>
         <dependency>
             <!--spring mvc-->
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
-            <version>4.3.8.RELEASE</version>
+            <version>${spring.version}</version>
         </dependency>
         <!--spring test-->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
-            <version>4.3.8.RELEASE</version>
+            <version>${spring.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.glassfish</groupId>
             <artifactId>javax.el</artifactId>
-            <version>3.0.1-b08</version>
+            <version>${glassfish.el.version}</version>
             <scope>test</scope>
         </dependency>
 
@@ -186,12 +201,12 @@
         <dependency>
             <groupId>javax.validation</groupId>
             <artifactId>validation-api</artifactId>
-            <version>1.1.0.Final</version>
+            <version>${validation.version}</version>
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>
-            <version>5.4.1.Final</version>
+            <version>${hibernate.validator.version}</version>
         </dependency>
 
     </dependencies>

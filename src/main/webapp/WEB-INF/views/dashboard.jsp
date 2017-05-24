@@ -75,7 +75,7 @@
 							<td style="display: none" class="editMode"><input type="checkbox" name="cb"
 								class="cb" value="${computerdb.idComp}"></td>
 							<td><a
-								href="EditComputerServlet?idComputer=${computerdb.idComp}"
+								href="EditComputerServlet?idComp=${computerdb.idComp}"
 								onclick="">${computerdb.nameComp}</a></td>
 							<td>${computerdb.dateIn}</td>
 							<td>${computerdb.dateOut}</td>

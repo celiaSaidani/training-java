@@ -3,13 +3,12 @@ package fr.ebiz.computerDatabase.validator;
 import fr.ebiz.computerDatabase.dto.ComputerDTO;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
-import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
 import java.time.LocalDateTime;
+
 @Component
 public class ComputerValidator implements Validator {
-    private final String nameRequired = "name requeried";
     private final String invalideDateIN = "Date introduced invalide";
     private final String invalideDateOUT = "Date discontinued invalide";
     private final String dateNotBefore = "date introduced before date discontinued";
@@ -29,20 +28,13 @@ public class ComputerValidator implements Validator {
      */
     @Override
     public void validate(Object o, Errors e) {
-        LocalDateTime dateIn=null;
-        LocalDateTime dateOut=null;
+        LocalDateTime dateIn = null;
+        LocalDateTime dateOut = null;
 
         ComputerDTO cp = (ComputerDTO) o;
 
-
-        if (cp.getNameComp().equals("") || cp.getNameComp()== null) {
-            e.reject(nameRequired);
-            return;
-        }
         String date1 = cp.getDateIn();
-        System.err.println(date1);
         if (!date1.equals("")) {
-            System.err.println(">>"+date1);
             dateIn = DateTime.convertDate(date1.trim().concat(" 00:00:00"));
             if (dateIn == null) {
                 e.reject(invalideDateIN);
@@ -50,17 +42,17 @@ public class ComputerValidator implements Validator {
             }
         }
         String date2 = cp.getDateOut();
-        if (!date2.equals("")){
+        if (!date2.equals("")) {
             dateOut = DateTime.convertDate(date2.trim().concat(" 00:00:00"));
             if (dateOut == null) {
-                e.reject( invalideDateOUT);
+                e.reject(invalideDateOUT);
                 return;
 
             }
         }
-        if ((!date1.equals("") && (!date2.equals("")) )) {
+        if ((!date1.equals("") && (!date2.equals("")))) {
             if (!DateTime.dateCompare(date1, date2)) {
-                e.reject( dateNotBefore);
+                e.reject(dateNotBefore);
                 return;
             }
         }
