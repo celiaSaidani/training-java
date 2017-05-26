@@ -1,5 +1,15 @@
 package fr.ebiz.computerDatabase.model;
 
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(schema = " computer-database-db ",name="company")
 public class Company {
   /**
    * default constructor.
@@ -17,7 +27,10 @@ public class Company {
     return "Company [id=" + id + ", name=" + name + "]";
   }
 
-  private int id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  private Long id;
+  @Column
   private String name;
 
   /**
@@ -27,7 +40,7 @@ public class Company {
    * @param name
    *          name of company
    */
-  public Company(int id, String name) {
+  public Company(Long id, String name) {
     // TODO Auto-generated constructor stub
     this.id = id;
     this.name = name;
@@ -36,7 +49,7 @@ public class Company {
   /**
    * @return id of company
    */
-  public int getId() {
+  public Long getId() {
     return id;
   }
 
@@ -44,7 +57,7 @@ public class Company {
    * @set id of company
    * @param id of company
    */
-  public void setId(int id) {
+  public void setId(Long id) {
     this.id = id;
   }
 

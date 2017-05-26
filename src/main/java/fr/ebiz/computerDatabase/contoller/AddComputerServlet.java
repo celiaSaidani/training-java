@@ -48,11 +48,14 @@ public class AddComputerServlet {
 
     @RequestMapping(method = RequestMethod.POST)
     protected String post(@Validated ComputerDTO computerDTO, BindingResult bindingResult, ModelMap model) throws ServiceException {
+
         if (bindingResult.hasErrors()) {
+
             System.err.println(bindingResult.toString());
             return get(model);
         } else {
-            computerService.insertComputer(computerDTO);
+
+            System.err.println(">>>>> IN Controller"+ computerService.insertComputer(computerDTO));
         }
         return DASHBOARD_VIEW;
 

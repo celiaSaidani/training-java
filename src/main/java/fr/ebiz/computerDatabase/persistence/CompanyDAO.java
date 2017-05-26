@@ -1,18 +1,16 @@
 package fr.ebiz.computerDatabase.persistence;
 
-import fr.ebiz.computerDatabase.exception.DAOException;
 import fr.ebiz.computerDatabase.model.Company;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
-import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
+
 import java.util.List;
 
-@Repository
-public class CompanyDAO {
-    private static final Logger LOG = LoggerFactory.getLogger(CompanyDAO.class);
+public interface CompanyDAO extends JpaRepository<Company, Long> {
+
+
+    /*private static final Logger LOG = LoggerFactory.getLogger(CompanyDAO.class);
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
@@ -20,7 +18,7 @@ public class CompanyDAO {
      * @param id of company
      * @return company
      * @throws DAOException for sql error
-     */
+
     public Company getCompanyID(int id) throws DAOException {
         String selectCompanyByID = "select * from company where id= ? ";
         try {
@@ -34,7 +32,7 @@ public class CompanyDAO {
     /**
      * @return all company of data base
      * @throws DAOException for sql error
-     */
+
     public List<Company> getAllCompany() throws DAOException {
         String selectAllCompany = "select * from company";
         try {
@@ -49,7 +47,7 @@ public class CompanyDAO {
      * @param start start
      * @return all company of data base
      * @throws DAOException for sql error
-     */
+
 
     public List<Company> getAllCompany(int start) throws DAOException {
         String selectAllCompany = "select * from company limit 10 offset ? ";
@@ -65,7 +63,7 @@ public class CompanyDAO {
     /**
      * @param id of computer to delete
      * @throws DAOException for sql exceptions
-     */
+
     public void delete(int id) throws DAOException {
         String deleteCompany = " delete from company where company.id = ?";
         try {
@@ -76,5 +74,5 @@ public class CompanyDAO {
         }
 
 
-    }
+    }*/
 }

@@ -9,7 +9,7 @@ import javax.validation.constraints.Pattern;
 public class ComputerDTO {
     private String idComp;
     @NotEmpty(message = "name requeried")
-    @Pattern(regexp = "\"^\\\\d+$\"", message = "name must not contain special character.")
+    //@Pattern(regexp = "\"^\\\\d+$\"", message = "name must not contain special character.")
     private String nameComp;
     private String dateIn;
     private String dateOut;
@@ -29,12 +29,12 @@ public class ComputerDTO {
      */
     public ComputerDTO(Computer comp, String companyName) {
         if (comp.getId() != 0) {
-            this.idComp = Integer.toString(comp.getId());
+            this.idComp = Long.toString(comp.getId());
         }
         this.nameComp = comp.getName();
         this.dateIn = DateTime.dateToString(comp.getDateIN());
         this.dateOut = DateTime.dateToString(comp.getDateOut());
-        this.company = Integer.toString(comp.getCompagnyId());
+        this.company = Long.toString(comp.getCompagnyId());
         this.nameCompany = companyName;
     }
 
@@ -43,15 +43,15 @@ public class ComputerDTO {
      */
     public ComputerDTO(Computer comp) {
         if (comp.getId() != 0) {
-            this.idComp = Integer.toString(comp.getId());
+            this.idComp = Long.toString(comp.getId());
         }
         this.nameComp = comp.getName();
         this.dateIn = DateTime.dateToString(comp.getDateIN());
         this.dateOut = DateTime.dateToString(comp.getDateOut());
-        if (comp.getCompany().getId() != 0) {
-            this.company = Integer.toString(comp.getCompany().getId());
+        if (comp.getId()!= 0) {
+            this.company = Long.toString(comp.getId());
         }
-        this.nameCompany = comp.getCompany().getName();
+       // this.nameCompany = comp.getName();
     }
 
     /**

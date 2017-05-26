@@ -31,7 +31,7 @@ public class ComputerServiceTest {
   }
  /**
   *  @Test
-  */
+
   @Test
   public void testGetComputerByNameMapper() {
     try {
@@ -40,5 +40,5 @@ public class ComputerServiceTest {
       System.err.println(e.getMessage());
     }
   }
-
+*/
 }

@@ -6,30 +6,30 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository("ComputerDAO")
-public class ComputerDAO {
 
-    private static String[] computerColumns = {"id", "name", "introduced", "discontinued", "company_id",
+public interface ComputerDAO  extends JpaRepository<Computer,Long>{
+
+    public static String[] computerColumns = {"id", "name", "introduced", "discontinued", "company_id",
             "companyName"};
-    private static final Logger LOGGER = LoggerFactory.getLogger(ComputerDAO.class);
-    @Autowired
-    private JdbcTemplate jdbcTemplate;
+    public static final Logger LOGGER = LoggerFactory.getLogger(ComputerDAO.class);
+  //  @Autowired
+   // private JdbcTemplate jdbcTemplate;
 
+    List<Computer> findComputersByName(String name);
 
     /**
      * @param computer valid computer object
      * @throws DAOException for sql Exceptions
-     */
-    public void insert(Computer computer) throws DAOException {
 
-        String insertComputer = "insert into computer(name,introduced,discontinued,company_id) values(?,?,?,?)";
-       /* PreparedStatement statement = null;
-        Connection connection = null;*/
+    public void insert(Computer computer) throws DAOException {
 
         try {
             jdbcTemplate.update(insertComputer, computer.getName(),
@@ -44,9 +44,9 @@ public class ComputerDAO {
     }
 
     /**
-     * @param id of computer that we want delete
+     * @param //id of computer that we want delete
      * @throws DAOException for sql Exceptions
-     */
+
     public void delete(int id) throws DAOException {
         String deleteComputer = "delete from computer where id= ? ";
 
@@ -63,7 +63,7 @@ public class ComputerDAO {
      * @param computer valid computer object to update
      * @return 1 if the update successful 0 else
      * @throws DAOException for sql Exceptions
-     */
+
     public int update(Computer computer) throws DAOException {
         String updateComputer = "update computer set " + computerColumns[1] + "=? ," + computerColumns[2] + "=? ,"
                 + computerColumns[3] + "=? ," + computerColumns[4] + "= ? where " + computerColumns[0] + "= ?";
@@ -84,7 +84,7 @@ public class ComputerDAO {
     /**
      * @return list of computer
      * @throws DAOException for sql exceptions
-     */
+
     public List<Computer> getAllComputer() throws DAOException {
         String selectAllComputer = "select computer.id, computer.name, computer.introduced, computer.discontinued ,"
                 + "company.id as company_id, company.name as companyName from computer left join company on computer.company_id = company.id";
@@ -101,7 +101,7 @@ public class ComputerDAO {
      * @param end   end page
      * @return list off all computer
      * @throws DAOException for sql exceptions
-     */
+
 
     public List<Computer> getAllComputerPage(int start, int end) throws DAOException {
         String selectAllComputer = "select computer.id, computer.name, computer.introduced, computer.discontinued ,"
@@ -123,7 +123,7 @@ public class ComputerDAO {
      * @param id id of computer
      * @return computer that have their id equal to id in parameter
      * @throws DAOException for sql error
-     */
+
     public Computer getComputerById(int id) throws DAOException {
         String selectComputerByid = "select computer.id, computer.name, computer.introduced, computer.discontinued ,"
                 + "company.id as company_id, company.name as companyName from computer left join company on computer.company_id = company.id "
@@ -141,7 +141,7 @@ public class ComputerDAO {
      * @param name of computer
      * @return list of computer that have same name
      * @throws DAOException for sql error
-     */
+
     public List<Computer> getComputerByName(String name) throws DAOException {
         String selectComputeryByName = "select computer.id, computer.name, computer.introduced, computer.discontinued ,"
                 + "company.id as company_id, company.name as companyName from computer left join company on computer.company_id = company.id where computer.name = ?";
@@ -159,7 +159,7 @@ public class ComputerDAO {
      * @param end   page
      * @return list of computer
      * @throws DAOException for sql exceptions
-     */
+
     public List<Computer> search(String name, int start, int end) throws DAOException {
         String search = "select computer.id, computer.name, computer.introduced, computer.discontinued ,"
                 + "company.id as company_id, company.name as companyName from computer left join company on computer.company_id = company.id where computer.name like ? "
@@ -176,7 +176,7 @@ public class ComputerDAO {
     /**
      * @return number of line
      * @throws DAOException for sql exceptions
-     */
+
     public int countTotalLine() throws DAOException {
         String selectAllComputer = "select count(1) from computer";
         int rowCount = 0;
@@ -196,7 +196,7 @@ public class ComputerDAO {
      * @param search name of computer
      * @return number of line in database
      * @throws DAOException for sql errors
-     */
+
     public int countTotalLine(String search) throws DAOException {
         String selectAllComputer = "select count(1) from computer left join company on computer.company_id = company.id " +
                 "where computer.name like ? OR company.name like ?";
@@ -219,7 +219,7 @@ public class ComputerDAO {
      * @param name  of computer
      * @return list of computer
      * @throws DAOException of sql exceptions
-     */
+
     public List<Computer> getComputerOrderBy(int start, int end, String reqBy, String name) throws DAOException {
         String orderBy = "select computer.id, computer.name, computer.introduced, computer.discontinued ,"
                 + "company.id as company_id, company.name as companyName from computer left join company "
@@ -240,7 +240,7 @@ public class ComputerDAO {
      * @param reqorder name of coulumn
      * @return list of computer
      * @throws DAOException of sql exceptions
-     */
+
     public List<Computer> getComputerOrderBy(int start, int end, String reqorder, String reqBy, String search)
             throws DAOException {
         String orderBy = "select computer.id, computer.name, computer.introduced, computer.discontinued ,"
@@ -255,5 +255,17 @@ public class ComputerDAO {
             LOGGER.error("[Error DAO] in function getComputerOrderBy");
             throw new DAOException("Impossible to find computer for this order in dataBase");
         }
-    }
+    }*/
+
+/**
+ * @param name of computer
+ * @return list of computer that have same name
+ * @throws DAOException for sql error
+ * */
+/*
+@Query("select computer.id, computer.name, computer.introduced, computer.discontinued ,company.id as company_id, " +
+        "company.name as companyName from computer left join company" +
+        " on computer.company_id = company.id where computer.name = : name " )
+    List<Computer> getComputerByName( @Param("name")String name) throws DAOException ;
+*/
 }

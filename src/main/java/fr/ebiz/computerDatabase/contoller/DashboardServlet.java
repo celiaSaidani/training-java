@@ -48,9 +48,10 @@ public class DashboardServlet {
         List<ComputerDTO> computer = null;
         ComputerDTOPage pageReqst = null;
 
-        pageReqst = pageRequest.getPage(reqOrder, reqBy, size, page, search);
+        /*pageReqst = pageRequest.getPage(reqOrder, reqBy, size, page, search);
         count = pageReqst.getCount();
-        computer = pageReqst.getComputersDTO();
+        computer = pageReqst.getComputersDTO();*/
+        computer=computerService.getAllComputer();
 
         model.addAttribute(COMPUTER, computer);
         model.addAttribute(SIZE, size);
@@ -67,7 +68,7 @@ public class DashboardServlet {
     protected String post(@RequestParam(SELECTION) String[] selected) throws ServiceException {
         int i = 0;
         while (i < selected.length) {
-            computerService.deleteComputer(Integer.parseInt(selected[i]));
+            computerService.deleteComputer(Long.parseLong(selected[i]));
             i++;
         }
         return "redirect://localhost:8080/DashboardServlet";

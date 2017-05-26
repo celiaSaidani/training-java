@@ -19,7 +19,7 @@ public class CompanyDTO {
    */
   public CompanyDTO(Company company) {
 
-    this.setIdCompany(Integer.toString(company.getId()));
+    this.setIdCompany(Long.toString(company.getId()));
     this.setNameCompany(company.getName());
   }
 

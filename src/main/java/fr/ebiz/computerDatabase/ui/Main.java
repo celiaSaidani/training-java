@@ -66,7 +66,7 @@ public class Main {
         }
         System.out.println("entrez 0 pour quitter,ou l'identifiant de l'ordinateur");
         choice = input.nextInt();
-        ComputerDTO comp = computerService.showDetailsComputer(choice);
+        ComputerDTO comp = null; //computerService.showDetailsComputer(choice);
 
         if (comp.getIdComp() == "0") {
           System.out.println(response);
@@ -85,7 +85,7 @@ public class Main {
    * menu to show all Company in database.
    */
 
-  private void showListCompanyMenu() {
+  /*private void showListCompanyMenu() {
     String resp;
     int cpt = 0;
     do {
@@ -94,7 +94,8 @@ public class Main {
 
       List<CompanyDTO> company;
       try {
-        company = companyService.getAllCompanyPage(cpt);
+       // company = companyService.getAllCompanyPage(cpt);
+        company =null;
         if (company.isEmpty()) {
           break;
         } else {
@@ -113,7 +114,7 @@ public class Main {
 
     } while (!resp.equals("Q"));
 
-  }
+  }*/
 
   /**
    * menu to show all computer in database.
@@ -124,23 +125,20 @@ public class Main {
     List<ComputerDTO> computer;
     do {
       System.out.println("Entrez Q pour quitter,cliquez entrer pour continuer");
-      try {
-        ComputerDTOPage data = computerService.getAllComputerPage(cpt, 100);
-        computer = data.getComputersDTO();
-        resp = input.nextLine();
-        if (computer.isEmpty()) {
-          break;
-        } else {
-          for (ComputerDTO cp : computer) {
-            System.out.println(cp.getIdComp() + "\t" + cp.getNameComp());
-          }
-          cpt = cpt + 100;
-          System.err.println(cpt);
-          System.out.println("NEXT>>");
-
+      ComputerDTOPage data =null;
+      //computerService.getAllComputerPage(cpt, 100);
+      computer = data.getComputersDTO();
+      resp = input.nextLine();
+      if (computer.isEmpty()) {
+        break;
+      } else {
+        for (ComputerDTO cp : computer) {
+          System.out.println(cp.getIdComp() + "\t" + cp.getNameComp());
         }
-      } catch (ServiceException e) {
-        System.err.println(e.getMessage());
+        cpt = cpt + 100;
+        System.err.println(cpt);
+        System.out.println("NEXT>>");
+
       }
 
     } while (!resp.equals("Q"));
@@ -164,7 +162,7 @@ public class Main {
       if (i == 3) {
         response = input.nextLine();
         if (response.equals("O") || response.equals("o")) {
-          showListCompanyMenu();
+          //showListCompanyMenu();
         } else {
           System.out.println("entrez l'identifiant de la compagnie");
         }
@@ -195,7 +193,8 @@ public class Main {
     detailsComputerMenuById(choice);
     ComputerDTO computer;
     try {
-      computer = computerService.showDetailsComputer(choice);
+      computer = null;
+      //computerService.showDetailsComputer(choice);
       String[] cp = {computer.getIdComp(), computer.getNameComp(), computer.getDateIn(),
           computer.getDateOut(), computer.getIdCompany() };
 
@@ -212,7 +211,7 @@ public class Main {
         if (i == 3) {
           response = input.nextLine();
           if (response.equals("O") || response.equals("o")) {
-            showListCompanyMenu();
+            //showListCompanyMenu();
           } else {
             System.out.println("entrez l'identifiant de la compagnie [chiffre]");
           }
@@ -289,12 +288,9 @@ public class Main {
   private void detailsComputerMenuById(int id) {
 
     ComputerDTO comp;
-    try {
-      comp = computerService.showDetailsComputer(id);
-      System.out.println(comp.getIdCompany());
-    } catch (ServiceException e) {
-      System.err.println(e.getMessage());
-    }
+    comp = null;
+    //computerService.showDetailsComputer(id);
+    System.out.println(comp.getIdCompany());
 
   }
 
@@ -313,7 +309,7 @@ public class Main {
         vue.showListComputerMenu();
         break;
       case 2:
-        vue.showListCompanyMenu();
+        //vue.showListCompanyMenu();
         break;
       case 3:
         vue.detailsComputerMenu();

@@ -41,19 +41,19 @@ public class CompanyService {
     public List<CompanyDTO> getAllCompany() throws ServiceException {
         List<Company> cp;
         try {
-            cp = companyDao.getAllCompany();
+            cp = companyDao.findAll();
             return companyMapper.getCompanyDTOs(cp);
-        } catch (DAOException e) {
+        } catch ( RuntimeException e) {
             LOGGER.error("[Error service] error in function getAllCompany");
             throw new ServiceException("enable to close connection");
         }
     }
 
     /**
-     * @param start page
+     * //@param start page
      * @return list companyDTO
      * @throws ServiceException for errors in companyDTO
-     */
+
     public List<CompanyDTO> getAllCompanyPage(int start) throws ServiceException {
         List<Company> cp;
         try {
@@ -70,11 +70,11 @@ public class CompanyService {
      * @return company by ID
      * @throws ServiceException for errors in companyDTO
      */
-    public CompanyDTO getCompanybyId(int id) throws ServiceException {
+    public CompanyDTO getCompanybyId(Long id) throws ServiceException {
         try {
-            Company cp = companyDao.getCompanyID(id);
+            Company cp = companyDao.getOne(id);
             return companyMapper.getCompanyDTO(cp);
-        } catch (DAOException e) {
+        } catch (RuntimeException e) {
             LOGGER.error("[Error service] error in function getCompanybyId ");
             throw new ServiceException("can't get all company by id");
         }
@@ -85,12 +85,15 @@ public class CompanyService {
      * @return companyDTO
      * @throws ServiceException for errors in companyDTO
      */
-    public CompanyDTO getCompanybyIdLocal(int id) throws ServiceException {
+    public CompanyDTO getCompanybyIdLocal(Long id) throws ServiceException {
 
         try {
-            Company cp = companyDao.getCompanyID(id);
+            System.err.println(">>>>> IN company service"+id);
+            Company cp = companyDao.getOne(id);
+
             return companyMapper.getCompanyDTO(cp);
-        } catch (DAOException e) {
+        } catch (RuntimeException e) {
+            e.printStackTrace();
             LOGGER.error("[Error service] error in function getCompanybyIdLocal ");
             throw new ServiceException("can't get all company by id");
         }

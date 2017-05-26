@@ -2,170 +2,172 @@ package fr.ebiz.computerDatabase.model;
 
 import java.time.LocalDateTime;
 
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+@Entity
+@Table(schema = " computer-database-db ",name="computer")
 public class Computer {
-  private int id;
-  private String name;
-  private LocalDateTime dateIN;
-  private LocalDateTime dateOut;
-  private int idCompany;
-  private Company Company;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String name;
+    @Column(name = "introduced")
+    private LocalDateTime dateIN;
+    @Column(name = "discontinued")
+    private LocalDateTime dateOut;
+    @Column(name = "company_id")
+    private Long idCompany;
 
-  /**
-   * default constructor.
-   */
-  public Computer() {
-    // TODO Auto-generated constructor stub
-  }
+    /**
+     * default constructor.
+     */
+    public Computer() {
+        // TODO Auto-generated constructor stub
+    }
 
-  /**
-   * constructor 1 with id of computer.
-   * @param id
-   *          id of computer
-   * @param name
-   *          name of computer
-   * @param in
-   *          date introduced
-   * @param out
-   *          date discoutinued
-   * @param idCompany
-   *          id company
-   */
-  public Computer(int id, String name, LocalDateTime in, LocalDateTime out, int idCompany) {
-    // TODO Auto-generated constructor stub
-    this.id = id;
-    this.name = name;
-    this.dateIN = in;
-    this.dateOut = out;
-    this.idCompany = idCompany;
-  }
+    /**
+     * constructor 1 with id of computer.
+     *
+     * @param id        id of computer
+     * @param name      name of computer
+     * @param in        date introduced
+     * @param out       date discoutinued
+     * @param idCompany id company
+     */
+    public Computer(Long id, String name, LocalDateTime in, LocalDateTime out, Long idCompany) {
+        // TODO Auto-generated constructor stub
+        this.id = id;
+        this.name = name;
+        this.dateIN = in;
+        this.dateOut = out;
+        this.idCompany = idCompany;
+    }
 
-  /**
-   * constructor 1 with id of computer.
-   * @param id
-   *          id of computer
-   * @param name
-   *          name of computer
-   * @param in
-   *          date introduced
-   * @param out
-   *          date discoutinued
-   * @param company
-   *          Company object
-   */
-  public Computer(int id, String name, LocalDateTime in, LocalDateTime out, Company company) {
-    // TODO Auto-generated constructor stub
-    this.id = id;
-    this.name = name;
-    this.dateIN = in;
-    this.dateOut = out;
-    this.setCompany(company);
-  }
+    /**
+     * constructor 1 with id of computer.
+     *
+     * @param id      id of computer
+     * @param name    name of computer
+     * @param in      date introduced
+     * @param out     date discoutinued
+     * @param //company Company object
+     */
+    public Computer(Long id, String name, LocalDateTime in, LocalDateTime out) {
+        // TODO Auto-generated constructor stub
+        this.id = id;
+        this.name = name;
+        this.dateIN = in;
+        this.dateOut = out;
 
-  /**
-   * constructor 2 without id of computer.
-   * @param name
-   *          name of computer
-   * @param in
-   *          date introduced
-   * @param out
-   *          date discoutinued
-   * @param idCompany
-   *          id of company
-   */
-  public Computer(String name, LocalDateTime in, LocalDateTime out, int idCompany) {
-    // TODO Auto-generated constructor stub
+    }
 
-    this.name = name;
-    this.dateIN = in;
-    this.dateOut = out;
-    this.idCompany = idCompany;
-  }
+    /**
+     * constructor 2 without id of computer.
+     *
+     * @param name      name of computer
+     * @param in        date introduced
+     * @param out       date discoutinued
+     * @param idCompany id of company
+     */
+    public Computer(String name, LocalDateTime in, LocalDateTime out, Long idCompany) {
+        // TODO Auto-generated constructor stub
 
-  /**
-   * @return id of company
-   */
-  public int getId() {
-    return id;
-  }
+        this.name = name;
+        this.dateIN = in;
+        this.dateOut = out;
+        this.idCompany = idCompany;
+    }
 
-  /**
-   * set id of computer.
-   * @param id
-   *          of computer
-   */
-  public void setId(int id) {
-    this.id = id;
-  }
+    /**
+     * @return id of company
+     */
+    public Long getId() {
+        return id;
+    }
 
-  /**
-   * @return name of computer
-   */
-  public String getName() {
-    return name;
-  }
+    /**
+     * set id of computer.
+     *
+     * @param id of computer
+     */
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-  /**
-   * set name of computer.
-   * @param name
-   *          of computer
-   */
-  public void setName(String name) {
-    this.name = name;
-  }
+    /**
+     * @return name of computer
+     */
+    public String getName() {
+        return name;
+    }
 
-  /**
-   * @return introduced date of computer
-   */
-  public LocalDateTime getDateIN() {
-    return dateIN;
-  }
+    /**
+     * set name of computer.
+     *
+     * @param name of computer
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
 
-  /**
-   * set date introduced of computer.
-   * @param dateIN
-   *          to set
-   */
-  public void setDateIN(LocalDateTime dateIN) {
-    this.dateIN = dateIN;
-  }
+    /**
+     * @return introduced date of computer
+     */
+    public LocalDateTime getDateIN() {
+        return dateIN;
+    }
 
-  /**
-   * @return date discontinued of computer
-   */
-  public LocalDateTime getDateOut() {
-    return dateOut;
-  }
+    /**
+     * set date introduced of computer.
+     *
+     * @param dateIN to set
+     */
+    public void setDateIN(LocalDateTime dateIN) {
+        this.dateIN = dateIN;
+    }
 
-  /**
-   * set date discontinued.
-   * @param dateOut
-   *          to set
-   */
-  public void setDateOut(LocalDateTime dateOut) {
-    this.dateOut = dateOut;
-  }
+    /**
+     * @return date discontinued of computer
+     */
+    public LocalDateTime getDateOut() {
+        return dateOut;
+    }
 
-  /**
-   * @return id company of computer
-   */
-  public int getCompagnyId() {
-    return idCompany;
-  }
-  /**
-   * @param id of computer
-   * @return STring computer
-   */
-  public String toString(int id) {
-    return "Computer [id=" + id + ", name=" + name + ", dateIN=" + dateIN + ", dateOut=" + dateOut
-        + " , idCompany= " + id + "]";
-  }
+    /**
+     * set date discontinued.
+     *
+     * @param dateOut to set
+     */
+    public void setDateOut(LocalDateTime dateOut) {
+        this.dateOut = dateOut;
+    }
 
-  public Company getCompany() {
-    return Company;
-  }
+    /**
+     * @return id company of computer
+     */
+    public Long getCompagnyId() {
+        return idCompany;
+    }
 
-  public void setCompany(Company company) {
-    Company = company;
-  }
+    /**
+     * @param id of computer
+     * @return STring computer
+     */
+    public String toString(int id) {
+        return "Computer [id=" + id + ", name=" + name + ", dateIN=" + dateIN + ", dateOut=" + dateOut
+                + " , idCompany= " + id + "]";
+    }
+
+
+
 
 }

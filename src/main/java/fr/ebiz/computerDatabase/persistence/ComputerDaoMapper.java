@@ -28,9 +28,9 @@ public class ComputerDaoMapper implements RowMapper<Computer> {
     public Computer mapRow(ResultSet rs, int rowNum) {
         LocalDateTime inDate = null;
         LocalDateTime outDate = null;
-        int idComputer = 0;
+      Long idComputer = 0L;
         try {
-            idComputer = rs.getInt(computerColumns[0]);
+            idComputer = rs.getLong(computerColumns[0]);
             String nameComputer = rs.getString(computerColumns[1]);
             String introduced = rs.getString(computerColumns[2]);
 
@@ -43,10 +43,9 @@ public class ComputerDaoMapper implements RowMapper<Computer> {
 
                 outDate = LocalDateTime.parse(discontinued, formatter);
             }
-            int companyId = rs.getInt(computerColumns[4]);
+            Long companyId = rs.getLong(computerColumns[4]);
             String companyName = rs.getString(computerColumns[5]);
-            Computer comp = new Computer(idComputer, nameComputer, inDate, outDate,
-                    new Company(companyId, companyName));
+            Computer comp = new Computer(idComputer, nameComputer, inDate, outDate,companyId);
             return comp;
         } catch (SQLException e) {
             LOGGER.error(e.getMessage());

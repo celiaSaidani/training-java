@@ -23,7 +23,7 @@ public class CompanyDaoMapper implements RowMapper<Company> {
     public Company mapRow(ResultSet rs, int rowNum) {
         Company company = new Company();
         try {
-            company.setId(rs.getInt("id"));
+            company.setId(rs.getLong("id"));
             company.setName(rs.getString("name"));
         } catch (SQLException e) {
             LOGGER.error(e.getMessage());

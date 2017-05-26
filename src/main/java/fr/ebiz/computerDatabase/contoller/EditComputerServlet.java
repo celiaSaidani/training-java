@@ -35,7 +35,7 @@ public class EditComputerServlet {
     protected String get(@RequestParam(ID) String idComputer, ModelMap model) throws ServiceException {
         ComputerDTO compDTO;
 
-        compDTO = computerService.showDetailsComputer(Integer.parseInt(idComputer));
+        compDTO = computerService.showDetailsComputer(Long.parseLong(idComputer));
         model.addAttribute(COMPUTERDB, compDTO);
         List<CompanyDTO> company = companyService.getAllCompany();
         model.addAttribute(COMPANY, company);

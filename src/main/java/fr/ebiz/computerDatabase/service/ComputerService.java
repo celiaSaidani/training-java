@@ -12,6 +12,7 @@ import fr.ebiz.computerDatabase.validator.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,6 +20,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
+@Transactional
 public class ComputerService {
     @Autowired
     private ComputerMapper computerMap;
@@ -38,7 +40,9 @@ public class ComputerService {
      computerDAO = new ComputerDAO();
      companyService = new CompanyService();
      }
+
      */
+
     /**
      * @param comp insert a computerDTO
      * @return true if insertion ok else false
@@ -48,6 +52,7 @@ public class ComputerService {
 
         try {
             //ComputerValidator.isValid(comp);
+            System.err.println(">>>>> IN SERVICE");
             Computer computer;
             String name = comp.getNameComp();
             String companyId = comp.getIdCompany();
@@ -62,16 +67,18 @@ public class ComputerService {
             }
 
             if (comp.getIdCompany() != null) {
-                CompanyDTO cp = companyService.getCompanybyIdLocal(Integer.parseInt(companyId));
+                CompanyDTO cp = companyService.getCompanybyIdLocal(Long.parseLong(companyId));
 
-                computer = new Computer(name, dateIn, dateOut, Integer.parseInt(cp.getIdCompany()));
+                computer = new Computer(name, dateIn, dateOut, Long.parseLong(cp.getIdCompany()));
             } else {
-                computer = new Computer(name, dateIn, dateOut, 0);
+                Long companyid = 0L;
+                computer = new Computer(name, dateIn, dateOut, companyid);
             }
-            computerDAO.insert(computer);
+            computerDAO.saveAndFlush(computer);
+
             return true;
 
-        } catch (DAOException e) {
+        } catch (DataAccessException e) {
             e.printStackTrace();
             System.err.println(e.getMessage());
             LOGGER.error("[Error Service] in function insert Computer");
@@ -90,7 +97,7 @@ public class ComputerService {
 
             // ComputerValidator.isValid(comp);
             Computer computer;
-            int id = Integer.parseInt(comp.getIdComp());
+            Long id = Long.parseLong(comp.getIdComp());
             String name = comp.getNameComp();
             String companyId = comp.getIdCompany();
             LocalDateTime dateIn = null;
@@ -104,15 +111,17 @@ public class ComputerService {
             }
 
             if (!comp.getIdCompany().equals("")) {
-                CompanyDTO cp = companyService.getCompanybyIdLocal(Integer.parseInt(companyId));
-                computer = new Computer(id, name, dateIn, dateOut, Integer.parseInt(cp.getIdCompany()));
+                System.err.println(">>>>> IN Service");
+                CompanyDTO cp = companyService.getCompanybyIdLocal(Long.parseLong(companyId));
+                computer = new Computer(id, name, dateIn, dateOut, Long.parseLong(cp.getIdCompany()));
             } else {
-                computer = new Computer(id, name, dateIn, dateOut, 0);
+                Long companyid = 0L;
+                computer = new Computer(id, name, dateIn, dateOut, companyid);
             }
-            computerDAO.update(computer);
+            computerDAO.save(computer);
             return true;
 
-        } catch (DAOException e) {
+        } catch (IllegalArgumentException e) {
             System.err.println(e.getMessage());
             LOGGER.error("[Error Service] in function update Computer");
             throw new ServiceException("can't update computer");
@@ -124,12 +133,12 @@ public class ComputerService {
      * @return true if delete correct, false else
      * @throws ServiceException when we catch DAOException from computerDAO
      */
-    public boolean deleteComputer(int id) throws ServiceException {
+    public boolean deleteComputer(Long id) throws ServiceException {
 
         try {
             computerDAO.delete(id);
             return true;
-        } catch (DAOException e) {
+        } catch (IllegalArgumentException e) {
             System.err.println(e.getMessage());
             LOGGER.error("[Error Service] in function delete Computer");
             throw new ServiceException("can't delete computer");
@@ -145,9 +154,9 @@ public class ComputerService {
     public List<ComputerDTO> getAllComputer() throws ServiceException {
         List<Computer> allComp;
         try {
-            allComp = computerDAO.getAllComputer();
+            allComp = computerDAO.findAll();
             return computerMap.getComputerDTOs(allComp);
-        } catch (DAOException e) {
+        } catch (IllegalArgumentException e) {
             System.err.println(e.getMessage());
             LOGGER.error("[Error Service] in function getAllComputer");
             throw new ServiceException("can't get all computer");
@@ -159,7 +168,7 @@ public class ComputerService {
      * @param end   page
      * @return list of computer page
      * @throws ServiceException when we catch DAOException from computerDAO
-     */
+
     @Transactional
     public ComputerDTOPage getAllComputerPage(int start, int end) throws ServiceException {
         ComputerDTOPage data = new ComputerDTOPage();
@@ -174,17 +183,17 @@ public class ComputerService {
             LOGGER.error("[Error Service] in function getAllComputerPage");
             throw new ServiceException("can't get all computer by limit");
         }
-    }
+    }*/
 
     /**
      * @param id of computer
      * @return a computerDTO
      * @throws ServiceException when we catch DAOException from computerDAO
      */
-    public ComputerDTO showDetailsComputer(int id) throws ServiceException {
+    public ComputerDTO showDetailsComputer(Long id) throws ServiceException {
         Computer cp;
         try {
-            cp = computerDAO.getComputerById(id);
+            cp = computerDAO.getOne(id);
             ComputerDTO cpDto = computerMap.getComputerDTO(cp);
             if (cpDto.getDateIn() != null) {
 
@@ -196,7 +205,7 @@ public class ComputerService {
                 cpDto.setDateOut(newDate);
             }
             return cpDto;
-        } catch (DAOException e) {
+        } catch (IllegalArgumentException e) {
             System.err.println(e.getMessage());
             LOGGER.error("[Error Service] in function showDetailsComputer");
             throw new ServiceException("can't get computer Details");
@@ -212,9 +221,9 @@ public class ComputerService {
     public List<ComputerDTO> getComputerByName(String name) throws ServiceException {
         List<Computer> cp;
         try {
-            cp = computerDAO.getComputerByName(name);
+            cp = computerDAO.findComputersByName(name);
             return computerMap.getComputerDTOs(cp);
-        } catch (DAOException e) {
+        } catch (DataAccessException e) {
             System.err.println(e.getMessage());
             LOGGER.error("[Error Service] in function getComputerByName");
             throw new ServiceException("can't get list of computer by name");
@@ -228,7 +237,7 @@ public class ComputerService {
      * @param end   page
      * @return list of computer DTO
      * @throws ServiceException when we catch DAOException from computerDAO
-     */
+
     @Transactional
     public ComputerDTOPage search(String name, int start, int end) throws ServiceException {
         List<Computer> cp;
@@ -248,7 +257,7 @@ public class ComputerService {
     /**
      * @return number line of computer in dataBase
      * @throws ServiceException when we catch DAOException from computerDAO
-     */
+
     public int getCount() throws ServiceException {
         try {
             return computerDAO.countTotalLine();
@@ -258,13 +267,13 @@ public class ComputerService {
             throw new ServiceException("can't count computer");
         }
 
-    }
+    }*/
 
     /**
      * @param search computer name to search
      * @return number line of computer in dataBase
      * @throws ServiceException when we catch DAOException from computerDAO
-     */
+
     public int getCount(String search) throws ServiceException {
         try {
             return computerDAO.countTotalLine(search);
@@ -284,7 +293,7 @@ public class ComputerService {
      * @param search   name of computer
      * @return list of computerDTO
      * @throws ServiceException when we catch DAOException from computerDAO
-     */
+
     @Transactional
     public ComputerDTOPage searchOrderBy(int start, int end, String reqorder, String reqBy, String search)
             throws ServiceException {
@@ -319,7 +328,7 @@ public class ComputerService {
      * @param name  column name
      * @return list of computerDTO
      * @throws ServiceException when we catch DAOException from computerDAO
-     */
+
     @Transactional
     public ComputerDTOPage getComputerOrder(int start, int end, String reqBy, String name) throws ServiceException {
         ComputerDTOPage data = new ComputerDTOPage();
@@ -341,6 +350,6 @@ public class ComputerService {
             LOGGER.error("[Error Service] in function getComputerOrder");
             throw new ServiceException("can't get computer orderBy");
         }
-    }
+    }*/
 
 }
