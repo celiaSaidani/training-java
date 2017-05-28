@@ -1,18 +1,13 @@
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ attribute name="page" required="true" type="java.lang.Integer" description="Current page"%>
-<%@ attribute name="count" required="true" type="java.lang.Integer" description="Total number of rows"%>
+<%@ attribute name="nbrPage" required="false" type="java.lang.String" description="number of page"%>
 <%@ attribute name="size" required="true" type="java.lang.Integer" description="Size a page"%>
 <%@ attribute name="search" required="false" type="java.lang.String" description="Search case"%>
 <%@ attribute name="order" required="false" type="java.lang.String" description="Column to order"%>
 <%@ attribute name="by" required="false" type="java.lang.String" description="Ascending or descending"%>
 <%@ attribute name="sort" required="false" type="java.lang.Boolean" description="Sort mode"%>
 
-
-<fmt:parseNumber var="nbrPage" integerOnly="true" type="number" value="${count/size}" />
-<c:if test="${count % size != 0}">
-	<c:set var="nbrPage" value="${nbrPage+1}" />
-</c:if>
 
 <c:if test="${not empty search}">
 	<c:set var="search" value="search=${search}&" />

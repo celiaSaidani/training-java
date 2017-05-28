@@ -92,7 +92,7 @@
 	<footer class="navbar-fixed-bottom">
 		<div class="container text-center">
 			<mylib:pagination page="${requestScope.page}"
-				count="${requestScope.count}" size="${requestScope.size}"
+				nbrPage="${requestScope.nbrPage}" size="${requestScope.size}"
 				search="${requestScope.search}" order="${requestScope.order}"
 				by="${requestScope.by}" sort="${requestScope.sort}" />
 		</div>

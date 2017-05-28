@@ -6,9 +6,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.data.web.PageableArgumentResolver;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -23,7 +26,7 @@ public interface ComputerDAO  extends JpaRepository<Computer,Long>{
   //  @Autowired
    // private JdbcTemplate jdbcTemplate;
 
-    List<Computer> findComputersByName(String name);
+    Page findComputerByNameContainingOrCompany_NameContaining(String ComputerName, String companyName, Pageable pageRequest);
 
     /**
      * @param computer valid computer object

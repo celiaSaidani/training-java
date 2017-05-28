@@ -45,7 +45,8 @@ public class ComputerDaoMapper implements RowMapper<Computer> {
             }
             Long companyId = rs.getLong(computerColumns[4]);
             String companyName = rs.getString(computerColumns[5]);
-            Computer comp = new Computer(idComputer, nameComputer, inDate, outDate,companyId);
+          //  Computer comp = new Computer(idComputer, nameComputer, inDate, outDate,companyId);
+            Computer comp= null;
             return comp;
         } catch (SQLException e) {
             LOGGER.error(e.getMessage());

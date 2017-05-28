@@ -24,21 +24,6 @@ public class ComputerDTO {
     }
 
     /**
-     * @param comp        computer object
-     * @param companyName Company name
-     */
-    public ComputerDTO(Computer comp, String companyName) {
-        if (comp.getId() != 0) {
-            this.idComp = Long.toString(comp.getId());
-        }
-        this.nameComp = comp.getName();
-        this.dateIn = DateTime.dateToString(comp.getDateIN());
-        this.dateOut = DateTime.dateToString(comp.getDateOut());
-        this.company = Long.toString(comp.getCompagnyId());
-        this.nameCompany = companyName;
-    }
-
-    /**
      * @param comp computer object
      */
     public ComputerDTO(Computer comp) {
@@ -48,10 +33,10 @@ public class ComputerDTO {
         this.nameComp = comp.getName();
         this.dateIn = DateTime.dateToString(comp.getDateIN());
         this.dateOut = DateTime.dateToString(comp.getDateOut());
-        if (comp.getId()!= 0) {
-            this.company = Long.toString(comp.getId());
+        if (comp.getCompagny() != null) {
+            this.company = Long.toString(comp.getCompagny().getId());
+            this.nameCompany = comp.getCompagny().getName();
         }
-       // this.nameCompany = comp.getName();
     }
 
     /**
@@ -120,7 +105,6 @@ public class ComputerDTO {
     }
 
     /**
-     *
      * @param idCompany to set
      */
 

@@ -25,6 +25,7 @@ public class DashboardServlet {
     private final String SIZE = "size";
     private final String PAGE = "page";
     private final String SEARCH = "search";
+    private final String NBRPAGE = "nbrPage";
     private final String COUNT = "count";
     private final String COMPUTER = "computerdb";
     private static final String DASHBOARD_VIEW = "dashboard";
@@ -44,18 +45,21 @@ public class DashboardServlet {
                          @RequestParam(value = PAGE, defaultValue = "1") int page,
                          @RequestParam(value = SEARCH, required = false) String search,
                          ModelMap model) throws ServiceException {
-        int count = 0;
+        Long count = 0L;
+        int nbrPage = 0;
         List<ComputerDTO> computer = null;
         ComputerDTOPage pageReqst = null;
+        pageReqst = pageRequest.getPage(reqOrder, reqBy, size, page, search);
 
-        /*pageReqst = pageRequest.getPage(reqOrder, reqBy, size, page, search);
-        count = pageReqst.getCount();
-        computer = pageReqst.getComputersDTO();*/
-        computer=computerService.getAllComputer();
+        nbrPage = pageReqst.getNbrPage();
+        count=pageReqst.getTotalcount();
+        computer = pageReqst.getComputersDTO();
+
 
         model.addAttribute(COMPUTER, computer);
         model.addAttribute(SIZE, size);
         model.addAttribute(PAGE, page);
+        model.addAttribute(NBRPAGE, String.valueOf(nbrPage));
         model.addAttribute(COUNT, String.valueOf(count));
         model.addAttribute(SEARCH, search);
         model.addAttribute(ORDER, reqOrder);

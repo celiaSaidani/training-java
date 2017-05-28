@@ -24,8 +24,8 @@ public class Computer {
     private LocalDateTime dateIN;
     @Column(name = "discontinued")
     private LocalDateTime dateOut;
-    @Column(name = "company_id")
-    private Long idCompany;
+    @ManyToOne
+    private Company company;
 
     /**
      * default constructor.
@@ -41,15 +41,15 @@ public class Computer {
      * @param name      name of computer
      * @param in        date introduced
      * @param out       date discoutinued
-     * @param idCompany id company
+     * @param company  company
      */
-    public Computer(Long id, String name, LocalDateTime in, LocalDateTime out, Long idCompany) {
+    public Computer(Long id, String name, LocalDateTime in, LocalDateTime out, Company company) {
         // TODO Auto-generated constructor stub
         this.id = id;
         this.name = name;
         this.dateIN = in;
         this.dateOut = out;
-        this.idCompany = idCompany;
+        this.company = company;
     }
 
     /**
@@ -76,15 +76,15 @@ public class Computer {
      * @param name      name of computer
      * @param in        date introduced
      * @param out       date discoutinued
-     * @param idCompany id of company
+     * @param company id of company
      */
-    public Computer(String name, LocalDateTime in, LocalDateTime out, Long idCompany) {
+    public Computer(String name, LocalDateTime in, LocalDateTime out, Company company) {
         // TODO Auto-generated constructor stub
 
         this.name = name;
         this.dateIN = in;
         this.dateOut = out;
-        this.idCompany = idCompany;
+        this.company = company;
     }
 
     /**
@@ -154,8 +154,8 @@ public class Computer {
     /**
      * @return id company of computer
      */
-    public Long getCompagnyId() {
-        return idCompany;
+    public Company getCompagny() {
+        return company;
     }
 
     /**
