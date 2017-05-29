@@ -23,7 +23,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
-@Transactional
 public class ComputerService {
     @Autowired
     private ComputerMapper computerMap;
