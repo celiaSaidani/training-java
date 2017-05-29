@@ -31,7 +31,7 @@
 </c:if>
 
 <c:choose>
-		<c:when test="${order == 'computer.name'}">
+		<c:when test="${order == 'name'}">
 			<c:set var="orderComputer" value="-${byQuery}" />
 			<c:set var="byComputer" value="${byQuery}" />
 		</c:when>
@@ -50,7 +50,7 @@
 </c:choose>
 
 <th>Computer name <a
-	href="<c:url value="/DashboardServlet?${search}order=computer.name&size=${size}&by=${byComputer}&sort=true" />"><i
+	href="<c:url value="/DashboardServlet?${search}order=name&size=${size}&by=${byComputer}&sort=true" />"><i
 		class="fa fa-sort${orderComputer} pull-right"></i></a>
 </th>
 <th>Introduced date <a

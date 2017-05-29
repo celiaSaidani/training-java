@@ -24,11 +24,11 @@ public class PageRequest {
      * @throws ServiceException if bad resqt to Service
      */
     public ComputerDTOPage getPage(String reqOrder, String reqBy, int size, int page, String search) throws ServiceException {
-        ComputerDTOPage data = new ComputerDTOPage();
+        ComputerDTOPage data;
 
         if (search != null) {
             if (reqOrder != null & reqBy != null) {
-               //data = computerService.searchOrderBy((page - 1), size, reqOrder, reqBy, search.trim());
+                data = computerService.searchOrderBy((page - 1), size, reqOrder, reqBy, search.trim());
 
             } else {
                 data = computerService.search(search.trim(), (page - 1), size);
@@ -36,9 +36,9 @@ public class PageRequest {
 
         } else {
             if ((reqOrder != null) && (reqBy != null)) {
-                //data = computerService.getComputerOrder((page - 1), size, reqBy, reqOrder);
+                data = computerService.getAllOrderBy((page - 1), size, reqBy, reqOrder);
             } else {
-               data = computerService.getAllComputerPage((page - 1), size);
+                data = computerService.getAllByPage((page - 1), size);
             }
         }
         return data;

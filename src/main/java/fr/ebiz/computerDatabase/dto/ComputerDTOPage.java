@@ -16,11 +16,11 @@ public class ComputerDTOPage {
   }
 
   /**
-   * @param Totalcount
+   * @param totalcount
    *          the count to set
    */
-  public void setTotalcount(Long Totalcount) {
-    this.totalcount = Totalcount;
+  public void setTotalcount(Long totalcount) {
+    this.totalcount = totalcount;
   }
 
   /**
@@ -42,7 +42,7 @@ public class ComputerDTOPage {
     return nbrPage;
   }
 
-  public void setNbrPage(int NbrPage) {
-    this.nbrPage = NbrPage;
+  public void setNbrPage(int nbrPage) {
+    this.nbrPage = nbrPage;
   }
 }

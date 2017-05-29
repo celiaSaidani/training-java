@@ -54,6 +54,7 @@
                             <div class="form-group">
                                 <label for="company">Company</label>
                                 <select class="form-control" id="company" name="company" >
+                                    <option></option>
                                    <c:forEach var="company" items="${requestScope.company}">
                                     <option value=${company.idCompany}>${company.nameCompany}</option>
                                  	</c:forEach>

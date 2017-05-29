@@ -1,29 +1,25 @@
 package fr.ebiz.computerDatabase.model;
 
-import java.time.LocalDateTime;
-
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import java.time.LocalDateTime;
 
 @Entity
-@Table(schema = " computer-database-db ",name="computer")
+@Table(schema = " computer-database-db ", name = "computer")
 public class Computer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     @Column(name = "introduced")
-    private LocalDateTime dateIN;
+    private LocalDateTime introduced;
     @Column(name = "discontinued")
-    private LocalDateTime dateOut;
+    private LocalDateTime discontinued;
     @ManyToOne
     private Company company;
 
@@ -37,53 +33,52 @@ public class Computer {
     /**
      * constructor 1 with id of computer.
      *
-     * @param id        id of computer
-     * @param name      name of computer
-     * @param in        date introduced
-     * @param out       date discoutinued
-     * @param company  company
+     * @param id      id of computer
+     * @param name    name of computer
+     * @param in      date introduced
+     * @param out     date discoutinued
+     * @param company company
      */
     public Computer(Long id, String name, LocalDateTime in, LocalDateTime out, Company company) {
         // TODO Auto-generated constructor stub
         this.id = id;
         this.name = name;
-        this.dateIN = in;
-        this.dateOut = out;
+        this.introduced = in;
+        this.discontinued = out;
         this.company = company;
     }
 
     /**
      * constructor 1 with id of computer.
      *
-     * @param id      id of computer
-     * @param name    name of computer
-     * @param in      date introduced
-     * @param out     date discoutinued
-     * @param //company Company object
+     * @param id        id of computer
+     * @param name      name of computer
+     * @param in        date introduced
+     * @param out       date discoutinued
      */
     public Computer(Long id, String name, LocalDateTime in, LocalDateTime out) {
         // TODO Auto-generated constructor stub
         this.id = id;
         this.name = name;
-        this.dateIN = in;
-        this.dateOut = out;
+        this.introduced = in;
+        this.discontinued = out;
 
     }
 
     /**
      * constructor 2 without id of computer.
      *
-     * @param name      name of computer
-     * @param in        date introduced
-     * @param out       date discoutinued
+     * @param name    name of computer
+     * @param in      date introduced
+     * @param out     date discoutinued
      * @param company id of company
      */
     public Computer(String name, LocalDateTime in, LocalDateTime out, Company company) {
         // TODO Auto-generated constructor stub
 
         this.name = name;
-        this.dateIN = in;
-        this.dateOut = out;
+        this.introduced = in;
+        this.discontinued = out;
         this.company = company;
     }
 
@@ -123,7 +118,7 @@ public class Computer {
      * @return introduced date of computer
      */
     public LocalDateTime getDateIN() {
-        return dateIN;
+        return introduced;
     }
 
     /**
@@ -132,14 +127,14 @@ public class Computer {
      * @param dateIN to set
      */
     public void setDateIN(LocalDateTime dateIN) {
-        this.dateIN = dateIN;
+        this.introduced = dateIN;
     }
 
     /**
      * @return date discontinued of computer
      */
     public LocalDateTime getDateOut() {
-        return dateOut;
+        return discontinued;
     }
 
     /**
@@ -148,7 +143,7 @@ public class Computer {
      * @param dateOut to set
      */
     public void setDateOut(LocalDateTime dateOut) {
-        this.dateOut = dateOut;
+        this.discontinued = dateOut;
     }
 
     /**
@@ -163,11 +158,9 @@ public class Computer {
      * @return STring computer
      */
     public String toString(int id) {
-        return "Computer [id=" + id + ", name=" + name + ", dateIN=" + dateIN + ", dateOut=" + dateOut
+        return "Computer [id=" + id + ", name=" + name + ", dateIN=" + introduced + ", dateOut=" + discontinued
                 + " , idCompany= " + id + "]";
     }
-
-
 
 
 }

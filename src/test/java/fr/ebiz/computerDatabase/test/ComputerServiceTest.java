@@ -23,7 +23,7 @@ public class ComputerServiceTest {
   public void testGetAllComputer() {
 
     try {
-      assertNotNull(computerService.getAllComputer());
+      assertNotNull(computerService.getAll());
     } catch (ServiceException e) {
       // TODO Auto-generated catch block
       e.printStackTrace();

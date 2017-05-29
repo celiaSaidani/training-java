@@ -3,7 +3,6 @@ package fr.ebiz.computerDatabase.service;
 import fr.ebiz.computerDatabase.dto.CompanyDTO;
 import fr.ebiz.computerDatabase.dto.ComputerDTO;
 import fr.ebiz.computerDatabase.dto.ComputerDTOPage;
-import fr.ebiz.computerDatabase.exception.DAOException;
 import fr.ebiz.computerDatabase.exception.ServiceException;
 import fr.ebiz.computerDatabase.mapper.ComputerMapper;
 import fr.ebiz.computerDatabase.model.Company;
@@ -16,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,45 +33,31 @@ public class ComputerService {
     private CompanyService companyService;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ComputerService.class);
-    //private Utils cm = Utils.getInstance();
 
     /**
-     * Constructor.
-
-     public ComputerService() {
-     computerMap = new ComputerMapper();
-     computerDAO = new ComputerDAO();
-     companyService = new CompanyService();
-     }
-
-     */
-
-    /**
-     * @param comp insert a computerDTO
+     * @param computerDTO insert a computerDTO
      * @return true if insertion ok else false
      * @throws ServiceException for errors in computerDTO
      */
-    public boolean insertComputer(ComputerDTO comp) throws ServiceException {
+    public boolean insertComputer(ComputerDTO computerDTO) throws ServiceException {
 
         try {
-            //ComputerValidator.isValid(comp);
-            System.err.println(">>>>> IN SERVICE");
             Computer computer;
-            String name = comp.getNameComp();
-            String companyId = comp.getIdCompany();
+            String name = computerDTO.getNameComp();
+            String companyId = computerDTO.getIdCompany();
             LocalDateTime dateIn = null;
             LocalDateTime dateOut = null;
 
-            if (comp.getDateIn() != null) {
-                dateIn = DateTime.convertDate(comp.getDateIn().trim().concat(" 00:00:00"));
+            if (computerDTO.getDateIn() != null) {
+                dateIn = DateTime.convertDate(computerDTO.getDateIn().trim().concat(" 00:00:00"));
             }
-            if (comp.getDateOut() != null) {
-                dateOut = DateTime.convertDate(comp.getDateOut().trim().concat(" 00:00:00"));
+            if (computerDTO.getDateOut() != null) {
+                dateOut = DateTime.convertDate(computerDTO.getDateOut().trim().concat(" 00:00:00"));
             }
 
-            if (comp.getIdCompany() != null) {
+            if (computerDTO.getIdCompany() != "") {
                 CompanyDTO companyDTO = companyService.getCompanybyIdLocal(Long.parseLong(companyId));
-                Company company= new Company(Long.parseLong(companyId),companyDTO.getNameCompany());
+                Company company = new Company(Long.parseLong(companyId), companyDTO.getNameCompany());
 
                 computer = new Computer(name, dateIn, dateOut, company);
             } else {
@@ -82,8 +68,6 @@ public class ComputerService {
             return true;
 
         } catch (DataAccessException e) {
-            e.printStackTrace();
-            System.err.println(e.getMessage());
             LOGGER.error("[Error Service] in function insert Computer");
             throw new ServiceException("can't insert computer");
         }
@@ -91,31 +75,28 @@ public class ComputerService {
     }
 
     /**
-     * @param comp update a computerDTO
+     * @param computerDTO update a computerDTO
      * @return true if update ok else false
      * @throws ServiceException for errors in computerDTO
      */
-    public Boolean updateComputer(ComputerDTO comp) throws ServiceException {
+    public Boolean updateComputer(ComputerDTO computerDTO) throws ServiceException {
         try {
-
-            // ComputerValidator.isValid(comp);
             Computer computer;
-            Long id = Long.parseLong(comp.getIdComp());
-            String name = comp.getNameComp();
-            String companyId = comp.getIdCompany();
+            String name = computerDTO.getNameComp();
+            String companyId = computerDTO.getIdCompany();
             LocalDateTime dateIn = null;
             LocalDateTime dateOut = null;
 
-            if (comp.getDateIn() != null) {
-                dateIn = DateTime.convertDate(comp.getDateIn().trim().concat(" 00:00:00"));
+            if (computerDTO.getDateIn() != null) {
+                dateIn = DateTime.convertDate(computerDTO.getDateIn().trim().concat(" 00:00:00"));
             }
-            if (comp.getDateOut() != null) {
-                dateOut = DateTime.convertDate(comp.getDateOut().trim().concat(" 00:00:00"));
+            if (computerDTO.getDateOut() != null) {
+                dateOut = DateTime.convertDate(computerDTO.getDateOut().trim().concat(" 00:00:00"));
             }
 
-            if (comp.getIdCompany() != null) {
+            if (computerDTO.getIdCompany() != "") {
                 CompanyDTO companyDTO = companyService.getCompanybyIdLocal(Long.parseLong(companyId));
-                Company company= new Company(Long.parseLong(companyId),companyDTO.getNameCompany());
+                Company company = new Company(Long.parseLong(companyId), companyDTO.getNameCompany());
 
                 computer = new Computer(name, dateIn, dateOut, company);
             } else {
@@ -124,8 +105,7 @@ public class ComputerService {
             computerDAO.save(computer);
             return true;
 
-        } catch (IllegalArgumentException e) {
-            System.err.println(e.getMessage());
+        } catch (DataAccessException e) {
             LOGGER.error("[Error Service] in function update Computer");
             throw new ServiceException("can't update computer");
         }
@@ -154,12 +134,12 @@ public class ComputerService {
      * @throws ServiceException when we catch DAOException from computerDAO
      */
 
-    public List<ComputerDTO> getAllComputer() throws ServiceException {
+    public List<ComputerDTO> getAll() throws ServiceException {
         List<Computer> allComp;
         try {
             allComp = computerDAO.findAll();
             return computerMap.getComputerDTOs(allComp);
-        } catch (IllegalArgumentException e) {
+        } catch (DataAccessException e) {
             System.err.println(e.getMessage());
             LOGGER.error("[Error Service] in function getAllComputer");
             throw new ServiceException("can't get all computer");
@@ -171,16 +151,16 @@ public class ComputerService {
      * @param end   page
      * @return list of computer page
      * @throws ServiceException when we catch DAOException from computerDAO
-*/
+     */
     @Transactional
-    public ComputerDTOPage getAllComputerPage(int start, int end) throws ServiceException {
+    public ComputerDTOPage getAllByPage(int start, int end) throws ServiceException {
         PageRequest request =
-                new PageRequest(start,end);
+                new PageRequest(start, end);
         ComputerDTOPage data = new ComputerDTOPage();
         Page allComp;
         try {
             allComp = computerDAO.findAll(request);
-            data.setComputersDTO(computerMap.getComputerDTOs( allComp.getContent()));
+            data.setComputersDTO(computerMap.getComputerDTOs(allComp.getContent()));
             data.setNbrPage(allComp.getTotalPages());
             data.setTotalcount(allComp.getTotalElements());
             return data;
@@ -189,20 +169,6 @@ public class ComputerService {
             LOGGER.error("[Error Service] in function getAllComputerPage");
             throw new ServiceException("can't get all computer by limit");
         }
-
-
-           /*             ComputerDTOPage data = new ComputerDTOPage();
-        List<Computer> allComp;
-        try {
-            allComp = computerDAO.getAllComputerPage(start, end);
-            data.setComputersDTO(computerMap.getComputerDTOs(allComp));
-            data.setCount(computerDAO.countTotalLine());
-            return data;
-        } catch (DAOException e) {
-            System.err.println(e.getMessage());
-            LOGGER.error("[Error Service] in function getAllComputerPage");
-            throw new ServiceException("can't get all computer by limit");
-        }*/
     }
 
     /**
@@ -239,71 +205,41 @@ public class ComputerService {
      * @param end   page
      * @return list of computer DTO
      * @throws ServiceException when we catch DAOException from computerDAO
-*/
-     @Transactional
+     */
+    @Transactional
     public ComputerDTOPage search(String name, int start, int end) throws ServiceException {
         Page allComp;
         ComputerDTOPage data = new ComputerDTOPage();
-         PageRequest request =
-                 new PageRequest(start,end);
+        PageRequest request =
+                new PageRequest(start, end);
         try {
-            allComp = computerDAO.findComputerByNameContainingOrCompany_NameContaining(name,name,request);
+            allComp = computerDAO.findComputerByNameContainingOrCompanyNameContaining(name, name, request);
             data.setComputersDTO(computerMap.getComputerDTOs(allComp.getContent()));
+            data.setNbrPage(allComp.getTotalPages());
             data.setTotalcount(allComp.getTotalElements());
-            data.setNbrPage(allComp.getSize());
             return data;
         } catch (DataAccessException e) {
             System.err.println(e.getMessage());
-            // LOGGER.error("[Error Service] in function search");
+            LOGGER.error("[Error Service] in function search");
             throw new ServiceException("can't find list of computer");
         }
     }
 
     /**
-     * @return number line of computer in dataBase
-     * @throws ServiceException when we catch DAOException from computerDAO
-
-    public int getCount() throws ServiceException {
-        try {
-            return computerDAO.countTotalLine();
-        } catch (DAOException e) {
-            System.err.println(e.getMessage());
-            LOGGER.error("[Error Service] in function getCount");
-            throw new ServiceException("can't count computer");
-        }
-
-    }*/
-
-    /**
-     * @param search computer name to search
-     * @return number line of computer in dataBase
-     * @throws ServiceException when we catch DAOException from computerDAO
-
-    public int getCount(String search) throws ServiceException {
-        try {
-            return computerDAO.countTotalLine(search);
-        } catch (DAOException e) {
-            System.err.println(e.getMessage());
-            LOGGER.error("[Error Service] in function getCount ");
-            throw new ServiceException("can't count computer for on search");
-        }
-
-    }
-
-    /**
      * @param start    page
      * @param end      page
-     * @param reqorder column name
+     * @param column column name
      * @param reqBy    ASC or DESC
      * @param search   name of computer
      * @return list of computerDTO
      * @throws ServiceException when we catch DAOException from computerDAO
+     */
 
-    @Transactional
-    public ComputerDTOPage searchOrderBy(int start, int end, String reqorder, String reqBy, String search)
+    public ComputerDTOPage searchOrderBy(int start, int end, String column, String reqBy, String search)
             throws ServiceException {
         ComputerDTOPage data = new ComputerDTOPage();
-        reqorder = reqorder.trim();
+        Page page;
+        column = column.trim();
         search = search.trim();
 
         if (reqBy.equals("up")) {
@@ -311,14 +247,15 @@ public class ComputerService {
         } else {
             reqBy = "DESC";
         }
-        List<Computer> lcp;
+        PageRequest request = getPageable(start, end, column, reqBy);
         try {
-            lcp = computerDAO.getComputerOrderBy(start, end, reqorder, reqBy, search);
-            data.setComputersDTO(computerMap.getComputerDTOs(lcp));
-            data.setCount(computerDAO.countTotalLine(search));
+            page = computerDAO.findComputerByNameContainingOrCompanyNameContaining(search, search, request);
+            data.setComputersDTO(computerMap.getComputerDTOs(page.getContent()));
+            data.setNbrPage(page.getTotalPages());
+            data.setTotalcount(page.getTotalElements());
             return data;
 
-        } catch (DAOException e) {
+        } catch (DataAccessException e) {
             System.err.println(e.getMessage());
             LOGGER.error("[Error Service] in function getComputerOrder");
             throw new ServiceException("can't get computer orderBy");
@@ -333,28 +270,47 @@ public class ComputerService {
      * @param name  column name
      * @return list of computerDTO
      * @throws ServiceException when we catch DAOException from computerDAO
-
-    @Transactional
-    public ComputerDTOPage getComputerOrder(int start, int end, String reqBy, String name) throws ServiceException {
+     */
+    public ComputerDTOPage getAllOrderBy(int start, int end, String reqBy, String name) throws ServiceException {
         ComputerDTOPage data = new ComputerDTOPage();
+        Page page;
         name = name.trim();
         if (reqBy.equals("up")) {
             reqBy = "ASC";
+
         } else {
             reqBy = "DESC";
         }
-        List<Computer> lcp;
+        PageRequest request = getPageable(start, end, name, reqBy);
         try {
-            lcp = computerDAO.getComputerOrderBy(start, end, reqBy, name);
-            data.setComputersDTO(computerMap.getComputerDTOs(lcp));
-            data.setCount(computerDAO.countTotalLine());
+            page = computerDAO.findAll(request);
+            data.setComputersDTO(computerMap.getComputerDTOs(page.getContent()));
+            data.setNbrPage(page.getTotalPages());
+            data.setTotalcount(page.getTotalElements());
             return data;
 
-        } catch (DAOException e) {
+        } catch (DataAccessException e) {
             System.err.println(e.getMessage());
             LOGGER.error("[Error Service] in function getComputerOrder");
             throw new ServiceException("can't get computer orderBy");
         }
-    }*/
+    }
+
+    /**
+     *
+     * @param page current page
+     * @param size size of page
+     * @param sortBy column of sort
+     * @param direction ASC or DESC
+     * @return PageRequest
+     */
+    private PageRequest getPageable(int page, int size, String sortBy, String direction) {
+        sortBy = sortBy == null ? "id" : sortBy;
+        Sort.Direction directionType = direction == null || !direction.equalsIgnoreCase("desc") ? Sort.Direction.ASC : Sort.Direction.DESC;
+        return new PageRequest(
+                page, size, new Sort(directionType, sortBy)
+        );
+    }
+
 
 }

@@ -49,12 +49,11 @@ public class DashboardServlet {
         int nbrPage = 0;
         List<ComputerDTO> computer = null;
         ComputerDTOPage pageReqst = null;
+
         pageReqst = pageRequest.getPage(reqOrder, reqBy, size, page, search);
-
         nbrPage = pageReqst.getNbrPage();
-        count=pageReqst.getTotalcount();
+        count = pageReqst.getTotalcount();
         computer = pageReqst.getComputersDTO();
-
 
         model.addAttribute(COMPUTER, computer);
         model.addAttribute(SIZE, size);
@@ -80,7 +79,6 @@ public class DashboardServlet {
 
 
     /**
-     *
      * @param ex serviceException
      * @return 500
      */
@@ -93,7 +91,6 @@ public class DashboardServlet {
 
 
     /**
-     *
      * @param ex NumberFormatException
      * @return 500
      */

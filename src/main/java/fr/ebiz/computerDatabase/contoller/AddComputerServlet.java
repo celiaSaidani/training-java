@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-
 import java.util.List;
 
 @Controller
@@ -48,21 +47,19 @@ public class AddComputerServlet {
 
     @RequestMapping(method = RequestMethod.POST)
     protected String post(@Validated ComputerDTO computerDTO, BindingResult bindingResult, ModelMap model) throws ServiceException {
-
         if (bindingResult.hasErrors()) {
 
             System.err.println(bindingResult.toString());
             return get(model);
         } else {
 
-            System.err.println(">>>>> IN Controller"+ computerService.insertComputer(computerDTO));
+            computerService.insertComputer(computerDTO);
         }
         return DASHBOARD_VIEW;
 
     }
 
     /**
-     *
      * @param binder to bind validator
      */
     @InitBinder
@@ -71,7 +68,6 @@ public class AddComputerServlet {
     }
 
     /**
-     *
      * @param ex serviceException
      * @return 500
      */

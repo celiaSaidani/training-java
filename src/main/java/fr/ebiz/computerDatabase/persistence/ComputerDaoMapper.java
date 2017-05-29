@@ -1,6 +1,5 @@
 package fr.ebiz.computerDatabase.persistence;
 
-import fr.ebiz.computerDatabase.model.Company;
 import fr.ebiz.computerDatabase.model.Computer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,7 +27,7 @@ public class ComputerDaoMapper implements RowMapper<Computer> {
     public Computer mapRow(ResultSet rs, int rowNum) {
         LocalDateTime inDate = null;
         LocalDateTime outDate = null;
-      Long idComputer = 0L;
+        Long idComputer = 0L;
         try {
             idComputer = rs.getLong(computerColumns[0]);
             String nameComputer = rs.getString(computerColumns[1]);
@@ -45,8 +44,8 @@ public class ComputerDaoMapper implements RowMapper<Computer> {
             }
             Long companyId = rs.getLong(computerColumns[4]);
             String companyName = rs.getString(computerColumns[5]);
-          //  Computer comp = new Computer(idComputer, nameComputer, inDate, outDate,companyId);
-            Computer comp= null;
+            //  Computer comp = new Computer(idComputer, nameComputer, inDate, outDate,companyId);
+            Computer comp = null;
             return comp;
         } catch (SQLException e) {
             LOGGER.error(e.getMessage());
