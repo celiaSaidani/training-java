@@ -36,6 +36,7 @@ public class EditComputerServlet {
         ComputerDTO compDTO;
 
         compDTO = computerService.showDetailsComputer(Long.parseLong(idComputer));
+        System.err.println(compDTO);
         model.addAttribute(COMPUTERDB, compDTO);
         List<CompanyDTO> company = companyService.getAllCompany();
         model.addAttribute(COMPANY, company);

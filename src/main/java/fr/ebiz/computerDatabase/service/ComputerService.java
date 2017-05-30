@@ -169,7 +169,7 @@ public class ComputerService {
             throw new ServiceException("can't get all computer by limit");
         }
     }
-
+@Transactional
     /**
      * @param id of computer
      * @return a computerDTO
