@@ -18,8 +18,11 @@
 		<div class="container">
 			<a class="navbar-brand" href="Dashboard"> Application -
 				Computer Database </a>
-		</div>
-	</header>
+            <a class="navbar-brand btn btn-success" id="logout"
+               href="/logout" onclick="$.fn.toggleEditMode();" style="float: right">log out
+            </a>
+            </div>
+    </header>
 	<section id="main">
 		<div class="container">
 			<h1 id="homeTitle">${count} Computers found</h1>

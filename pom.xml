@@ -23,7 +23,7 @@
         <servlet.version>3.1.0</servlet.version>
         <jstl.version>1.2</jstl.version>
         <jcl.slf4j.version>1.7.25</jcl.slf4j.version>
-
+        <spring.security.version>4.2.2.RELEASE</spring.security.version>
         <hikaricp.version>2.6.1</hikaricp.version>
         <spring.version>4.3.8.RELEASE</spring.version>
         <validation.version>1.1.0.Final</validation.version>
