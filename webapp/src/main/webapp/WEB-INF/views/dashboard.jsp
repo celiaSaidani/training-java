@@ -16,7 +16,7 @@
 <body>
 	<header class="navbar navbar-inverse navbar-fixed-top">
 		<div class="container">
-			<a class="navbar-brand" href="DashboardServlet"> Application -
+			<a class="navbar-brand" href="Dashboard"> Application -
 				Computer Database </a>
 		</div>
 	</header>
@@ -26,7 +26,7 @@
 			<div id="actions" class="form-horizontal">
 				<div class="pull-left">
 					<form id="searchForm"
-						action="${pageContext.request.contextPath}/DashboardServlet"
+						action="${pageContext.request.contextPath}/Dashboard"
 						method="GET" class="form-inline">
 						<input type="search" id="searchbox" name="search"
 							class="form-control" placeholder="Search name" value="${search}" />
@@ -36,7 +36,7 @@
 				</div>
 				<div class="pull-right">
 					<a class="btn btn-success" id="addComputer"
-						href="${pageContext.request.contextPath}/AddComputerServlet">Add
+						href="${pageContext.request.contextPath}/addcomputer">Add
 						Computer</a> <a class="btn btn-default" id="editComputer" href="#"
 						onclick="$.fn.toggleEditMode();">Edit</a>
 				</div>
@@ -44,7 +44,7 @@
 		</div>
 
 		<form id="deleteForm"
-			action="${pageContext.request.contextPath}/DashboardServlet"
+			action="${pageContext.request.contextPath}/Dashboard"
 			method="POST">
 			<input type="hidden" name="selection" value="">
 		</form>
@@ -75,7 +75,7 @@
 							<td style="display: none" class="editMode"><input type="checkbox" name="cb"
 								class="cb" value="${computerdb.idComp}"></td>
 							<td><a
-								href="EditComputerServlet?idComp=${computerdb.idComp}"
+								href="editcomputer?idComp=${computerdb.idComp}"
 								onclick="">${computerdb.nameComp}</a></td>
 							<td>${computerdb.dateIn}</td>
 							<td>${computerdb.dateOut}</td>

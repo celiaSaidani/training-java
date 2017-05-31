@@ -21,7 +21,7 @@
 </c:if>
 
 <ul class="pagination">
-	<li><a href="DashboardServlet?${search}page=1&size=${size}${orderby}${sortQuery}" aria-label="Previous"> <span
+	<li><a href="Dashboard?${search}page=1&size=${size}${orderby}${sortQuery}" aria-label="Previous"> <span
 			aria-hidden="true">&laquo;</span>
 	</a></li>
 	<c:choose>
@@ -31,42 +31,42 @@
 					<c:forEach begin="1" end="4" varStatus="nestedLoop">
 						<li
 							<c:if test="${nestedLoop.index == page}"> class="active"</c:if>><a
-							href="DashboardServlet?${search}page=${nestedLoop.index}&size=${size}${orderby}${sortQuery}">${nestedLoop.index}</a></li>
+							href="Dashboard?${search}page=${nestedLoop.index}&size=${size}${orderby}${sortQuery}">${nestedLoop.index}</a></li>
 					</c:forEach>
-					<li><a href="DashboardServlet?${search}page=${page+1}&size=${size}${orderby}${sortQuery}">...</a></li>
+					<li><a href="Dashboard?${search}page=${page+1}&size=${size}${orderby}${sortQuery}">...</a></li>
 				</c:when>
 				<c:when test="${page > nbrPage-4}">
-					<li><a href="DashboardServlet?${search}page=${page-1}&size=${size}${orderby}${sortQuery}">...</a></li>
+					<li><a href="Dashboard?${search}page=${page-1}&size=${size}${orderby}${sortQuery}">...</a></li>
 					<c:forEach begin="${nbrPage-4}" end="${nbrPage}"
 						varStatus="nestedLoop">
 						<li
 							<c:if test="${nestedLoop.index == page}"> class="active"</c:if>><a
-							href="DashboardServlet?${search}page=${nestedLoop.index}&size=${size}${orderby}${sortQuery}">${nestedLoop.index}</a></li>
+							href="Dashboard?${search}page=${nestedLoop.index}&size=${size}${orderby}${sortQuery}">${nestedLoop.index}</a></li>
 					</c:forEach>
 				</c:when>
 				<c:otherwise>
-					<li><a href="DashboardServlet?${search}page=${page-1}&size=${size}${orderby}${sortQuery}">...</a></li>
+					<li><a href="Dashboard?${search}page=${page-1}&size=${size}${orderby}${sortQuery}">...</a></li>
 					<c:forEach begin="${page-1}" end="${page+1}" varStatus="nestedLoop">
 						<li
 							<c:if test="${nestedLoop.index == page}"> class="active"</c:if>><a
-							href="DashboardServlet?${search}page=${nestedLoop.index}&size=${size}${orderby}${sortQuery}">${nestedLoop.index}</a></li>
+							href="Dashboard?${search}page=${nestedLoop.index}&size=${size}${orderby}${sortQuery}">${nestedLoop.index}</a></li>
 					</c:forEach>
-					<li><a href="DashboardServlet?${search}page=${page+1}&size=${size}${orderby}${sortQuery}">...</a></li>
+					<li><a href="Dashboard?${search}page=${page+1}&size=${size}${orderby}${sortQuery}">...</a></li>
 				</c:otherwise>
 			</c:choose>
 		</c:when>
 		<c:otherwise>
 			<c:forEach begin="1" end="${nbrPage}" varStatus="loop">
 				<li <c:if test="${loop.index == page}"> class="active"</c:if>><a
-					href="DashboardServlet?${search}page=${loop.index}&size=${size}${orderby}${sortQuery}">${loop.index}</a></li>
+					href="Dashboard?${search}page=${loop.index}&size=${size}${orderby}${sortQuery}">${loop.index}</a></li>
 			</c:forEach>
 		</c:otherwise>
 	</c:choose>
-	<li><a href="DashboardServlet?${search}page=${nbrPage}&size=${size}${orderby}${sortQuery}" aria-label="Next"> <span aria-hidden="true">&raquo;</span>
+	<li><a href="Dashboard?${search}page=${nbrPage}&size=${size}${orderby}${sortQuery}" aria-label="Next"> <span aria-hidden="true">&raquo;</span>
 	</a></li>
 </ul>
 <div class="btn-group btn-group-sm pull-right" role="group">
-	<a type="button" class="btn btn-default<c:if test='${size == 10}'> active</c:if>" href="DashboardServlet?${search}page=1&size=10${orderby}${sortQuery}">10</a>
-	<a type="button" class="btn btn-default<c:if test='${size == 50}'> active</c:if>"href="DashboardServlet?${search}page=1&size=50${orderby}${sortQuery}">50</a>
-	<a type="button" class="btn btn-default<c:if test='${size == 100}'> active</c:if>"href="DashboardServlet?${search}page=1&size=100${orderby}${sortQuery}">100</a>
+	<a type="button" class="btn btn-default<c:if test='${size == 10}'> active</c:if>" href="Dashboard?${search}page=1&size=10${orderby}${sortQuery}">10</a>
+	<a type="button" class="btn btn-default<c:if test='${size == 50}'> active</c:if>"href="Dashboard?${search}page=1&size=50${orderby}${sortQuery}">50</a>
+	<a type="button" class="btn btn-default<c:if test='${size == 100}'> active</c:if>"href="Dashboard?${search}page=1&size=100${orderby}${sortQuery}">100</a>
 </div>

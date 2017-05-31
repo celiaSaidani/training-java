@@ -10,11 +10,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
         <artifactId>service</artifactId>
         <name>computerDatabaseservice</name>
         <packaging>jar</packaging>
-         <properties>
-    
-    
-        <spring.version>4.3.8.RELEASE</spring.version>
-    </properties>
+
          <dependencies>
             <!-- Parent -->
             <dependency>

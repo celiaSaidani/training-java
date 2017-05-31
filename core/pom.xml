@@ -12,11 +12,6 @@
     <name>computerDatabase-core</name>
     <packaging>jar</packaging>
 
-    <properties>
-        <spring.version>4.3.8.RELEASE</spring.version>
-        <hibernate.core.version>5.2.10.Final</hibernate.core.version>
-    </properties>
-
     <build>
         <pluginManagement>
             <plugins>

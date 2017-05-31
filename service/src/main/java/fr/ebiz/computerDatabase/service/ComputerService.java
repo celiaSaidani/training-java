@@ -21,7 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
-
+@Transactional
 @Service
 public class ComputerService {
     @Autowired
@@ -32,7 +32,8 @@ public class ComputerService {
     private CompanyService companyService;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ComputerService.class);
-
+    private static final  String Time=" 00:00:00";
+    @Transactional
     /**
      * @param computerDTO insert a computerDTO
      * @return true if insertion ok else false
@@ -48,10 +49,10 @@ public class ComputerService {
             LocalDateTime dateOut = null;
 
             if (computerDTO.getDateIn() != null) {
-                dateIn = DateTime.convertDate(computerDTO.getDateIn().trim().concat(" 00:00:00"));
+                dateIn = DateTime.convertDate(computerDTO.getDateIn().trim().concat(Time));
             }
             if (computerDTO.getDateOut() != null) {
-                dateOut = DateTime.convertDate(computerDTO.getDateOut().trim().concat(" 00:00:00"));
+                dateOut = DateTime.convertDate(computerDTO.getDateOut().trim().concat(Time));
             }
 
             if (computerDTO.getIdCompany() != "") {
@@ -62,7 +63,7 @@ public class ComputerService {
             } else {
                 computer = new Computer(name, dateIn, dateOut, null);
             }
-            computerDAO.saveAndFlush(computer);
+            computerDAO.save(computer);
 
             return true;
 
@@ -72,7 +73,6 @@ public class ComputerService {
         }
 
     }
-
     /**
      * @param computerDTO update a computerDTO
      * @return true if update ok else false
@@ -82,24 +82,25 @@ public class ComputerService {
         try {
             Computer computer;
             String name = computerDTO.getNameComp();
+            Long id= Long.parseLong(computerDTO.getIdComp());
             String companyId = computerDTO.getIdCompany();
             LocalDateTime dateIn = null;
             LocalDateTime dateOut = null;
+            System.err.println(computerDTO.getIdComp());
 
             if (computerDTO.getDateIn() != null) {
-                dateIn = DateTime.convertDate(computerDTO.getDateIn().trim().concat(" 00:00:00"));
+                dateIn = DateTime.convertDate(computerDTO.getDateIn().trim().concat(Time));
             }
             if (computerDTO.getDateOut() != null) {
-                dateOut = DateTime.convertDate(computerDTO.getDateOut().trim().concat(" 00:00:00"));
+                dateOut = DateTime.convertDate(computerDTO.getDateOut().trim().concat(Time));
             }
 
             if (computerDTO.getIdCompany() != "") {
                 CompanyDTO companyDTO = companyService.getCompanybyIdLocal(Long.parseLong(companyId));
                 Company company = new Company(Long.parseLong(companyId), companyDTO.getNameCompany());
-
-                computer = new Computer(name, dateIn, dateOut, company);
+                computer = new Computer(id,name, dateIn, dateOut, company);
             } else {
-                computer = new Computer(name, dateIn, dateOut, null);
+                computer = new Computer(id,name, dateIn, dateOut, null);
             }
             computerDAO.save(computer);
             return true;
@@ -151,7 +152,7 @@ public class ComputerService {
      * @return list of computer page
      * @throws ServiceException when we catch DAOException from computerDAO
      */
-    @Transactional
+
     public ComputerDTOPage getAllByPage(int start, int end) throws ServiceException {
         PageRequest request =
                 new PageRequest(start, end);
@@ -169,7 +170,7 @@ public class ComputerService {
             throw new ServiceException("can't get all computer by limit");
         }
     }
-    @Transactional
+
     /**
      * @param id of computer
      * @return a computerDTO

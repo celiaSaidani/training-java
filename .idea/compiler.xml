@@ -6,11 +6,22 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="training-java" />
+        <module name="binding" />
+        <module name="console" />
+        <module name="core" />
+        <module name="persistence" />
+        <module name="service" />
+        <module name="webapp" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="training-java" target="1.8" />
+      <module name="binding" target="1.8" />
+      <module name="computerDatabase" target="1.5" />
+      <module name="console" target="1.8" />
+      <module name="core" target="1.8" />
+      <module name="persistence" target="1.8" />
+      <module name="service" target="1.8" />
+      <module name="webapp" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

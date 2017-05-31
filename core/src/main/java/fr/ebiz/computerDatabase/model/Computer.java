@@ -12,8 +12,10 @@ import java.time.LocalDateTime;
 @Entity
 @Table(schema = " computer-database-db ", name = "computer")
 public class Computer {
-    @Id
+
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @Column(name = "id")
     private Long id;
     private String name;
     @Column(name = "introduced")

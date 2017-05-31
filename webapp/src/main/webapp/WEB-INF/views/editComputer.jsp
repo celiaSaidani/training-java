@@ -26,8 +26,9 @@
                     </div>
                     <h1>Edit Computer</h1>
 
-                    <form id="Formulaire" action="EditComputerServlet" method="POST">
+                    <form id="Formulaire" action="editComputer" method="POST">
                         <input type="hidden" value="${computerdb.idComp}" id="idComp" name="idComp"/> <!-- TODO: Change this value with the computer id -->
+                        <th>${computerdb.idComp}</th>
                         <fieldset>
                             <div class="form-group">
                                 <label for="nameComp">Computer name</label>

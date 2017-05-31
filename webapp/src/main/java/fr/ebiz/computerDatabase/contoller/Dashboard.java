@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
 @Controller
-@RequestMapping("/DashboardServlet")
-public class DashboardServlet {
+@RequestMapping("/Dashboard")
+public class Dashboard {
     private final String SELECTION = "selection";
     private final String ORDER = "order";
     private final String BY = "by";
@@ -74,7 +74,7 @@ public class DashboardServlet {
             computerService.deleteComputer(Long.parseLong(selected[i]));
             i++;
         }
-        return "redirect://localhost:8080/DashboardServlet";
+        return "redirect://localhost:8080/Dashboard";
     }
 
 
