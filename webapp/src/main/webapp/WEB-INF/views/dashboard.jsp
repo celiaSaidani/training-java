@@ -16,7 +16,7 @@
 <body>
 	<header class="navbar navbar-inverse navbar-fixed-top">
 		<div class="container">
-			<a class="navbar-brand" href="Dashboard"> Application -
+			<a class="navbar-brand" href="${pageContext.request.contextPath}/dashboard"> Application -
 				Computer Database </a>
             <a class="navbar-brand btn btn-success" id="logout"
                href="/logout" onclick="$.fn.toggleEditMode();" style="float: right">log out
@@ -29,7 +29,7 @@
 			<div id="actions" class="form-horizontal">
 				<div class="pull-left">
 					<form id="searchForm"
-						action="${pageContext.request.contextPath}/Dashboard"
+						action="${pageContext.request.contextPath}/dashboard"
 						method="GET" class="form-inline">
 						<input type="search" id="searchbox" name="search"
 							class="form-control" placeholder="Search name" value="${search}" />
@@ -40,14 +40,14 @@
 				<div class="pull-right">
 					<a class="btn btn-success" id="addComputer"
 						href="${pageContext.request.contextPath}/addcomputer">Add
-						Computer</a> <a class="btn btn-default" id="editComputer" href="#"
+						Computer</a> <a class="btn btn-default" id="Computer" href="#"
 						onclick="$.fn.toggleEditMode();">Edit</a>
 				</div>
 			</div>
 		</div>
 
 		<form id="deleteForm"
-			action="${pageContext.request.contextPath}/Dashboard"
+			action="${pageContext.request.contextPath}/dashboard"
 			method="POST">
 			<input type="hidden" name="selection" value="">
 		</form>

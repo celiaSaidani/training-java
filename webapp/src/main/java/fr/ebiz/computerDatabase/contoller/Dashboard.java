@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
 @Controller
-@RequestMapping("/Dashboard")
+@RequestMapping("/dashboard")
 public class Dashboard {
     private final String SELECTION = "selection";
     private final String ORDER = "order";
@@ -71,10 +71,10 @@ public class Dashboard {
     protected String post(@RequestParam(SELECTION) String[] selected) throws ServiceException {
         int i = 0;
         while (i < selected.length) {
-            computerService.deleteComputer(Long.parseLong(selected[i]));
+           System.err.print( computerService.deleteComputer(Long.parseLong(selected[i])));
             i++;
         }
-        return "redirect://localhost:8080/Dashboard";
+        return "redirect:/dashboard";
     }
 
 

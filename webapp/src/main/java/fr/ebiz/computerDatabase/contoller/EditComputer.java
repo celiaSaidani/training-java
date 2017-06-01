@@ -7,6 +7,7 @@ import fr.ebiz.computerDatabase.service.CompanyService;
 import fr.ebiz.computerDatabase.service.ComputerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
@@ -23,15 +24,16 @@ public class EditComputer {
     private static final String ID = "idComp";
     private static final String COMPUTERDB = "computerdb";
     private static final String COMPANY = "company";
-    private static final String EDIT_VIEW = "editComputer";
+    private static final String EDIT_VIEW = "editcomputer";
     private static final String ERROR_VIEW = "500";
-    private static final String DASHBOARD_VIEW = "redirect://localhost:8080/Dashboard";
+    private static final String DASHBOARD_VIEW = "redirect://localhost:8080/dashboard";
     @Autowired
     private CompanyService companyService;
     @Autowired
     private ComputerService computerService;
 
     @RequestMapping(method = RequestMethod.GET)
+@Transactional
     protected String get(@RequestParam(ID) String idComputer, ModelMap model) throws ServiceException {
         ComputerDTO compDTO;
 

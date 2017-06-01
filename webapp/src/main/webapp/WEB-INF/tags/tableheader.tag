@@ -50,17 +50,17 @@
 </c:choose>
 
 <th>Computer name <a
-	href="<c:url value="/Dashboard?${search}order=name&size=${size}&by=${byComputer}&sort=true" />"><i
+	href="<c:url value="/dashboard?${search}order=name&size=${size}&by=${byComputer}&sort=true" />"><i
 		class="fa fa-sort${orderComputer} pull-right"></i></a>
 </th>
 <th>Introduced date <a
-	href="<c:url value="/Dashboard?${search}order=introduced&size=${size}&by=${byIntroduced}&sort=true" />"><span
+	href="<c:url value="/dashboard?${search}order=introduced&size=${size}&by=${byIntroduced}&sort=true" />"><span
 		class="fa fa-sort${orderIntroduced} pull-right"></span></a></th>
 <!-- Table header for Discontinued Date -->
 <th>Discontinued date <a
-	href="<c:url value="/Dashboard?${search}order=discontinued&size=${size}&by=${byDiscontinued}&sort=true" />"><span
+	href="<c:url value="/dashboard?${search}order=discontinued&size=${size}&by=${byDiscontinued}&sort=true" />"><span
 		class="fa fa-sort${orderDiscontinued} pull-right"></span></a></th>
 <!-- Table header for Company -->
 <th>Company <a
-	href="<c:url value="/Dashboard?${search}order=company.name&size=${size}&by=${byCompany}&sort=true" />"><span
+	href="<c:url value="/dashboard?${search}order=company.name&size=${size}&by=${byCompany}&sort=true" />"><span
 class="fa fa-sort${orderCompany} pull-right"></span></a></th>

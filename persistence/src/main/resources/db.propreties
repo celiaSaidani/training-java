@@ -1,4 +1,4 @@
-dataSourceClassName=com.mysql.jdbc.jdbc2.optional.MysqlDataSource
+dataSourceClassName=com.mysql.jdbc.jdbc2.optional.MySQL5InnoDBDialect
 dataSource.url=jdbc:mysql://localhost/computer-database-db?useSSL=false&zeroDateTimeBehavior=convertToNull
 dataSource.user=admincdb
 dataSource.password=qwerty1234

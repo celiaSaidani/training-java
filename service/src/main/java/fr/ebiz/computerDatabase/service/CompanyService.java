@@ -9,10 +9,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@Transactional
 public class CompanyService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CompanyService.class);
@@ -25,6 +27,7 @@ public class CompanyService {
      * @return list of company DTO
      * @throws ServiceException for errors in companyDTO
      */
+
     public List<CompanyDTO> getAllCompany() throws ServiceException {
         List<Company> cp;
         try {
@@ -43,7 +46,7 @@ public class CompanyService {
      */
     public CompanyDTO getCompanybyId(Long id) throws ServiceException {
         try {
-            Company cp = companyDao.getOne(id);
+            Company cp = companyDao.findOne(id);
             return companyMapper.getCompanyDTO(cp);
         } catch (RuntimeException e) {
             LOGGER.error("[Error service] error in function getCompanybyId ");
@@ -59,7 +62,7 @@ public class CompanyService {
     public CompanyDTO getCompanybyIdLocal(Long id) throws ServiceException {
 
         try {
-            Company cp = companyDao.getOne(id);
+            Company cp = companyDao.findOne(id);
 
             return companyMapper.getCompanyDTO(cp);
         } catch (RuntimeException e) {

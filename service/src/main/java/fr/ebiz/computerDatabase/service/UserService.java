@@ -26,8 +26,6 @@ public class UserService implements UserDetailsService {
             User user = userDAO.findUserByLogin(login);
             if (user != null) {
                 ArrayList<GrantedAuthority> grantedAuthorities = new ArrayList<>();
-
-
                 grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_USER"));
 
                 return new org.springframework.security.core.userdetails.User(user.getLogin(), user.getPasseword(), grantedAuthorities);

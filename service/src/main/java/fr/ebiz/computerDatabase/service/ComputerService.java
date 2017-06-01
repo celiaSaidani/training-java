@@ -22,8 +22,9 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Transactional
+
 @Service
+@Transactional
 public class ComputerService {
     @Autowired
     private ComputerMapper computerMap;
@@ -35,7 +36,7 @@ public class ComputerService {
     private static final Logger LOGGER = LoggerFactory.getLogger(ComputerService.class);
     private static final String TIME = " 00:00:00";
 
-    @Transactional
+
     /**
      * @param computerDTO insert a computerDTO
      * @return true if insertion ok else false
@@ -75,7 +76,6 @@ public class ComputerService {
         }
 
     }
-
     /**
      * @param computerDTO update a computerDTO
      * @return true if update ok else false
@@ -113,7 +113,6 @@ public class ComputerService {
             throw new ServiceException("can't update computer");
         }
     }
-
     /**
      * @param id of computer to delete
      * @return true if delete correct, false else
@@ -124,14 +123,13 @@ public class ComputerService {
         try {
             computerDAO.delete(id);
             return true;
-        } catch (IllegalArgumentException e) {
+        } catch (DataAccessException e) {
             System.err.println(e.getMessage());
             LOGGER.error("[Error Service] in function delete Computer");
             throw new ServiceException("can't delete computer");
 
         }
     }
-
     /**
      * @return list of computerDTO
      * @throws ServiceException when we catch DAOException from computerDAO
@@ -148,7 +146,6 @@ public class ComputerService {
             throw new ServiceException("can't get all computer");
         }
     }
-
     /**
      * @param start page
      * @param end   page
@@ -179,10 +176,11 @@ public class ComputerService {
      * @return a computerDTO
      * @throws ServiceException when we catch DAOException from computerDAO
      */
+
     public ComputerDTO showDetailsComputer(Long id) throws ServiceException {
         Computer cp;
         try {
-            cp = computerDAO.getOne(id);
+            cp = computerDAO.findOne(id);
             ComputerDTO cpDto = computerMap.getComputerDTO(cp);
             if (cpDto.getDateIn() != null) {
 
@@ -209,7 +207,6 @@ public class ComputerService {
      * @return list of computer DTO
      * @throws ServiceException when we catch DAOException from computerDAO
      */
-    @Transactional
     public ComputerDTOPage search(String name, int start, int end) throws ServiceException {
         Page allComp;
         ComputerDTOPage data = new ComputerDTOPage();
@@ -237,7 +234,6 @@ public class ComputerService {
      * @return list of computerDTO
      * @throws ServiceException when we catch DAOException from computerDAO
      */
-
     public ComputerDTOPage searchOrderBy(int start, int end, String column, String reqBy, String search)
             throws ServiceException {
         ComputerDTOPage data = new ComputerDTOPage();

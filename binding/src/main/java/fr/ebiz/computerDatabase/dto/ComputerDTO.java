@@ -4,6 +4,9 @@ import fr.ebiz.computerDatabase.model.Computer;
 import fr.ebiz.computerDatabase.validator.DateTime;
 import org.hibernate.validator.constraints.NotEmpty;
 
+import javax.transaction.Transactional;
+
+@Transactional
 public class ComputerDTO {
     private String idComp;
     @NotEmpty(message = "name requeried")

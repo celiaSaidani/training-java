@@ -15,8 +15,8 @@
     <jpa:repositories base-package="fr.ebiz.computerDatabase.persistence"/>
     <context:property-placeholder location="classpath:hibernate.propreties"/>
 
-    <bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
-        <property name="dataSourceClassName" value="com.mysql.jdbc.jdbc2.optional.MysqlDataSource"/>
+    <bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource" >
+        <property name="dataSourceClassName" value="com.mysql.jdbc.jdbc2.optional.MysqlDataSource"  />
         <property name="maximumPoolSize" value="17"/>
         <property name="maxLifetime" value="30000"/>
         <property name="idleTimeout" value="30000"/>
@@ -35,18 +35,11 @@
     </bean>
 
     <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
-        <property name="entityManagerFactory" ref="entityManagerFactory" />
+        <property name="entityManagerFactory" ref="entityManagerFactory"/>
     </bean>
-    <bean id="hibernateJpaVendorAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"/>
-
-    <!-- Configure the entity manager factory bean -->
-
     <bean id="entityManagerFactory"
-
           class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-
         <property name="dataSource" ref="dataSource"/>
-
         <property name="jpaVendorAdapter" ref="hibernateJpaVendorAdapter"/>
 
 
@@ -63,5 +56,8 @@
             </props>
         </property>
     </bean>
+
+    <bean id="hibernateJpaVendorAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"/>
+
 
 </beans>
