@@ -31,6 +31,7 @@
         <glassfish.el.version>3.0.0</glassfish.el.version>
         <spring.data.jpa.version>1.11.3.RELEASE</spring.data.jpa.version>
         <hibernate.core.version>5.2.10.Final</hibernate.core.version>
+        <jackson.library>2.8.8</jackson.library>
     </properties>
 
     <repositories>
@@ -101,7 +102,7 @@
             <version>1.2.3</version>
             <scope>runtime</scope>
         </dependency>
-
+        <!--Spring test-->
 
         <dependency>
             <groupId>org.springframework</groupId>
