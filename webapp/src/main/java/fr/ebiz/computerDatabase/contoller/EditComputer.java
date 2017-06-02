@@ -24,7 +24,7 @@ public class EditComputer {
     private static final String ID = "idComp";
     private static final String COMPUTERDB = "computerdb";
     private static final String COMPANY = "company";
-    private static final String EDIT_VIEW = "editcomputer";
+    private static final String EDIT_VIEW = "editComputer";
     private static final String ERROR_VIEW = "500";
     private static final String DASHBOARD_VIEW = "redirect://localhost:8080/dashboard";
     @Autowired
@@ -33,7 +33,7 @@ public class EditComputer {
     private ComputerService computerService;
 
     @RequestMapping(method = RequestMethod.GET)
-@Transactional
+    @Transactional
     protected String get(@RequestParam(ID) String idComputer, ModelMap model) throws ServiceException {
         ComputerDTO compDTO;
 
@@ -51,18 +51,16 @@ public class EditComputer {
             System.err.println(bindingResult.toString());
             return ERROR_VIEW;
         } else {
-            boolean update = computerService.updateComputer(computerDTO);
-
-            if (update) {
+            if (computerService.updateComputer(computerDTO)) {
                 return DASHBOARD_VIEW;
             } else {
-                return EDIT_VIEW;
+                return ERROR_VIEW;
             }
         }
 
     }
+
     /**
-     *
      * @param ex serviceException
      * @return 500
      */
@@ -73,8 +71,8 @@ public class EditComputer {
         return EDIT_VIEW;
 
     }
+
     /**
-     *
      * @param ex NumberFormatException
      * @return 500
      */

@@ -1,6 +1,7 @@
 package fr.ebiz.computerDatabase.service;
 
 import fr.ebiz.computerDatabase.dto.CompanyDTO;
+import fr.ebiz.computerDatabase.dto.DTOPage;
 import fr.ebiz.computerDatabase.exception.ServiceException;
 import fr.ebiz.computerDatabase.mapper.CompanyMapper;
 import fr.ebiz.computerDatabase.model.Company;
@@ -8,6 +9,8 @@ import fr.ebiz.computerDatabase.persistence.CompanyDAO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -38,6 +41,28 @@ public class CompanyService {
             throw new ServiceException("enable to close connection");
         }
     }
+
+    /**
+     * @return list of company DTO
+     * @throws ServiceException for errors in companyDTO
+     */
+
+    public DTOPage getAllCompanyPage(int start, int end) throws ServiceException {
+        Page page;
+        try {
+            PageRequest request = new PageRequest(start, end);
+            page = companyDao.findAll(request);
+            DTOPage data = new DTOPage();
+            data.setComputersDTO(companyMapper.getCompanyDTOs(page.getContent()));
+            data.setNbrPage(page.getTotalPages());
+            data.setTotalcount(page.getTotalElements());
+            return data;
+        } catch (RuntimeException e) {
+            LOGGER.error("[Error service] error in function getAllCompany");
+            throw new ServiceException("enable to close connection");
+        }
+    }
+
 
     /**
      * @param id of company

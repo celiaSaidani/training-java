@@ -25,7 +25,7 @@ public class AddComputer {
     private static final String ADDCOMPUTERVIEW = "addComputer";
     private static final String ERRORVIEW = "500";
     private static final String COMPANY = "company";
-    private static final String DASHBOARD_VIEW = "dashboard";
+    private static final String DASHBOARD_VIEW = "redirect:/dashboard";
     @Autowired
     private Validator computerValidator;
 
@@ -37,22 +37,17 @@ public class AddComputer {
     @RequestMapping(method = RequestMethod.GET)
     protected String get(ModelMap model) throws ServiceException {
         List<CompanyDTO> company;
-
         company = companyService.getAllCompany();
         model.addAttribute(COMPANY, company);
         return ADDCOMPUTERVIEW;
-
-
     }
 
     @RequestMapping(method = RequestMethod.POST)
     protected String post(@Validated ComputerDTO computerDTO, BindingResult bindingResult, ModelMap model) throws ServiceException {
         if (bindingResult.hasErrors()) {
-
             System.err.println(bindingResult.toString());
             return get(model);
         } else {
-
             computerService.insertComputer(computerDTO);
         }
         return DASHBOARD_VIEW;

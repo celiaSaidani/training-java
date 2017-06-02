@@ -1,61 +1,55 @@
 package fr.ebiz.computerDatabase.validator;
 
-import fr.ebiz.computerDatabase.dto.ComputerDTO;
-import org.springframework.stereotype.Component;
-import org.springframework.validation.Errors;
-import org.springframework.validation.Validator;
-
 import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 
-@Component
-public class ComputerValidator implements Validator {
-    private final String invalideDateIN = "Date introduced invalide";
-    private final String invalideDateOUT = "Date discontinued invalide";
-    private final String dateNotBefore = "date introduced before date discontinued";
+import fr.ebiz.computerDatabase.dto.ComputerDTO;
 
-    /**
-     * @param clazz to verify
-     * @return a boolean
-     */
-    @Override
-    public boolean supports(Class<?> clazz) {
-        return ComputerDTO.class.equals(clazz);
-    }
+public class ComputerValidator {
 
     /**
-     * @param o computerDTO object
-     * @param e errors
+     * check if computer DTO is valid.
+     * @param cp
+     *          computer DTO
+     * @return true if valid else false
      */
-    @Override
-    public void validate(Object o, Errors e) {
-        LocalDateTime dateIn = null;
-        LocalDateTime dateOut = null;
+    public static boolean isValid(ComputerDTO cp) {
 
-        ComputerDTO cp = (ComputerDTO) o;
-
+        String invalideDateIN = "Date introduced inavlide";
+        String invalideDateOUT = "Date discontinued inavlide";
+        String dateNotBefore = "date out before date in";
+        String nameRequired = "name requeried";
+        LocalDateTime dateIn, dateOut;
         String date1 = cp.getDateIn();
+        String date2 = cp.getDateOut();
+        //System.out.println("name is"+ cp.getNameComp() );
+        if (cp.getNameComp().equals("")) {
+
+            throw new NullPointerException(nameRequired);
+        }
         if (!date1.equals("")) {
             dateIn = DateTime.convertDate(date1.trim().concat(" 00:00:00"));
             if (dateIn == null) {
-                e.reject(invalideDateIN);
-                return;
+                throw new DateTimeParseException(invalideDateIN, date1, 0);
             }
         }
-        String date2 = cp.getDateOut();
+
         if (!date2.equals("")) {
             dateOut = DateTime.convertDate(date2.trim().concat(" 00:00:00"));
             if (dateOut == null) {
-                e.reject(invalideDateOUT);
-                return;
+                throw new DateTimeParseException(invalideDateOUT, date2, 0);
 
             }
         }
-        if ((!date1.equals("") && (!date2.equals("")))) {
-            if (!DateTime.dateCompare(date1, date2)) {
-                e.reject(dateNotBefore);
-                return;
+        if ((!date1.equals("")) && (!date2.equals(""))) {
+            if (!DateTime.dateCompare(date1.trim().concat(" 00:00:00"),
+                    date2.trim().concat(" 00:00:00"))) {
+                throw new DateTimeParseException(dateNotBefore, date1, 0);
+
             }
         }
+
+        return true;
 
     }
 }

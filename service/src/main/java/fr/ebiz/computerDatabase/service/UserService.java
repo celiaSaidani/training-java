@@ -2,6 +2,8 @@ package fr.ebiz.computerDatabase.service;
 
 import fr.ebiz.computerDatabase.model.User;
 import fr.ebiz.computerDatabase.persistence.UserDAO;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.security.core.GrantedAuthority;
@@ -18,10 +20,11 @@ import java.util.ArrayList;
  */
 @Service
 public class UserService implements UserDetailsService {
+    private static final Logger LOGGER = LoggerFactory.getLogger(ComputerService.class);
     @Autowired
     private UserDAO userDAO;
-
-    public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
+@Override
+    public UserDetails loadUserByUsername(String login) throws  UsernameNotFoundException  {
         try {
             User user = userDAO.findUserByLogin(login);
             if (user != null) {
@@ -30,8 +33,8 @@ public class UserService implements UserDetailsService {
 
                 return new org.springframework.security.core.userdetails.User(user.getLogin(), user.getPasseword(), grantedAuthorities);
             }
-        } catch (DataAccessException e) {
-            e.printStackTrace();
+        } catch (DataAccessException | UsernameNotFoundException e) {
+                LOGGER.error("[Error Service] in function loadUserByUsername");
         }
 return null;
     }

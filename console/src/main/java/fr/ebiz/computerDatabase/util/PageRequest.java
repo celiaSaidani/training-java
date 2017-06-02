@@ -1,6 +1,6 @@
 package fr.ebiz.computerDatabase.util;
 
-import fr.ebiz.computerDatabase.dto.ComputerDTOPage;
+import fr.ebiz.computerDatabase.dto.DTOPage;
 import fr.ebiz.computerDatabase.exception.ServiceException;
 import fr.ebiz.computerDatabase.service.ComputerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +23,8 @@ public class PageRequest {
      * @return page
      * @throws ServiceException if bad resqt to Service
      */
-    public ComputerDTOPage getPage(String reqOrder, String reqBy, int size, int page, String search) throws ServiceException {
-        ComputerDTOPage data;
+    public DTOPage getPage(String reqOrder, String reqBy, int size, int page, String search) throws ServiceException {
+        DTOPage data;
 
         if (search != null) {
             if (reqOrder != null & reqBy != null) {

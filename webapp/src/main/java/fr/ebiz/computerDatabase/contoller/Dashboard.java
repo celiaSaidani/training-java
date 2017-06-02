@@ -1,7 +1,7 @@
 package fr.ebiz.computerDatabase.contoller;
 
 import fr.ebiz.computerDatabase.dto.ComputerDTO;
-import fr.ebiz.computerDatabase.dto.ComputerDTOPage;
+import fr.ebiz.computerDatabase.dto.DTOPage;
 import fr.ebiz.computerDatabase.exception.ServiceException;
 import fr.ebiz.computerDatabase.service.ComputerService;
 import fr.ebiz.computerDatabase.util.PageRequest;
@@ -48,7 +48,7 @@ public class Dashboard {
         Long count = 0L;
         int nbrPage = 0;
         List<ComputerDTO> computer = null;
-        ComputerDTOPage pageReqst = null;
+        DTOPage pageReqst = null;
 
         pageReqst = pageRequest.getPage(reqOrder, reqBy, size, page, search);
         nbrPage = pageReqst.getNbrPage();
@@ -71,7 +71,7 @@ public class Dashboard {
     protected String post(@RequestParam(SELECTION) String[] selected) throws ServiceException {
         int i = 0;
         while (i < selected.length) {
-           System.err.print( computerService.deleteComputer(Long.parseLong(selected[i])));
+            System.err.print(computerService.deleteComputer(Long.parseLong(selected[i])));
             i++;
         }
         return "redirect:/dashboard";

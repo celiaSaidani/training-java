@@ -2,11 +2,20 @@ package fr.ebiz.computerDatabase.dto;
 
 import java.util.List;
 
-public class ComputerDTOPage {
+public class DTOPage {
 
   private Long totalcount;
   private int nbrPage;
   private List<ComputerDTO> computersDTO;
+  private List<CompanyDTO> companyDTO;
+
+  public List<CompanyDTO> getCompanyDTO() {
+    return companyDTO;
+  }
+
+  public void setCompanyDTO(List<CompanyDTO> companyDTO) {
+    this.companyDTO = companyDTO;
+  }
 
   /**
    * @return the count

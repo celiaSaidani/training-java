@@ -1,28 +1,27 @@
 package fr.ebiz.computerDatabase.ui;
 
+import fr.ebiz.computerDatabase.dto.CompanyDTO;
 import fr.ebiz.computerDatabase.dto.ComputerDTO;
-import fr.ebiz.computerDatabase.dto.ComputerDTOPage;
+import fr.ebiz.computerDatabase.dto.DTOPage;
 import fr.ebiz.computerDatabase.exception.ServiceException;
 import fr.ebiz.computerDatabase.service.CompanyService;
 import fr.ebiz.computerDatabase.service.ComputerService;
+import fr.ebiz.computerDatabase.validator.ComputerValidator;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.sql.SQLException;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.Scanner;
 
 public class Main {
 
     static Scanner input = new Scanner(System.in);
+    @Autowired
     private ComputerService computerService;
+    @Autowired
     private CompanyService companyService;
 
-    /**
-     * Default constructor.
-     */
-    public Main() {
-        computerService = new ComputerService();
-        companyService = new CompanyService();
-    }
 
     /**
      * Main menu.
@@ -65,7 +64,7 @@ public class Main {
                 }
                 System.out.println("entrez 0 pour quitter,ou l'identifiant de l'ordinateur");
                 choice = input.nextInt();
-                ComputerDTO comp = null; //computerService.showDetailsComputer(choice);
+                ComputerDTO comp = computerService.showDetailsComputer(new Long(choice));
 
                 if (comp.getIdComp() == "0") {
                     System.out.println(response);
@@ -84,36 +83,37 @@ public class Main {
      * menu to show all Company in database.
      */
 
-  /*private void showListCompanyMenu() {
-    String resp;
-    int cpt = 0;
-    do {
-      System.out.println("Entrez Q pour quitter,cliquez entrer pour continuer");
-      resp = input.nextLine();
+    private void showListCompanyMenu() {
+        String resp;
+        int cpt = 0;
 
-      List<CompanyDTO> company;
-      try {
-       // company = companyService.getAllCompanyPage(cpt);
-        company =null;
-        if (company.isEmpty()) {
-          break;
-        } else {
+        do {
+            System.out.println("Entrez Q pour quitter,cliquez entrer pour continuer");
+            resp = input.nextLine();
 
-          for (CompanyDTO cp : company) {
-            System.out.println(cp.getIdCompany() + "\t" + cp.getNameCompany());
-          }
-          cpt = cpt + 10;
-          System.out.println("NEXT>>");
+            List<CompanyDTO> company;
+            try {
+                DTOPage page = companyService.getAllCompanyPage(cpt,cpt + 10);
 
-        }
+                company = page.getCompanyDTO();
+                if (company.isEmpty()) {
+                    break;
+                } else {
 
-      } catch (ServiceException e) {
-        System.err.println(e.getMessage());
-      }
+                    for (CompanyDTO cp : company) {
+                        System.out.println(cp.getIdCompany() + "\t" + cp.getNameCompany());
+                    }
+                    System.out.println("NEXT>>");
 
-    } while (!resp.equals("Q"));
+                }
 
-  }*/
+            } catch (ServiceException e) {
+                System.err.println(e.getMessage());
+            }
+
+        } while (!resp.equals("Q"));
+
+    }
 
     /**
      * menu to show all computer in database.
@@ -124,7 +124,7 @@ public class Main {
         List<ComputerDTO> computer;
         do {
             System.out.println("Entrez Q pour quitter,cliquez entrer pour continuer");
-            ComputerDTOPage data = null;
+            DTOPage data = null;
             //computerService.getAllComputerPage(cpt, 100);
             computer = data.getComputersDTO();
             resp = input.nextLine();
@@ -161,8 +161,7 @@ public class Main {
             if (i == 3) {
                 response = input.nextLine();
                 if (response.equals("O") || response.equals("o")) {
-                    return;
-                    //showListCompanyMenu();
+                    showListCompanyMenu();
                 } else {
                     System.out.println("entrez l'identifiant de la compagnie");
                 }
@@ -172,9 +171,12 @@ public class Main {
 
         }
         try {
-            computerService
-                    .insertComputer(new ComputerDTO(inputText[0], inputText[1], inputText[2], inputText[3]));
-        } catch (ServiceException e) {
+            ComputerDTO computerDTO = new ComputerDTO(inputText[0], inputText[1], inputText[2], inputText[3]);
+            if (ComputerValidator.isValid(computerDTO)) {
+                computerService.insertComputer(computerDTO);
+            }
+
+        } catch (NullPointerException | DateTimeParseException | ServiceException e) {
             System.err.println(e.getMessage());
         }
 
@@ -190,11 +192,12 @@ public class Main {
         showListComputerMenu();
         System.out.println("tapez l'identifiant de l'ordinateur");
         choice = input.nextInt();
-        detailsComputerMenuById(choice);
+
         ComputerDTO computer;
         try {
             computer = null;
-            //computerService.showDetailsComputer(choice);
+            detailsComputerMenuById(choice);
+            computerService.showDetailsComputer(new Long(choice));
             String[] cp = {computer.getIdComp(), computer.getNameComp(), computer.getDateIn(),
                     computer.getDateOut(), computer.getIdCompany()};
 
@@ -211,8 +214,8 @@ public class Main {
                 if (i == 3) {
                     response = input.nextLine();
                     if (response.equals("O") || response.equals("o")) {
-                        return;
-                        //showListCompanyMenu();
+
+                        showListCompanyMenu();
                     } else {
                         System.out.println("entrez l'identifiant de la compagnie [chiffre]");
                     }
@@ -285,12 +288,15 @@ public class Main {
     /**
      * @param id of computer
      */
-    private void detailsComputerMenuById(int id) {
+    private void detailsComputerMenuById(int id) throws  ServiceException {
 
         ComputerDTO comp;
         comp = null;
-        //computerService.showDetailsComputer(id);
-        System.out.println(comp.getIdCompany());
+        try{
+            computerService.showDetailsComputer(new Long(id));
+        }catch(ServiceException e){
+            System.err.println(e.getMessage());
+        }
 
     }
 
@@ -309,7 +315,7 @@ public class Main {
                     vue.showListComputerMenu();
                     break;
                 case 2:
-                    //vue.showListCompanyMenu();
+                    vue.showListCompanyMenu();
                     break;
                 case 3:
                     vue.detailsComputerMenu();
