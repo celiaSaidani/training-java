@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <logger name="org.springframework.samples" level="DEBUG"/>
+    <logger name="org.springframework.core" level="DEBUG"/>
+    <logger name="org.springframework.beans" level="DEBUG"/>
+    <logger name="org.springframework.context" level="DEBUG"/>
+    <logger name="org.springframework.http" level="DEBUG"/>
+    <logger name="org.springframework.web" level="DEBUG"/>
+
+    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+        <file>logs/computer-database.log</file>
+
+        <encoder>
+            <pattern>%date %level [%thread] %logger{10} [%file:%line] %msg%n
+            </pattern>
+        </encoder>
+    </appender>
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="fr.ebiz.computerdatabase" level="DEBUG|INFO" additivity="false">
+        <appender-ref ref="STDOUT"/>
+    </logger>
+
+    <logger name="org.apache" level="DEBUG"/>
+    <logger name="java.sql" level="DEBUG"/>
+    <logger name="jdbc.audit" level="DEBUG"/>
+    <logger name="jdbc.connection" level="DEBUG"/>
+    <logger name="jdbc.sqltiming" level="DEBUG"/>
+    <logger name="jdbc.resultset" level="DEBUG"/>
+    <logger name="jdbc.resultsettable" level="DEBUG"/>
+
+    <root level="error">
+        <appender-ref ref="FILE"/>
+        <appender-ref ref="STDOUT"/>
+    </root>
+</configuration>
