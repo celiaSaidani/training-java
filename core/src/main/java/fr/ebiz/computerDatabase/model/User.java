@@ -5,7 +5,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -17,19 +16,20 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "id")
-    private Long id ;
+    private Long id;
     @Column(name = "login")
     private String login;
     @Column(name = "password")
     private String password;
 
-public User(){
-
-}
-
-    public User( String login,String passeword) {
+    /**
+     * constructor.
+     * @param login of user
+     * @param password of user
+     */
+    public User(String login, String password) {
         this.login = login;
-        this.password=passeword;
+        this.password = password;
     }
 
     public Long getId() {

@@ -1,7 +1,6 @@
 package fr.ebiz.computerDatabase.service;
 
 import fr.ebiz.computerDatabase.dto.CompanyDTO;
-import fr.ebiz.computerDatabase.dto.DTOPage;
 import fr.ebiz.computerDatabase.exception.ServiceException;
 import fr.ebiz.computerDatabase.mapper.CompanyMapper;
 import fr.ebiz.computerDatabase.model.Company;
@@ -9,6 +8,7 @@ import fr.ebiz.computerDatabase.persistence.CompanyDAO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -32,10 +32,10 @@ public class CompanyService {
      */
 
     public List<CompanyDTO> getAllCompany() throws ServiceException {
-        List<Company> cp;
+        List<Company> companies;
         try {
-            cp = companyDao.findAll();
-            return companyMapper.getCompanyDTOs(cp);
+            companies = companyDao.findAll();
+            return companyMapper.getCompanyDTOs(companies);
         } catch (RuntimeException e) {
             LOGGER.error("[Error service] error in function getAllCompany");
             throw new ServiceException("enable to close connection");
@@ -43,21 +43,23 @@ public class CompanyService {
     }
 
     /**
-     * @return list of company DTO
-     * @throws ServiceException for errors in companyDTO
+     * @param start begin of page
+     * @param end   of page
+     * @return list of companies
+     * @throws ServiceException if an error occurs
      */
 
-    public DTOPage getAllCompanyPage(int start, int end) throws ServiceException {
+    public List<CompanyDTO> getAllCompanyPage(int start, int end) throws ServiceException {
         Page page;
         try {
             PageRequest request = new PageRequest(start, end);
             page = companyDao.findAll(request);
-            DTOPage data = new DTOPage();
-            data.setComputersDTO(companyMapper.getCompanyDTOs(page.getContent()));
-            data.setNbrPage(page.getTotalPages());
-            data.setTotalcount(page.getTotalElements());
-            return data;
-        } catch (RuntimeException e) {
+            //DTOPage data = new DTOPage();
+            return companyMapper.getCompanyDTOs(page.getContent());
+            //data.setNbrPage(page.getTotalPages());
+            //data.setTotalcount(page.getTotalElements());
+            // return data;
+        } catch (DataAccessException e) {
             LOGGER.error("[Error service] error in function getAllCompany");
             throw new ServiceException("enable to close connection");
         }
@@ -71,31 +73,12 @@ public class CompanyService {
      */
     public CompanyDTO getCompanybyId(Long id) throws ServiceException {
         try {
-            Company cp = companyDao.findOne(id);
-            return companyMapper.getCompanyDTO(cp);
+            Company company = companyDao.findOne(id);
+            return companyMapper.getCompanyDTO(company);
         } catch (RuntimeException e) {
             LOGGER.error("[Error service] error in function getCompanybyId ");
             throw new ServiceException("can't get all company by id");
         }
     }
-
-    /**
-     * @param id of company
-     * @return companyDTO
-     * @throws ServiceException for errors in companyDTO
-     */
-    public CompanyDTO getCompanybyIdLocal(Long id) throws ServiceException {
-
-        try {
-            Company cp = companyDao.findOne(id);
-
-            return companyMapper.getCompanyDTO(cp);
-        } catch (RuntimeException e) {
-            e.printStackTrace();
-            LOGGER.error("[Error service] error in function getCompanybyIdLocal ");
-            throw new ServiceException("can't get all company by id");
-        }
-    }
-
 
 }

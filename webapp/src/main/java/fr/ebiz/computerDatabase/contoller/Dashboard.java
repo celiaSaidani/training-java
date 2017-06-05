@@ -18,18 +18,18 @@ import java.util.List;
 @Controller
 @RequestMapping("/dashboard")
 public class Dashboard {
-    private final String SELECTION = "selection";
-    private final String ORDER = "order";
-    private final String BY = "by";
-    private final String SORT = "sort";
-    private final String SIZE = "size";
-    private final String PAGE = "page";
-    private final String SEARCH = "search";
-    private final String NBRPAGE = "nbrPage";
-    private final String COUNT = "count";
-    private final String COMPUTER = "computerdb";
+    private static final String SELECTION = "selection";
+    private static final String ORDER = "order";
+    private static final String BY = "by";
+    private static final String SORT = "sort";
+    private static final String SIZE = "size";
+    private static final String PAGE = "page";
+    private static final String SEARCH = "search";
+    private static final String NBRPAGE = "nbrPage";
+    private static final String COUNT = "count";
+    private static final String COMPUTER = "computerdb";
     private static final String DASHBOARD_VIEW = "dashboard";
-    static final String ERRORVIEW = "500";
+    private static final String ERRORVIEW = "500";
 
     @Autowired
     private ComputerService computerService;

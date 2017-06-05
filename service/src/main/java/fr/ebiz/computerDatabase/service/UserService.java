@@ -23,7 +23,14 @@ public class UserService implements UserDetailsService {
     private static final Logger LOGGER = LoggerFactory.getLogger(ComputerService.class);
     @Autowired
     private UserDAO userDAO;
-@Override
+
+    /**
+     *
+     * @param login of user
+     * @return a user details
+     * @throws UsernameNotFoundException if userName not found
+     */
+    @Override
     public UserDetails loadUserByUsername(String login) throws  UsernameNotFoundException  {
         try {
             User user = userDAO.findUserByLogin(login);

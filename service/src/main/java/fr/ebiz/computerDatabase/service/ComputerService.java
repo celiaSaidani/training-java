@@ -91,10 +91,10 @@ public class ComputerService {
      */
 
     public List<ComputerDTO> getAll() throws ServiceException {
-        List<Computer> all;
+        List<Computer> computers;
         try {
-            all= computerDAO.findAll();
-            return computerMap.getComputerDTOs(all);
+            computers = computerDAO.findAll();
+            return computerMap.getComputerDTOs(computers);
         } catch (DataAccessException e) {
             System.err.println(e.getMessage());
             LOGGER.error("[Error Service] in function getAllComputer");
@@ -164,8 +164,25 @@ public class ComputerService {
         PageRequest request =
                 new PageRequest(start, end);
         try {
-            page = computerDAO.findComputerByNameContainingOrCompanyNameContaining(name, name, request);
+            page = computerDAO.findComputerByNameContainingOrCompanyNameContaining(name.trim(), name.trim(), request);
             return getPage(page);
+        } catch (DataAccessException e) {
+            System.err.println(e.getMessage());
+            LOGGER.error("[Error Service] in function search");
+            throw new ServiceException("can't find list of computer");
+        }
+    }
+
+    /**
+     * @param name of computer
+     * @return list of computer DTO
+     * @throws ServiceException when we catch DAOException from computerDAO
+     */
+    public List<ComputerDTO> search(String name) throws ServiceException {
+        List<ComputerDTO> computers;
+        try {
+            computers = computerDAO.findComputerByNameContainingOrCompanyNameContaining(name.trim(), name.trim());
+            return computers;
         } catch (DataAccessException e) {
             System.err.println(e.getMessage());
             LOGGER.error("[Error Service] in function search");
@@ -242,6 +259,11 @@ public class ComputerService {
         return new PageRequest(page, size, new Sort(directionType, sortBy));
     }
 
+    /**
+     *
+     * @param page object return by pageRequest
+     * @return DTOcomputer page
+     */
     private DTOPage getPage(Page page) {
         DTOPage data = new DTOPage();
         data.setComputersDTO(computerMap.getComputerDTOs(page.getContent()));
