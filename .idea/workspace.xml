@@ -2,24 +2,37 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="308b5b16-3ece-468d-949e-821fefcf0b71" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webapp/src/main/java/fr/ebiz/computerDatabase/restController/CompanyRest.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/webapp/src/main/java/fr/ebiz/computerDatabase/restController/ComputerRest.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/webapp/src/main/java/fr/ebiz/computerDatabase/contoller/ComputerRest.java" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/checkstyle-idea.xml" afterPath="$PROJECT_DIR$/.idea/checkstyle-idea.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/service/src/main/java/fr/ebiz/computerDatabase/exception/NotFoundException.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/service/src/main/java/fr/ebiz/computerDatabase/exception/UpdateException.java" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/service/src/main/java/fr/ebiz/computerDatabase/exception/DAOException.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/service/src/main/java/fr/ebiz/computerDatabase/exception/ServiceException.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/webapp/src/main/java/fr/ebiz/computerDatabase/exception/DAOException.java" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/webapp/src/main/java/fr/ebiz/computerDatabase/exception/ServiceException.java" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/binding/pom.xml" afterPath="$PROJECT_DIR$/binding/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/console/pom.xml" afterPath="$PROJECT_DIR$/console/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/pom.xml" afterPath="$PROJECT_DIR$/core/pom.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/binding/src/main/java/fr/ebiz/computerDatabase/dto/ComputerDTO.java" afterPath="$PROJECT_DIR$/binding/src/main/java/fr/ebiz/computerDatabase/dto/ComputerDTO.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/binding/src/main/java/fr/ebiz/computerDatabase/dto/DTOPage.java" afterPath="$PROJECT_DIR$/binding/src/main/java/fr/ebiz/computerDatabase/dto/DTOPage.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/binding/src/main/java/fr/ebiz/computerDatabase/mapper/ComputerMapper.java" afterPath="$PROJECT_DIR$/binding/src/main/java/fr/ebiz/computerDatabase/mapper/ComputerMapper.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/console/src/main/java/fr/ebiz/computerDatabase/ui/Main.java" afterPath="$PROJECT_DIR$/console/src/main/java/fr/ebiz/computerDatabase/ui/Main.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/console/src/main/java/fr/ebiz/computerDatabase/util/PageRequest.java" afterPath="$PROJECT_DIR$/console/src/main/java/fr/ebiz/computerDatabase/util/PageRequest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/console/src/test/java/fr/ebiz/computerDatabase/test/CompanyServiceTest.java" afterPath="$PROJECT_DIR$/console/src/test/java/fr/ebiz/computerDatabase/test/CompanyServiceTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/console/src/test/java/fr/ebiz/computerDatabase/test/ComputerServiceTest.java" afterPath="$PROJECT_DIR$/console/src/test/java/fr/ebiz/computerDatabase/test/ComputerServiceTest.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/main/java/fr/ebiz/computerDatabase/model/User.java" afterPath="$PROJECT_DIR$/core/src/main/java/fr/ebiz/computerDatabase/model/User.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/persistence/pom.xml" afterPath="$PROJECT_DIR$/persistence/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/persistence/src/main/java/fr/ebiz/computerDatabase/persistence/ComputerDAO.java" afterPath="$PROJECT_DIR$/persistence/src/main/java/fr/ebiz/computerDatabase/persistence/ComputerDAO.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/service/pom.xml" afterPath="$PROJECT_DIR$/service/pom.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/service/src/main/java/fr/ebiz/computerDatabase/service/CompanyService.java" afterPath="$PROJECT_DIR$/service/src/main/java/fr/ebiz/computerDatabase/service/CompanyService.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/service/src/main/java/fr/ebiz/computerDatabase/service/ComputerService.java" afterPath="$PROJECT_DIR$/service/src/main/java/fr/ebiz/computerDatabase/service/ComputerService.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/service/src/main/java/fr/ebiz/computerDatabase/service/UserService.java" afterPath="$PROJECT_DIR$/service/src/main/java/fr/ebiz/computerDatabase/service/UserService.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/service/src/main/resources/applicationContext-service.xml" afterPath="$PROJECT_DIR$/service/src/main/resources/applicationContext-service.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/service/src/test/java/fr/ebiz/computerDatabase/test/CompanyServiceTest.java" afterPath="$PROJECT_DIR$/service/src/test/java/fr/ebiz/computerDatabase/test/CompanyServiceTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/service/src/test/java/fr/ebiz/computerDatabase/test/ComputerServiceTest.java" afterPath="$PROJECT_DIR$/service/src/test/java/fr/ebiz/computerDatabase/test/ComputerServiceTest.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/webapp/pom.xml" afterPath="$PROJECT_DIR$/webapp/pom.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/webapp/src/main/java/fr/ebiz/computerDatabase/contoller/AddComputer.java" afterPath="$PROJECT_DIR$/webapp/src/main/java/fr/ebiz/computerDatabase/contoller/AddComputer.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/webapp/src/main/java/fr/ebiz/computerDatabase/contoller/Dashboard.java" afterPath="$PROJECT_DIR$/webapp/src/main/java/fr/ebiz/computerDatabase/contoller/Dashboard.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/webapp/src/main/java/fr/ebiz/computerDatabase/contoller/EditComputer.java" afterPath="$PROJECT_DIR$/webapp/src/main/java/fr/ebiz/computerDatabase/contoller/EditComputer.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/webapp/src/main/java/fr/ebiz/computerDatabase/restController/CompanyRest.java" afterPath="$PROJECT_DIR$/webapp/src/main/java/fr/ebiz/computerDatabase/restController/CompanyRest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/webapp/src/main/java/fr/ebiz/computerDatabase/restController/ComputerRest.java" afterPath="$PROJECT_DIR$/webapp/src/main/java/fr/ebiz/computerDatabase/restController/ComputerRest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/webapp/src/main/java/fr/ebiz/computerDatabase/util/PageRequest.java" afterPath="$PROJECT_DIR$/webapp/src/main/java/fr/ebiz/computerDatabase/util/PageRequest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/webapp/src/main/webapp/WEB-INF/dispatcherConf.xml" afterPath="$PROJECT_DIR$/webapp/src/main/webapp/WEB-INF/dispatcherConf.xml" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <ignored path="$PROJECT_DIR$/core/target/" />
@@ -50,14 +63,110 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="ComputerRest.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ComputerRest.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/webapp/src/main/java/fr/ebiz/computerDatabase/restController/ComputerRest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="840">
-              <caret line="76" column="73" lean-forward="true" selection-start-line="76" selection-start-column="73" selection-end-line="76" selection-end-column="73" />
+            <state relative-caret-position="1056">
+              <caret line="66" column="0" lean-forward="false" selection-start-line="66" selection-start-column="0" selection-end-line="66" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#2362#2363#0" expanded="true" />
+                <element signature="e#2424#2425#0" expanded="true" />
+                <element signature="e#3480#3481#0" expanded="true" />
+                <element signature="e#3531#3532#0" expanded="true" />
+                <element signature="e#3641#3642#0" expanded="true" />
+                <element signature="e#3692#3693#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CompanyRest.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/webapp/src/main/java/fr/ebiz/computerDatabase/restController/CompanyRest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="402">
+              <caret line="33" column="0" lean-forward="false" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#1137#1138#0" expanded="true" />
+                <element signature="e#1193#1194#0" expanded="true" />
+                <element signature="e#1303#1304#0" expanded="true" />
+                <element signature="e#1354#1355#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PageRequest.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/console/src/main/java/fr/ebiz/computerDatabase/util/PageRequest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="222">
+              <caret line="21" column="19" lean-forward="false" selection-start-line="21" selection-start-column="19" selection-end-line="21" selection-end-column="19" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ComputerValidator.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/webapp/src/main/java/fr/ebiz/computerDatabase/validator/ComputerValidator.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="80">
+              <caret line="10" column="13" lean-forward="false" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Dashboard.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/webapp/src/main/java/fr/ebiz/computerDatabase/contoller/Dashboard.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="364">
+              <caret line="55" column="47" lean-forward="false" selection-start-line="55" selection-start-column="47" selection-end-line="55" selection-end-column="47" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="EditComputer.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/webapp/src/main/java/fr/ebiz/computerDatabase/contoller/EditComputer.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="592">
+              <caret line="53" column="16" lean-forward="false" selection-start-line="53" selection-start-column="16" selection-end-line="53" selection-end-column="16" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="UpdateException.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/service/src/main/java/fr/ebiz/computerDatabase/exception/UpdateException.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="80">
+              <caret line="5" column="35" lean-forward="false" selection-start-line="5" selection-start-column="35" selection-end-line="5" selection-end-column="35" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#354#355#0" expanded="true" />
+                <element signature="e#384#385#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/webapp/pom.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="450">
+              <caret line="74" column="49" lean-forward="false" selection-start-line="74" selection-start-column="49" selection-end-line="74" selection-end-column="49" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/pom.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="464">
+              <caret line="34" column="69" lean-forward="false" selection-start-line="34" selection-start-column="69" selection-end-line="34" selection-end-column="69" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -83,7 +192,6 @@
       <find>violations</find>
       <find>mvc</find>
       <find>companyId</find>
-      <find>nameCompany</find>
       <find>dateOut</find>
       <find>dateIn</find>
       <find>error</find>
@@ -102,6 +210,8 @@
       <find>js</find>
       <find>getAllCompanyPage</find>
       <find>star</find>
+      <find>nameCompany</find>
+      <find>company</find>
     </findStrings>
     <replaceStrings>
       <replace>computerName</replace>
@@ -113,6 +223,7 @@
       <replace>getintroduced</replace>
       <replace>setintroduced</replace>
       <replace>page</replace>
+      <replace>idCompany</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -126,21 +237,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/test/java/fr/ebiz/computerDatabase/validatorTest/validatorComputerDTOtest.java" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/dispatcherConf.xml" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/editComputer.jsp" />
-        <option value="$PROJECT_DIR$/src/main/java/fr/ebiz/computerDatabase/exception/ServiceException.java" />
-        <option value="$PROJECT_DIR$/src/main/java/fr/ebiz/computerDatabase/validator/ComputerValidator.java" />
-        <option value="$PROJECT_DIR$/src/main/java/fr/ebiz/computerDatabase/persistence/CompanyDaoInterface.java" />
-        <option value="$PROJECT_DIR$/src/test/java/fr/ebiz/computerDatabase/test/CompanyServiceTest.java" />
-        <option value="$PROJECT_DIR$/src/main/java/fr/ebiz/computerDatabase/dto/CompanyDTO.java" />
-        <option value="$PROJECT_DIR$/src/main/java/fr/ebiz/computerDatabase/persistence/CompanyDaoMapper.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/hibernate.propreties" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/applicationContext.xml" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/dashboard.jsp" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/tags/pagination.tag" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/tags/tableheader.tag" />
-        <option value="$PROJECT_DIR$/src/main/java/fr/ebiz/computerDatabase/service/CompanyService.java" />
         <option value="$PROJECT_DIR$/src/main/java/fr/ebiz/computerDatabase/model/Computer.java" />
         <option value="$PROJECT_DIR$/src/main/java/fr/ebiz/computerDatabase/dto/ComputerDTOPage.java" />
         <option value="$PROJECT_DIR$/src/main/java/fr/ebiz/computerDatabase/persistence/ComputerDaoMapper.java" />
@@ -158,25 +254,40 @@
         <option value="$PROJECT_DIR$/src/main/java/fr/ebiz/computerDatabase/contoller/AddComputerServlet.java" />
         <option value="$PROJECT_DIR$/src/main/java/fr/ebiz/computerDatabase/contoller/EditComputerServlet.java" />
         <option value="$PROJECT_DIR$/src/main/java/fr/ebiz/computerDatabase/service/ComputerService.java" />
-        <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/binding/pom.xml" />
         <option value="$PROJECT_DIR$/console/pom.xml" />
         <option value="$PROJECT_DIR$/core/pom.xml" />
-        <option value="$PROJECT_DIR$/persistence/pom.xml" />
         <option value="$PROJECT_DIR$/service/pom.xml" />
-        <option value="$PROJECT_DIR$/webapp/pom.xml" />
         <option value="$PROJECT_DIR$/webapp/src/main/webapp/WEB-INF/spring-security.xml" />
         <option value="$PROJECT_DIR$/webapp/src/main/webapp/WEB-INF/web.xml" />
         <option value="$PROJECT_DIR$/persistence/src/main/java/fr/ebiz/computerDatabase/persistence/ComputerDAO.java" />
         <option value="$PROJECT_DIR$/webapp/src/main/java/fr/ebiz/computerDatabase/contoller/CompanyRest.java" />
         <option value="$PROJECT_DIR$/webapp/src/main/java/fr/ebiz/computerDatabase/contoller/ComputerRest.java" />
-        <option value="$PROJECT_DIR$/core/src/main/java/fr/ebiz/computerDatabase/model/User.java" />
-        <option value="$PROJECT_DIR$/service/src/main/java/fr/ebiz/computerDatabase/service/ComputerService.java" />
+        <option value="$PROJECT_DIR$/persistence/pom.xml" />
         <option value="$PROJECT_DIR$/service/src/main/java/fr/ebiz/computerDatabase/service/UserService.java" />
-        <option value="$PROJECT_DIR$/webapp/src/main/java/fr/ebiz/computerDatabase/contoller/Dashboard.java" />
+        <option value="$PROJECT_DIR$/core/src/main/java/fr/ebiz/computerDatabase/model/User.java" />
+        <option value="$PROJECT_DIR$/webapp/src/main/webapp/WEB-INF/dispatcherConf.xml" />
+        <option value="$PROJECT_DIR$/binding/src/main/java/fr/ebiz/computerDatabase/mapper/ComputerMapper.java" />
+        <option value="$PROJECT_DIR$/binding/src/main/java/fr/ebiz/computerDatabase/dto/ComputerDTO.java" />
+        <option value="$PROJECT_DIR$/binding/src/main/java/fr/ebiz/computerDatabase/dto/DTOPage.java" />
+        <option value="$PROJECT_DIR$/webapp/src/main/java/fr/ebiz/computerDatabase/exception/ServiceException.java" />
+        <option value="$PROJECT_DIR$/service/src/main/resources/applicationContext-service.xml" />
+        <option value="$PROJECT_DIR$/service/src/main/java/fr/ebiz/computerDatabase/exception/UpdateException.java" />
+        <option value="$PROJECT_DIR$/service/src/main/java/fr/ebiz/computerDatabase/exception/NotFoundException.java" />
+        <option value="$PROJECT_DIR$/webapp/src/main/java/fr/ebiz/computerDatabase/util/PageRequest.java" />
+        <option value="$PROJECT_DIR$/service/src/main/java/fr/ebiz/computerDatabase/service/ComputerService.java" />
         <option value="$PROJECT_DIR$/service/src/main/java/fr/ebiz/computerDatabase/service/CompanyService.java" />
+        <option value="$PROJECT_DIR$/webapp/src/main/java/fr/ebiz/computerDatabase/contoller/AddComputer.java" />
+        <option value="$PROJECT_DIR$/console/src/main/java/fr/ebiz/computerDatabase/util/PageRequest.java" />
+        <option value="$PROJECT_DIR$/console/src/main/java/fr/ebiz/computerDatabase/ui/Main.java" />
+        <option value="$PROJECT_DIR$/service/src/test/java/fr/ebiz/computerDatabase/test/CompanyServiceTest.java" />
+        <option value="$PROJECT_DIR$/service/src/test/java/fr/ebiz/computerDatabase/test/ComputerServiceTest.java" />
         <option value="$PROJECT_DIR$/webapp/src/main/java/fr/ebiz/computerDatabase/restController/CompanyRest.java" />
+        <option value="$PROJECT_DIR$/webapp/src/main/java/fr/ebiz/computerDatabase/contoller/Dashboard.java" />
+        <option value="$PROJECT_DIR$/webapp/src/main/java/fr/ebiz/computerDatabase/contoller/EditComputer.java" />
         <option value="$PROJECT_DIR$/webapp/src/main/java/fr/ebiz/computerDatabase/restController/ComputerRest.java" />
+        <option value="$PROJECT_DIR$/webapp/pom.xml" />
+        <option value="$PROJECT_DIR$/pom.xml" />
       </list>
     </option>
   </component>
@@ -194,10 +305,10 @@
     <option name="CUSTOM_FILTER" />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="48" />
-    <option name="y" value="-11" />
-    <option name="width" value="1319" />
-    <option name="height" value="780" />
+    <option name="x" value="-1" />
+    <option name="y" value="25" />
+    <option name="width" value="1922" />
+    <option name="height" value="1176" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -268,294 +379,10 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="training-java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="training-java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="webapp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="training-java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="training-java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="webapp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="training-java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="training-java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="webapp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="restController" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="training-java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="training-java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="service" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="training-java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="training-java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="service" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="training-java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="training-java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="service" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="training-java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="training-java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="service" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="service" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="training-java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="training-java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="service" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="exception" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="training-java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="training-java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="binding" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="training-java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="training-java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="binding" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="training-java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="training-java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="binding" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="training-java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="training-java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="binding" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="dto" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
       <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="PackagesPane" />
     </panes>
   </component>
@@ -1296,6 +1123,8 @@
       <workItem from="1496410299451" duration="6271000" />
       <workItem from="1496656209236" duration="6961000" />
       <workItem from="1496664174669" duration="9564000" />
+      <workItem from="1496734605913" duration="572000" />
+      <workItem from="1496735206007" duration="18801000" />
     </task>
     <servers />
   </component>
@@ -1332,7 +1161,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="193379000" />
+    <option name="totallyTimeSpent" value="212752000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1344,7 +1173,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="48" y="-11" width="1319" height="780" extended-state="6" />
+    <frame x="-1" y="25" width="1922" height="1176" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -1361,17 +1190,17 @@
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3993808" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32662538" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32575756" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32954547" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.12229102" sideWeight="0.49724627" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.40435606" sideWeight="0.49724627" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32954547" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="CheckStyle" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32507738" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="CheckStyle" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3248106" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32575756" sideWeight="0.49626467" order="13" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.44767898" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20757738" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
       <window_info id="Bean Validation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32977587" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
@@ -1401,577 +1230,8 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/fr/ebiz/computerDatabase/mapper/CompanyMapper.java" />
-    <entry file="uml://MAVEN/training-java:training-java:0.5.1-SNAPSHOT">
-      <provider selected="true" editor-type-id="UmlEditorProvider">
-        <state>
-          <ID>MAVEN</ID>
-          <OriginalElement>training-java:training-java:0.5.1-SNAPSHOT</OriginalElement>
-          <nodes>
-            <node x="0.0" y="901.2499999999999">training-java:training-java:0.5.1-SNAPSHOT</node>
-            <node x="192.0" y="1601.8205128205127">commons-logging:commons-logging:jar:99-empty</node>
-            <node x="182.0" y="957.4530462415082">mysql:mysql-connector-java:jar:5.1.41</node>
-            <node x="230.0" y="1652.8205128205127">junit:junit:jar:4.12</node>
-            <node x="464.5" y="1652.8205128205127">junit:junit:jar:4.12/org.hamcrest:hamcrest-core:jar:1.3</node>
-            <node x="208.0" y="225.9999999999999">org.slf4j:jcl-over-slf4j:jar:1.7.25</node>
-            <node x="483.5" y="141.26559907329204">org.slf4j:jcl-over-slf4j:jar:1.7.25/org.slf4j:slf4j-api:jar:1.7.25</node>
-            <node x="469.5" y="50.999999999999886">ch.qos.logback:logback-core:jar:1.2.3</node>
-            <node x="200.0" y="85.99999999999989">ch.qos.logback:logback-classic:jar:1.2.3</node>
-            <node x="196.5" y="665.7499999999999">javax.servlet:javax.servlet-api:jar:3.1.0</node>
-            <node x="234.0" y="155.9999999999999">javax.servlet:jstl:jar:1.2</node>
-            <node x="218.0" y="0.0">com.zaxxer:HikariCP:jar:2.6.1</node>
-            <node x="483.5" y="0.0">com.zaxxer:HikariCP:jar:2.6.1/org.slf4j:slf4j-api:jar:1.7.22</node>
-            <node x="709.0" y="1510.5705128205127">org.springframework:spring-context:jar:4.3.8.RELEASE</node>
-            <node x="921.0" y="1481.3205128205127">org.springframework:spring-context:jar:4.3.8.RELEASE/org.springframework:spring-aop:jar:4.3.8.RELEASE</node>
-            <node x="1113.0" y="1230.898559062021">org.springframework:spring-context:jar:4.3.8.RELEASE/org.springframework:spring-beans:jar:4.3.8.RELEASE</node>
-            <node x="901.0" y="1539.8205128205127">org.springframework:spring-context:jar:4.3.8.RELEASE/org.springframework:spring-expression:jar:4.3.8.RELEASE</node>
-            <node x="1298.0" y="1230.898559062021">org.springframework:spring-core:jar:4.3.8.RELEASE</node>
-            <node x="1474.0" y="1230.898559062021">org.springframework:spring-core:jar:4.3.8.RELEASE/commons-logging:commons-logging:jar:1.2</node>
-            <node x="474.5" y="1430.3205128205127">org.springframework:spring-web:jar:4.3.8.RELEASE</node>
-            <node x="718.0" y="1019.9530462415082">org.springframework:spring-jdbc:jar:4.3.8.RELEASE</node>
-            <node x="926.5" y="1036.108661281738">org.springframework:spring-tx:jar:4.3.8.RELEASE</node>
-            <node x="199.5" y="1499.6955128205127">org.springframework:spring-webmvc:jar:4.3.8.RELEASE</node>
-            <node x="1119.5" y="1627.3205128205127">org.springframework:spring-test:jar:4.3.8.RELEASE</node>
-            <node x="221.0" y="906.4530462415082">org.glassfish:javax.el:jar:3.0.0</node>
-            <node x="468.0" y="924.4530462415082">javax.validation:validation-api:jar:1.1.0.Final</node>
-            <node x="188.5" y="836.4530462415082">org.hibernate:hibernate-validator:jar:5.4.1.Final</node>
-            <node x="712.0" y="323.3489324066254">org.hibernate:hibernate-validator:jar:5.4.1.Final/org.jboss.logging:jboss-logging:jar:3.3.0.Final</node>
-            <node x="477.0" y="840.3586612817379">org.hibernate:hibernate-validator:jar:5.4.1.Final/com.fasterxml:classmate:jar:1.3.1</node>
-            <node x="199.5" y="1198.6121794871792">org.springframework.data:spring-data-jpa:jar:1.11.3.RELEASE</node>
-            <node x="444.0" y="1163.6121794871792">org.springframework.data:spring-data-jpa:jar:1.11.3.RELEASE/org.springframework.data:spring-data-commons:jar:1.13.3.RELEASE</node>
-            <node x="727.0" y="1205.398559062021">org.springframework.data:spring-data-jpa:jar:1.11.3.RELEASE/org.springframework.data:spring-data-commons:jar:1.13.3.RELEASE/org.slf4j:slf4j-api:jar:1.7.24</node>
-            <node x="715.0" y="1135.398559062021">org.springframework.data:spring-data-jpa:jar:1.11.3.RELEASE/org.springframework.data:spring-data-commons:jar:1.13.3.RELEASE/org.slf4j:jcl-over-slf4j:jar:1.7.24</node>
-            <node x="474.5" y="1071.773559062021">org.springframework.data:spring-data-jpa:jar:1.11.3.RELEASE/org.springframework:spring-orm:jar:4.3.8.RELEASE</node>
-            <node x="481.0" y="1303.6121794871792">org.springframework.data:spring-data-jpa:jar:1.11.3.RELEASE/org.aspectj:aspectjrt:jar:1.8.10</node>
-            <node x="483.5" y="1233.6121794871792">org.springframework.data:spring-data-jpa:jar:1.11.3.RELEASE/org.slf4j:slf4j-api:jar:1.7.25</node>
-            <node x="471.5" y="1373.6121794871792">org.springframework.data:spring-data-jpa:jar:1.11.3.RELEASE/org.slf4j:jcl-over-slf4j:jar:1.7.25</node>
-            <node x="200.5" y="500.2499999999999">org.hibernate:hibernate-core:jar:5.2.10.Final</node>
-            <node x="447.0" y="430.2499999999999">org.hibernate:hibernate-core:jar:5.2.10.Final/org.hibernate.javax.persistence:hibernate-jpa-2.1-api:jar:1.0.0.Final</node>
-            <node x="481.5" y="780.2499999999999">org.hibernate:hibernate-core:jar:5.2.10.Final/org.javassist:javassist:jar:3.20.0-GA</node>
-            <node x="492.5" y="640.2499999999999">org.hibernate:hibernate-core:jar:5.2.10.Final/antlr:antlr:jar:2.7.7</node>
-            <node x="420.5" y="360.2499999999999">org.hibernate:hibernate-core:jar:5.2.10.Final/org.jboss.spec.javax.transaction:jboss-transaction-api_1.2_spec:jar:1.0.1.Final</node>
-            <node x="487.0" y="710.2499999999999">org.hibernate:hibernate-core:jar:5.2.10.Final/org.jboss:jandex:jar:2.0.3.Final</node>
-            <node x="477.0" y="570.2499999999999">org.hibernate:hibernate-core:jar:5.2.10.Final/com.fasterxml:classmate:jar:1.3.0</node>
-            <node x="488.0" y="500.2499999999999">org.hibernate:hibernate-core:jar:5.2.10.Final/dom4j:dom4j:jar:1.6.1</node>
-            <node x="414.0" y="290.2499999999999">org.hibernate:hibernate-core:jar:5.2.10.Final/org.hibernate.common:hibernate-commons-annotations:jar:5.0.1.Final</node>
-          </nodes>
-          <notes />
-          <edges>
-            <edge source="org.springframework:spring-core:jar:4.3.8.RELEASE" target="org.springframework:spring-core:jar:4.3.8.RELEASE/commons-logging:commons-logging:jar:1.2">
-              <point x="48.0" y="-0.0" />
-              <point x="-66.0" y="-0.0" />
-            </edge>
-            <edge source="training-java:training-java:0.5.1-SNAPSHOT" target="javax.servlet:jstl:jar:1.2">
-              <point x="51.0" y="-8.571428571428555" />
-              <point x="182.0" y="170.9999999999999" />
-              <point x="-24.0" y="-0.0" />
-            </edge>
-            <edge source="org.springframework.data:spring-data-jpa:jar:1.11.3.RELEASE" target="org.springframework:spring-context:jar:4.3.8.RELEASE/org.springframework:spring-beans:jar:4.3.8.RELEASE">
-              <point x="58.5" y="-4.5" />
-              <point x="334.0" y="1209.1121794871792" />
-              <point x="414.0" y="1112.273559062021" />
-              <point x="1033.0" y="1112.273559062021" />
-              <point x="-52.5" y="-3.3333333333332575" />
-            </edge>
-            <edge source="junit:junit:jar:4.12" target="junit:junit:jar:4.12/org.hamcrest:hamcrest-core:jar:1.3">
-              <point x="28.0" y="-0.0" />
-              <point x="-57.0" y="-0.0" />
-            </edge>
-            <edge source="training-java:training-java:0.5.1-SNAPSHOT" target="com.zaxxer:HikariCP:jar:2.6.1">
-              <point x="51.0" y="-14.285714285714334" />
-              <point x="182.0" y="15.0" />
-              <point x="-40.0" y="-0.0" />
-            </edge>
-            <edge source="org.hibernate:hibernate-core:jar:5.2.10.Final" target="org.hibernate:hibernate-core:jar:5.2.10.Final/dom4j:dom4j:jar:1.6.1">
-              <point x="57.5" y="-0.0" />
-              <point x="-33.5" y="-0.0" />
-            </edge>
-            <edge source="org.springframework:spring-context:jar:4.3.8.RELEASE/org.springframework:spring-aop:jar:4.3.8.RELEASE" target="org.springframework:spring-context:jar:4.3.8.RELEASE/org.springframework:spring-beans:jar:4.3.8.RELEASE">
-              <point x="46.0" y="-7.5" />
-              <point x="1033.0" y="1488.8205128205127" />
-              <point x="-52.5" y="10.0" />
-            </edge>
-            <edge source="training-java:training-java:0.5.1-SNAPSHOT" target="org.springframework:spring-tx:jar:4.3.8.RELEASE">
-              <point x="51.0" y="-5.714285714285666" />
-              <point x="182.0" y="266.4999999999999" />
-              <point x="821.0" y="266.4999999999999" />
-              <point x="901.0" y="1039.858661281738" />
-              <point x="-40.5" y="-11.25" />
-            </edge>
-            <edge source="training-java:training-java:0.5.1-SNAPSHOT" target="org.slf4j:jcl-over-slf4j:jar:1.7.25">
-              <point x="51.0" y="-7.14285714285711" />
-              <point x="182.0" y="240.9999999999999" />
-              <point x="-50.0" y="-0.0" />
-            </edge>
-            <edge source="org.springframework.data:spring-data-jpa:jar:1.11.3.RELEASE/org.springframework.data:spring-data-commons:jar:1.13.3.RELEASE" target="org.springframework.data:spring-data-jpa:jar:1.11.3.RELEASE/org.springframework.data:spring-data-commons:jar:1.13.3.RELEASE/org.slf4j:slf4j-api:jar:1.7.24">
-              <point x="77.5" y="3.75" />
-              <point x="629.0" y="1182.3621794871792" />
-              <point x="709.0" y="1220.398559062021" />
-              <point x="-38.0" y="-0.0" />
-            </edge>
-            <edge source="training-java:training-java:0.5.1-SNAPSHOT" target="junit:junit:jar:4.12">
-              <point x="51.0" y="14.28571428571422" />
-              <point x="182.0" y="1667.8205128205127" />
-              <point x="-28.0" y="-0.0" />
-            </edge>
-            <edge source="training-java:training-java:0.5.1-SNAPSHOT" target="org.hibernate:hibernate-core:jar:5.2.10.Final">
-              <point x="51.0" y="-4.285714285714334" />
-              <point x="182.0" y="515.2499999999999" />
-              <point x="-57.5" y="-0.0" />
-            </edge>
-            <edge source="org.springframework.data:spring-data-jpa:jar:1.11.3.RELEASE/org.springframework.data:spring-data-commons:jar:1.13.3.RELEASE" target="org.springframework:spring-core:jar:4.3.8.RELEASE">
-              <point x="77.5" y="-11.25" />
-              <point x="629.0" y="1167.3621794871792" />
-              <point x="709.0" y="1124.898559062021" />
-              <point x="821.0" y="1124.898559062021" />
-              <point x="901.0" y="1088.2607385492004" />
-              <point x="1218.0" y="1088.2607385492004" />
-              <point x="-48.0" y="-2.3076923076923777" />
-            </edge>
-            <edge source="org.hibernate:hibernate-core:jar:5.2.10.Final" target="org.hibernate:hibernate-core:jar:5.2.10.Final/org.hibernate.javax.persistence:hibernate-jpa-2.1-api:jar:1.0.0.Final">
-              <point x="57.5" y="-3.3333333333333144" />
-              <point x="334.0" y="511.9166666666665" />
-              <point x="414.0" y="445.2499999999999" />
-              <point x="-74.5" y="-0.0" />
-            </edge>
-            <edge source="org.springframework.data:spring-data-jpa:jar:1.11.3.RELEASE" target="org.springframework.data:spring-data-jpa:jar:1.11.3.RELEASE/org.springframework:spring-orm:jar:4.3.8.RELEASE">
-              <point x="58.5" y="-7.5" />
-              <point x="334.0" y="1206.1121794871792" />
-              <point x="414.0" y="1086.773559062021" />
-              <point x="-47.0" y="-0.0" />
-            </edge>
-            <edge source="org.hibernate:hibernate-validator:jar:5.4.1.Final" target="org.hibernate:hibernate-validator:jar:5.4.1.Final/com.fasterxml:classmate:jar:1.3.1">
-              <point x="69.5" y="-0.0" />
-              <point x="414.0" y="855.3586612817379" />
-              <point x="-44.5" y="-0.0" />
-            </edge>
-            <edge source="ch.qos.logback:logback-classic:jar:1.2.3" target="ch.qos.logback:logback-core:jar:1.2.3">
-              <point x="58.0" y="-7.5" />
-              <point x="334.0" y="93.49999999999989" />
-              <point x="414.0" y="73.49999999999989" />
-              <point x="-52.0" y="7.5" />
-            </edge>
-            <edge source="org.springframework:spring-webmvc:jar:4.3.8.RELEASE" target="org.springframework:spring-context:jar:4.3.8.RELEASE/org.springframework:spring-beans:jar:4.3.8.RELEASE">
-              <point x="58.5" y="-7.5" />
-              <point x="334.0" y="1507.1955128205127" />
-              <point x="414.0" y="1470.8205128205127" />
-              <point x="1033.0" y="1470.8205128205127" />
-              <point x="-52.5" y="6.6666666666667425" />
-            </edge>
-            <edge source="org.springframework:spring-webmvc:jar:4.3.8.RELEASE" target="org.springframework:spring-web:jar:4.3.8.RELEASE">
-              <point x="58.5" y="-12.5" />
-              <point x="334.0" y="1502.1955128205127" />
-              <point x="414.0" y="1452.8205128205127" />
-              <point x="-47.0" y="7.5" />
-            </edge>
-            <edge source="training-java:training-java:0.5.1-SNAPSHOT" target="javax.servlet:javax.servlet-api:jar:3.1.0">
-              <point x="51.0" y="-2.8571428571428896" />
-              <point x="182.0" y="680.7499999999999" />
-              <point x="-61.5" y="-0.0" />
-            </edge>
-            <edge source="org.springframework:spring-test:jar:4.3.8.RELEASE" target="org.springframework:spring-core:jar:4.3.8.RELEASE">
-              <point x="46.0" y="-0.0" />
-              <point x="-48.0" y="13.846153846153811" />
-            </edge>
-            <edge source="org.springframework:spring-webmvc:jar:4.3.8.RELEASE" target="org.springframework:spring-context:jar:4.3.8.RELEASE/org.springframework:spring-expression:jar:4.3.8.RELEASE">
-              <point x="58.5" y="7.5" />
-              <point x="334.0" y="1522.1955128205127" />
-              <point x="414.0" y="1562.3205128205127" />
-              <point x="-66.0" y="7.5" />
-            </edge>
-            <edge source="org.springframework.data:spring-data-jpa:jar:1.11.3.RELEASE" target="org.springframework:spring-core:jar:4.3.8.RELEASE">
-              <point x="58.5" y="-13.5" />
-              <point x="334.0" y="1200.1121794871792" />
-              <point x="414.0" y="1009.4530462415082" />
-              <point x="1218.0" y="1009.4530462415082" />
-              <point x="-48.0" y="-11.538461538461434" />
-            </edge>
-            <edge source="training-java:training-java:0.5.1-SNAPSHOT" target="org.springframework:spring-webmvc:jar:4.3.8.RELEASE">
-              <point x="51.0" y="8.571428571428555" />
-              <point x="182.0" y="1514.6955128205127" />
-              <point x="-58.5" y="-0.0" />
-            </edge>
-            <edge source="training-java:training-java:0.5.1-SNAPSHOT" target="org.springframework:spring-context:jar:4.3.8.RELEASE">
-              <point x="51.0" y="10.0" />
-              <point x="182.0" y="1591.3205128205127" />
-              <point x="629.0" y="1591.3205128205127" />
-              <point x="-56.0" y="11.25" />
-            </edge>
-            <edge source="training-java:training-java:0.5.1-SNAPSHOT" target="mysql:mysql-connector-java:jar:5.1.41">
-              <point x="51.0" y="2.8571428571428896" />
-              <point x="-76.0" y="-0.0" />
-            </edge>
-            <edge source="org.springframework:spring-web:jar:4.3.8.RELEASE" target="org.springframework:spring-context:jar:4.3.8.RELEASE/org.springframework:spring-aop:jar:4.3.8.RELEASE">
-              <point x="47.0" y="3.75" />
-              <point x="821.0" y="1449.0705128205127" />
-              <point x="901.0" y="1492.5705128205127" />
-              <point x="-46.0" y="-3.75" />
-            </edge>
-            <edge source="training-java:training-java:0.5.1-SNAPSHOT" target="org.springframework:spring-test:jar:4.3.8.RELEASE">
-              <point x="51.0" y="12.85714285714289" />
-              <point x="182.0" y="1642.3205128205127" />
-              <point x="-46.0" y="-0.0" />
-            </edge>
-            <edge source="ch.qos.logback:logback-classic:jar:1.2.3" target="org.slf4j:jcl-over-slf4j:jar:1.7.25/org.slf4j:slf4j-api:jar:1.7.25">
-              <point x="58.0" y="7.5" />
-              <point x="334.0" y="108.49999999999989" />
-              <point x="414.0" y="148.76559907329204" />
-              <point x="-38.0" y="-7.5" />
-            </edge>
-            <edge source="org.springframework:spring-context:jar:4.3.8.RELEASE/org.springframework:spring-beans:jar:4.3.8.RELEASE" target="org.springframework:spring-core:jar:4.3.8.RELEASE">
-              <point x="52.5" y="-0.0" />
-              <point x="-48.0" y="-0.0" />
-            </edge>
-            <edge source="org.springframework:spring-jdbc:jar:4.3.8.RELEASE" target="org.springframework:spring-context:jar:4.3.8.RELEASE/org.springframework:spring-beans:jar:4.3.8.RELEASE">
-              <point x="47.0" y="10.0" />
-              <point x="901.0" y="1099.2607385492004" />
-              <point x="1033.0" y="1099.2607385492004" />
-              <point x="-52.5" y="-10.0" />
-            </edge>
-            <edge source="org.springframework:spring-webmvc:jar:4.3.8.RELEASE" target="org.springframework:spring-context:jar:4.3.8.RELEASE/org.springframework:spring-aop:jar:4.3.8.RELEASE">
-              <point x="58.5" y="-2.5" />
-              <point x="334.0" y="1512.1955128205127" />
-              <point x="414.0" y="1500.0705128205127" />
-              <point x="-46.0" y="3.75" />
-            </edge>
-            <edge source="org.hibernate:hibernate-validator:jar:5.4.1.Final" target="org.hibernate:hibernate-validator:jar:5.4.1.Final/org.jboss.logging:jboss-logging:jar:3.3.0.Final">
-              <point x="69.5" y="-10.0" />
-              <point x="414.0" y="829.8586612817379" />
-              <point x="629.0" y="829.8586612817379" />
-              <point x="-53.0" y="10.0" />
-            </edge>
-            <edge source="org.hibernate:hibernate-validator:jar:5.4.1.Final" target="javax.validation:validation-api:jar:1.1.0.Final">
-              <point x="69.5" y="10.0" />
-              <point x="414.0" y="931.9530462415082" />
-              <point x="-53.5" y="-7.5" />
-            </edge>
-            <edge source="org.springframework:spring-web:jar:4.3.8.RELEASE" target="org.springframework:spring-core:jar:4.3.8.RELEASE">
-              <point x="47.0" y="-3.75" />
-              <point x="1218.0" y="1441.5705128205127" />
-              <point x="-48.0" y="2.3076923076923777" />
-            </edge>
-            <edge source="org.springframework.data:spring-data-jpa:jar:1.11.3.RELEASE/org.springframework:spring-orm:jar:4.3.8.RELEASE" target="org.springframework:spring-context:jar:4.3.8.RELEASE/org.springframework:spring-beans:jar:4.3.8.RELEASE">
-              <point x="47.0" y="11.25" />
-              <point x="629.0" y="1098.023559062021" />
-              <point x="709.0" y="1102.5940718825336" />
-              <point x="1033.0" y="1102.5940718825336" />
-              <point x="-52.5" y="-6.6666666666667425" />
-            </edge>
-            <edge source="org.springframework.data:spring-data-jpa:jar:1.11.3.RELEASE" target="org.springframework:spring-context:jar:4.3.8.RELEASE/org.springframework:spring-aop:jar:4.3.8.RELEASE">
-              <point x="58.5" y="10.5" />
-              <point x="334.0" y="1224.1121794871792" />
-              <point x="414.0" y="1414.1121794871792" />
-              <point x="821.0" y="1414.1121794871792" />
-              <point x="901.0" y="1485.0705128205127" />
-              <point x="-46.0" y="-11.25" />
-            </edge>
-            <edge source="org.springframework:spring-web:jar:4.3.8.RELEASE" target="org.springframework:spring-context:jar:4.3.8.RELEASE/org.springframework:spring-beans:jar:4.3.8.RELEASE">
-              <point x="47.0" y="-11.25" />
-              <point x="629.0" y="1434.0705128205127" />
-              <point x="709.0" y="1425.1121794871792" />
-              <point x="1033.0" y="1425.1121794871792" />
-              <point x="-52.5" y="3.3333333333332575" />
-            </edge>
-            <edge source="org.springframework.data:spring-data-jpa:jar:1.11.3.RELEASE/org.springframework:spring-orm:jar:4.3.8.RELEASE" target="org.springframework:spring-jdbc:jar:4.3.8.RELEASE">
-              <point x="47.0" y="-11.25" />
-              <point x="629.0" y="1075.523559062021" />
-              <point x="-47.0" y="7.5" />
-            </edge>
-            <edge source="org.hibernate:hibernate-core:jar:5.2.10.Final/org.hibernate.common:hibernate-commons-annotations:jar:5.0.1.Final" target="org.hibernate:hibernate-validator:jar:5.4.1.Final/org.jboss.logging:jboss-logging:jar:3.3.0.Final">
-              <point x="107.5" y="-0.0" />
-              <point x="-53.0" y="-0.0" />
-            </edge>
-            <edge source="org.springframework:spring-webmvc:jar:4.3.8.RELEASE" target="org.springframework:spring-core:jar:4.3.8.RELEASE">
-              <point x="58.5" y="12.5" />
-              <point x="334.0" y="1527.1955128205127" />
-              <point x="414.0" y="1580.3205128205127" />
-              <point x="1218.0" y="1580.3205128205127" />
-              <point x="-48.0" y="11.538461538461434" />
-            </edge>
-            <edge source="org.springframework.data:spring-data-jpa:jar:1.11.3.RELEASE/org.springframework:spring-orm:jar:4.3.8.RELEASE" target="org.springframework:spring-core:jar:4.3.8.RELEASE">
-              <point x="47.0" y="3.75" />
-              <point x="629.0" y="1090.523559062021" />
-              <point x="709.0" y="1085.9530462415082" />
-              <point x="1218.0" y="1085.9530462415082" />
-              <point x="-48.0" y="-4.615384615384528" />
-            </edge>
-            <edge source="com.zaxxer:HikariCP:jar:2.6.1" target="com.zaxxer:HikariCP:jar:2.6.1/org.slf4j:slf4j-api:jar:1.7.22">
-              <point x="40.0" y="-0.0" />
-              <point x="-38.0" y="-0.0" />
-            </edge>
-            <edge source="org.springframework:spring-context:jar:4.3.8.RELEASE/org.springframework:spring-aop:jar:4.3.8.RELEASE" target="org.springframework:spring-core:jar:4.3.8.RELEASE">
-              <point x="46.0" y="7.5" />
-              <point x="1218.0" y="1503.8205128205127" />
-              <point x="-48.0" y="4.615384615384528" />
-            </edge>
-            <edge source="org.springframework.data:spring-data-jpa:jar:1.11.3.RELEASE" target="org.springframework.data:spring-data-jpa:jar:1.11.3.RELEASE/org.springframework.data:spring-data-commons:jar:1.13.3.RELEASE">
-              <point x="58.5" y="-1.5" />
-              <point x="334.0" y="1212.1121794871792" />
-              <point x="414.0" y="1178.6121794871792" />
-              <point x="-77.5" y="-0.0" />
-            </edge>
-            <edge source="org.springframework:spring-context:jar:4.3.8.RELEASE" target="org.springframework:spring-context:jar:4.3.8.RELEASE/org.springframework:spring-aop:jar:4.3.8.RELEASE">
-              <point x="56.0" y="-11.25" />
-              <point x="901.0" y="1507.5705128205127" />
-              <point x="-46.0" y="11.25" />
-            </edge>
-            <edge source="training-java:training-java:0.5.1-SNAPSHOT" target="javax.validation:validation-api:jar:1.1.0.Final">
-              <point x="51.0" y="1.4285714285714448" />
-              <point x="182.0" y="946.9530462415082" />
-              <point x="-53.5" y="7.5" />
-            </edge>
-            <edge source="org.hibernate:hibernate-core:jar:5.2.10.Final" target="org.hibernate:hibernate-core:jar:5.2.10.Final/org.javassist:javassist:jar:3.20.0-GA">
-              <point x="57.5" y="13.333333333333371" />
-              <point x="334.0" y="528.5833333333333" />
-              <point x="414.0" y="795.2499999999999" />
-              <point x="-40.0" y="-0.0" />
-            </edge>
-            <edge source="org.hibernate:hibernate-core:jar:5.2.10.Final" target="org.hibernate:hibernate-core:jar:5.2.10.Final/antlr:antlr:jar:2.7.7">
-              <point x="57.5" y="6.666666666666629" />
-              <point x="334.0" y="521.9166666666665" />
-              <point x="414.0" y="655.2499999999999" />
-              <point x="-29.0" y="-0.0" />
-            </edge>
-            <edge source="org.springframework:spring-jdbc:jar:4.3.8.RELEASE" target="org.springframework:spring-tx:jar:4.3.8.RELEASE">
-              <point x="47.0" y="-0.0" />
-              <point x="901.0" y="1047.358661281738" />
-              <point x="-40.5" y="-3.75" />
-            </edge>
-            <edge source="training-java:training-java:0.5.1-SNAPSHOT" target="ch.qos.logback:logback-classic:jar:1.2.3">
-              <point x="51.0" y="-10.0" />
-              <point x="182.0" y="100.99999999999989" />
-              <point x="-58.0" y="-0.0" />
-            </edge>
-            <edge source="training-java:training-java:0.5.1-SNAPSHOT" target="ch.qos.logback:logback-core:jar:1.2.3">
-              <point x="51.0" y="-11.428571428571445" />
-              <point x="182.0" y="56.999999999999886" />
-              <point x="-52.0" y="-7.5" />
-            </edge>
-            <edge source="org.springframework:spring-jdbc:jar:4.3.8.RELEASE" target="org.springframework:spring-core:jar:4.3.8.RELEASE">
-              <point x="47.0" y="-10.0" />
-              <point x="901.0" y="1021.762507435584" />
-              <point x="1218.0" y="1021.762507435584" />
-              <point x="-48.0" y="-9.230769230769283" />
-            </edge>
-            <edge source="org.springframework.data:spring-data-jpa:jar:1.11.3.RELEASE/org.springframework.data:spring-data-commons:jar:1.13.3.RELEASE" target="org.springframework.data:spring-data-jpa:jar:1.11.3.RELEASE/org.springframework.data:spring-data-commons:jar:1.13.3.RELEASE/org.slf4j:jcl-over-slf4j:jar:1.7.24">
-              <point x="77.5" y="-3.75" />
-              <point x="629.0" y="1174.8621794871792" />
-              <point x="-50.0" y="-0.0" />
-            </edge>
-            <edge source="org.springframework:spring-context:jar:4.3.8.RELEASE" target="org.springframework:spring-context:jar:4.3.8.RELEASE/org.springframework:spring-beans:jar:4.3.8.RELEASE">
-              <point x="56.0" y="-3.75" />
-              <point x="1033.0" y="1521.8205128205127" />
-              <point x="-52.5" y="13.333333333333258" />
-            </edge>
-            <edge source="org.slf4j:jcl-over-slf4j:jar:1.7.25" target="org.slf4j:jcl-over-slf4j:jar:1.7.25/org.slf4j:slf4j-api:jar:1.7.25">
-              <point x="50.0" y="-0.0" />
-              <point x="334.0" y="240.9999999999999" />
-              <point x="414.0" y="163.76559907329204" />
-              <point x="-38.0" y="7.5" />
-            </edge>
-            <edge source="training-java:training-java:0.5.1-SNAPSHOT" target="commons-logging:commons-logging:jar:99-empty">
-              <point x="51.0" y="11.428571428571445" />
-              <point x="-66.0" y="-0.0" />
-            </edge>
-            <edge source="org.springframework:spring-context:jar:4.3.8.RELEASE" target="org.springframework:spring-context:jar:4.3.8.RELEASE/org.springframework:spring-expression:jar:4.3.8.RELEASE">
-              <point x="56.0" y="11.25" />
-              <point x="-66.0" y="-7.5" />
-            </edge>
-            <edge source="org.springframework.data:spring-data-jpa:jar:1.11.3.RELEASE/org.springframework.data:spring-data-commons:jar:1.13.3.RELEASE" target="org.springframework:spring-context:jar:4.3.8.RELEASE/org.springframework:spring-beans:jar:4.3.8.RELEASE">
-              <point x="77.5" y="11.25" />
-              <point x="629.0" y="1189.8621794871792" />
-              <point x="709.0" y="1274.3361118938049" />
-              <point x="1033.0" y="1274.3361118938049" />
-              <point x="-52.5" y="-0.0" />
-            </edge>
-            <edge source="org.springframework:spring-tx:jar:4.3.8.RELEASE" target="org.springframework:spring-context:jar:4.3.8.RELEASE/org.springframework:spring-beans:jar:4.3.8.RELEASE">
-              <point x="40.5" y="7.5" />
-              <point x="1033.0" y="1058.608661281738" />
-              <point x="-52.5" y="-13.333333333333258" />
-            </edge>
-            <edge source="training-java:training-java:0.5.1-SNAPSHOT" target="org.springframework:spring-jdbc:jar:4.3.8.RELEASE">
-              <point x="51.0" y="4.285714285714334" />
-              <point x="182.0" y="997.9530462415082" />
-              <point x="629.0" y="997.9530462415082" />
-              <point x="-47.0" y="-7.5" />
-            </edge>
-            <edge source="org.springframework:spring-webmvc:jar:4.3.8.RELEASE" target="org.springframework:spring-context:jar:4.3.8.RELEASE">
-              <point x="58.5" y="2.5" />
-              <point x="334.0" y="1517.1955128205127" />
-              <point x="414.0" y="1529.3205128205127" />
-              <point x="-56.0" y="3.75" />
-            </edge>
-            <edge source="training-java:training-java:0.5.1-SNAPSHOT" target="org.springframework:spring-core:jar:4.3.8.RELEASE">
-              <point x="51.0" y="-12.85714285714289" />
-              <point x="182.0" y="40.499999999999886" />
-              <point x="1218.0" y="40.499999999999886" />
-              <point x="-48.0" y="-13.846153846153811" />
-            </edge>
-            <edge source="org.hibernate:hibernate-core:jar:5.2.10.Final" target="org.hibernate:hibernate-validator:jar:5.4.1.Final/org.jboss.logging:jboss-logging:jar:3.3.0.Final">
-              <point x="57.5" y="-13.333333333333371" />
-              <point x="334.0" y="501.9166666666665" />
-              <point x="414.0" y="279.7499999999999" />
-              <point x="629.0" y="279.7499999999999" />
-              <point x="-53.0" y="-10.0" />
-            </edge>
-            <edge source="org.springframework.data:spring-data-jpa:jar:1.11.3.RELEASE" target="org.springframework:spring-tx:jar:4.3.8.RELEASE">
-              <point x="58.5" y="-10.5" />
-              <point x="334.0" y="1203.1121794871792" />
-              <point x="414.0" y="1060.4530462415082" />
-              <point x="821.0" y="1060.4530462415082" />
-              <point x="901.0" y="1054.858661281738" />
-              <point x="-40.5" y="3.75" />
-            </edge>
-            <edge source="org.springframework:spring-context:jar:4.3.8.RELEASE" target="org.springframework:spring-core:jar:4.3.8.RELEASE">
-              <point x="56.0" y="3.75" />
-              <point x="1218.0" y="1529.3205128205127" />
-              <point x="-48.0" y="6.923076923076906" />
-            </edge>
-            <edge source="org.springframework.data:spring-data-jpa:jar:1.11.3.RELEASE" target="org.springframework.data:spring-data-jpa:jar:1.11.3.RELEASE/org.slf4j:jcl-over-slf4j:jar:1.7.25">
-              <point x="58.5" y="7.5" />
-              <point x="334.0" y="1221.1121794871792" />
-              <point x="414.0" y="1388.6121794871792" />
-              <point x="-50.0" y="-0.0" />
-            </edge>
-            <edge source="org.hibernate:hibernate-core:jar:5.2.10.Final" target="org.hibernate:hibernate-core:jar:5.2.10.Final/com.fasterxml:classmate:jar:1.3.0">
-              <point x="57.5" y="3.3333333333333712" />
-              <point x="334.0" y="518.5833333333333" />
-              <point x="414.0" y="585.2499999999999" />
-              <point x="-44.5" y="-0.0" />
-            </edge>
-            <edge source="org.hibernate:hibernate-core:jar:5.2.10.Final" target="org.hibernate:hibernate-core:jar:5.2.10.Final/org.hibernate.common:hibernate-commons-annotations:jar:5.0.1.Final">
-              <point x="57.5" y="-10.0" />
-              <point x="334.0" y="505.2499999999999" />
-              <point x="-107.5" y="-0.0" />
-            </edge>
-            <edge source="org.springframework:spring-context:jar:4.3.8.RELEASE/org.springframework:spring-expression:jar:4.3.8.RELEASE" target="org.springframework:spring-core:jar:4.3.8.RELEASE">
-              <point x="66.0" y="-0.0" />
-              <point x="1218.0" y="1554.8205128205127" />
-              <point x="-48.0" y="9.230769230769283" />
-            </edge>
-            <edge source="org.hibernate:hibernate-core:jar:5.2.10.Final" target="org.hibernate:hibernate-core:jar:5.2.10.Final/org.jboss.spec.javax.transaction:jboss-transaction-api_1.2_spec:jar:1.0.1.Final">
-              <point x="57.5" y="-6.666666666666686" />
-              <point x="334.0" y="508.58333333333326" />
-              <point x="-101.0" y="-0.0" />
-            </edge>
-            <edge source="training-java:training-java:0.5.1-SNAPSHOT" target="org.springframework:spring-web:jar:4.3.8.RELEASE">
-              <point x="51.0" y="7.14285714285711" />
-              <point x="182.0" y="1437.8205128205127" />
-              <point x="-47.0" y="-7.5" />
-            </edge>
-            <edge source="org.springframework.data:spring-data-jpa:jar:1.11.3.RELEASE" target="org.springframework.data:spring-data-jpa:jar:1.11.3.RELEASE/org.slf4j:slf4j-api:jar:1.7.25">
-              <point x="58.5" y="1.5" />
-              <point x="334.0" y="1215.1121794871792" />
-              <point x="414.0" y="1248.6121794871792" />
-              <point x="-38.0" y="-0.0" />
-            </edge>
-            <edge source="org.springframework.data:spring-data-jpa:jar:1.11.3.RELEASE" target="org.springframework:spring-context:jar:4.3.8.RELEASE">
-              <point x="58.5" y="13.5" />
-              <point x="334.0" y="1227.1121794871792" />
-              <point x="414.0" y="1521.8205128205127" />
-              <point x="-56.0" y="-3.75" />
-            </edge>
-            <edge source="org.springframework:spring-tx:jar:4.3.8.RELEASE" target="org.springframework:spring-core:jar:4.3.8.RELEASE">
-              <point x="40.5" y="-7.5" />
-              <point x="1218.0" y="1043.608661281738" />
-              <point x="-48.0" y="-6.923076923076906" />
-            </edge>
-            <edge source="org.springframework.data:spring-data-jpa:jar:1.11.3.RELEASE" target="org.springframework.data:spring-data-jpa:jar:1.11.3.RELEASE/org.aspectj:aspectjrt:jar:1.8.10">
-              <point x="58.5" y="4.5" />
-              <point x="334.0" y="1218.1121794871792" />
-              <point x="414.0" y="1318.6121794871792" />
-              <point x="-40.5" y="-0.0" />
-            </edge>
-            <edge source="training-java:training-java:0.5.1-SNAPSHOT" target="org.springframework.data:spring-data-jpa:jar:1.11.3.RELEASE">
-              <point x="51.0" y="5.714285714285666" />
-              <point x="182.0" y="1213.6121794871792" />
-              <point x="-58.5" y="-0.0" />
-            </edge>
-            <edge source="org.springframework.data:spring-data-jpa:jar:1.11.3.RELEASE/org.springframework:spring-orm:jar:4.3.8.RELEASE" target="org.springframework:spring-tx:jar:4.3.8.RELEASE">
-              <point x="47.0" y="-3.75" />
-              <point x="629.0" y="1083.023559062021" />
-              <point x="709.0" y="1078.4530462415082" />
-              <point x="821.0" y="1078.4530462415082" />
-              <point x="901.0" y="1062.358661281738" />
-              <point x="-40.5" y="11.25" />
-            </edge>
-            <edge source="org.hibernate:hibernate-core:jar:5.2.10.Final" target="org.hibernate:hibernate-core:jar:5.2.10.Final/org.jboss:jandex:jar:2.0.3.Final">
-              <point x="57.5" y="10.0" />
-              <point x="334.0" y="525.2499999999999" />
-              <point x="414.0" y="725.2499999999999" />
-              <point x="-34.5" y="-0.0" />
-            </edge>
-            <edge source="org.springframework:spring-web:jar:4.3.8.RELEASE" target="org.springframework:spring-context:jar:4.3.8.RELEASE">
-              <point x="47.0" y="11.25" />
-              <point x="629.0" y="1456.5705128205127" />
-              <point x="-56.0" y="-11.25" />
-            </edge>
-            <edge source="training-java:training-java:0.5.1-SNAPSHOT" target="org.glassfish:javax.el:jar:3.0.0">
-              <point x="51.0" y="-0.0" />
-              <point x="182.0" y="921.4530462415082" />
-              <point x="-37.0" y="-0.0" />
-            </edge>
-            <edge source="training-java:training-java:0.5.1-SNAPSHOT" target="org.hibernate:hibernate-validator:jar:5.4.1.Final">
-              <point x="51.0" y="-1.4285714285714448" />
-              <point x="-69.5" y="-0.0" />
-            </edge>
-          </edges>
-          <settings layout="Hierarchic Group" zoom="0.6889606576629478" x="102.0" y="775.0" />
-          <SelectedNodes>
-            <node>org.hibernate:hibernate-core:jar:5.2.10.Final/org.hibernate.common:hibernate-commons-annotations:jar:5.0.1.Final</node>
-          </SelectedNodes>
-          <Categories />
-          <SCOPE>All</SCOPE>
-          <VISIBILITY>All</VISIBILITY>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/fr/ebiz/computerDatabase/model/Computer.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/fr/ebiz/computerDatabase/util/PageRequest.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/fr/ebiz/computerDatabase/contoller/DashboardServlet.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/fr/ebiz/computerDatabase/service/CompanyService.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/fr/ebiz/computerDatabase/validator/ComputerValidator.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/applicationContext.xml" />
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/dispatcherConf.xml" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/fr/ebiz/computerDatabase/model/Company.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/fr/ebiz/computerDatabase/contoller/AddComputerServlet.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/fr/ebiz/computerDatabase/dto/ComputerDTO.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/fr/ebiz/computerDatabase/mapper/ComputerMapper.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/fr/ebiz/computerDatabase/contoller/EditComputerServlet.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/fr/ebiz/computerDatabase/service/ComputerService.java" />
     <entry file="file://$PROJECT_DIR$/src/logback.xml" />
-    <entry file="file://$PROJECT_DIR$/binding/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="6" column="24" lean-forward="false" selection-start-line="6" selection-start-column="24" selection-end-line="6" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/console/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="6" column="24" lean-forward="false" selection-start-line="6" selection-start-column="24" selection-end-line="6" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/webapp/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="140">
-          <caret line="7" column="24" lean-forward="false" selection-start-line="7" selection-start-column="24" selection-end-line="7" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/persistence/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="8" column="17" lean-forward="false" selection-start-line="8" selection-start-column="17" selection-end-line="8" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/webapp/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1979,51 +1239,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="6" column="16" lean-forward="false" selection-start-line="6" selection-start-column="16" selection-end-line="6" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-beans/4.3.8.RELEASE/spring-beans-4.3.8.RELEASE.jar!/org/springframework/beans/factory/xml/spring-beans-4.0.xsd">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/webapp/src/main/webapp/WEB-INF/web.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="40">
-          <caret line="8" column="8" lean-forward="false" selection-start-line="8" selection-start-column="8" selection-end-line="8" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/webapp/src/main/webapp/WEB-INF/spring-security.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="236">
-          <caret line="15" column="7" lean-forward="false" selection-start-line="15" selection-start-column="7" selection-end-line="15" selection-end-column="7" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/webapp/src/main/java/fr/ebiz/computerDatabase/util/PageRequest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-280">
-          <caret line="12" column="13" lean-forward="false" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/service/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-340">
-          <caret line="7" column="24" lean-forward="false" selection-start-line="7" selection-start-column="24" selection-end-line="7" selection-end-column="24" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2031,7 +1250,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="110">
           <caret line="26" column="0" lean-forward="false" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2047,7 +1265,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="20">
           <caret line="1" column="90" lean-forward="false" selection-start-line="1" selection-start-column="90" selection-end-line="1" selection-end-column="90" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2055,19 +1272,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="80">
           <caret line="4" column="27" lean-forward="false" selection-start-line="4" selection-start-column="27" selection-end-line="4" selection-end-column="27" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/main/java/fr/ebiz/computerDatabase/model/User.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="186">
-          <caret line="46" column="20" lean-forward="false" selection-start-line="46" selection-start-column="20" selection-end-line="46" selection-end-column="20" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1027#1028#0" expanded="true" />
-            <element signature="e#1061#1062#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -2075,7 +1279,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
           <caret line="13" column="13" lean-forward="false" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2083,7 +1286,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="196">
           <caret line="15" column="7" lean-forward="true" selection-start-line="15" selection-start-column="7" selection-end-line="15" selection-end-column="7" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2091,15 +1293,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="100">
           <caret line="7" column="17" lean-forward="false" selection-start-line="7" selection-start-column="17" selection-end-line="7" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/persistence/src/main/java/fr/ebiz/computerDatabase/persistence/ComputerDAO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="369">
-          <caret line="28" column="14" lean-forward="false" selection-start-line="28" selection-start-column="14" selection-end-line="28" selection-end-column="14" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2107,47 +1300,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
           <caret line="8" column="17" lean-forward="false" selection-start-line="8" selection-start-column="17" selection-end-line="8" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/service/src/main/java/fr/ebiz/computerDatabase/exception/DAOException.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="40">
-          <caret line="2" column="13" lean-forward="false" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/service/src/main/java/fr/ebiz/computerDatabase/service/UserService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="30" column="62" lean-forward="false" selection-start-line="30" selection-start-column="62" selection-end-line="30" selection-end-column="62" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/binding/src/main/java/fr/ebiz/computerDatabase/dto/CompanyDTO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="80">
-          <caret line="4" column="13" lean-forward="false" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/webapp/src/main/java/fr/ebiz/computerDatabase/contoller/Dashboard.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-434">
-          <caret line="31" column="12" lean-forward="false" selection-start-line="31" selection-start-column="12" selection-end-line="31" selection-end-column="12" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/binding/src/main/java/fr/ebiz/computerDatabase/dto/ComputerDTO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1340">
-          <caret line="9" column="13" lean-forward="false" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2159,60 +1311,267 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/binding/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="96">
+          <caret line="6" column="24" lean-forward="false" selection-start-line="6" selection-start-column="24" selection-end-line="6" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/console/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="96">
+          <caret line="6" column="24" lean-forward="false" selection-start-line="6" selection-start-column="24" selection-end-line="6" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/console/src/main/java/fr/ebiz/computerDatabase/validator/ComputerValidator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="12" column="28" lean-forward="false" selection-start-line="12" selection-start-column="28" selection-end-line="12" selection-end-column="28" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/persistence/persistence.iml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/persistence/src/main/java/fr/ebiz/computerDatabase/persistence/ComputerDAO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="32">
+          <caret line="2" column="40" lean-forward="false" selection-start-line="2" selection-start-column="40" selection-end-line="2" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/persistence/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="470">
+          <caret line="59" column="50" lean-forward="false" selection-start-line="59" selection-start-column="50" selection-end-line="59" selection-end-column="50" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webapp/src/main/webapp/WEB-INF/web.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="128">
+          <caret line="8" column="8" lean-forward="false" selection-start-line="8" selection-start-column="8" selection-end-line="8" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/main/java/fr/ebiz/computerDatabase/model/User.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="290">
+          <caret line="24" column="8" lean-forward="false" selection-start-line="24" selection-start-column="8" selection-end-line="24" selection-end-column="8" />
+          <folding>
+            <element signature="e#1052#1053#0" expanded="true" />
+            <element signature="e#1086#1087#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webapp/src/main/webapp/WEB-INF/dispatcherConf.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="208">
+          <caret line="13" column="83" lean-forward="false" selection-start-line="13" selection-start-column="83" selection-end-line="13" selection-end-column="83" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webapp/src/main/webapp/WEB-INF/spring-security.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="160">
+          <caret line="10" column="5" lean-forward="false" selection-start-line="10" selection-start-column="5" selection-end-line="10" selection-end-column="64" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/binding/src/main/java/fr/ebiz/computerDatabase/dto/CompanyDTO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="80">
+          <caret line="5" column="26" lean-forward="false" selection-start-line="5" selection-start-column="17" selection-end-line="5" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/binding/src/main/java/fr/ebiz/computerDatabase/mapper/ComputerMapper.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-694">
-          <caret line="13" column="13" lean-forward="false" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
+        <state relative-caret-position="197">
+          <caret line="54" column="44" lean-forward="false" selection-start-line="54" selection-start-column="44" selection-end-line="54" selection-end-column="55" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/service/src/main/java/fr/ebiz/computerDatabase/service/UserService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="112">
+          <caret line="20" column="8" lean-forward="true" selection-start-line="20" selection-start-column="8" selection-end-line="20" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/binding/src/main/java/fr/ebiz/computerDatabase/dto/ComputerDTO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="304">
+          <caret line="23" column="47" lean-forward="true" selection-start-line="23" selection-start-column="47" selection-end-line="23" selection-end-column="47" />
+          <folding>
+            <element signature="e#2220#2221#0" expanded="true" />
+            <element signature="e#2249#2250#0" expanded="true" />
+            <element signature="e#2293#2294#0" expanded="true" />
+            <element signature="e#2329#2330#0" expanded="true" />
+            <element signature="e#2364#2365#0" expanded="true" />
+            <element signature="e#2395#2396#0" expanded="true" />
+            <element signature="e#2443#2444#0" expanded="true" />
+            <element signature="e#2483#2484#0" expanded="true" />
+            <element signature="e#2516#2517#0" expanded="true" />
+            <element signature="e#2545#2546#0" expanded="true" />
+            <element signature="e#2589#2590#0" expanded="true" />
+            <element signature="e#2625#2626#0" expanded="true" />
+            <element signature="e#2659#2660#0" expanded="true" />
+            <element signature="e#2689#2690#0" expanded="true" />
+            <element signature="e#2735#2736#0" expanded="true" />
+            <element signature="e#2773#2774#0" expanded="true" />
+            <element signature="e#2809#2810#0" expanded="true" />
+            <element signature="e#2841#2842#0" expanded="true" />
+            <element signature="e#2939#2940#0" expanded="true" />
+            <element signature="e#2981#2982#0" expanded="true" />
+            <element signature="e#3305#3306#0" expanded="true" />
+            <element signature="e#3339#3340#0" expanded="true" />
+            <element signature="e#3393#3394#0" expanded="true" />
+            <element signature="e#3439#3440#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/binding/src/main/java/fr/ebiz/computerDatabase/dto/DTOPage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="352">
+          <caret line="26" column="29" lean-forward="true" selection-start-line="26" selection-start-column="29" selection-end-line="26" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webapp/src/main/java/fr/ebiz/computerDatabase/exception/ServiceException.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="32">
+          <caret line="2" column="24" lean-forward="true" selection-start-line="2" selection-start-column="24" selection-end-line="2" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/service/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="16">
+          <caret line="7" column="24" lean-forward="false" selection-start-line="7" selection-start-column="24" selection-end-line="7" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/service/src/main/resources/applicationContext-service.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="15" column="76" lean-forward="false" selection-start-line="15" selection-start-column="76" selection-end-line="15" selection-end-column="76" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/service/src/main/java/fr/ebiz/computerDatabase/exception/DAOException.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="32">
+          <caret line="2" column="13" lean-forward="false" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/service/src/main/java/fr/ebiz/computerDatabase/exception/ServiceException.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="32">
+          <caret line="2" column="29" lean-forward="false" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webapp/src/main/java/fr/ebiz/computerDatabase/util/PageRequest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="393">
+          <caret line="36" column="48" lean-forward="false" selection-start-line="36" selection-start-column="48" selection-end-line="36" selection-end-column="48" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/service/src/main/java/fr/ebiz/computerDatabase/service/ComputerService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1754">
-          <caret line="157" column="24" lean-forward="true" selection-start-line="157" selection-start-column="24" selection-end-line="157" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/binding/src/main/java/fr/ebiz/computerDatabase/dto/DTOPage.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="80">
-          <caret line="4" column="13" lean-forward="false" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/webapp/src/main/java/fr/ebiz/computerDatabase/contoller/EditComputer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="22" column="13" lean-forward="false" selection-start-line="22" selection-start-column="13" selection-end-line="22" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/webapp/src/main/java/fr/ebiz/computerDatabase/contoller/AddComputer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="23" column="13" lean-forward="false" selection-start-line="23" selection-start-column="13" selection-end-line="23" selection-end-column="13" />
+        <state relative-caret-position="770">
+          <caret line="215" column="79" lean-forward="false" selection-start-line="215" selection-start-column="79" selection-end-line="215" selection-end-column="79" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/service/src/main/java/fr/ebiz/computerDatabase/service/CompanyService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1440">
-          <caret line="72" column="7" lean-forward="false" selection-start-line="72" selection-start-column="7" selection-end-line="72" selection-end-column="7" />
+        <state relative-caret-position="322">
+          <caret line="71" column="46" lean-forward="false" selection-start-line="71" selection-start-column="46" selection-end-line="71" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webapp/src/main/java/fr/ebiz/computerDatabase/contoller/AddComputer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="128">
+          <caret line="25" column="48" lean-forward="false" selection-start-line="25" selection-start-column="48" selection-end-line="25" selection-end-column="48" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/springframework/spring-web/4.3.8.RELEASE/spring-web-4.3.8.RELEASE.jar!/org/springframework/http/HttpStatus.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="201">
+          <caret line="35" column="36" lean-forward="true" selection-start-line="35" selection-start-column="36" selection-end-line="35" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/service/src/main/java/fr/ebiz/computerDatabase/exception/NotFoundException.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="160">
+          <caret line="10" column="34" lean-forward="false" selection-start-line="10" selection-start-column="34" selection-end-line="10" selection-end-column="34" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#398#399#0" expanded="true" />
+            <element signature="e#428#429#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/webapp/src/main/java/fr/ebiz/computerDatabase/restController/CompanyRest.java">
+    <entry file="file://$PROJECT_DIR$/service/src/test/java/fr/ebiz/computerDatabase/test/ComputerServiceTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="26">
-          <caret line="34" column="69" lean-forward="false" selection-start-line="34" selection-start-column="69" selection-end-line="34" selection-end-column="69" />
+        <state relative-caret-position="272">
+          <caret line="26" column="30" lean-forward="false" selection-start-line="26" selection-start-column="30" selection-end-line="26" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/service/src/test/java/fr/ebiz/computerDatabase/test/CompanyServiceTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="288">
+          <caret line="27" column="30" lean-forward="false" selection-start-line="27" selection-start-column="30" selection-end-line="27" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/console/src/main/java/fr/ebiz/computerDatabase/ui/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2332">
+          <caret line="179" column="81" lean-forward="false" selection-start-line="179" selection-start-column="81" selection-end-line="179" selection-end-column="81" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -2221,11 +1580,91 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/webapp/src/main/java/fr/ebiz/computerDatabase/restController/ComputerRest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="840">
-          <caret line="76" column="73" lean-forward="true" selection-start-line="76" selection-start-column="73" selection-end-line="76" selection-end-column="73" />
+        <state relative-caret-position="1056">
+          <caret line="66" column="0" lean-forward="false" selection-start-line="66" selection-start-column="0" selection-end-line="66" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#2362#2363#0" expanded="true" />
+            <element signature="e#2424#2425#0" expanded="true" />
+            <element signature="e#3480#3481#0" expanded="true" />
+            <element signature="e#3531#3532#0" expanded="true" />
+            <element signature="e#3641#3642#0" expanded="true" />
+            <element signature="e#3692#3693#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webapp/src/main/java/fr/ebiz/computerDatabase/restController/CompanyRest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="402">
+          <caret line="33" column="0" lean-forward="false" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1137#1138#0" expanded="true" />
+            <element signature="e#1193#1194#0" expanded="true" />
+            <element signature="e#1303#1304#0" expanded="true" />
+            <element signature="e#1354#1355#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/console/src/main/java/fr/ebiz/computerDatabase/util/PageRequest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="222">
+          <caret line="21" column="19" lean-forward="false" selection-start-line="21" selection-start-column="19" selection-end-line="21" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webapp/src/main/java/fr/ebiz/computerDatabase/validator/ComputerValidator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="80">
+          <caret line="10" column="13" lean-forward="false" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webapp/src/main/java/fr/ebiz/computerDatabase/contoller/Dashboard.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="364">
+          <caret line="55" column="47" lean-forward="false" selection-start-line="55" selection-start-column="47" selection-end-line="55" selection-end-column="47" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webapp/src/main/java/fr/ebiz/computerDatabase/contoller/EditComputer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="592">
+          <caret line="53" column="16" lean-forward="false" selection-start-line="53" selection-start-column="16" selection-end-line="53" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/service/src/main/java/fr/ebiz/computerDatabase/exception/UpdateException.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="80">
+          <caret line="5" column="35" lean-forward="false" selection-start-line="5" selection-start-column="35" selection-end-line="5" selection-end-column="35" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#354#355#0" expanded="true" />
+            <element signature="e#384#385#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="464">
+          <caret line="34" column="69" lean-forward="false" selection-start-line="34" selection-start-column="69" selection-end-line="34" selection-end-column="69" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/webapp/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="450">
+          <caret line="74" column="49" lean-forward="false" selection-start-line="74" selection-start-column="49" selection-end-line="74" selection-end-column="49" />
+          <folding />
         </state>
       </provider>
     </entry>

@@ -22,6 +22,9 @@ public class User {
     @Column(name = "password")
     private String password;
 
+  public  User(){
+
+    }
     /**
      * constructor.
      * @param login of user

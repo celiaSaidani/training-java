@@ -32,6 +32,7 @@
         <spring.data.jpa.version>1.11.3.RELEASE</spring.data.jpa.version>
         <hibernate.core.version>5.2.10.Final</hibernate.core.version>
         <jackson.library>2.8.8</jackson.library>
+        <org.glassfish.jersey.core>2.25.1</org.glassfish.jersey.core>
     </properties>
 
     <repositories>

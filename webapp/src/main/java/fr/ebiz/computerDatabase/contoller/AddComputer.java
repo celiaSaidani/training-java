@@ -2,7 +2,7 @@ package fr.ebiz.computerDatabase.contoller;
 
 import fr.ebiz.computerDatabase.dto.CompanyDTO;
 import fr.ebiz.computerDatabase.dto.ComputerDTO;
-import fr.ebiz.computerDatabase.exception.ServiceException;
+import fr.ebiz.computerDatabase.exception.UpdateException;
 import fr.ebiz.computerDatabase.service.CompanyService;
 import fr.ebiz.computerDatabase.service.ComputerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +23,7 @@ import java.util.List;
 @RequestMapping("/addcomputer")
 public class AddComputer {
     private static final String ADDCOMPUTERVIEW = "addComputer";
-    private static final String ERRORVIEW = "500";
+    private static final String ERRORVIEW = "400";
     private static final String COMPANY = "company";
     private static final String DASHBOARD_VIEW = "redirect:/dashboard";
     @Autowired
@@ -35,7 +35,7 @@ public class AddComputer {
     private ComputerService computerService;
 
     @RequestMapping(method = RequestMethod.GET)
-    protected String get(ModelMap model) throws ServiceException {
+    protected String get(ModelMap model) {
         List<CompanyDTO> company;
         company = companyService.getAllCompany();
         model.addAttribute(COMPANY, company);
@@ -43,7 +43,7 @@ public class AddComputer {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    protected String post(@Validated ComputerDTO computerDTO, BindingResult bindingResult, ModelMap model) throws ServiceException {
+    protected String post(@Validated ComputerDTO computerDTO, BindingResult bindingResult, ModelMap model)  {
         if (bindingResult.hasErrors()) {
             System.err.println(bindingResult.toString());
             return get(model);
@@ -66,8 +66,8 @@ public class AddComputer {
      * @param ex serviceException
      * @return 500
      */
-    @ExceptionHandler(ServiceException.class)
-    public String handleCustomException(ServiceException ex) {
+    @ExceptionHandler(UpdateException.class)
+    public String handleCustomException(UpdateException ex) {
         System.err.println(ex.getMessage());
         return ERRORVIEW;
 

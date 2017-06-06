@@ -1,7 +1,7 @@
 package fr.ebiz.computerDatabase.service;
 
 import fr.ebiz.computerDatabase.dto.CompanyDTO;
-import fr.ebiz.computerDatabase.exception.ServiceException;
+import fr.ebiz.computerDatabase.exception.NotFoundException;
 import fr.ebiz.computerDatabase.mapper.CompanyMapper;
 import fr.ebiz.computerDatabase.model.Company;
 import fr.ebiz.computerDatabase.persistence.CompanyDAO;
@@ -28,17 +28,16 @@ public class CompanyService {
 
     /**
      * @return list of company DTO
-     * @throws ServiceException for errors in companyDTO
      */
 
-    public List<CompanyDTO> getAllCompany() throws ServiceException {
+    public List<CompanyDTO> getAllCompany()  {
         List<Company> companies;
         try {
             companies = companyDao.findAll();
             return companyMapper.getCompanyDTOs(companies);
         } catch (RuntimeException e) {
             LOGGER.error("[Error service] error in function getAllCompany");
-            throw new ServiceException("enable to close connection");
+            throw new NotFoundException("unable to find allCompany");
         }
     }
 
@@ -46,10 +45,10 @@ public class CompanyService {
      * @param start begin of page
      * @param end   of page
      * @return list of companies
-     * @throws ServiceException if an error occurs
+
      */
 
-    public List<CompanyDTO> getAllCompanyPage(int start, int end) throws ServiceException {
+    public List<CompanyDTO> getAllCompanyPage(int start, int end) {
         Page page;
         try {
             PageRequest request = new PageRequest(start, end);
@@ -61,7 +60,7 @@ public class CompanyService {
             // return data;
         } catch (DataAccessException e) {
             LOGGER.error("[Error service] error in function getAllCompany");
-            throw new ServiceException("enable to close connection");
+            throw new NotFoundException("unable to find allCompany by page");
         }
     }
 
@@ -69,15 +68,14 @@ public class CompanyService {
     /**
      * @param id of company
      * @return company by ID
-     * @throws ServiceException for errors in companyDTO
      */
-    public CompanyDTO getCompanybyId(Long id) throws ServiceException {
+    public CompanyDTO getCompanybyId(Long id)  {
         try {
             Company company = companyDao.findOne(id);
             return companyMapper.getCompanyDTO(company);
         } catch (RuntimeException e) {
             LOGGER.error("[Error service] error in function getCompanybyId ");
-            throw new ServiceException("can't get all company by id");
+            throw new NotFoundException("can't get all company by id");
         }
     }
 

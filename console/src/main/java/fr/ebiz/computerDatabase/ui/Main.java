@@ -3,7 +3,8 @@ package fr.ebiz.computerDatabase.ui;
 import fr.ebiz.computerDatabase.dto.CompanyDTO;
 import fr.ebiz.computerDatabase.dto.ComputerDTO;
 import fr.ebiz.computerDatabase.dto.DTOPage;
-import fr.ebiz.computerDatabase.exception.ServiceException;
+import fr.ebiz.computerDatabase.exception.NotFoundException;
+import fr.ebiz.computerDatabase.exception.UpdateException;
 import fr.ebiz.computerDatabase.service.CompanyService;
 import fr.ebiz.computerDatabase.service.ComputerService;
 import fr.ebiz.computerDatabase.validator.ComputerValidator;
@@ -73,7 +74,7 @@ public class Main {
                 }
 
             } while (choice == 0);
-        } catch (ServiceException e) {
+        } catch (NotFoundException e) {
             System.err.println(e.getMessage());
         }
 
@@ -93,9 +94,9 @@ public class Main {
 
             List<CompanyDTO> company;
             try {
-                DTOPage page = companyService.getAllCompanyPage(cpt,cpt + 10);
+                //DTOPage page =// companyService.getAllCompanyPage(cpt,cpt + 10);
 
-                company = page.getCompanyDTO();
+                company = null;//page.getCompanyDTO();
                 if (company.isEmpty()) {
                     break;
                 } else {
@@ -107,7 +108,7 @@ public class Main {
 
                 }
 
-            } catch (ServiceException e) {
+            } catch (NotFoundException e) {
                 System.err.println(e.getMessage());
             }
 
@@ -176,7 +177,7 @@ public class Main {
                 computerService.insertComputer(computerDTO);
             }
 
-        } catch (NullPointerException | DateTimeParseException | ServiceException e) {
+        } catch (NullPointerException | DateTimeParseException | UpdateException e) {
             System.err.println(e.getMessage());
         }
 
@@ -228,7 +229,7 @@ public class Main {
 
             }
             computerService.updateComputer(new ComputerDTO(cp[0], cp[1], cp[2], cp[3]));
-        } catch (ServiceException e) {
+        } catch (UpdateException e) {
             System.err.println(e.getMessage());
 
         }
@@ -288,13 +289,13 @@ public class Main {
     /**
      * @param id of computer
      */
-    private void detailsComputerMenuById(int id) throws  ServiceException {
+    private void detailsComputerMenuById(int id)  {
 
         ComputerDTO comp;
         comp = null;
         try{
             computerService.showDetailsComputer(new Long(id));
-        }catch(ServiceException e){
+        }catch(UpdateException e){
             System.err.println(e.getMessage());
         }
 

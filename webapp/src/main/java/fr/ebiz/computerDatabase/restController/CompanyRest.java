@@ -1,15 +1,15 @@
 package fr.ebiz.computerDatabase.restController;
 
 import fr.ebiz.computerDatabase.dto.CompanyDTO;
-import fr.ebiz.computerDatabase.exception.ServiceException;
+import fr.ebiz.computerDatabase.exception.NotFoundException;
 import fr.ebiz.computerDatabase.service.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -22,24 +22,18 @@ public class CompanyRest {
 
 
     @RequestMapping(method = RequestMethod.GET, value = "/api/companies/{page}/{size}")
-    public List<CompanyDTO> getCompanies(@PathVariable int size, @PathVariable int page) throws ServiceException {
-        List<CompanyDTO> companies = new ArrayList<>();
-        try {
-            companies = companyService.getAllCompanyPage(page, size);
-        } catch (ServiceException e) {
-            System.err.println(e.getMessage());
-        }
-        return companies;
+    public List<CompanyDTO> getCompanies(@PathVariable int size, @PathVariable int page) {
+
+        return companyService.getAllCompanyPage(page, size);
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/api/company/{id}")
+    @RequestMapping(method = RequestMethod.GET, value = "/api/companies/{id}")
     public CompanyDTO findCompany(@PathVariable Long id) {
-        CompanyDTO company = null;
-        try {
-            company = companyService.getCompanybyId(id);
-        } catch (ServiceException e) {
-            System.err.println(e.getMessage());
-        }
-        return company;
+        return companyService.getCompanybyId(id);
+    }
+
+    @ExceptionHandler(NotFoundException.class)
+    public void handleCustomException(NotFoundException ex) {
+        System.err.println(ex.getMessage());
     }
 }

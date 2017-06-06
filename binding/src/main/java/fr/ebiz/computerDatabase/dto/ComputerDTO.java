@@ -14,7 +14,7 @@ public class ComputerDTO {
     private String nameComp;
     private String dateIn;
     private String dateOut;
-    private String company;
+    private String idCompany;
     private String nameCompany;
 
     /**
@@ -35,7 +35,7 @@ public class ComputerDTO {
         this.dateIn = DateTime.dateToString(comp.getDateIN());
         this.dateOut = DateTime.dateToString(comp.getDateOut());
         if (comp.getCompagny() != null) {
-            this.company = Long.toString(comp.getCompagny().getId());
+            this.idCompany = Long.toString(comp.getCompagny().getId());
             this.nameCompany = comp.getCompagny().getName();
         }
     }
@@ -51,7 +51,7 @@ public class ComputerDTO {
         this.nameComp = name;
         this.dateIn = introduced;
         this.dateOut = discontinued;
-        this.company = idComp;
+        this.idCompany = idComp;
     }
 
     /**
@@ -59,14 +59,14 @@ public class ComputerDTO {
      * @param name         name of computer
      * @param introduced   introduced date
      * @param discontinued discontinued date
-     * @param idComp       id of company
+     * @param idComp       id of idCompany
      */
     public ComputerDTO(String id, String name, String introduced, String discontinued, String idComp) {
         this.idComp = id;
         this.nameComp = name;
         this.dateIn = introduced;
         this.dateOut = discontinued;
-        this.company = idComp;
+        this.idCompany = idComp;
     }
 
     public String getIdComp() {
@@ -102,15 +102,15 @@ public class ComputerDTO {
     }
 
     public String getIdCompany() {
-        return company;
+        return idCompany;
     }
 
     /**
      * @param idCompany to set
      */
 
-    public void setcompany(String idCompany) {
-        this.company = idCompany;
+    public void setIdCompany(String idCompany) {
+        this.idCompany = idCompany;
     }
 
     /**

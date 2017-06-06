@@ -11,6 +11,7 @@
     <mvc:annotation-driven/>
     <mvc:resources mapping="/**" location="/" />
     <context:component-scan base-package = "fr.ebiz.computerDatabase.contoller" />
+    <context:component-scan base-package = "fr.ebiz.computerDatabase.restController" />
     <context:component-scan base-package = "fr.ebiz.computerDatabase.service" />
 
 

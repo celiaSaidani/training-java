@@ -2,9 +2,9 @@ package fr.ebiz.computerDatabase.test;
 
 import static org.junit.Assert.assertNotNull;
 
+import fr.ebiz.computerDatabase.exception.NotFoundException;
 import org.junit.Test;
 
-import fr.ebiz.computerDatabase.exception.ServiceException;
 import fr.ebiz.computerDatabase.service.CompanyService;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +25,7 @@ public class CompanyServiceTest {
 
     try {
       assertNotNull(company.getAllCompany());
-    } catch (ServiceException e) {
+    } catch (NotFoundException e) {
       System.out.println(e.getMessage());
     }
   }

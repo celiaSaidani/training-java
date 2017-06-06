@@ -61,7 +61,7 @@ public class ComputerMapper {
         if (computerDTO.getDateOut() != null) {
             dateOut = DateTime.convertDate(computerDTO.getDateOut().trim().concat(TIME));
         }
-        if (computerDTO.getIdCompany() != "") {
+        if (computerDTO.getIdCompany() != null) {
             companyId = computerDTO.getIdCompany();
             company = new Company(Long.parseLong(companyId), companyName);
         }

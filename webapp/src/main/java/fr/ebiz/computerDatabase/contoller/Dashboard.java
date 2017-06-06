@@ -2,7 +2,7 @@ package fr.ebiz.computerDatabase.contoller;
 
 import fr.ebiz.computerDatabase.dto.ComputerDTO;
 import fr.ebiz.computerDatabase.dto.DTOPage;
-import fr.ebiz.computerDatabase.exception.ServiceException;
+import fr.ebiz.computerDatabase.exception.NotFoundException;
 import fr.ebiz.computerDatabase.service.ComputerService;
 import fr.ebiz.computerDatabase.util.PageRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +29,7 @@ public class Dashboard {
     private static final String COUNT = "count";
     private static final String COMPUTER = "computerdb";
     private static final String DASHBOARD_VIEW = "dashboard";
-    private static final String ERRORVIEW = "500";
+    private static final String ERRORVIEW = "404";
 
     @Autowired
     private ComputerService computerService;
@@ -44,7 +44,7 @@ public class Dashboard {
                          @RequestParam(value = SIZE, defaultValue = "10") int size,
                          @RequestParam(value = PAGE, defaultValue = "1") int page,
                          @RequestParam(value = SEARCH, required = false) String search,
-                         ModelMap model) throws ServiceException {
+                         ModelMap model) {
         Long count = 0L;
         int nbrPage = 0;
         List<ComputerDTO> computer = null;
@@ -68,7 +68,7 @@ public class Dashboard {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    protected String post(@RequestParam(SELECTION) String[] selected) throws ServiceException {
+    protected String post(@RequestParam(SELECTION) String[] selected) {
         int i = 0;
         while (i < selected.length) {
             System.err.print(computerService.deleteComputer(Long.parseLong(selected[i])));
@@ -82,11 +82,10 @@ public class Dashboard {
      * @param ex serviceException
      * @return 500
      */
-    @ExceptionHandler(ServiceException.class)
-    public String handleCustomException(ServiceException ex) {
+    @ExceptionHandler(NotFoundException.class)
+    public String handleCustomException(NotFoundException ex) {
         System.err.println(ex.getMessage());
         return ERRORVIEW;
-
     }
 
 
@@ -95,7 +94,7 @@ public class Dashboard {
      * @return 500
      */
     @ExceptionHandler(NumberFormatException.class)
-    public String numberFormatException(ServiceException ex) {
+    public String numberFormatException(NumberFormatException ex) {
         System.err.println(ex.getMessage());
         return "500";
 

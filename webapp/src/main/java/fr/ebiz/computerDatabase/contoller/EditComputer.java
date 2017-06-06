@@ -2,7 +2,7 @@ package fr.ebiz.computerDatabase.contoller;
 
 import fr.ebiz.computerDatabase.dto.CompanyDTO;
 import fr.ebiz.computerDatabase.dto.ComputerDTO;
-import fr.ebiz.computerDatabase.exception.ServiceException;
+import fr.ebiz.computerDatabase.exception.UpdateException;
 import fr.ebiz.computerDatabase.service.CompanyService;
 import fr.ebiz.computerDatabase.service.ComputerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +26,7 @@ public class EditComputer {
     private static final String COMPANY = "company";
     private static final String EDIT_VIEW = "editComputer";
     private static final String ERROR_VIEW = "500";
+    private static final String BAD_VIEW = "400";
     private static final String DASHBOARD_VIEW = "redirect://localhost:8080/dashboard";
     @Autowired
     private CompanyService companyService;
@@ -34,7 +35,7 @@ public class EditComputer {
 
     @RequestMapping(method = RequestMethod.GET)
     @Transactional
-    protected String get(@RequestParam(ID) String idComputer, ModelMap model) throws ServiceException {
+    protected String get(@RequestParam(ID) String idComputer, ModelMap model) {
         ComputerDTO compDTO;
 
         compDTO = computerService.showDetailsComputer(Long.parseLong(idComputer));
@@ -45,30 +46,27 @@ public class EditComputer {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    protected String post(@Validated ComputerDTO computerDTO, BindingResult bindingResult, ModelMap model) throws ServiceException {
+    protected String post(@Validated ComputerDTO computerDTO, BindingResult bindingResult, ModelMap model) {
 
         if (bindingResult.hasErrors()) {
             System.err.println(bindingResult.toString());
             return ERROR_VIEW;
         } else {
-            if (computerService.updateComputer(computerDTO)) {
-                return DASHBOARD_VIEW;
-            } else {
-                return ERROR_VIEW;
-            }
+            computerService.updateComputer(computerDTO);
+            return DASHBOARD_VIEW;
         }
-
     }
 
+
     /**
-     * @param ex serviceException
+     * @param ex UpdateException
      * @return 500
      */
 
-    @ExceptionHandler(ServiceException.class)
-    public String handleCustomException(ServiceException ex) {
+    @ExceptionHandler(UpdateException.class)
+    public String handleCustomException(UpdateException ex) {
         System.err.println(ex.getMessage());
-        return EDIT_VIEW;
+        return BAD_VIEW;
 
     }
 
@@ -78,9 +76,10 @@ public class EditComputer {
      */
 
     @ExceptionHandler(NumberFormatException.class)
-    public String numberFormatException(ServiceException ex) {
+    public String numberFormatException(NumberFormatException ex) {
         System.err.println(ex.getMessage());
         return ERROR_VIEW;
 
     }
+
 }

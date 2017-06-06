@@ -4,23 +4,14 @@ import java.util.List;
 
 public class DTOPage {
 
-  private Long totalcount;
+  private long totalcount;
   private int nbrPage;
   private List<ComputerDTO> computersDTO;
-  private List<CompanyDTO> companyDTO;
-
-  public List<CompanyDTO> getCompanyDTO() {
-    return companyDTO;
-  }
-
-  public void setCompanyDTO(List<CompanyDTO> companyDTO) {
-    this.companyDTO = companyDTO;
-  }
 
   /**
    * @return the count
    */
-  public Long getTotalcount() {
+  public long getTotalcount() {
     return totalcount;
   }
 
@@ -28,7 +19,7 @@ public class DTOPage {
    * @param totalcount
    *          the count to set
    */
-  public void setTotalcount(Long totalcount) {
+  public void setTotalcount(long totalcount) {
     this.totalcount = totalcount;
   }
 

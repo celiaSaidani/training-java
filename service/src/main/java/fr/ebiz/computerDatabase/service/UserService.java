@@ -40,7 +40,7 @@ public class UserService implements UserDetailsService {
 
                 return new org.springframework.security.core.userdetails.User(user.getLogin(), user.getPasseword(), grantedAuthorities);
             }
-        } catch (DataAccessException | UsernameNotFoundException e) {
+        } catch ( UsernameNotFoundException e) {
                 LOGGER.error("[Error Service] in function loadUserByUsername");
         }
 return null;
