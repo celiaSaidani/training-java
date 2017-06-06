@@ -16,7 +16,19 @@
                 <artifactId>service</artifactId>
                 <version>${project.parent.version}</version>
             </dependency>
+             <dependency>
+                 <groupId>org.glassfish.jersey.core</groupId>
+                 <artifactId>jersey-client</artifactId>
+                 <version>${org.glassfish.jersey.core}</version>
+             </dependency>
+             <dependency>
+                 <groupId>org.glassfish.jersey.media</groupId>
+                 <artifactId>jersey-media-json-jackson</artifactId>
+                 <version>${org.glassfish.jersey.core}</version>
+             </dependency>
+
          </dependencies>
+
     
 
 </project>

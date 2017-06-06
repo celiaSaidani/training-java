@@ -9,7 +9,13 @@ import fr.ebiz.computerDatabase.service.CompanyService;
 import fr.ebiz.computerDatabase.service.ComputerService;
 import fr.ebiz.computerDatabase.validator.ComputerValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.core.GenericType;
+import javax.ws.rs.core.MediaType;
 import java.sql.SQLException;
 import java.time.format.DateTimeParseException;
 import java.util.List;
@@ -22,7 +28,8 @@ public class Main {
     private ComputerService computerService;
     @Autowired
     private CompanyService companyService;
-
+    private static final String COMPANY_URI = "http://localhost:8080/api/companies";
+    private Client client = ClientBuilder.newClient();
 
     /**
      * Main menu.
@@ -88,31 +95,30 @@ public class Main {
         String resp;
         int cpt = 0;
 
-        do {
-            System.out.println("Entrez Q pour quitter,cliquez entrer pour continuer");
-            resp = input.nextLine();
 
-            List<CompanyDTO> company;
-            try {
-                //DTOPage page =// companyService.getAllCompanyPage(cpt,cpt + 10);
+        List<CompanyDTO> company;
 
-                company = null;//page.getCompanyDTO();
-                if (company.isEmpty()) {
-                    break;
-                } else {
+        try {
 
-                    for (CompanyDTO cp : company) {
-                        System.out.println(cp.getIdCompany() + "\t" + cp.getNameCompany());
-                    }
-                    System.out.println("NEXT>>");
+            company = client.target(COMPANY_URI)
+                    .request(MediaType.APPLICATION_JSON)
+                    .get(new GenericType<List<CompanyDTO>>() {
+                    });
+            if (company.isEmpty()) {
+                System.out.println("aucune companie trouvée");
+            } else {
 
+                for (CompanyDTO cp : company) {
+                    System.out.println(cp.getIdCompany() + "\t" + cp.getNameCompany());
                 }
 
-            } catch (NotFoundException e) {
-                System.err.println(e.getMessage());
+
             }
 
-        } while (!resp.equals("Q"));
+        } catch (NotFoundException e) {
+            System.err.println(e.getMessage());
+        }
+
 
     }
 
@@ -289,13 +295,13 @@ public class Main {
     /**
      * @param id of computer
      */
-    private void detailsComputerMenuById(int id)  {
+    private void detailsComputerMenuById(int id) {
 
         ComputerDTO comp;
         comp = null;
-        try{
+        try {
             computerService.showDetailsComputer(new Long(id));
-        }catch(UpdateException e){
+        } catch (UpdateException e) {
             System.err.println(e.getMessage());
         }
 
@@ -308,6 +314,7 @@ public class Main {
      * @throws SQLException
      */
     public static void main(String[] args) {
+        ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext-cli.xml");
         Main vue = new Main();
         int choice = 0;
         do {

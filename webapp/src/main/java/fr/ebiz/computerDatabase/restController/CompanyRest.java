@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
 import java.util.List;
 
 /**
@@ -21,10 +20,9 @@ public class CompanyRest {
     CompanyService companyService;
 
 
-    @RequestMapping(method = RequestMethod.GET, value = "/api/companies/{page}/{size}")
-    public List<CompanyDTO> getCompanies(@PathVariable int size, @PathVariable int page) {
-
-        return companyService.getAllCompanyPage(page, size);
+    @RequestMapping(method = RequestMethod.GET, value = "/api/companies")
+    public List<CompanyDTO> getCompanies() {
+        return companyService.getAllCompany();
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/api/companies/{id}")

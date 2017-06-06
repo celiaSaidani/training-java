@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class PageRequest {
-    @Autowired
+  //  @Autowired
     private ComputerService computerService;
 
     /**

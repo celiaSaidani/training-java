@@ -64,16 +64,6 @@
             <artifactId>jackson-databind</artifactId>
             <version>${jackson.library}</version>
         </dependency>
-        <dependency>
-            <groupId>org.glassfish.jersey.core</groupId>
-            <artifactId>jersey-client</artifactId>
-            <version>${org.glassfish.jersey.core}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.glassfish.jersey.media</groupId>
-            <artifactId>jersey-media-json-jackson</artifactId>
-            <version>${org.glassfish.jersey.core}</version>
-        </dependency>
 
 
     </dependencies>
