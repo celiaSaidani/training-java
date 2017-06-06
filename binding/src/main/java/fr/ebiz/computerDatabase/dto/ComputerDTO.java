@@ -114,12 +114,12 @@ public class ComputerDTO {
     }
 
     /**
-     * @param id id of computer
      * @return a string computer
      */
-    public String toString(String id) {
+    @Override
+    public String toString() {
         return "Computer [id=" + idComp + ", name=" + nameComp + ", dateIN=" + dateIn + ", dateOut=" + dateOut
-                + " , idCompany= " + id + "]";
+                + " , idCompany= " + idCompany + ", NameCompany= "+nameCompany+"]";
     }
 
     public String getNameCompany() {

@@ -29,6 +29,7 @@ public class Main {
     @Autowired
     private CompanyService companyService;
     private static final String COMPANY_URI = "http://localhost:8080/api/companies";
+    private static final String COMPUTER_URI = "http://localhost:8080/api/computers";
     private Client client = ClientBuilder.newClient();
 
     /**
@@ -62,25 +63,14 @@ public class Main {
      */
     private void detailsComputerMenu() {
         int choice = 0;
-        List<ComputerDTO> computer;
         try {
-            computer = computerService.getAll();
-            final String response = "cet ordinateur n'existe pas veuillez bien regarder la liste";
-            do {
-                for (ComputerDTO cp : computer) {
-                    System.out.println(cp.getIdComp() + "\t" + cp.getNameComp());
-                }
-                System.out.println("entrez 0 pour quitter,ou l'identifiant de l'ordinateur");
-                choice = input.nextInt();
-                ComputerDTO comp = computerService.showDetailsComputer(new Long(choice));
-
-                if (comp.getIdComp() == "0") {
-                    System.out.println(response);
-                } else {
-                    System.out.println(comp.toString(comp.getIdCompany()));
-                }
-
-            } while (choice == 0);
+            System.out.println("inserez un identifiant d'un ordinateur");
+            choice = input.nextInt();
+            ComputerDTO computerDTO = client.target(COMPUTER_URI)
+                    .path(String.valueOf(choice))
+                    .request(MediaType.APPLICATION_JSON)
+                    .get(ComputerDTO.class);
+            System.out.println(computerDTO);
         } catch (NotFoundException e) {
             System.err.println(e.getMessage());
         }
@@ -92,14 +82,8 @@ public class Main {
      */
 
     private void showListCompanyMenu() {
-        String resp;
-        int cpt = 0;
-
-
         List<CompanyDTO> company;
-
         try {
-
             company = client.target(COMPANY_URI)
                     .request(MediaType.APPLICATION_JSON)
                     .get(new GenericType<List<CompanyDTO>>() {
@@ -111,15 +95,10 @@ public class Main {
                 for (CompanyDTO cp : company) {
                     System.out.println(cp.getIdCompany() + "\t" + cp.getNameCompany());
                 }
-
-
             }
-
         } catch (NotFoundException e) {
             System.err.println(e.getMessage());
         }
-
-
     }
 
     /**
@@ -246,26 +225,14 @@ public class Main {
      */
     private void deleteComputerMenu() {
         int choice = 0;
-        showListComputerMenu();
-
-        boolean delete;
-        do {
-            System.out.println(
-                    "selectinnez un identifiant d'ordinateur parmis cette liste, entrer 0 pour quitter");
-            choice = input.nextInt();
-            if (choice == 0) {
-                break;
-            }
-            delete = true;
-            // computerService.deleteCpmouter(choice);
-            if (delete) {
-                System.out.println("l'ordinateur " + choice + " a été bien supprimer");
-            } else {
-                System.out.println("erreur suppresion l'ordinateur que vous voulez supprimer n'existe pas");
-            }
-
-        } while (choice != 0);
+        System.out.println("inserez un identifiant a supprimer");
+        choice = input.nextInt();
+        client.target(COMPUTER_URI)
+                .path(String.valueOf(choice))
+                .request(MediaType.APPLICATION_JSON).delete();
+        System.out.println("l'ordinateur " + choice + " a été bien supprimer");
     }
+
 
     /**
      * print text on the console.

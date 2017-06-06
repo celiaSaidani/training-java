@@ -74,7 +74,6 @@ public class ComputerRest {
 
     @RequestMapping(method = RequestMethod.DELETE, value = "/api/computers/{id}")
     public void delete(@PathVariable Long id) {
-
         computerService.deleteComputer(id);
     }
 
