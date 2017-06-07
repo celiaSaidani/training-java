@@ -47,17 +47,29 @@ public class ComputerRest {
 
     }
 
+    /**
+     * @param id of computer to find
+     * @return a computerDTO
+     */
     @RequestMapping(method = RequestMethod.GET, value = "/api/computers/{id}")
     public ComputerDTO findComputer(@PathVariable Long id) {
         return computerService.showDetailsComputer(id);
     }
 
+    /**
+     * @param name of computer to search
+     * @return a list of computerDTO
+     */
     @RequestMapping(method = RequestMethod.GET, value = "/api/search/{name}")
     public List<ComputerDTO> search(@PathVariable String name) {
         return computerService.search(name);
 
     }
 
+    /**
+     * @param computerDTO to add
+     * @return a response entity 200 for ok!
+     */
     @RequestMapping(method = RequestMethod.POST, value = "/api/computers")
     public ResponseEntity add(@RequestBody @Validated ComputerDTO computerDTO) {
         computerService.insertComputer(computerDTO);
@@ -65,23 +77,35 @@ public class ComputerRest {
 
     }
 
+    /**
+     * @param computerDTO to update
+     * @return a response entity 200 for ok!
+     */
     @RequestMapping(method = RequestMethod.PUT, value = "/api/computers")
     public ResponseEntity update(@RequestBody @Validated ComputerDTO computerDTO) {
         computerService.updateComputer(computerDTO);
         return new ResponseEntity(computerDTO, HttpStatus.CREATED);
     }
 
-
+    /**
+     * @param id of computer to delete
+     */
     @RequestMapping(method = RequestMethod.DELETE, value = "/api/computers/{id}")
     public void delete(@PathVariable Long id) {
         computerService.deleteComputer(id);
     }
 
+    /**
+     * @param ex for an updateException
+     */
     @ExceptionHandler(UpdateException.class)
     public void handleCustomException(UpdateException ex) {
         System.err.println(ex.getMessage());
     }
 
+    /**
+     * @param ex for an notFoundException
+     */
     @ExceptionHandler(NotFoundException.class)
     public void handleCustomException(NotFoundException ex) {
         System.err.println(ex.getMessage());

@@ -22,12 +22,17 @@ public class User {
     @Column(name = "password")
     private String password;
 
-  public  User(){
+    /**
+     * default constructor
+     */
+    public User() {
 
     }
+
     /**
      * constructor.
-     * @param login of user
+     *
+     * @param login    of user
      * @param password of user
      */
     public User(String login, String password) {

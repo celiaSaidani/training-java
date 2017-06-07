@@ -19,17 +19,29 @@ public class CompanyRest {
     @Autowired
     CompanyService companyService;
 
-
+    /**
+     *
+     * @return list of companies
+     */
     @RequestMapping(method = RequestMethod.GET, value = "/api/companies")
     public List<CompanyDTO> getCompanies() {
         return companyService.getAllCompany();
     }
 
+    /**
+     *
+     * @param id of companie to find
+     * @return a companyDTO
+     */
     @RequestMapping(method = RequestMethod.GET, value = "/api/companies/{id}")
     public CompanyDTO findCompany(@PathVariable Long id) {
         return companyService.getCompanybyId(id);
     }
 
+    /**
+     *
+     * @param ex exceptions
+     */
     @ExceptionHandler(NotFoundException.class)
     public void handleCustomException(NotFoundException ex) {
         System.err.println(ex.getMessage());

@@ -5,7 +5,6 @@ import fr.ebiz.computerDatabase.persistence.UserDAO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -25,13 +24,12 @@ public class UserService implements UserDetailsService {
     private UserDAO userDAO;
 
     /**
-     *
      * @param login of user
      * @return a user details
      * @throws UsernameNotFoundException if userName not found
      */
     @Override
-    public UserDetails loadUserByUsername(String login) throws  UsernameNotFoundException  {
+    public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
         try {
             User user = userDAO.findUserByLogin(login);
             if (user != null) {
@@ -40,9 +38,9 @@ public class UserService implements UserDetailsService {
 
                 return new org.springframework.security.core.userdetails.User(user.getLogin(), user.getPasseword(), grantedAuthorities);
             }
-        } catch ( UsernameNotFoundException e) {
-                LOGGER.error("[Error Service] in function loadUserByUsername");
+        } catch (UsernameNotFoundException e) {
+            LOGGER.error("[Error Service] in function loadUserByUsername");
         }
-return null;
+        return null;
     }
 }

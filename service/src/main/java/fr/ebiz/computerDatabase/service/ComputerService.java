@@ -51,7 +51,6 @@ public class ComputerService {
 
     /**
      * @param computerDTO update a computerDTO
-     * @return true if update ok else false
      */
     public void updateComputer(ComputerDTO computerDTO) {
         Computer computer;
@@ -68,7 +67,7 @@ public class ComputerService {
      * @param id of computer to delete
      * @return true if delete correct, false else
      */
-    public boolean deleteComputer(Long id)  {
+    public boolean deleteComputer(Long id) {
 
         try {
             computerDAO.delete(id);
@@ -85,7 +84,7 @@ public class ComputerService {
      * @return list of computerDTO
      */
 
-    public List<ComputerDTO> getAll()  {
+    public List<ComputerDTO> getAll() {
         List<Computer> computers;
         try {
             computers = computerDAO.findAll();
@@ -103,7 +102,7 @@ public class ComputerService {
      * @return list of computer page
      */
 
-    public DTOPage getAllByPage(int start, int end)  {
+    public DTOPage getAllByPage(int start, int end) {
         PageRequest request =
                 new PageRequest(start, end);
         Page page;
@@ -122,7 +121,7 @@ public class ComputerService {
      * @return a computerDTO
      */
 
-    public ComputerDTO showDetailsComputer(Long id)  {
+    public ComputerDTO showDetailsComputer(Long id) {
         Computer cp;
         try {
             cp = computerDAO.findOne(id);
@@ -189,7 +188,7 @@ public class ComputerService {
      * @param search name of computer
      * @return list of computerDTO
      */
-    public DTOPage searchOrderBy(int start, int end, String column, String reqBy, String search){
+    public DTOPage searchOrderBy(int start, int end, String column, String reqBy, String search) {
         Page page;
         column = column.trim();
         search = search.trim();
@@ -248,7 +247,6 @@ public class ComputerService {
     }
 
     /**
-     *
      * @param page object return by pageRequest
      * @return DTOcomputer page
      */

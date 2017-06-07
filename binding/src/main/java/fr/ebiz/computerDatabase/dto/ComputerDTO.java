@@ -119,7 +119,7 @@ public class ComputerDTO {
     @Override
     public String toString() {
         return "Computer [id=" + idComp + ", name=" + nameComp + ", dateIN=" + dateIn + ", dateOut=" + dateOut
-                + " , idCompany= " + idCompany + ", NameCompany= "+nameCompany+"]";
+                + " , idCompany= " + idCompany + ", NameCompany= " + nameCompany + "]";
     }
 
     public String getNameCompany() {
