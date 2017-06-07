@@ -5,15 +5,12 @@ import fr.ebiz.computerDatabase.dto.ComputerDTO;
 import fr.ebiz.computerDatabase.dto.DTOPage;
 import fr.ebiz.computerDatabase.exception.NotFoundException;
 import fr.ebiz.computerDatabase.exception.UpdateException;
-import fr.ebiz.computerDatabase.service.CompanyService;
-import fr.ebiz.computerDatabase.service.ComputerService;
-import fr.ebiz.computerDatabase.validator.ComputerValidator;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
 import java.sql.SQLException;
@@ -23,14 +20,10 @@ import java.util.Scanner;
 
 public class Main {
 
-    static Scanner input = new Scanner(System.in);
-    @Autowired
-    private ComputerService computerService;
-    @Autowired
-    private CompanyService companyService;
+    private static Scanner input = new Scanner(System.in);
     private static final String COMPANY_URI = "http://localhost:8080/api/companies";
     private static final String COMPUTER_URI = "http://localhost:8080/api/computers";
-    private Client client = ClientBuilder.newClient();
+    private static final Client client = ClientBuilder.newClient();
 
     /**
      * Main menu.
@@ -82,16 +75,15 @@ public class Main {
      */
 
     private void showListCompanyMenu() {
-        List<CompanyDTO> company;
+        List<CompanyDTO> company=null;
         try {
             company = client.target(COMPANY_URI)
                     .request(MediaType.APPLICATION_JSON)
                     .get(new GenericType<List<CompanyDTO>>() {
                     });
             if (company.isEmpty()) {
-                System.out.println("aucune companie trouvée");
+                System.out.println("aucune compagnie trouvée");
             } else {
-
                 for (CompanyDTO cp : company) {
                     System.out.println(cp.getIdCompany() + "\t" + cp.getNameCompany());
                 }
@@ -106,27 +98,32 @@ public class Main {
      */
     private void showListComputerMenu() {
         String resp = null;
-        int cpt = 0;
-        List<ComputerDTO> computer;
+        int page=1;
+        long size = 50;
+        int total;
+        List<ComputerDTO> computerDTO;
+
         do {
-            System.out.println("Entrez Q pour quitter,cliquez entrer pour continuer");
-            DTOPage data = null;
-            //computerService.getAllComputerPage(cpt, 100);
-            computer = data.getComputersDTO();
             resp = input.nextLine();
-            if (computer.isEmpty()) {
+
+            DTOPage data = client.target(COMPUTER_URI).queryParam("page", page).queryParam("size", size)
+                    .request(MediaType.APPLICATION_JSON)
+                    .get(DTOPage.class);
+
+            computerDTO = data.getComputersDTO();
+            total=data.getNbrPage();
+            page++;
+
+            if (computerDTO.isEmpty()) {
                 break;
             } else {
-                for (ComputerDTO cp : computer) {
+                for (ComputerDTO cp : computerDTO) {
                     System.out.println(cp.getIdComp() + "\t" + cp.getNameComp());
                 }
-                cpt = cpt + 100;
-                System.err.println(cpt);
                 System.out.println("NEXT>>");
-
             }
 
-        } while (!resp.equals("Q"));
+        } while (!resp.equalsIgnoreCase("q") || page < total);
 
     }
 
@@ -136,31 +133,27 @@ public class Main {
     private void addComputerMenu() {
         int nbrAtt = 4;
         String[] inputText = new String[nbrAtt];
-        String[] inputA = {"nom", "date d'entrée", "date d'arrêt", "identifiant de la compagnie"};
         String response;
 
         inputText[0] = input.nextLine();
 
-        for (int i = 0; i < inputA.length; i++) {
-
+        for (int i = 0; i < nbrAtt; i++) {
             printText(i);
             if (i == 3) {
                 response = input.nextLine();
                 if (response.equals("O") || response.equals("o")) {
                     showListCompanyMenu();
                 } else {
-                    System.out.println("entrez l'identifiant de la compagnie");
+                    System.out.println("tapez l'identifiant de la compagnie");
                 }
             }
-
             inputText[i] = input.nextLine();
-
         }
         try {
             ComputerDTO computerDTO = new ComputerDTO(inputText[0], inputText[1], inputText[2], inputText[3]);
-            if (ComputerValidator.isValid(computerDTO)) {
-                computerService.insertComputer(computerDTO);
-            }
+            client.target(COMPUTER_URI)
+                    .request(MediaType.APPLICATION_JSON)
+                    .post(Entity.json(computerDTO), String.class);
 
         } catch (NullPointerException | DateTimeParseException | UpdateException e) {
             System.err.println(e.getMessage());
@@ -175,26 +168,53 @@ public class Main {
     private void updateComputerMenu() {
 
         int choice = 0;
-        showListComputerMenu();
+        //showListComputerMenu();
         System.out.println("tapez l'identifiant de l'ordinateur");
         choice = input.nextInt();
 
-        ComputerDTO computer;
+        ComputerDTO computer = null;
         try {
-            computer = null;
-            detailsComputerMenuById(choice);
-            computerService.showDetailsComputer(new Long(choice));
-            String[] cp = {computer.getIdComp(), computer.getNameComp(), computer.getDateIn(),
+            computer = detailsComputerMenuById(choice);
+            String[] oldComputer = { computer.getNameComp(), computer.getDateIn(),
                     computer.getDateOut(), computer.getIdCompany()};
 
-            String[] inputA = {"nom", "date d'entrée", "date d'arrêt", "identifiant de la compagnie"};
-            int nbrAtt = 4;
-            String[] inputText = new String[nbrAtt];
-            String response;
+           String idComputer=computer.getIdComp();
+            String[] inputText = new String[oldComputer.length];
+            String response=null;
 
-            inputText[0] = input.nextLine();
+            for (int i = 0; i < inputText.length -1 ; i++) {
+                inputText[i] = input.nextLine();
+                printText(i);
+                System.out.print(oldComputer[i]+"->");
+                if (i == 3) {
+                    response = input.nextLine();
+                    if (response.equals("O") || response.equals("o")) {
+                        showListCompanyMenu();
+                    } else {
+                        System.out.println("tapez l'identifiant de la compagnie");
+                    }
+                }
 
-            for (int i = 0; i < inputA.length; i++) {
+                if (!inputText[i].equals("")) {
+                    System.err.print("modify");
+                    oldComputer[i] = inputText[i];
+                }
+                System.out.println(i);
+            }
+
+
+                ComputerDTO computerDTO = new ComputerDTO(idComputer, oldComputer[0], oldComputer[1], oldComputer[2],oldComputer[3]);
+                System.out.println("resumé de votre modification");
+                System.out.println(computerDTO);
+                client.target(COMPUTER_URI)
+                        .request(MediaType.APPLICATION_JSON)
+                        .put(Entity.json(computerDTO), String.class);
+            } catch (NullPointerException | DateTimeParseException | UpdateException e) {
+                System.err.println(e.getMessage());
+
+            }
+
+           /* for (int i = 0; i < nbrAtt; i++) {
                 printText(i);
 
                 if (i == 3) {
@@ -203,30 +223,24 @@ public class Main {
 
                         showListCompanyMenu();
                     } else {
-                        System.out.println("entrez l'identifiant de la compagnie [chiffre]");
+                        System.out.println("tapez l'identifiant de la compagnie [chiffre]");
                     }
                 }
-
                 inputText[i] = input.nextLine();
-                if (!inputText.equals("")) {
-                    cp[i] = inputText[i];
+
+                if ( !inputText.equals("")) {
+                    cp[i+1] = inputText[i];
                 }
+                System.err.println(">>>>>"+ i+" ,"+   cp[i+1] );}*/
 
-            }
-            computerService.updateComputer(new ComputerDTO(cp[0], cp[1], cp[2], cp[3]));
-        } catch (UpdateException e) {
-            System.err.println(e.getMessage());
-
-        }
     }
 
     /**
      * delete a computer.
      */
     private void deleteComputerMenu() {
-        int choice = 0;
-        System.out.println("inserez un identifiant a supprimer");
-        choice = input.nextInt();
+        System.out.println("inserez un identifiant à supprimer");
+        int choice = input.nextInt();
         client.target(COMPUTER_URI)
                 .path(String.valueOf(choice))
                 .request(MediaType.APPLICATION_JSON).delete();
@@ -243,16 +257,16 @@ public class Main {
 
         switch (i) {
             case 0:
-                System.out.println("entrez le nom de l'ordinateur");
+                System.out.print("nom de l'ordinateur: ");
                 break;
             case 1:
-                System.out.println("entrez date d'entrée de l'ordinateur format[YYYY-MM-DD HH:mm:ss]");
+                System.out.print("date d'entrée de l'ordinateur format[YYYY-MM-DD HH:mm:ss]: ");
                 break;
             case 2:
-                System.out.println("entrez date d'arrêt de l'ordinateur format[YYYY-MM-DD HH:mm:ss]");
+                System.out.print("date d'arrêt de l'ordinateur format[YYYY-MM-DD HH:mm:ss]: ");
                 break;
             case 3:
-                System.out.println("voulez vous affichez toute les compagnies existantes? O/N");
+                System.out.print("voulez vous affichez toute les compagnies existantes? O/N");
                 break;
 
         }
@@ -262,16 +276,19 @@ public class Main {
     /**
      * @param id of computer
      */
-    private void detailsComputerMenuById(int id) {
+    private ComputerDTO detailsComputerMenuById(int id) {
+        ComputerDTO computerDTO = null;
 
-        ComputerDTO comp;
-        comp = null;
         try {
-            computerService.showDetailsComputer(new Long(id));
+            computerDTO = client.target(COMPUTER_URI)
+                    .path(String.valueOf(id))
+                    .request(MediaType.APPLICATION_JSON)
+                    .get(ComputerDTO.class);
+            return computerDTO;
         } catch (UpdateException e) {
             System.err.println(e.getMessage());
         }
-
+        return computerDTO;
     }
 
     /**
