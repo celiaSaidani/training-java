@@ -22,6 +22,7 @@ import java.util.List;
 
 
 @RestController
+@RequestMapping(value = "/api/computers")
 public class ComputerRest {
     @Autowired
     private ComputerService computerService;
@@ -35,7 +36,7 @@ public class ComputerRest {
     private static final String PAGE = "page";
     private static final String SEARCH = "search";
 
-    @RequestMapping(method = RequestMethod.GET, value = "/api/computers")
+    @RequestMapping(method = RequestMethod.GET)
     public DTOPage getComputers(@RequestParam(value = ORDER, defaultValue = "computer.name") String reqOrder,
                                 @RequestParam(value = BY, required = false) String reqBy,
                                 @RequestParam(value = SORT, defaultValue = "false") boolean reqSort,
@@ -51,7 +52,7 @@ public class ComputerRest {
      * @param id of computer to find
      * @return a computerDTO
      */
-    @RequestMapping(method = RequestMethod.GET, value = "/api/computers/{id}")
+    @RequestMapping(method = RequestMethod.GET, value = "/{id}")
     public ComputerDTO findComputer(@PathVariable Long id) {
         return computerService.showDetailsComputer(id);
     }
@@ -60,7 +61,7 @@ public class ComputerRest {
      * @param name of computer to search
      * @return a list of computerDTO
      */
-    @RequestMapping(method = RequestMethod.GET, value = "/api/search/{name}")
+    @RequestMapping(method = RequestMethod.GET, value = "/{name}")
     public List<ComputerDTO> search(@PathVariable String name) {
         return computerService.search(name);
 
@@ -70,7 +71,7 @@ public class ComputerRest {
      * @param computerDTO to add
      * @return a response entity 200 for ok!
      */
-    @RequestMapping(method = RequestMethod.POST, value = "/api/computers")
+    @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity add(@RequestBody @Validated ComputerDTO computerDTO) {
         computerService.insertComputer(computerDTO);
         return new ResponseEntity(computerDTO, HttpStatus.CREATED);
@@ -81,7 +82,7 @@ public class ComputerRest {
      * @param computerDTO to update
      * @return a response entity 200 for ok!
      */
-    @RequestMapping(method = RequestMethod.PUT, value = "/api/computers")
+    @RequestMapping(method = RequestMethod.PUT)
     public ResponseEntity update(@RequestBody @Validated ComputerDTO computerDTO) {
         computerService.updateComputer(computerDTO);
         return new ResponseEntity(computerDTO, HttpStatus.CREATED);
@@ -90,7 +91,7 @@ public class ComputerRest {
     /**
      * @param id of computer to delete
      */
-    @RequestMapping(method = RequestMethod.DELETE, value = "/api/computers/{id}")
+    @RequestMapping(method = RequestMethod.DELETE, value = "git /{id}")
     public void delete(@PathVariable Long id) {
         computerService.deleteComputer(id);
     }
