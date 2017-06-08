@@ -91,7 +91,7 @@ public class ComputerRest {
     /**
      * @param id of computer to delete
      */
-    @RequestMapping(method = RequestMethod.DELETE, value = "git /{id}")
+    @RequestMapping(method = RequestMethod.DELETE, value = "/{id}")
     public void delete(@PathVariable Long id) {
         computerService.deleteComputer(id);
     }
