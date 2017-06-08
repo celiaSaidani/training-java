@@ -6,6 +6,19 @@
     http://www.springframework.org/schema/security
     http://www.springframework.org/schema/security/spring-security-4.2.xsd">
 
+    <!-- API REST -->
+
+    <http pattern="/api/**" create-session="stateless">
+        <intercept-url pattern="/api/**" access="hasAnyRole('USER')" method="GET"/>
+        <intercept-url pattern="/api/**" access="hasAnyRole('USER')" method="DELETE"/>
+        <intercept-url pattern="/api/**" access="hasAnyRole('USER')" method="POST"/>
+        <intercept-url pattern="/api/**" access="hasAnyRole('USER')" method="PUT"/>
+        <!-- Basic Auth -->
+        <http-basic/>
+        <csrf disabled="true"/>
+
+    </http>
+
     <http auto-config="true">
         <intercept-url pattern="/dashboard" access="hasRole('USER')"/>
         <intercept-url pattern="/login" access="isAnonymous()"/>
