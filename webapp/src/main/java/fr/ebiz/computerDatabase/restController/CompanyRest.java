@@ -4,6 +4,7 @@ import fr.ebiz.computerDatabase.dto.CompanyDTO;
 import fr.ebiz.computerDatabase.exception.NotFoundException;
 import fr.ebiz.computerDatabase.service.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +16,7 @@ import java.util.List;
  * Created by celia on 05/06/17.
  */
 @RestController
+@CrossOrigin
 public class CompanyRest {
     @Autowired
     CompanyService companyService;

@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,6 +24,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/api/computers")
+@CrossOrigin
 public class ComputerRest {
     @Autowired
     private ComputerService computerService;
@@ -55,16 +57,6 @@ public class ComputerRest {
     @RequestMapping(method = RequestMethod.GET, value = "/{id}")
     public ComputerDTO findComputer(@PathVariable Long id) {
         return computerService.showDetailsComputer(id);
-    }
-
-    /**
-     * @param name of computer to search
-     * @return a list of computerDTO
-     */
-    @RequestMapping(method = RequestMethod.GET, value = "/{name}")
-    public List<ComputerDTO> search(@PathVariable String name) {
-        return computerService.search(name);
-
     }
 
     /**

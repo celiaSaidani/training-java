@@ -8,16 +8,15 @@
 
     <!-- API REST -->
 
-    <http pattern="/api/**" create-session="stateless">
-        <intercept-url pattern="/api/**" access="hasAnyRole('USER')" method="GET"/>
-        <intercept-url pattern="/api/**" access="hasAnyRole('USER')" method="DELETE"/>
-        <intercept-url pattern="/api/**" access="hasAnyRole('USER')" method="POST"/>
-        <intercept-url pattern="/api/**" access="hasAnyRole('USER')" method="PUT"/>
-        <!-- Basic Auth -->
+    <!-- <http pattern="/api/**" create-session="stateless">
+       <intercept-url pattern="/api/**" access="hasAnyRole('USER')" method="GET"/>
+       <intercept-url pattern="/api/**" access="hasAnyRole('USER')" method="DELETE"/>
+       <intercept-url pattern="/api/**" access="hasAnyRole('USER')" method="POST"/>
+       <intercept-url pattern="/api/**" access="hasAnyRole('USER')" method="PUT"/>
         <http-basic/>
         <csrf disabled="true"/>
 
-    </http>
+    </http> -->
 
     <http auto-config="true">
         <intercept-url pattern="/dashboard" access="hasRole('USER')"/>
